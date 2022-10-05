@@ -13,7 +13,7 @@ public class Secadero extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-    // Hola
+    // Hola julieta coo anda
     @Override
     public void start(Stage primaryStage) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/vistas/login.fxml"));
