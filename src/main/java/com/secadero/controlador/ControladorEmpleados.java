@@ -204,7 +204,7 @@ public class ControladorEmpleados {
     private void ausenciasEmpleado() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/vistas/ausencias.fxml"));
         AnchorPane root = loader.load();
-        ControladorAusencias ausencias = loader.getController();
+        main.java.com.secadero.controlador.ControladorAusencias ausencias = loader.getController();
         Scene escena = new Scene(root);
         Stage escenario = new Stage();
         escenario.setTitle("Gestión Secadero (Ausencias)");
