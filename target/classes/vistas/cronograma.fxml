@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1536.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.secadero.controlador.ControladorCronograma">
+   <children>
+      <TabPane fx:id="panelPestaniasCronograma" prefHeight="800.0" prefWidth="1536.0" style="-fx-background-color: #c8c8c8;" tabClosingPolicy="UNAVAILABLE">
+         <tabs>
+            <Tab fx:id="tabListaCronograma" text="Lista Cronograma">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="1198.0" layoutY="165.0" prefHeight="514.0" prefWidth="214.0" style="-fx-background-color: white;" />
+                        <Label layoutX="108.0" layoutY="61.0" prefHeight="54.0" prefWidth="394.0" text="Lista de Cronograma" underline="true">
+                           <font>
+                              <Font name="Georgia Bold" size="36.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="btnVolver" layoutX="1235.0" layoutY="617.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#volverPrincipal" prefHeight="45.0" prefWidth="141.0" text="Volver" textFill="#8c0909">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Button fx:id="btnCrearCronograma" layoutX="1235.0" layoutY="189.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#crearCronograma" prefHeight="45.0" prefWidth="141.0" text="Crear">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Label layoutX="207.0" layoutY="140.0" prefHeight="12.0" prefWidth="67.0" text="Fecha:">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="btnBuscarCronograma" layoutX="108.0" layoutY="165.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnBuscar" prefHeight="46.0" prefWidth="87.0" text="Buscar:" textFill="#022c7b">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Button fx:id="btnFiltroEmpleados" layoutX="813.0" layoutY="166.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#filtroCronograma" prefHeight="46.0" prefWidth="86.0" text="Filtros:" textFill="#022c7b">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <ComboBox fx:id="cbTiposFiltrosCronograma" layoutX="912.0" layoutY="166.0" prefHeight="46.0" prefWidth="254.0" style="-fx-font-size: 16;">
+                           <cursor>
+                              <Cursor fx:constant="DISAPPEAR" />
+                           </cursor>
+                        </ComboBox>
+                        <Button fx:id="btnModificarCronograma" layoutX="1234.0" layoutY="282.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#modificarCronograma" prefHeight="45.0" prefWidth="141.0" text="Modificar">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Button fx:id="btnEliminarCronograma" layoutX="1235.0" layoutY="369.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#eliminarCronograma" prefHeight="45.0" prefWidth="141.0" text="Eliminar">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <TableView fx:id="tablaCronograma" layoutX="108.0" layoutY="212.0" prefHeight="467.0" prefWidth="1059.0">
+                           <columns>
+                              <TableColumn prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Fecha" />
+                              <TableColumn prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Turno" />
+                              <TableColumn prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Hora de Entrada" />
+                              <TableColumn prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Hora de Salida" />
+                           </columns>
+                           <cursor>
+                              <Cursor fx:constant="DISAPPEAR" />
+                           </cursor>
+                        </TableView>
+                        <Button fx:id="btnCalendario" layoutX="1234.0" layoutY="461.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#irCalendario" prefHeight="45.0" prefWidth="141.0" text="Calendario" textFill="#05059e">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <DatePicker fx:id="dbBuscarFecha" editable="false" layoutX="207.0" layoutY="166.0" prefHeight="45.0" prefWidth="200.0" style="-fx-font-size: 16;" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab fx:id="tabCrearCronograma" text="Crear Cronograma">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutY="-4.0" prefHeight="44.0" prefWidth="1536.0" text="__________________________________________________________________________________________________________________________________________________________">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label layoutY="715.0" prefHeight="35.0" prefWidth="1536.0" text="__________________________________________________________________________________________________________________________________________________________">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="593.0" layoutY="74.0" prefHeight="54.0" prefWidth="349.0" text="Crear Cronograma">
+                           <font>
+                              <Font name="Georgia Bold" size="36.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="btnGuardar" layoutX="999.0" layoutY="657.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#guardar" prefHeight="46.0" prefWidth="166.0" text="Guardar">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Label layoutX="424.0" layoutY="263.0" prefHeight="26.0" prefWidth="72.0" text="Turno:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="btnRegresarCMenu" layoutX="423.0" layoutY="657.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#regresarCMenu" prefHeight="46.0" prefWidth="166.0" text="Regresar">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Label layoutX="424.0" layoutY="383.0" prefHeight="27.0" prefWidth="140.0" text="Hora de Entrada:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="424.0" layoutY="156.0" prefHeight="26.0" prefWidth="58.0" text="Fecha:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="423.0" layoutY="504.0" prefHeight="27.0" prefWidth="123.0" text="Hora de Salida:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="800.0" layoutY="148.0" prefHeight="27.0" prefWidth="190.0" text="Empleados Disponibles:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="cbTurnoCrear" layoutX="423.0" layoutY="291.0" prefHeight="40.0" prefWidth="200.0" style="-fx-font-size: 16;" />
+                        <DatePicker fx:id="dpFechaCrear" editable="false" layoutX="424.0" layoutY="184.0" prefHeight="40.0" prefWidth="200.0" style="-fx-font-size: 16;" />
+                        <TextField fx:id="textHoraLlegadaCrear" layoutX="423.0" layoutY="410.0" prefHeight="40.0" prefWidth="200.0">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </TextField>
+                        <TextField fx:id="textHoraSalidaCrear" layoutX="423.0" layoutY="532.0" prefHeight="40.0" prefWidth="200.0">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </TextField>
+                        <TreeView fx:id="tabViewEmpleadosDisponiblesCrear" layoutX="800.0" layoutY="184.0" prefHeight="390.0" prefWidth="366.0" />
+                        <Label fx:id="labHoraLlegadaCrear" layoutX="423.0" layoutY="450.0" prefHeight="33.0" prefWidth="199.0" textFill="#f20000" wrapText="true">
+                           <font>
+                              <Font name="Consolas" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="labHoraSalidaCrear" layoutX="423.0" layoutY="572.0" prefHeight="33.0" prefWidth="199.0" textFill="#f20000" wrapText="true">
+                           <font>
+                              <Font name="Consolas" size="12.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="btnBuscarDisponibleCrear" layoutX="1003.0" layoutY="141.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#buscarDisponibleCrear" prefHeight="42.0" prefWidth="162.0" text="Búsqueda">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab fx:id="tabModificarCronograma" text="Modificar Cronograma">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutY="-4.0" prefHeight="44.0" prefWidth="1536.0" text="__________________________________________________________________________________________________________________________________________________________">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label layoutY="715.0" prefHeight="35.0" prefWidth="1536.0" text="__________________________________________________________________________________________________________________________________________________________">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="555.0" layoutY="73.0" prefHeight="54.0" prefWidth="426.0" text="Modificar Cronograma">
+                           <font>
+                              <Font name="Georgia Bold" size="36.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="btnModificar" layoutX="999.0" layoutY="657.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#modificar" prefHeight="46.0" prefWidth="166.0" text="Guardar Cambios">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Label layoutX="424.0" layoutY="263.0" prefHeight="26.0" prefWidth="72.0" text="Turno:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="btnRegresarMMenu" layoutX="423.0" layoutY="657.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#regresarMMenu" prefHeight="46.0" prefWidth="166.0" text="Regresar">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Label layoutX="424.0" layoutY="383.0" prefHeight="27.0" prefWidth="140.0" text="Hora de Entrada:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="424.0" layoutY="156.0" prefHeight="26.0" prefWidth="58.0" text="Fecha:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="423.0" layoutY="504.0" prefHeight="27.0" prefWidth="123.0" text="Hora de Salida:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="800.0" layoutY="148.0" prefHeight="27.0" prefWidth="190.0" text="Empleados Disponibles:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="cbTurnoModificar" layoutX="423.0" layoutY="291.0" prefHeight="40.0" prefWidth="200.0" style="-fx-font-size: 16;" />
+                        <DatePicker fx:id="dpFechaModificar" editable="false" layoutX="424.0" layoutY="184.0" prefHeight="40.0" prefWidth="200.0" style="-fx-font-size: 16;" />
+                        <TextField fx:id="textHoraLlegadaModificar" layoutX="423.0" layoutY="410.0" prefHeight="40.0" prefWidth="200.0">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </TextField>
+                        <TextField fx:id="textHoraSalidaModificar" layoutX="423.0" layoutY="532.0" prefHeight="40.0" prefWidth="200.0">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </TextField>
+                        <TreeView fx:id="tabViewEmpleadosDisponiblesModificar" layoutX="800.0" layoutY="184.0" prefHeight="390.0" prefWidth="366.0" />
+                        <Label fx:id="labHoraLlegadaModificar" layoutX="423.0" layoutY="450.0" prefHeight="33.0" prefWidth="199.0" textFill="#f20000" wrapText="true">
+                           <font>
+                              <Font name="Consolas" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="labHoraSalidaModificar" layoutX="423.0" layoutY="572.0" prefHeight="33.0" prefWidth="199.0" textFill="#f20000" wrapText="true">
+                           <font>
+                              <Font name="Consolas" size="12.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="btnBuscarDisponibleModificar" layoutX="1003.0" layoutY="141.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#buscarDisponibleModificar" prefHeight="42.0" prefWidth="162.0" text="Búsqueda">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab fx:id="tabEliminarCronograma" text="Eliminar Cronograma">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutY="-4.0" prefHeight="44.0" prefWidth="1536.0" text="__________________________________________________________________________________________________________________________________________________________">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label layoutY="715.0" prefHeight="35.0" prefWidth="1536.0" text="__________________________________________________________________________________________________________________________________________________________">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="563.0" layoutY="73.0" prefHeight="54.0" prefWidth="410.0" text="Eliminar Cronograma">
+                           <font>
+                              <Font name="Georgia Bold" size="36.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="btnEliminar" layoutX="999.0" layoutY="657.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#eliminar" prefHeight="46.0" prefWidth="166.0" text="Eliminar">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Label layoutX="669.0" layoutY="270.0" prefHeight="26.0" prefWidth="72.0" text="Turno:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="btnRegresarEMenu" layoutX="423.0" layoutY="657.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#regresarEMenu" prefHeight="46.0" prefWidth="166.0" text="Regresar">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Label layoutX="669.0" layoutY="390.0" prefHeight="27.0" prefWidth="140.0" text="Hora de Entrada:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="669.0" layoutY="163.0" prefHeight="26.0" prefWidth="58.0" text="Fecha:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="668.0" layoutY="511.0" prefHeight="27.0" prefWidth="123.0" text="Hora de Salida:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="cbTurnoEliminar" disable="true" layoutX="668.0" layoutY="298.0" opacity="0.9" prefHeight="40.0" prefWidth="200.0" style="-fx-font-size: 16;">
+                           <cursor>
+                              <Cursor fx:constant="DISAPPEAR" />
+                           </cursor>
+                        </ComboBox>
+                        <DatePicker fx:id="dpFechaEliminar" disable="true" editable="false" layoutX="669.0" layoutY="191.0" opacity="0.9" prefHeight="40.0" prefWidth="200.0" style="-fx-font-size: 16;">
+                           <cursor>
+                              <Cursor fx:constant="DISAPPEAR" />
+                           </cursor>
+                        </DatePicker>
+                        <TextField fx:id="textHoraLlegadaEliminar" editable="false" layoutX="668.0" layoutY="417.0" opacity="0.9" prefHeight="40.0" prefWidth="200.0">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="DISAPPEAR" />
+                           </cursor>
+                        </TextField>
+                        <TextField fx:id="textHoraSalidaEliminar" editable="false" layoutX="668.0" layoutY="539.0" opacity="0.9" prefHeight="40.0" prefWidth="200.0">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="DISAPPEAR" />
+                           </cursor>
+                        </TextField>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab fx:id="tabCalendario" text="Calendario">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutY="-4.0" prefHeight="44.0" prefWidth="1536.0" text="__________________________________________________________________________________________________________________________________________________________">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label layoutY="715.0" prefHeight="35.0" prefWidth="1536.0" text="__________________________________________________________________________________________________________________________________________________________">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="198.0" layoutY="67.0" prefHeight="56.0" prefWidth="274.0" text="Calendario">
+                           <font>
+                              <Font name="Georgia Bold" size="48.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="btnRegresarCCMenu" layoutX="685.0" layoutY="668.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#regresarCCMenu" prefHeight="46.0" prefWidth="166.0" text="Regresar">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Label layoutX="1005.0" layoutY="67.0" prefHeight="56.0" prefWidth="278.0" text="Empleados">
+                           <font>
+                              <Font name="Georgia Bold" size="48.0" />
+                           </font>
+                        </Label>
+                        <TableView fx:id="tablaEmpleados" layoutX="768.0" layoutY="138.0" prefHeight="467.0" prefWidth="752.0">
+                           <columns>
+                              <TableColumn prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Nombre" />
+                              <TableColumn prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Apellido" />
+                              <TableColumn prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Turno" />
+                              <TableColumn prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Fecha de Llegada" />
+                              <TableColumn prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Fecha de Salida" />
+                           </columns>
+                           <cursor>
+                              <Cursor fx:constant="DISAPPEAR" />
+                           </cursor>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+         </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>

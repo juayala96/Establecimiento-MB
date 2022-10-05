@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.secadero.controlador.ControladorAusencias">
+   <children>
+      <TabPane fx:id="panelPestaniasAusencias" prefHeight="800.0" prefWidth="1536.0" style="-fx-background-color: #c8c8c8;" tabClosingPolicy="UNAVAILABLE">
+         <tabs>
+            <Tab fx:id="tabListaAusencias" text="Lista de Ausencias">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="1215.0" layoutY="171.0" prefHeight="514.0" prefWidth="214.0" style="-fx-background-color: white;" />
+                        <Label layoutX="125.0" layoutY="67.0" prefHeight="54.0" prefWidth="345.0" text="Lista de Ausencias" underline="true">
+                           <font>
+                              <Font name="Georgia Bold" size="36.0" />
+                           </font>
+                        </Label>
+                        <TableView fx:id="tablaAusencias" layoutX="125.0" layoutY="218.0" prefHeight="467.0" prefWidth="975.0">
+                           <columns>
+                              <TableColumn prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Fecha" />
+                              <TableColumn prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Motivo" />
+                              <TableColumn prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Justificado" />
+                              <TableColumn prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Certificado" />
+                           </columns>
+                           <cursor>
+                              <Cursor fx:constant="DISAPPEAR" />
+                           </cursor>
+                        </TableView>
+                        <Button fx:id="btnVolver" layoutX="1252.0" layoutY="623.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#volverEmpleados" prefHeight="45.0" prefWidth="141.0" text="Volver" textFill="#8c0909">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Button fx:id="btnRegistrarAusencia" layoutX="1252.0" layoutY="195.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#registrarAusencia" prefHeight="45.0" prefWidth="141.0" text="Registrar">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Label layoutX="224.0" layoutY="146.0" prefHeight="12.0" prefWidth="67.0" text="Fecha:">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="btnBuscarAusencia" layoutX="125.0" layoutY="171.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnBuscar" prefHeight="46.0" prefWidth="87.0" text="Buscar:" textFill="#022c7b">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Button fx:id="btnFiltroAusencias" layoutX="746.0" layoutY="171.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#filtroAusencia" prefHeight="46.0" prefWidth="86.0" text="Filtros:" textFill="#022c7b">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <ComboBox fx:id="cbTiposFiltrosAusencias" layoutX="845.0" layoutY="171.0" prefHeight="46.0" prefWidth="254.0" style="-fx-font-size: 16;">
+                           <cursor>
+                              <Cursor fx:constant="DISAPPEAR" />
+                           </cursor>
+                        </ComboBox>
+                        <Button fx:id="btnModificarAusencia" layoutX="1252.0" layoutY="309.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#modificarAusencia" prefHeight="45.0" prefWidth="141.0" text="Modificar">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Button fx:id="btnEliminarAusencia" layoutX="1252.0" layoutY="422.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#eliminarAusencia" prefHeight="45.0" prefWidth="141.0" text="Eliminar">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <DatePicker fx:id="dbBuscarFecha" editable="false" layoutX="224.0" layoutY="172.0" prefHeight="45.0" prefWidth="200.0" style="-fx-font-size: 16;" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab fx:id="tabRegistrarAusencia" text="Registrar Ausencia">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutY="-4.0" prefHeight="44.0" prefWidth="1536.0" text="__________________________________________________________________________________________________________________________________________________________">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label layoutY="715.0" prefHeight="35.0" prefWidth="1536.0" text="__________________________________________________________________________________________________________________________________________________________">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="578.0" layoutY="85.0" prefHeight="54.0" prefWidth="354.0" text="Registrar Asuencia">
+                           <font>
+                              <Font name="Georgia Bold" size="36.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="btnGuardar" layoutX="945.0" layoutY="612.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#guardar" prefHeight="46.0" prefWidth="166.0" text="Guardar">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Label layoutX="590.0" layoutY="151.0" prefHeight="26.0" prefWidth="72.0" text="Fecha:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="btnRegresarCLista" layoutX="394.0" layoutY="612.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#regresarCLista" prefHeight="46.0" prefWidth="166.0" text="Regresar">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Label layoutX="590.0" layoutY="233.0" prefHeight="24.0" prefWidth="72.0" text="Motivo:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="590.0" layoutY="406.0" prefHeight="27.0" prefWidth="91.0" text="Justificado:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="590.0" layoutY="498.0" prefHeight="27.0" prefWidth="91.0" text="Certificado:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="textCertificadoCrear" layoutX="590.0" layoutY="523.0" prefHeight="40.0" prefWidth="330.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </TextField>
+                        <DatePicker fx:id="dpFechaCrear" editable="false" layoutX="590.0" layoutY="178.0" prefHeight="40.0" prefWidth="200.0" style="-fx-font-size: 16;" />
+                        <TextArea fx:id="textAreaMotivoCrear" layoutX="590.0" layoutY="262.0" prefHeight="130.0" prefWidth="330.0" wrapText="true">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </TextArea>
+                        <RadioButton fx:id="rbJustificadoNoCrear" layoutX="591.0" layoutY="445.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="59.0" selected="true" text="No">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </RadioButton>
+                        <RadioButton fx:id="rbJustificadoSiCrear" layoutX="713.0" layoutY="445.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="59.0" text="Si">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </RadioButton>
+                        <Button fx:id="btnAgregarCrear" layoutX="850.0" layoutY="493.0" mnemonicParsing="false" text="Agregar" textFill="#023779">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab fx:id="tabModificarAusencia" text="Modificar Ausencia">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutY="-4.0" prefHeight="44.0" prefWidth="1536.0" text="__________________________________________________________________________________________________________________________________________________________">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label layoutY="715.0" prefHeight="35.0" prefWidth="1536.0" text="__________________________________________________________________________________________________________________________________________________________">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="574.0" layoutY="85.0" prefHeight="54.0" prefWidth="361.0" text="Modificar Asuencia">
+                           <font>
+                              <Font name="Georgia Bold" size="36.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="btnModificar" layoutX="945.0" layoutY="612.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#modificar" prefHeight="46.0" prefWidth="166.0" text="Guardar Cambios">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Label layoutX="590.0" layoutY="151.0" prefHeight="26.0" prefWidth="72.0" text="Fecha:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="btnRegresarMLista" layoutX="394.0" layoutY="612.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#regresarMLista" prefHeight="46.0" prefWidth="166.0" text="Regresar">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Label layoutX="590.0" layoutY="233.0" prefHeight="24.0" prefWidth="72.0" text="Motivo:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="590.0" layoutY="406.0" prefHeight="27.0" prefWidth="91.0" text="Justificado:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="590.0" layoutY="498.0" prefHeight="27.0" prefWidth="91.0" text="Certificado:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="textCertificadoModificar" layoutX="590.0" layoutY="523.0" prefHeight="40.0" prefWidth="330.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </TextField>
+                        <DatePicker fx:id="dpFechaModificar" editable="false" layoutX="590.0" layoutY="178.0" prefHeight="40.0" prefWidth="200.0" style="-fx-font-size: 16;" />
+                        <TextArea fx:id="textAreaMotivoModificar" layoutX="590.0" layoutY="262.0" prefHeight="130.0" prefWidth="330.0" wrapText="true">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </TextArea>
+                        <RadioButton fx:id="rbJustificadoNoModificar" layoutX="591.0" layoutY="445.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="59.0" selected="true" text="No">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </RadioButton>
+                        <RadioButton fx:id="rbJustificadoSiModificar" layoutX="713.0" layoutY="445.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="59.0" text="Si">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </RadioButton>
+                        <Button fx:id="btnAgregarModificar" layoutX="850.0" layoutY="493.0" mnemonicParsing="false" text="Agregar" textFill="#023779">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab fx:id="tabEliminarAusencia" text="Eliminar Ausencia">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutY="-4.0" prefHeight="44.0" prefWidth="1536.0" text="__________________________________________________________________________________________________________________________________________________________">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label layoutY="715.0" prefHeight="35.0" prefWidth="1536.0" text="__________________________________________________________________________________________________________________________________________________________">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="583.0" layoutY="85.0" prefHeight="54.0" prefWidth="344.0" text="Eliminar Asuencia">
+                           <font>
+                              <Font name="Georgia Bold" size="36.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="btnEliminar" layoutX="945.0" layoutY="612.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#eliminar" prefHeight="46.0" prefWidth="166.0" text="Eliminar">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Label layoutX="590.0" layoutY="151.0" prefHeight="26.0" prefWidth="72.0" text="Fecha:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="btnRegresarELista" layoutX="394.0" layoutY="612.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#regresarELista" prefHeight="46.0" prefWidth="166.0" text="Regresar">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Label layoutX="590.0" layoutY="233.0" prefHeight="24.0" prefWidth="72.0" text="Motivo:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="590.0" layoutY="406.0" prefHeight="27.0" prefWidth="91.0" text="Justificado:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="590.0" layoutY="498.0" prefHeight="27.0" prefWidth="91.0" text="Certificado:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="textCertificadoEliminar" editable="false" layoutX="590.0" layoutY="523.0" opacity="0.9" prefHeight="40.0" prefWidth="330.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="DISAPPEAR" />
+                           </cursor>
+                        </TextField>
+                        <DatePicker fx:id="dpFechaEliminar" disable="true" editable="false" layoutX="590.0" layoutY="178.0" opacity="0.9" prefHeight="40.0" prefWidth="200.0" style="-fx-font-size: 16;">
+                           <cursor>
+                              <Cursor fx:constant="DISAPPEAR" />
+                           </cursor>
+                        </DatePicker>
+                        <TextArea fx:id="textAreaMotivoEliminar" editable="false" layoutX="590.0" layoutY="262.0" opacity="0.9" prefHeight="130.0" prefWidth="330.0" wrapText="true">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="DISAPPEAR" />
+                           </cursor>
+                        </TextArea>
+                        <RadioButton fx:id="rbJustificadoNoEliminar" disable="true" layoutX="591.0" layoutY="445.0" mnemonicParsing="false" opacity="0.88" prefHeight="27.0" prefWidth="59.0" selected="true" text="No">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="DISAPPEAR" />
+                           </cursor>
+                        </RadioButton>
+                        <RadioButton fx:id="rbJustificadoSiEliminar" disable="true" layoutX="713.0" layoutY="445.0" mnemonicParsing="false" opacity="0.9" prefHeight="27.0" prefWidth="59.0" text="Si">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="DISAPPEAR" />
+                           </cursor>
+                        </RadioButton>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+         </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>
