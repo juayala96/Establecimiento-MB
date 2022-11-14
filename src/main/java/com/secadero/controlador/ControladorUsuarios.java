@@ -31,23 +31,71 @@ public class ControladorUsuarios {
     @FXML
     private Button btnRegresarCLista;
     @FXML
-    private Button btnRegresarELista2;
+    private Button btnRegresarELista;
     @FXML
     private Button btnRegresarMLista;
     @FXML
     private Button btnVolver;
     @FXML
-    private ComboBox<String> cbRolCrear;
+    private ComboBox<?> cbRolCrear;
     @FXML
-    private ComboBox<String> cbRolEliminar;
+    private ComboBox<?> cbRolEliminar;
     @FXML
-    private ComboBox<String> cbRolModificar;
+    private ComboBox<?> cbRolModificar;
     @FXML
-    private ComboBox<String> cbTiposfiltrosUsuarios;
+    private ComboBox<?> cbTiposFiltrosUsuarios;
     @FXML
-    private Label labRepetirContraseniaCrear;
+    private TableColumn<?, ?> colApellido;
     @FXML
-    private Label labRepetirContraseniaModificar;
+    private TableColumn<?, ?> colContrasenia;
+    @FXML
+    private TableColumn<?, ?> colEmail;
+    @FXML
+    private TableColumn<?, ?> colID;
+    @FXML
+    private TableColumn<?, ?> colLegajo;
+    @FXML
+    private TableColumn<?, ?> colNombre;
+    @FXML
+    private TableColumn<?, ?> colRol;
+    @FXML
+    private TableColumn<?, ?> colTelefono;
+    @FXML
+    private Label labErrorApellidoCrear;
+    @FXML
+    private Label labErrorApellidoModificar;
+    @FXML
+    private Label labErrorContraseniaCrear;
+    @FXML
+    private Label labErrorContraseniaModificar;
+    @FXML
+    private Label labErrorEmailCrear;
+    @FXML
+    private Label labErrorEmailModificar;
+    @FXML
+    private Label labErrorLegajoCrear;
+    @FXML
+    private Label labErrorLegajoModificar;
+    @FXML
+    private Label labErrorNombreCrear;
+    @FXML
+    private Label labErrorNombreModificar;
+    @FXML
+    private Label labErrorRepetirContraseniaCrear;
+    @FXML
+    private Label labErrorRepetirContraseniaModificar;
+    @FXML
+    private Label labErrorTelefonoCrear;
+    @FXML
+    private Label labErrorTelefonoModificar;
+    @FXML
+    private Label labIDEliminar;
+    @FXML
+    private Label labIDModificar;
+    @FXML
+    private Label labLimpiarCamposCrear;
+    @FXML
+    private Label labLimpiarCamposModificar;
     @FXML
     private TabPane panelPestaniasUsuarios;
     @FXML
@@ -59,7 +107,7 @@ public class ControladorUsuarios {
     @FXML
     private Tab tabModificarUsuario;
     @FXML
-    private TableView<String> tablaUsuarios;
+    private TableView<?> tablaUsuarios;
     @FXML
     private TextField textApellidoCrear;
     @FXML
@@ -98,6 +146,13 @@ public class ControladorUsuarios {
     private TextField textRepetirContraseniaEliminar;
     @FXML
     private TextField textRepetirContraseniaModificar;
+    @FXML
+    private TextField textTelefonoCrear;
+    @FXML
+    private TextField textTelefonoEliminar;
+    @FXML
+    private TextField textTelefonoModificar;
+
 
 
     // -------------------------------------------- Inicialización ----------------------------------------------

@@ -16,6 +16,10 @@ module com.example.secadero {
     opens com.secadero.modelo to javafx.fxml;
     exports com.secadero.modelo;
 
+    opens com.secadero.modelo.usuarios to javafx.fxml;
+    exports com.secadero.modelo.usuarios;
+
     opens com.secadero.controlador to javafx.fxml;
     exports com.secadero.controlador;
+
 }

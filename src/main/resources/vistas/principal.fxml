@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="749.0" prefWidth="1536.0" style="-fx-background-color: #c8c8c8;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.secadero.controlador.ControladorPrincipal">
+<AnchorPane prefHeight="749.0" prefWidth="1536.0" style="-fx-background-color: #90EE90;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.secadero.controlador.ControladorPrincipal">
    <children>
       <ImageView fitHeight="800.0" fitWidth="1422.0" layoutX="58.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -74,8 +74,8 @@
          </cursor>
       </Button>
       <Label layoutX="42.0" layoutY="743.0" prefHeight="58.0" prefWidth="1451.0" style="-fx-background-color: white;" />
-      <Label layoutX="41.0" layoutY="774.0" prefHeight="30.0" prefWidth="1458.0" style="-fx-background-color: #c8c8c8;" />
-      <Label layoutX="38.0" prefHeight="30.0" prefWidth="1458.0" style="-fx-background-color: #c8c8c8;" />
+      <Label layoutX="41.0" layoutY="774.0" prefHeight="30.0" prefWidth="1458.0" style="-fx-background-color: #90EE90;" />
+      <Label layoutX="38.0" prefHeight="30.0" prefWidth="1458.0" style="-fx-background-color: #90EE90;" />
       <Label alignment="CENTER" layoutX="769.0" layoutY="171.0" prefHeight="64.0" prefWidth="90.0" text="CUIT:">
          <font>
             <Font name="Dubai Bold" size="36.0" />
