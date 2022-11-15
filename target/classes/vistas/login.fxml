@@ -13,9 +13,9 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1000.0" style="-fx-background-color: #30373e;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.secadero.controlador.ControladorLogin">
    <children>
-      <ImageView fitHeight="623.0" fitWidth="990.0" layoutX="3.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="623.0" fitWidth="1000.0" layoutX="1.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../imagenes/fondoAzul.jpg" />
+            <Image url="@../imagenes/color-verde.jpg" />
          </image>
       </ImageView>
       <Button fx:id="btnSalir" layoutX="203.0" layoutY="514.0" mnemonicParsing="false" onAction="#salirLogin" prefHeight="45.0" prefWidth="141.0" text="Salir">
