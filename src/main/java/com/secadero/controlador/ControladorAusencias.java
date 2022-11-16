@@ -1,4 +1,4 @@
-package main.java.com.secadero.controlador;
+package com.secadero.controlador;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;

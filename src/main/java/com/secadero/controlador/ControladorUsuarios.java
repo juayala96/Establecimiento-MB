@@ -1,13 +1,21 @@
 package com.secadero.controlador;
 
+import com.secadero.modelo.usuarios.CrearUsuario;
+import com.secadero.modelo.usuarios.EliminarUsuario;
+import com.secadero.modelo.usuarios.LeerUsuario;
+import com.secadero.modelo.usuarios.ModificarUsuario;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
+import java.util.Optional;
 
 public class ControladorUsuarios {
     public ControladorUsuarios(){};
@@ -37,29 +45,29 @@ public class ControladorUsuarios {
     @FXML
     private Button btnVolver;
     @FXML
-    private ComboBox<?> cbRolCrear;
+    private ComboBox<String> cbRolCrear;
     @FXML
-    private ComboBox<?> cbRolEliminar;
+    private ComboBox<String> cbRolEliminar;
     @FXML
-    private ComboBox<?> cbRolModificar;
+    private ComboBox<String> cbRolModificar;
     @FXML
-    private ComboBox<?> cbTiposFiltrosUsuarios;
+    private ComboBox<String> cbTiposFiltrosUsuarios;
     @FXML
-    private TableColumn<?, ?> colApellido;
+    private TableColumn<LeerUsuario, String> colApellido;
     @FXML
-    private TableColumn<?, ?> colContrasenia;
+    private TableColumn<LeerUsuario, String> colContrasenia;
     @FXML
-    private TableColumn<?, ?> colEmail;
+    private TableColumn<LeerUsuario, String> colEmail;
     @FXML
-    private TableColumn<?, ?> colID;
+    private TableColumn<LeerUsuario, Integer> colID;
     @FXML
-    private TableColumn<?, ?> colLegajo;
+    private TableColumn<LeerUsuario, Integer> colLegajo;
     @FXML
-    private TableColumn<?, ?> colNombre;
+    private TableColumn<LeerUsuario, String> colNombre;
     @FXML
-    private TableColumn<?, ?> colRol;
+    private TableColumn<LeerUsuario, String> colRol;
     @FXML
-    private TableColumn<?, ?> colTelefono;
+    private TableColumn<LeerUsuario, String> colTelefono;
     @FXML
     private Label labErrorApellidoCrear;
     @FXML
@@ -93,6 +101,10 @@ public class ControladorUsuarios {
     @FXML
     private Label labIDModificar;
     @FXML
+    private Label labInformacionModificarContrasenia;
+    @FXML
+    private Label labInformacionModificarLegajo;
+    @FXML
     private Label labLimpiarCamposCrear;
     @FXML
     private Label labLimpiarCamposModificar;
@@ -107,7 +119,7 @@ public class ControladorUsuarios {
     @FXML
     private Tab tabModificarUsuario;
     @FXML
-    private TableView<?> tablaUsuarios;
+    private TableView<LeerUsuario> tablaUsuarios;
     @FXML
     private TextField textApellidoCrear;
     @FXML
@@ -143,8 +155,6 @@ public class ControladorUsuarios {
     @FXML
     private TextField textRepetirContraseniaCrear;
     @FXML
-    private TextField textRepetirContraseniaEliminar;
-    @FXML
     private TextField textRepetirContraseniaModificar;
     @FXML
     private TextField textTelefonoCrear;
@@ -153,38 +163,262 @@ public class ControladorUsuarios {
     @FXML
     private TextField textTelefonoModificar;
 
+    ObservableList<LeerUsuario> listUsuarios;
+    int index = -1;
+    String ErrorCrear = "";
+    String ErrorModificar = "";
 
 
     // -------------------------------------------- Inicialización ----------------------------------------------
-    public void initialize() {}
+    public void initialize(){
+        String[] tipoFiltro = {"Nombre", "Apellido", "Legajo", "Rol"};
+        String[] tipoRol = {"Administrador", "Operador"};
+        cbTiposFiltrosUsuarios.getItems().addAll(tipoFiltro);
+        cbTiposFiltrosUsuarios.getSelectionModel().selectFirst();
+        cbRolCrear.getItems().addAll(tipoRol);
+        cbRolCrear.getSelectionModel().selectFirst();
+        cbRolModificar.getItems().addAll(tipoRol);
+        cbRolModificar.getSelectionModel().selectFirst();
+        cbRolEliminar.getItems().addAll(tipoRol);
+        cbRolEliminar.getSelectionModel().selectFirst();
+        inicializarTabla();
+    }
+
+    // -------------------------------------------- Lista de Usuarios ----------------------------------------------
+    public void inicializarTabla(){
+        colNombre.setCellValueFactory(new PropertyValueFactory<LeerUsuario, String>("nombre"));
+        colApellido.setCellValueFactory(new PropertyValueFactory<LeerUsuario, String>("apellido"));
+        colLegajo.setCellValueFactory(new PropertyValueFactory<LeerUsuario, Integer>("legajo"));
+        colEmail.setCellValueFactory(new PropertyValueFactory<LeerUsuario, String>("email"));
+        colTelefono.setCellValueFactory(new PropertyValueFactory<LeerUsuario, String>("telefono"));
+        colContrasenia.setCellValueFactory(new PropertyValueFactory<LeerUsuario, String>("contrasenia"));
+        colRol.setCellValueFactory(new PropertyValueFactory<LeerUsuario, String>("rol"));
+        colID.setCellValueFactory(new PropertyValueFactory<LeerUsuario, Integer>("idusuarios"));
+
+        listUsuarios = LeerUsuario.listaUsuarios();
+        tablaUsuarios.getColumns().setAll(colNombre, colApellido, colLegajo, colEmail, colTelefono, colContrasenia, colRol, colID);
+        tablaUsuarios.getItems().setAll(listUsuarios);
+    }
+
+    // ------------------------------------- Tomo todos los datos al Seleccionar en la tabla ------------------------
+    @FXML
+    private void getSelecciono() {
+        index = tablaUsuarios.getSelectionModel().getSelectedIndex();
+        if (index <= -1){
+
+            return;
+        }
+        labIDModificar.setText(colID.getCellData(index).toString());
+        textNombreModificar.setText(colNombre.getCellData(index));
+        textApellidoModificar.setText(colApellido.getCellData(index));
+        textLegajoModificar.setText(colLegajo.getCellData(index).toString());
+        labInformacionModificarLegajo.setText(colLegajo.getCellData(index).toString());
+        textEmailModificar.setText(colEmail.getCellData(index));
+        textTelefonoModificar.setText(colTelefono.getCellData(index));
+        textContraseniaModificar.setText(colContrasenia.getCellData(index));
+        labInformacionModificarContrasenia.setText(colContrasenia.getCellData(index));
+        textRepetirContraseniaModificar.setText(colContrasenia.getCellData(index));
+        cbRolModificar.getSelectionModel().select(colRol.getCellData(index));
+
+        labIDEliminar.setText(colID.getCellData(index).toString());
+        textNombreEliminar.setText(colNombre.getCellData(index));
+        textApellidoEliminar.setText(colApellido.getCellData(index));
+        textLegajoEliminar.setText(colLegajo.getCellData(index).toString());
+        textEmailEliminar.setText(colEmail.getCellData(index));
+        textTelefonoEliminar.setText(colTelefono.getCellData(index));
+        textContraseniaEliminar.setText(colContrasenia.getCellData(index));
+        cbRolEliminar.getSelectionModel().select(colRol.getCellData(index));
+    }
 
     // --------------------------------------------- Búsqueda y Filtros -----------------------------------------
-
     @FXML
     private void btnBuscar() {
+        ObservableList<LeerUsuario> listBuscar;
+        listBuscar = LeerUsuario.buscarUsuario(textBuscarUsuario);
 
+        if(textBuscarUsuario.getText().equals("")){
+            tablaUsuarios.getItems().setAll(listUsuarios);
+        } else {
+            tablaUsuarios.getItems().setAll(listBuscar);
+        }
     }
 
     @FXML
     private void filtroUsuarios() {
+        ObservableList<LeerUsuario> listFiltro;
+        listFiltro = LeerUsuario.filtroUsuario(cbTiposFiltrosUsuarios);
 
+        tablaUsuarios.getItems().setAll(listFiltro);
     }
 
     //---------------------------------------------- Eventos Importantes ----------------------------------------
-
     @FXML
     private void guardar() {
+        ErrorCrear = "";
+        TextField[] campos = {textNombreCrear, textApellidoCrear, textLegajoCrear, textEmailCrear, textTelefonoCrear, textContraseniaCrear, textRepetirContraseniaCrear};
+        TextField[] campoLegajo = {textLegajoCrear};
+        labErroresCrear();
+        if(comprobarValoresCrear(campos)){
+            if(validarLetras(textNombreCrear.getText())){
+                if(validarLetras(textApellidoCrear.getText())){
+                    if(validarNumeros(textLegajoCrear.getText())){
+                        if(comprobarValoresCrearLegajo(campoLegajo)){
+                            if(validarLetrasEmail(textEmailCrear.getText())){
+                                if(validarNumerosTelefono(textTelefonoCrear.getText())){
+                                    if (Objects.equals(textContraseniaCrear.getText(), textRepetirContraseniaCrear.getText())){
+                                        labErroresCrear();
+                                        CrearUsuario usuarioCrear = new CrearUsuario();
+                                        usuarioCrear.agregarUsuario(textNombreCrear, textApellidoCrear, textLegajoCrear, textEmailCrear, textTelefonoCrear, textContraseniaCrear, cbRolCrear, labLimpiarCamposCrear);
 
+                                        if(Objects.equals(labLimpiarCamposCrear.getText(), "OK")){
+                                            inicializarTabla();
+                                            regresarCLista();
+                                            limpiarCamposCrear();
+                                        }
+                                    } else {
+                                        labErrorRepetirContraseniaCrear.setText("La Contraseña no coincide");
+                                        ErrorCrear = "RepetirContrasenia";
+                                        labErroresCrear2(ErrorCrear);
+                                    }
+                                } else {
+                                    labErrorTelefonoCrear.setText("Solo se admiten Números");
+                                    ErrorCrear = "Telefono";
+                                    labErroresCrear2(ErrorCrear);
+                                }
+                            } else {
+                                labErrorEmailCrear.setText("Solo se admiten Letras");
+                                ErrorCrear = "Email";
+                                labErroresCrear2(ErrorCrear);
+                            }
+                        } else {
+                            labErrorLegajoCrear.setText("Solo se permite hasta 10 Números");
+                            ErrorCrear = "Legajo";
+                            labErroresCrear2(ErrorCrear);
+                        }
+                    } else {
+                        labErrorLegajoCrear.setText("Solo se admiten Números");
+                        ErrorCrear = "Legajo";
+                        labErroresCrear2(ErrorCrear);
+                    }
+                } else {
+                    labErrorApellidoCrear.setText("Solo se admiten Letras");
+                    ErrorCrear = "Apellido";
+                    labErroresCrear2(ErrorCrear);
+                }
+            } else {
+                labErrorNombreCrear.setText("Solo se admiten Letras");
+                ErrorCrear = "Nombre";
+                labErroresCrear2(ErrorCrear);
+            }
+        } else {
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setTitle("Error!");
+            alerta.setContentText("Debe de completar todos los campos y que NO sean cortos.");
+            alerta.showAndWait();
+        }
     }
 
     @FXML
     private void modificar() {
+        TextField[] campos = {textNombreModificar, textApellidoModificar, textLegajoModificar, textEmailModificar, textTelefonoModificar, textContraseniaModificar, textRepetirContraseniaModificar};
+        TextField[] campoLegajo = {textLegajoModificar};
+        Label[] id = {labIDModificar};
+        ErrorModificar = "";
+        labErroresModificar();
+        if(comprobarIDModificar(id)){
+            if(comprobarValoresModificar(campos)){
+                if(validarLetras(textNombreModificar.getText())){
+                    if(validarLetras(textApellidoModificar.getText())){
+                        if(validarNumeros(textLegajoModificar.getText())){
+                            if(comprobarValoresModificarLegajo(campoLegajo)){
+                                if(validarLetrasEmail(textEmailModificar.getText())){
+                                    if(validarNumerosTelefono(textTelefonoModificar.getText())){
+                                        if (Objects.equals(textContraseniaModificar.getText(), textRepetirContraseniaModificar.getText())){
+                                            labErroresModificar();
+                                            ModificarUsuario usuarioModificar = new ModificarUsuario();
+                                            usuarioModificar.modificarUsuario(textNombreModificar, textApellidoModificar, textLegajoModificar, textEmailModificar, textTelefonoModificar, textContraseniaModificar, cbRolModificar, labIDModificar, labLimpiarCamposModificar, labInformacionModificarLegajo, labInformacionModificarContrasenia);
+
+                                            if(Objects.equals(labLimpiarCamposModificar.getText(), "OK")){
+                                                inicializarTabla();
+                                                regresarCLista();
+                                                limpiarCamposModificar();
+                                                limpiarCamposEliminar();
+                                            }
+                                        } else {
+                                            labErrorRepetirContraseniaModificar.setText("La Contraseña no coincide");
+                                            ErrorModificar = "RepetirContrasenia";
+                                            labErroresModificar2(ErrorModificar);
+                                        }
+                                    } else {
+                                        labErrorTelefonoModificar.setText("Solo se admiten Números");
+                                        ErrorModificar = "Telefono";
+                                        labErroresModificar2(ErrorModificar);
+                                    }
+                                } else {
+                                    labErrorEmailModificar.setText("Solo se admiten Letras");
+                                    ErrorModificar = "Email";
+                                    labErroresModificar2(ErrorModificar);
+                                }
+                            } else {
+                                labErrorLegajoModificar.setText("Solo se permite hasta 10 Números");
+                                ErrorModificar = "Legajo";
+                                labErroresModificar2(ErrorModificar);
+                            }
+                        } else {
+                            labErrorLegajoModificar.setText("Solo se admiten Números");
+                            ErrorModificar = "Legajo";
+                            labErroresModificar2(ErrorModificar);
+                        }
+                    } else {
+                        labErrorApellidoModificar.setText("Solo se admiten Letras");
+                        ErrorModificar = "Apellido";
+                        labErroresModificar2(ErrorModificar);
+                    }
+                } else {
+                    labErrorNombreModificar.setText("Solo se admiten Letras");
+                    ErrorModificar = "Nombre";
+                    labErroresModificar2(ErrorModificar);
+                }
+            } else {
+                Alert alerta = new Alert(Alert.AlertType.WARNING);
+                alerta.setTitle("Error!");
+                alerta.setContentText("Debe de completar todos los campos y que NO sean cortos.");
+                alerta.showAndWait();
+            }
+        } else {
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setTitle("Error!");
+            alerta.setContentText("Debe de seleccionar antes un Usuario para Modificarlo");
+            alerta.showAndWait();
+        }
 
     }
 
     @FXML
     private void eliminar() {
+        Label[] id = {labIDEliminar};
+        if (comprobarIDEliminar(id)){
+            Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
+            alerta.setTitle("Confirmar Eliminar");
+            alerta.setContentText("¿Desea Eliminar el Usuario?");
+            Optional<ButtonType> resultado = alerta.showAndWait();
+            if (resultado.isPresent() && resultado.get() == ButtonType.OK){
 
+                EliminarUsuario usuarioEliminar = new EliminarUsuario();
+                usuarioEliminar.eliminarUsuario(labIDEliminar);
+                inicializarTabla();
+
+                limpiarCamposEliminar();
+                limpiarCamposModificar();
+                regresarCLista();
+            }
+        } else{
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setTitle("Error!");
+            alerta.setContentText("Debe de seleccionar antes un Usuario para Eliminarlo");
+            alerta.showAndWait();
+            btnRegresarELista.requestFocus();
+        }
     }
 
     //------------------------------------ Acciones Simples de los Botones --------------------------------------
@@ -229,6 +463,252 @@ public class ControladorUsuarios {
     @FXML
     private void volverPrincipal() throws IOException {
         closeWindowsPrincipalUsuario();
+    }
+
+    //---------------------------------------- Comprobación de Campos -------------------------------------------
+    private boolean comprobarValoresCrear(TextField[] campos){
+        boolean valido = true;
+        for (int i = 0; i < campos.length; i++) {
+            String valor = campos[i].getText();
+            if(valor == null || valor.trim().isEmpty() || textNombreCrear.getLength() < 4|| textApellidoCrear.getLength() < 4|| textLegajoCrear.getLength() < 4  || textEmailCrear.getLength() < 8 || textTelefonoCrear.getLength() < 11 || textContraseniaCrear.getLength() < 4 || textRepetirContraseniaCrear.getLength() < 4){
+                valido = false;
+            }
+        }
+        return valido;
+    }
+
+    private boolean comprobarValoresModificar(TextField[] campos){
+        boolean valido = true;
+        for (int i = 0; i < campos.length; i++) {
+            String valor = campos[i].getText();
+            if(valor == null || valor.trim().isEmpty() || textNombreModificar.getLength() < 4|| textApellidoModificar.getLength() < 4|| textLegajoModificar.getLength() < 4  || textEmailModificar.getLength() < 8 || textTelefonoModificar.getLength() < 11 || textContraseniaModificar.getLength() < 4 || textRepetirContraseniaModificar.getLength() < 4){
+                valido = false;
+            }
+        }
+        return valido;
+    }
+
+    private boolean comprobarValoresCrearLegajo(TextField[] campoLegajo){
+        boolean valido = true;
+        for (int i = 0; i < campoLegajo.length; i++) {
+            String valor = campoLegajo[i].getText();
+            if(valor == null || valor.trim().isEmpty() || textLegajoCrear.getLength() > 10){
+                valido = false;
+            }
+        }
+        return valido;
+    }
+
+    private boolean comprobarValoresModificarLegajo(TextField[] campoLegajo){
+        boolean valido = true;
+        for (int i = 0; i < campoLegajo.length; i++) {
+            String valor = campoLegajo[i].getText();
+            if(valor == null || valor.trim().isEmpty() || textLegajoModificar.getLength() > 10){
+                valido = false;
+            }
+        }
+        return valido;
+    }
+
+    private boolean comprobarIDModificar(Label[] id){
+        boolean valido = true;
+        for (int i = 0; i < id.length; i++) {
+            String valor = id[i].getText();
+            if(valor == null || valor.trim().isEmpty()){
+                valido = false;
+            }
+        }
+        return valido;
+    }
+
+    private boolean comprobarIDEliminar(Label[] id){
+        boolean valido = true;
+        for (int i = 0; i < id.length; i++) {
+            String valor = id[i].getText();
+            if(valor == null || valor.trim().isEmpty()){
+                valido = false;
+            }
+        }
+        return valido;
+    }
+
+    //---------------------------------------- Validación de Caracteres ------------------------------------------
+    public static boolean validarNumeros(String datos){
+        return datos.matches("[0-9]*");
+    }
+    public static boolean validarNumerosTelefono(String datos){
+        return datos.matches("[0-9--]*");
+    }
+    public static boolean validarLetras(String datos){
+        return datos.matches("[a-zA-Z]*");
+    }
+    public static boolean validarLetrasEmail(String datos){
+        return datos.matches("[a-zA-Z-@]*");
+    }
+
+    //----------------------------------------- Limpiador de Campos ----------------------------------------------
+    private void limpiarCamposCrear(){
+        textNombreCrear.setText("");
+        textApellidoCrear.setText("");
+        textLegajoCrear.setText("");
+        textEmailCrear.setText("");
+        textTelefonoCrear.setText("");
+        textContraseniaCrear.setText("");
+        textRepetirContraseniaCrear.setText("");
+        cbRolCrear.getSelectionModel().selectFirst();
+        labLimpiarCamposCrear.setText("");
+    }
+
+    private void limpiarCamposModificar(){
+        textNombreModificar.setText("");
+        textApellidoModificar.setText("");
+        textLegajoModificar.setText("");
+        textEmailModificar.setText("");
+        textTelefonoModificar.setText("");
+        textContraseniaModificar.setText("");
+        textRepetirContraseniaModificar.setText("");
+        cbRolModificar.getSelectionModel().selectFirst();
+        labIDModificar.setText("");
+        labLimpiarCamposModificar.setText("");
+        labInformacionModificarLegajo.setText("");
+        labInformacionModificarContrasenia.setText("");
+    }
+
+    private void limpiarCamposEliminar(){
+        textNombreEliminar.setText("");
+        textApellidoEliminar.setText("");
+        textLegajoEliminar.setText("");
+        textEmailEliminar.setText("");
+        textTelefonoEliminar.setText("");
+        textContraseniaEliminar.setText("");
+        cbRolEliminar.getSelectionModel().selectFirst();
+        labIDEliminar.setText("");
+    }
+
+    private void labErroresCrear(){
+        labErrorNombreCrear.setText("");
+        labErrorApellidoCrear.setText("");
+        labErrorLegajoCrear.setText("");
+        labErrorEmailCrear.setText("");
+        labErrorTelefonoCrear.setText("");
+        labErrorContraseniaCrear.setText("");
+        labErrorRepetirContraseniaCrear.setText("");
+    }
+
+    private void labErroresModificar(){
+        labErrorNombreModificar.setText("");
+        labErrorApellidoModificar.setText("");
+        labErrorLegajoModificar.setText("");
+        labErrorEmailModificar.setText("");
+        labErrorTelefonoModificar.setText("");
+        labErrorContraseniaModificar.setText("");
+        labErrorRepetirContraseniaModificar.setText("");
+    }
+
+    private void labErroresCrear2(String ErrorCrear){
+        if(Objects.equals(ErrorCrear, "Nombre")){
+            labErrorApellidoCrear.setText("");
+            labErrorLegajoCrear.setText("");
+            labErrorEmailCrear.setText("");
+            labErrorTelefonoCrear.setText("");
+            labErrorContraseniaCrear.setText("");
+            labErrorRepetirContraseniaCrear.setText("");
+        } else if(Objects.equals(ErrorCrear, "Apellido")){
+            labErrorNombreCrear.setText("");
+            labErrorLegajoCrear.setText("");
+            labErrorEmailCrear.setText("");
+            labErrorTelefonoCrear.setText("");
+            labErrorContraseniaCrear.setText("");
+            labErrorRepetirContraseniaCrear.setText("");
+        } else if(Objects.equals(ErrorCrear, "Legajo")){
+            labErrorNombreCrear.setText("");
+            labErrorApellidoCrear.setText("");
+            labErrorEmailCrear.setText("");
+            labErrorTelefonoCrear.setText("");
+            labErrorContraseniaCrear.setText("");
+            labErrorRepetirContraseniaCrear.setText("");
+        } else if(Objects.equals(ErrorCrear, "Email")){
+            labErrorNombreCrear.setText("");
+            labErrorApellidoCrear.setText("");
+            labErrorLegajoCrear.setText("");
+            labErrorTelefonoCrear.setText("");
+            labErrorContraseniaCrear.setText("");
+            labErrorRepetirContraseniaCrear.setText("");
+        } else if(Objects.equals(ErrorCrear, "Telefono")){
+            labErrorNombreCrear.setText("");
+            labErrorApellidoCrear.setText("");
+            labErrorLegajoCrear.setText("");
+            labErrorEmailCrear.setText("");
+            labErrorContraseniaCrear.setText("");
+            labErrorRepetirContraseniaCrear.setText("");
+        } else if(Objects.equals(ErrorCrear, "Contrasenia")){
+            labErrorNombreCrear.setText("");
+            labErrorApellidoCrear.setText("");
+            labErrorLegajoCrear.setText("");
+            labErrorEmailCrear.setText("");
+            labErrorTelefonoCrear.setText("");
+            labErrorRepetirContraseniaCrear.setText("");
+        } else if(Objects.equals(ErrorCrear, "RepetirContrasenia")){
+            labErrorNombreCrear.setText("");
+            labErrorApellidoCrear.setText("");
+            labErrorLegajoCrear.setText("");
+            labErrorEmailCrear.setText("");
+            labErrorTelefonoCrear.setText("");
+            labErrorContraseniaCrear.setText("");
+        }
+    }
+
+    private void labErroresModificar2(String ErrorModificar) {
+        if (Objects.equals(ErrorModificar, "Nombre")) {
+            labErrorApellidoModificar.setText("");
+            labErrorLegajoModificar.setText("");
+            labErrorEmailModificar.setText("");
+            labErrorTelefonoModificar.setText("");
+            labErrorContraseniaModificar.setText("");
+            labErrorRepetirContraseniaModificar.setText("");
+        } else if (Objects.equals(ErrorModificar, "Apellido")) {
+            labErrorNombreModificar.setText("");
+            labErrorLegajoModificar.setText("");
+            labErrorEmailModificar.setText("");
+            labErrorTelefonoModificar.setText("");
+            labErrorContraseniaModificar.setText("");
+            labErrorRepetirContraseniaModificar.setText("");
+        } else if (Objects.equals(ErrorModificar, "Legajo")) {
+            labErrorNombreModificar.setText("");
+            labErrorApellidoModificar.setText("");
+            labErrorEmailModificar.setText("");
+            labErrorTelefonoModificar.setText("");
+            labErrorContraseniaModificar.setText("");
+            labErrorRepetirContraseniaModificar.setText("");
+        } else if (Objects.equals(ErrorModificar, "Email")) {
+            labErrorNombreModificar.setText("");
+            labErrorApellidoModificar.setText("");
+            labErrorLegajoModificar.setText("");
+            labErrorTelefonoModificar.setText("");
+            labErrorContraseniaModificar.setText("");
+            labErrorRepetirContraseniaModificar.setText("");
+        } else if (Objects.equals(ErrorModificar, "Telefono")) {
+            labErrorNombreModificar.setText("");
+            labErrorApellidoModificar.setText("");
+            labErrorLegajoModificar.setText("");
+            labErrorEmailModificar.setText("");
+            labErrorContraseniaModificar.setText("");
+            labErrorRepetirContraseniaModificar.setText("");
+        } else if (Objects.equals(ErrorModificar, "Contrasenia")) {
+            labErrorNombreModificar.setText("");
+            labErrorApellidoModificar.setText("");
+            labErrorLegajoModificar.setText("");
+            labErrorEmailModificar.setText("");
+            labErrorTelefonoModificar.setText("");
+            labErrorRepetirContraseniaModificar.setText("");
+        } else if (Objects.equals(ErrorModificar, "RepetirContrasenia")) {
+            labErrorNombreModificar.setText("");
+            labErrorApellidoModificar.setText("");
+            labErrorLegajoModificar.setText("");
+            labErrorEmailModificar.setText("");
+            labErrorTelefonoModificar.setText("");
+            labErrorContraseniaModificar.setText("");
+        }
     }
 
     // ---------------------------------- Cerrar Ventana -------------------------------------------

@@ -13,6 +13,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1000.0" style="-fx-background-color: #30373e;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.secadero.controlador.ControladorLogin">
    <children>
+      <Label fx:id="labID" layoutX="115.0" layoutY="87.0" prefHeight="18.0" prefWidth="20.0" />
       <ImageView fitHeight="623.0" fitWidth="1000.0" layoutX="1.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../imagenes/color-verde.jpg" />
