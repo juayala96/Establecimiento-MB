@@ -543,9 +543,8 @@ public class ControladorUsuarios {
         return datos.matches("[a-zA-Z]*");
     }
     public static boolean validarLetrasEmail(String datos){
-        return datos.matches("[a-zA-Z-@]*");
+        return datos.matches("[a-zA-Z-.-@]*");
     }
-
     //----------------------------------------- Limpiador de Campos ----------------------------------------------
     private void limpiarCamposCrear(){
         textNombreCrear.setText("");
