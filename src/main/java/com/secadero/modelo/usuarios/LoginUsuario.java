@@ -21,7 +21,7 @@ public class LoginUsuario {
         ResultSet rs = null;
 
         try {
-            String consulta = "SELECT idusuarios FROM usuarios WHERE nombre = ? AND contrasenia = ? AND estadoUsuario = ?";
+            String consulta = "SELECT idusuarios FROM usuarios WHERE nombreUsuario = ? AND contrasenia = ? AND estadoUsuario = ?";
             pstm = con.prepareStatement(consulta);
             pstm.setString(1, campoNombre.getText());
             pstm.setString(2, campoPassword.getText());

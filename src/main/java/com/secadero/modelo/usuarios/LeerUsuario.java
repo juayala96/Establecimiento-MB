@@ -18,17 +18,19 @@ public class LeerUsuario {
     private int legajo;
     private String email;
     private String telefono;
+    private String nombreUsuario;
     private String contrasenia;
     private String rol;
 
     public LeerUsuario(){}
 
-    public LeerUsuario(String nombre, String apellido, int legajo, String email, String telefono, String contrasenia, String rol, int idusuarios) {
+    public LeerUsuario(String nombre, String apellido, int legajo, String email, String telefono, String nombreUsuario, String contrasenia, String rol, int idusuarios) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.legajo = legajo;
         this.email = email;
         this.telefono = telefono;
+        this.nombreUsuario = nombreUsuario;
         this.contrasenia = contrasenia;
         this.rol = rol;
         this.idusuarios = idusuarios;
@@ -82,6 +84,14 @@ public class LeerUsuario {
         this.telefono = telefono;
     }
 
+    public String getNombreUsuario() {
+        return nombreUsuario;
+    }
+
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
+    }
+
     public String getContrasenia() {
         return contrasenia;
     }
@@ -111,7 +121,7 @@ public class LeerUsuario {
             rs = pstm.executeQuery();
 
             while (rs.next()){
-                lista.add(new LeerUsuario(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getString("email"), rs.getString("telefono"), rs.getString("contrasenia"), rs.getString("rol"), rs.getInt("idusuarios")));
+                lista.add(new LeerUsuario(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getString("email"), rs.getString("telefono"), rs.getString("nombreUsuario"), rs.getString("contrasenia"), rs.getString("rol"), rs.getInt("idusuarios")));
             }
         } catch (SQLException ex) {
             System.err.println("Error: " + ex.getMessage());
@@ -141,7 +151,7 @@ public class LeerUsuario {
             rs = pstm.executeQuery();
 
             while (rs.next()){
-                listaBuscar.add(new LeerUsuario(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getString("email"), rs.getString("telefono"), rs.getString("contrasenia"), rs.getString("rol"), rs.getInt("idusuarios")));
+                listaBuscar.add(new LeerUsuario(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getString("email"), rs.getString("telefono"), rs.getString("nombreUsuario"), rs.getString("contrasenia"), rs.getString("rol"), rs.getInt("idusuarios")));
             }
         } catch (SQLException ex) {
             System.err.println("Error: " + ex.getMessage());
@@ -171,7 +181,7 @@ public class LeerUsuario {
             rs = pstm.executeQuery();
 
             while (rs.next()){
-                listaFiltro.add(new LeerUsuario(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getString("email"), rs.getString("telefono"), rs.getString("contrasenia"), rs.getString("rol"), rs.getInt("idusuarios")));
+                listaFiltro.add(new LeerUsuario(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getString("email"), rs.getString("telefono"), rs.getString("nombreUsuario"), rs.getString("contrasenia"), rs.getString("rol"), rs.getInt("idusuarios")));
             }
         } catch (SQLException ex) {
             System.err.println("Error: " + ex.getMessage());

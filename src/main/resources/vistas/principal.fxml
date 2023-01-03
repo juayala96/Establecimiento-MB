@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="749.0" prefWidth="1536.0" style="-fx-background-color: #90EE90;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.secadero.controlador.ControladorPrincipal">
+<AnchorPane prefHeight="749.0" prefWidth="1536.0" style="-fx-background-color: #90EE90;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.secadero.controlador.ControladorPrincipal">
    <children>
       <ImageView fitHeight="800.0" fitWidth="1422.0" layoutX="58.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -32,7 +30,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button fx:id="btnInformes" layoutX="256.0" layoutY="525.0" mnemonicParsing="false" onAction="#Informes" prefHeight="74.0" prefWidth="295.0" text="Informe">
+      <Button fx:id="btnInformes" layoutX="256.0" layoutY="525.0" mnemonicParsing="false" onAction="#Informes" prefHeight="74.0" prefWidth="295.0" text="Informe Presentismo">
          <font>
             <Font size="24.0" />
          </font>

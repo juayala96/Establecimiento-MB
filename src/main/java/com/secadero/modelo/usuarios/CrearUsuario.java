@@ -15,7 +15,7 @@ public class CrearUsuario {
     public CrearUsuario(){}
 
     //--------------------------------------------- Crear Usuario ---------------------------------------------------
-    public void agregarUsuario(TextField textNombreCrear, TextField textApellidoCrear, TextField textLegajoCrear, TextField textEmailCrear, TextField textTelefonoCrear, TextField textContraseniaCrear, ComboBox<String> cbRolCrear, Label labLimpiarCamposCrear){
+    public void agregarUsuario(TextField textNombreCrear, TextField textApellidoCrear, TextField textLegajoCrear, TextField textEmailCrear, TextField textTelefonoCrear, TextField textNombreUsuarioCrear, TextField textContraseniaCrear, ComboBox<String> cbRolCrear, Label labLimpiarCamposCrear){
         Connection con = Conexion.leerConexion();
         PreparedStatement pstm = null;
         ResultSet rs = null;
@@ -32,7 +32,7 @@ public class CrearUsuario {
                 respuesta = "NO";
             }
 
-            String consulta2 = "SELECT * FROM usuarios WHERE contrasenia = ? AND estadoUsuario = ?";
+            String consulta2 = "SELECT * FROM usuarios WHERE nombreUsuario = ? AND estadoUsuario = ?";
             pstm = con.prepareStatement(consulta2);
             pstm.setString(1, textContraseniaCrear.getText());
             pstm.setString(2, "Vigente");
@@ -43,16 +43,17 @@ public class CrearUsuario {
 
             if(respuesta.equals("YES")){
                 if(respuesta2.equals("YES")){
-                    String consulta3 = "INSERT INTO usuarios(nombre, apellido, legajo, email, telefono, contrasenia, rol, estadoUsuario) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                    String consulta3 = "INSERT INTO usuarios(nombre, apellido, legajo, email, telefono, nombreUsuario, contrasenia, rol, estadoUsuario) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
                     pstm = con.prepareStatement(consulta3);
                     pstm.setString(1, textNombreCrear.getText());
                     pstm.setString(2, textApellidoCrear.getText());
                     pstm.setInt(3, Integer.parseInt(textLegajoCrear.getText()));
                     pstm.setString(4, textEmailCrear.getText());
                     pstm.setString(5, textTelefonoCrear.getText());
-                    pstm.setString(6, textContraseniaCrear.getText());
-                    pstm.setString(7, cbRolCrear.getSelectionModel().getSelectedItem());
-                    pstm.setString(8, "Vigente");
+                    pstm.setString(6, textNombreUsuarioCrear.getText());
+                    pstm.setString(7, textContraseniaCrear.getText());
+                    pstm.setString(8, cbRolCrear.getSelectionModel().getSelectedItem());
+                    pstm.setString(9, "Vigente");
                     pstm.executeUpdate();
 
                     Alert alerta = new Alert(Alert.AlertType.INFORMATION);

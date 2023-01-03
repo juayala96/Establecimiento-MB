@@ -69,6 +69,8 @@ public class ControladorUsuarios {
     @FXML
     private TableColumn<LeerUsuario, String> colTelefono;
     @FXML
+    private TableColumn<LeerUsuario, String> colNombreUsuario;
+    @FXML
     private Label labErrorApellidoCrear;
     @FXML
     private Label labErrorApellidoModificar;
@@ -89,6 +91,10 @@ public class ControladorUsuarios {
     @FXML
     private Label labErrorNombreModificar;
     @FXML
+    private Label labErrorNombreUsuarioCrear;
+    @FXML
+    private Label labErrorNombreUsuarioModificar;
+    @FXML
     private Label labErrorRepetirContraseniaCrear;
     @FXML
     private Label labErrorRepetirContraseniaModificar;
@@ -101,7 +107,7 @@ public class ControladorUsuarios {
     @FXML
     private Label labIDModificar;
     @FXML
-    private Label labInformacionModificarContrasenia;
+    private Label labInformacionModificarNombreUsuario;
     @FXML
     private Label labInformacionModificarLegajo;
     @FXML
@@ -153,6 +159,12 @@ public class ControladorUsuarios {
     @FXML
     private TextField textNombreModificar;
     @FXML
+    private TextField textNombreUsuarioCrear;
+    @FXML
+    private TextField textNombreUsuarioEliminar;
+    @FXML
+    private TextField textNombreUsuarioModificar;
+    @FXML
     private TextField textRepetirContraseniaCrear;
     @FXML
     private TextField textRepetirContraseniaModificar;
@@ -191,12 +203,13 @@ public class ControladorUsuarios {
         colLegajo.setCellValueFactory(new PropertyValueFactory<LeerUsuario, Integer>("legajo"));
         colEmail.setCellValueFactory(new PropertyValueFactory<LeerUsuario, String>("email"));
         colTelefono.setCellValueFactory(new PropertyValueFactory<LeerUsuario, String>("telefono"));
+        colNombreUsuario.setCellValueFactory(new PropertyValueFactory<LeerUsuario, String>("nombreUsuario"));
         colContrasenia.setCellValueFactory(new PropertyValueFactory<LeerUsuario, String>("contrasenia"));
         colRol.setCellValueFactory(new PropertyValueFactory<LeerUsuario, String>("rol"));
         colID.setCellValueFactory(new PropertyValueFactory<LeerUsuario, Integer>("idusuarios"));
 
         listUsuarios = LeerUsuario.listaUsuarios();
-        tablaUsuarios.getColumns().setAll(colNombre, colApellido, colLegajo, colEmail, colTelefono, colContrasenia, colRol, colID);
+        tablaUsuarios.getColumns().setAll(colNombre, colApellido, colLegajo, colEmail, colTelefono, colNombreUsuario, colContrasenia, colRol, colID);
         tablaUsuarios.getItems().setAll(listUsuarios);
     }
 
@@ -215,8 +228,9 @@ public class ControladorUsuarios {
         labInformacionModificarLegajo.setText(colLegajo.getCellData(index).toString());
         textEmailModificar.setText(colEmail.getCellData(index));
         textTelefonoModificar.setText(colTelefono.getCellData(index));
+        textNombreUsuarioModificar.setText(colNombreUsuario.getCellData(index));
+        labInformacionModificarNombreUsuario.setText(colNombreUsuario.getCellData(index));
         textContraseniaModificar.setText(colContrasenia.getCellData(index));
-        labInformacionModificarContrasenia.setText(colContrasenia.getCellData(index));
         textRepetirContraseniaModificar.setText(colContrasenia.getCellData(index));
         cbRolModificar.getSelectionModel().select(colRol.getCellData(index));
 
@@ -226,6 +240,7 @@ public class ControladorUsuarios {
         textLegajoEliminar.setText(colLegajo.getCellData(index).toString());
         textEmailEliminar.setText(colEmail.getCellData(index));
         textTelefonoEliminar.setText(colTelefono.getCellData(index));
+        textNombreUsuarioEliminar.setText(colNombreUsuario.getCellData(index));
         textContraseniaEliminar.setText(colContrasenia.getCellData(index));
         cbRolEliminar.getSelectionModel().select(colRol.getCellData(index));
     }
@@ -268,7 +283,7 @@ public class ControladorUsuarios {
                                     if (Objects.equals(textContraseniaCrear.getText(), textRepetirContraseniaCrear.getText())){
                                         labErroresCrear();
                                         CrearUsuario usuarioCrear = new CrearUsuario();
-                                        usuarioCrear.agregarUsuario(textNombreCrear, textApellidoCrear, textLegajoCrear, textEmailCrear, textTelefonoCrear, textContraseniaCrear, cbRolCrear, labLimpiarCamposCrear);
+                                        usuarioCrear.agregarUsuario(textNombreCrear, textApellidoCrear, textLegajoCrear, textEmailCrear, textTelefonoCrear,textNombreUsuarioCrear, textContraseniaCrear, cbRolCrear, labLimpiarCamposCrear);
 
                                         if(Objects.equals(labLimpiarCamposCrear.getText(), "OK")){
                                             inicializarTabla();
@@ -336,7 +351,7 @@ public class ControladorUsuarios {
                                         if (Objects.equals(textContraseniaModificar.getText(), textRepetirContraseniaModificar.getText())){
                                             labErroresModificar();
                                             ModificarUsuario usuarioModificar = new ModificarUsuario();
-                                            usuarioModificar.modificarUsuario(textNombreModificar, textApellidoModificar, textLegajoModificar, textEmailModificar, textTelefonoModificar, textContraseniaModificar, cbRolModificar, labIDModificar, labLimpiarCamposModificar, labInformacionModificarLegajo, labInformacionModificarContrasenia);
+                                            usuarioModificar.modificarUsuario(textNombreModificar, textApellidoModificar, textLegajoModificar, textEmailModificar, textTelefonoModificar, textNombreUsuarioModificar, textContraseniaModificar, cbRolModificar, labIDModificar, labLimpiarCamposModificar, labInformacionModificarLegajo, labInformacionModificarNombreUsuario);
 
                                             if(Objects.equals(labLimpiarCamposModificar.getText(), "OK")){
                                                 inicializarTabla();
@@ -552,6 +567,7 @@ public class ControladorUsuarios {
         textLegajoCrear.setText("");
         textEmailCrear.setText("");
         textTelefonoCrear.setText("");
+        textNombreUsuarioCrear.setText("");
         textContraseniaCrear.setText("");
         textRepetirContraseniaCrear.setText("");
         cbRolCrear.getSelectionModel().selectFirst();
@@ -564,13 +580,14 @@ public class ControladorUsuarios {
         textLegajoModificar.setText("");
         textEmailModificar.setText("");
         textTelefonoModificar.setText("");
+        textNombreUsuarioModificar.setText("");
         textContraseniaModificar.setText("");
         textRepetirContraseniaModificar.setText("");
         cbRolModificar.getSelectionModel().selectFirst();
         labIDModificar.setText("");
         labLimpiarCamposModificar.setText("");
         labInformacionModificarLegajo.setText("");
-        labInformacionModificarContrasenia.setText("");
+        labInformacionModificarNombreUsuario.setText("");
     }
 
     private void limpiarCamposEliminar(){
@@ -579,6 +596,7 @@ public class ControladorUsuarios {
         textLegajoEliminar.setText("");
         textEmailEliminar.setText("");
         textTelefonoEliminar.setText("");
+        textNombreUsuarioEliminar.setText("");
         textContraseniaEliminar.setText("");
         cbRolEliminar.getSelectionModel().selectFirst();
         labIDEliminar.setText("");
@@ -590,6 +608,7 @@ public class ControladorUsuarios {
         labErrorLegajoCrear.setText("");
         labErrorEmailCrear.setText("");
         labErrorTelefonoCrear.setText("");
+        labErrorNombreUsuarioCrear.setText("");
         labErrorContraseniaCrear.setText("");
         labErrorRepetirContraseniaCrear.setText("");
     }
@@ -600,6 +619,7 @@ public class ControladorUsuarios {
         labErrorLegajoModificar.setText("");
         labErrorEmailModificar.setText("");
         labErrorTelefonoModificar.setText("");
+        labErrorNombreUsuarioModificar.setText("");
         labErrorContraseniaModificar.setText("");
         labErrorRepetirContraseniaModificar.setText("");
     }
