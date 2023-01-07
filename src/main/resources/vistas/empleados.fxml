@@ -10,6 +10,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
@@ -22,10 +23,14 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Label layoutX="1215.0" layoutY="171.0" prefHeight="514.0" prefWidth="214.0" style="-fx-background-color: white;" />
-                        <Label layoutX="125.0" layoutY="67.0" prefHeight="54.0" prefWidth="362.0" text="Lista de Empleados" underline="true">
+                        <ImageView fitHeight="1168.0" fitWidth="1536.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imagenes/color-Verde-General.jpg" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="125.0" layoutY="67.0" prefHeight="56.0" prefWidth="487.0" text="Lista de Empleados" textFill="#fff9f9" underline="true">
                            <font>
-                              <Font name="Georgia Bold" size="36.0" />
+                              <Font name="Georgia Bold" size="48.0" />
                            </font>
                         </Label>
                         <TableView fx:id="tablaEmpleados" layoutX="125.0" layoutY="218.0" prefHeight="467.0" prefWidth="1059.0">
@@ -42,7 +47,7 @@
                               <Cursor fx:constant="DISAPPEAR" />
                            </cursor>
                         </TableView>
-                        <Button fx:id="btnVolver" layoutX="1252.0" layoutY="623.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#volverPrincipal" prefHeight="45.0" prefWidth="141.0" text="Volver" textFill="#8c0909">
+                        <Button fx:id="btnVolver" layoutX="1260.0" layoutY="633.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#volverPrincipal" prefHeight="52.0" prefWidth="150.0" text="Volver" textFill="#8c0909">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -50,9 +55,9 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button fx:id="btnCrearEmpleado" layoutX="1252.0" layoutY="194.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#crearEmpleado" prefHeight="45.0" prefWidth="141.0" text="Crear">
+                        <Button fx:id="btnCrearEmpleado" layoutX="1260.0" layoutY="168.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#crearEmpleado" prefHeight="52.0" prefWidth="150.0" text="Crear">
                            <font>
-                              <Font size="18.0" />
+                              <Font size="20.0" />
                            </font>
                            <cursor>
                               <Cursor fx:constant="HAND" />
@@ -63,7 +68,7 @@
                               <Font size="16.0" />
                            </font>
                         </TextField>
-                        <Label layoutX="224.0" layoutY="146.0" prefHeight="12.0" prefWidth="67.0" text="Legajo:">
+                        <Label layoutX="224.0" layoutY="146.0" prefHeight="12.0" prefWidth="67.0" text="Nombre:" textFill="#f7f4f4">
                            <font>
                               <Font size="16.0" />
                            </font>
@@ -89,33 +94,33 @@
                               <Cursor fx:constant="DISAPPEAR" />
                            </cursor>
                         </ComboBox>
-                        <Button fx:id="btnModificarEmpleado" layoutX="1251.0" layoutY="271.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#modificarEmpleado" prefHeight="45.0" prefWidth="141.0" text="Modificar">
+                        <Button fx:id="btnModificarEmpleado" layoutX="1261.0" layoutY="260.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#modificarEmpleado" prefHeight="52.0" prefWidth="148.0" text="Modificar">
                            <font>
-                              <Font size="18.0" />
+                              <Font size="20.0" />
                            </font>
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button fx:id="btnEliminarEmpleado" layoutX="1251.0" layoutY="354.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#eliminarEmpleado" prefHeight="45.0" prefWidth="141.0" text="Eliminar">
+                        <Button fx:id="btnEliminarEmpleado" layoutX="1260.0" layoutY="348.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#eliminarEmpleado" prefHeight="52.0" prefWidth="150.0" text="Eliminar">
                            <font>
-                              <Font size="18.0" />
+                              <Font size="20.0" />
                            </font>
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button fx:id="btnLicenciasEmpleado" layoutX="1252.0" layoutY="515.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#licenciasEmpleado" prefHeight="45.0" prefWidth="141.0" text="Licencias" textFill="#06069c">
+                        <Button fx:id="btnLicenciasEmpleado" layoutX="1260.0" layoutY="524.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#licenciasEmpleado" prefHeight="52.0" prefWidth="150.0" text="Licencias" textFill="#06069c">
                            <font>
-                              <Font size="18.0" />
+                              <Font size="20.0" />
                            </font>
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button fx:id="btnAusenciasEmpleado" layoutX="1251.0" layoutY="435.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#ausenciasEmpleado" prefHeight="45.0" prefWidth="141.0" text="Ausencias" textFill="#05059e">
+                        <Button fx:id="btnAusenciasEmpleado" layoutX="1260.0" layoutY="437.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#ausenciasEmpleado" prefHeight="52.0" prefWidth="150.0" text="Ausencias" textFill="#05059e">
                            <font>
-                              <Font size="18.0" />
+                              <Font size="20.0" />
                            </font>
                            <cursor>
                               <Cursor fx:constant="HAND" />
