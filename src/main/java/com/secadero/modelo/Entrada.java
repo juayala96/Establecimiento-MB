@@ -6,12 +6,10 @@ import java.util.Date;
 public class Entrada {
     private Date fecha;
     private Time hora;
-    private Empleado empleados;
 
-    public Entrada(Date fecha, Time hora, Empleado empleados) {
+    public Entrada(Date fecha, Time hora) {
         this.fecha = fecha;
-        this.hora = hora;
-        this.empleados = empleados;
+        this.hora = hora;;
     }
 
     public Date getFecha() {
@@ -28,14 +26,6 @@ public class Entrada {
 
     public void setHora(Time hora) {
         this.hora = hora;
-    }
-
-    public Empleado getEmpleados() {
-        return empleados;
-    }
-
-    public void setEmpleados(Empleado empleados) {
-        this.empleados = empleados;
     }
 
     private void registrarEntrada(){

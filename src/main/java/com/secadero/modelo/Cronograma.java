@@ -8,14 +8,12 @@ public class Cronograma {
     private String turno;
     private Time horarioEntrada;
     private Time horarioSalida;
-    private Empleado empleado;
 
-    public Cronograma(Date fecha, String turno, Time horarioEntrada, Time horarioSalida, Empleado empleado) {
+    public Cronograma(Date fecha, String turno, Time horarioEntrada, Time horarioSalida) {
         this.fecha = fecha;
         this.turno = turno;
         this.horarioEntrada = horarioEntrada;
         this.horarioSalida = horarioSalida;
-        this.empleado = empleado;
     }
 
     public Date getFecha() {
@@ -48,14 +46,6 @@ public class Cronograma {
 
     public void setHorarioSalida(Time horarioSalida) {
         this.horarioSalida = horarioSalida;
-    }
-
-    public Empleado getEmpleado() {
-        return empleado;
-    }
-
-    public void setEmpleado(Empleado empleado) {
-        this.empleado = empleado;
     }
 
     public void crearCronograma(){
