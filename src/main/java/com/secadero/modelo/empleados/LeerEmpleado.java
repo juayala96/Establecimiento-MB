@@ -1,7 +1,6 @@
 package com.secadero.modelo.empleados;
 
 import com.secadero.conexion.Conexion;
-import com.secadero.modelo.usuarios.LeerUsuario;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

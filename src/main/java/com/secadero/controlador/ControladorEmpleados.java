@@ -47,31 +47,47 @@ public class ControladorEmpleados {
     @FXML
     private Button btnVolver;
     @FXML
-    private ComboBox<String> cbAreaCrear;
+    private ComboBox<?> cbAreaCrear;
     @FXML
-    private ComboBox<String> cbAreaEliminar;
+    private ComboBox<?> cbAreaEliminar;
     @FXML
-    private ComboBox<String> cbAreaModificar;
+    private ComboBox<?> cbAreaModificar;
     @FXML
-    private ComboBox<String> cbEstadoCivilCrear;
+    private ComboBox<?> cbEstadoCivilCrear;
     @FXML
-    private ComboBox<String> cbEstadoCivilEliminar;
+    private ComboBox<?> cbEstadoCivilEliminar;
     @FXML
-    private ComboBox<String> cbEstadoCivilModificar;
+    private ComboBox<?> cbEstadoCivilModificar;
     @FXML
-    private ComboBox<String> cbGeneroCrear;
+    private ComboBox<?> cbGeneroCrear;
     @FXML
-    private ComboBox<String> cbGeneroEliminar;
+    private ComboBox<?> cbGeneroEliminar;
     @FXML
-    private ComboBox<String> cbGeneroModificar;
+    private ComboBox<?> cbGeneroModificar;
     @FXML
-    private ComboBox<String> cbPuestoCrear;
+    private ComboBox<?> cbPuestoCrear;
     @FXML
-    private ComboBox<String> cbPuestoEliminar;
+    private ComboBox<?> cbPuestoEliminar;
     @FXML
-    private ComboBox<String> cbPuestoModificar;
+    private ComboBox<?> cbPuestoModificar;
     @FXML
-    private ComboBox<String> cbTiposfiltrosEmpleados;
+    private ComboBox<?> cbTiposfiltrosEmpleados;
+    @FXML
+    private TableColumn<?, ?> colApellido;
+    @FXML
+    private TableColumn<?, ?> colArea;
+    @FXML
+    private TableColumn<?, ?> colFechaIngreso;
+    @FXML
+    private TableColumn<?, ?> colID;
+    @FXML
+    private TableColumn<?, ?> colLegajo;
+    @FXML
+    private TableColumn<?, ?> colNombre;
+    @FXML
+    private TableColumn<?, ?> colPuesto;
+    @FXML
+    private TableColumn<?, ?> colTelefono;
     @FXML
     private DatePicker dpFechaIngresoCrear;
     @FXML
@@ -91,6 +107,50 @@ public class ControladorEmpleados {
     @FXML
     private ImageView imgFotografiaModificar;
     @FXML
+    private Label labErrorApellidoCrear;
+    @FXML
+    private Label labErrorApellidoModificar;
+    @FXML
+    private Label labErrorDireccionCrear;
+    @FXML
+    private Label labErrorDireccionModificar;
+    @FXML
+    private Label labErrorFechaNacimientoCrear;
+    @FXML
+    private Label labErrorFechaNacimientoModificar;
+    @FXML
+    private Label labErrorFotografiaCrear;
+    @FXML
+    private Label labErrorFotografiaModificar;
+    @FXML
+    private Label labErrorGrupoSanguineoCrear;
+    @FXML
+    private Label labErrorGrupoSanguineoModificar;
+    @FXML
+    private Label labErrorLegajoCrear;
+    @FXML
+    private Label labErrorLegajoModificar;
+    @FXML
+    private Label labErrorNombreCrear;
+    @FXML
+    private Label labErrorNombreModificar;
+    @FXML
+    private Label labErrorTelefonoCrear;
+    @FXML
+    private Label labErrorTelefonoModificar;
+    @FXML
+    private Label labIDEliminar;
+    @FXML
+    private Label labIDModificar;
+    @FXML
+    private Label labInformacionCrearLegajo;
+    @FXML
+    private Label labInformacionModificarLegajo;
+    @FXML
+    private Label labLimpiarCamposCrear;
+    @FXML
+    private Label labLimpiarCamposModificar;
+    @FXML
     private TabPane panelPestaniasEmpleados;
     @FXML
     private Tab tabCrearEmpleado;
@@ -101,7 +161,7 @@ public class ControladorEmpleados {
     @FXML
     private Tab tabModificarEmpleado;
     @FXML
-    private TableView<String> tablaEmpleados;
+    private TableView<?> tablaEmpleados;
     @FXML
     private TextField textApellidoCrear;
     @FXML
