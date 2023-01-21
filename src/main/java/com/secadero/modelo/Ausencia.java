@@ -7,14 +7,12 @@ public class Ausencia {
     private String motivo;
     private boolean justificado;
     private String certificado;
-    private Empleado empleados;
 
-    public Ausencia(Date fecha, String motivo, boolean justificado, String certificado, Empleado empleados) {
+    public Ausencia(Date fecha, String motivo, boolean justificado, String certificado) {
         this.fecha = fecha;
         this.motivo = motivo;
         this.justificado = justificado;
         this.certificado = certificado;
-        this.empleados = empleados;
     }
 
     public Date getFecha() {
@@ -47,14 +45,6 @@ public class Ausencia {
 
     public void setCertificado(String certificado) {
         this.certificado = certificado;
-    }
-
-    public Empleado getEmpleados() {
-        return empleados;
-    }
-
-    public void setEmpleados(Empleado empleados) {
-        this.empleados = empleados;
     }
 
     public void registrarAusencia(){

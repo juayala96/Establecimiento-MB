@@ -7,14 +7,12 @@ public class Licencia {
     private Date fechaFin;
     private int diasDisponibles;
     private String tipoLicencia;
-    private Empleado empleado;
 
-    public Licencia(Date fechaInicio, Date fechaFin, int diasDisponibles, String tipoLicencia, Empleado empleado) {
+    public Licencia(Date fechaInicio, Date fechaFin, int diasDisponibles, String tipoLicencia) {
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
         this.diasDisponibles = diasDisponibles;
         this.tipoLicencia = tipoLicencia;
-        this.empleado = empleado;
     }
 
     public Date getFechaInicio() {
@@ -43,18 +41,6 @@ public class Licencia {
 
     public String getTipoLicencia() {
         return tipoLicencia;
-    }
-
-    public void setTipoLicencia(String tipoLicencia) {
-        this.tipoLicencia = tipoLicencia;
-    }
-
-    public Empleado getEmpleado() {
-        return empleado;
-    }
-
-    public void setEmpleado(Empleado empleado) {
-        this.empleado = empleado;
     }
 
     public void registrarLicenica(){
