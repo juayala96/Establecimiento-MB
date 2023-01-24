@@ -233,7 +233,7 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="cbRolCrear" layoutX="1033.0" layoutY="505.0" prefHeight="40.0" prefWidth="330.0" style="-fx-font-size: 16;">
+                        <ComboBox fx:id="cbRolCrear" layoutX="1033.0" layoutY="505.0" prefHeight="40.0" prefWidth="330.0" style="-fx-font-size: 18;">
                            <cursor>
                               <Cursor fx:constant="DISAPPEAR" />
                            </cursor>
@@ -435,7 +435,7 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="cbRolModificar" layoutX="1033.0" layoutY="505.0" prefHeight="40.0" prefWidth="330.0" style="-fx-font-size: 16;">
+                        <ComboBox fx:id="cbRolModificar" layoutX="1033.0" layoutY="505.0" prefHeight="40.0" prefWidth="330.0" style="-fx-font-size: 18;">
                            <cursor>
                               <Cursor fx:constant="DISAPPEAR" />
                            </cursor>
@@ -620,7 +620,7 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="cbRolEliminar" disable="true" layoutX="1033.0" layoutY="354.0" opacity="0.9" prefHeight="40.0" prefWidth="330.0" style="-fx-font-size: 16;">
+                        <ComboBox fx:id="cbRolEliminar" disable="true" layoutX="1033.0" layoutY="354.0" opacity="0.9" prefHeight="40.0" prefWidth="330.0" style="-fx-font-size: 18;">
                            <cursor>
                               <Cursor fx:constant="DISAPPEAR" />
                            </cursor>
