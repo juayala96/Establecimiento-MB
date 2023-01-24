@@ -370,7 +370,7 @@ public class ControladorUsuarios {
                                         labErroresModificar2(ErrorModificar);
                                     }
                                 } else {
-                                    labErrorEmailModificar.setText("Solo se admiten Letras");
+                                    labErrorEmailModificar.setText("No se parece a un E-mail");
                                     ErrorModificar = "Email";
                                     labErroresModificar2(ErrorModificar);
                                 }
@@ -558,7 +558,8 @@ public class ControladorUsuarios {
         return datos.matches("[a-zA-Z]*");
     }
     public static boolean validarLetrasEmail(String datos){
-        return datos.matches("[a-zA-Z-.-@]*");
+        return datos.matches("^[_A-Za-z0-9-+]+(\\.[_A-Za-z0-9-]+)*@"
+                + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
     }
     //----------------------------------------- Limpiador de Campos ----------------------------------------------
     private void limpiarCamposCrear(){

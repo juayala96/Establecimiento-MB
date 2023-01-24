@@ -1,5 +1,7 @@
 package com.secadero.controlador;
 
+import com.secadero.modelo.empleados.LeerComboBoxes.*;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -47,31 +49,37 @@ public class ControladorEmpleados {
     @FXML
     private Button btnVolver;
     @FXML
-    private ComboBox<?> cbAreaCrear;
+    private ComboBox<String> cbAreaCrear;
     @FXML
-    private ComboBox<?> cbAreaEliminar;
+    private ComboBox<String> cbAreaEliminar;
     @FXML
-    private ComboBox<?> cbAreaModificar;
+    private ComboBox<String> cbAreaModificar;
     @FXML
-    private ComboBox<?> cbEstadoCivilCrear;
+    private ComboBox<String> cbEstadoCivilCrear;
     @FXML
-    private ComboBox<?> cbEstadoCivilEliminar;
+    private ComboBox<String> cbEstadoCivilEliminar;
     @FXML
-    private ComboBox<?> cbEstadoCivilModificar;
+    private ComboBox<String> cbEstadoCivilModificar;
     @FXML
-    private ComboBox<?> cbGeneroCrear;
+    private ComboBox<String> cbGeneroCrear;
     @FXML
-    private ComboBox<?> cbGeneroEliminar;
+    private ComboBox<String> cbGeneroEliminar;
     @FXML
-    private ComboBox<?> cbGeneroModificar;
+    private ComboBox<String> cbGeneroModificar;
     @FXML
-    private ComboBox<?> cbPuestoCrear;
+    private ComboBox<String> cbGrupoSanguineoCrear;
     @FXML
-    private ComboBox<?> cbPuestoEliminar;
+    private ComboBox<String> cbGrupoSanguineoEliminar;
     @FXML
-    private ComboBox<?> cbPuestoModificar;
+    private ComboBox<String> cbGrupoSanguineoModificar;
     @FXML
-    private ComboBox<?> cbTiposfiltrosEmpleados;
+    private ComboBox<String> cbPuestoCrear;
+    @FXML
+    private ComboBox<String> cbPuestoEliminar;
+    @FXML
+    private ComboBox<String> cbPuestoModificar;
+    @FXML
+    private ComboBox<String> cbTiposfiltrosEmpleados;
     @FXML
     private TableColumn<?, ?> colApellido;
     @FXML
@@ -123,10 +131,6 @@ public class ControladorEmpleados {
     @FXML
     private Label labErrorFotografiaModificar;
     @FXML
-    private Label labErrorGrupoSanguineoCrear;
-    @FXML
-    private Label labErrorGrupoSanguineoModificar;
-    @FXML
     private Label labErrorLegajoCrear;
     @FXML
     private Label labErrorLegajoModificar;
@@ -177,12 +181,6 @@ public class ControladorEmpleados {
     @FXML
     private TextField textDireccionModificar;
     @FXML
-    private TextField textGrupoSanguineoCrear;
-    @FXML
-    private TextField textGrupoSanguineoEliminar;
-    @FXML
-    private TextField textGrupoSanguineoModificar;
-    @FXML
     private TextField textLegajoCrear;
     @FXML
     private TextField textLegajoEliminar;
@@ -201,9 +199,88 @@ public class ControladorEmpleados {
     @FXML
     private TextField textTelefonoModificar;
 
-    // -------------------------------------------- Inicialización ----------------------------------------------
-    public void initialize() {}
+    String ErrorCrear = "";
+    String ErrorModificar = "";
 
+    // -------------------------------------------- Inicialización ----------------------------------------------
+    public void initialize() {
+        String[] tipoFiltro = {"Nombre", "Apellido", "Legajo", "Area", "Puesto"};
+        cbTiposfiltrosEmpleados.getItems().addAll(tipoFiltro);
+        cbTiposfiltrosEmpleados.getSelectionModel().selectFirst();
+        inicializarComboBoxBD();
+    }
+
+    public void inicializarComboBoxBD() {
+        // --------------------- Genero del Empleado -----------------------
+        String datoEmpleado_Genero;
+        GeneroEmpleado generoEmpleado = new GeneroEmpleado();
+        ObservableList<GeneroEmpleado> empleado_Genero = generoEmpleado.getGenero_Empleado();
+        for (int i = 0; i < empleado_Genero.size(); i++) {
+            datoEmpleado_Genero = empleado_Genero.get(i).getDescripcion();
+            cbGeneroCrear.getItems().addAll(datoEmpleado_Genero);
+            cbGeneroModificar.getItems().addAll(datoEmpleado_Genero);
+            cbGeneroEliminar.getItems().addAll(datoEmpleado_Genero);
+        }
+        cbGeneroCrear.getSelectionModel().selectFirst();
+        cbGeneroModificar.getSelectionModel().selectFirst();
+        cbGeneroEliminar.getSelectionModel().selectFirst();
+
+        // --------------------- Estado Civil del Empleado -----------------------
+        String datoEmpleado_EstadoCivil;
+        EstadoCivilEmpleado estadoCivilEmpleado = new EstadoCivilEmpleado();
+        ObservableList<EstadoCivilEmpleado> empleado_EstadoCivil = estadoCivilEmpleado.getEstadoCivil_Empleado();
+        for (int i = 0; i < empleado_EstadoCivil.size(); i++) {
+            datoEmpleado_EstadoCivil = empleado_EstadoCivil.get(i).getDescripcion();
+            cbEstadoCivilCrear.getItems().addAll(datoEmpleado_EstadoCivil);
+            cbEstadoCivilModificar.getItems().addAll(datoEmpleado_EstadoCivil);
+            cbEstadoCivilEliminar.getItems().addAll(datoEmpleado_EstadoCivil);
+        }
+        cbEstadoCivilCrear.getSelectionModel().selectFirst();
+        cbEstadoCivilModificar.getSelectionModel().selectFirst();
+        cbEstadoCivilEliminar.getSelectionModel().selectFirst();
+
+        // --------------------- Grupo Sanguine del Empleado -----------------------
+        String datoEmpleado_GrupoSanguineo;
+        GrupoSanguineoEmpleado grupoSanguineoEmpleado = new GrupoSanguineoEmpleado();
+        ObservableList<GrupoSanguineoEmpleado> empleado_GrupoSanguineo = grupoSanguineoEmpleado.getGrupoSanguineo_Empleado();
+        for (int i = 0; i < empleado_GrupoSanguineo.size(); i++) {
+            datoEmpleado_GrupoSanguineo = empleado_GrupoSanguineo.get(i).getDescripcion();
+            cbGrupoSanguineoCrear.getItems().addAll(datoEmpleado_GrupoSanguineo);
+            cbGrupoSanguineoModificar.getItems().addAll(datoEmpleado_GrupoSanguineo);
+            cbGrupoSanguineoEliminar.getItems().addAll(datoEmpleado_GrupoSanguineo);
+        }
+        cbGrupoSanguineoCrear.getSelectionModel().selectFirst();
+        cbGrupoSanguineoModificar.getSelectionModel().selectFirst();
+        cbGrupoSanguineoEliminar.getSelectionModel().selectFirst();
+
+        // --------------------- Area del Empleado -----------------------
+        String datoEmpleado_Area;
+        AreaEmpleado areaEmpleado = new AreaEmpleado();
+        ObservableList<AreaEmpleado> empleado_Area = areaEmpleado.getArea_Empleado();
+        for (int i = 0; i < empleado_Area.size(); i++) {
+            datoEmpleado_Area = empleado_Area.get(i).getDescripcion();
+            cbAreaCrear.getItems().addAll(datoEmpleado_Area);
+            cbAreaModificar.getItems().addAll(datoEmpleado_Area);
+            cbAreaEliminar.getItems().addAll(datoEmpleado_Area);
+        }
+        cbAreaCrear.getSelectionModel().selectFirst();
+        cbAreaModificar.getSelectionModel().selectFirst();
+        cbAreaEliminar.getSelectionModel().selectFirst();
+
+        // --------------------- Puesto del Empleado -----------------------
+        String datoEmpleado_Puesto;
+        PuestoEmpleado puestoEmpleado = new PuestoEmpleado();
+        ObservableList<PuestoEmpleado> empleado_Puesto = puestoEmpleado.getPuesto_Empleado();
+        for (int i = 0; i < empleado_Puesto.size(); i++) {
+            datoEmpleado_Puesto = empleado_Puesto.get(i).getDescripcion();
+            cbPuestoCrear.getItems().addAll(datoEmpleado_Puesto);
+            cbPuestoModificar.getItems().addAll(datoEmpleado_Puesto);
+            cbPuestoEliminar.getItems().addAll(datoEmpleado_Puesto);
+        }
+        cbPuestoCrear.getSelectionModel().selectFirst();
+        cbPuestoModificar.getSelectionModel().selectFirst();
+        cbPuestoEliminar.getSelectionModel().selectFirst();
+    }
     // --------------------------------------------- Búsqueda y Filtros -----------------------------------------
 
     @FXML
@@ -219,6 +296,8 @@ public class ControladorEmpleados {
     //---------------------------------------------- Eventos Importantes ----------------------------------------
     @FXML
     private void guardar() {
+        ErrorCrear = "";
+        TextField[] campos = {textNombreCrear, textApellidoCrear, textLegajoCrear, textLegajoCrear, textTelefonoCrear, textDireccionCrear};
 
     }
 
