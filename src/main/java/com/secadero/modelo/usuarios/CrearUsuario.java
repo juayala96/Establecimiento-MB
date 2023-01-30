@@ -18,7 +18,9 @@ public class CrearUsuario {
     public void agregarUsuario(TextField textNombreCrear, TextField textApellidoCrear, TextField textLegajoCrear, TextField textEmailCrear, TextField textTelefonoCrear, TextField textNombreUsuarioCrear, TextField textContraseniaCrear, ComboBox<String> cbRolCrear, Label labLimpiarCamposCrear){
         Connection con = Conexion.leerConexion();
         PreparedStatement pstm = null;
+        PreparedStatement pstm2 = null;
         ResultSet rs = null;
+        ResultSet rs2 = null;
         String respuesta = "YES";
         String respuesta2 = "YES";
 
@@ -33,11 +35,11 @@ public class CrearUsuario {
             }
 
             String consulta2 = "SELECT * FROM usuarios WHERE nombreUsuario = ? AND estadoUsuario = ?";
-            pstm = con.prepareStatement(consulta2);
-            pstm.setString(1, textContraseniaCrear.getText());
-            pstm.setString(2, "Vigente");
-            rs = pstm.executeQuery();
-            if(rs.next()){
+            pstm2 = con.prepareStatement(consulta2);
+            pstm2.setString(1, textNombreUsuarioCrear.getText());
+            pstm2.setString(2, "Vigente");
+            rs2 = pstm2.executeQuery();
+            if(rs2.next()){
                 respuesta2 = "NO";
             }
 
@@ -65,7 +67,7 @@ public class CrearUsuario {
                 } else {
                     Alert alerta = new Alert(Alert.AlertType.ERROR);
                     alerta.setTitle("ERROR de Duplicación");
-                    alerta.setContentText("No está permitido duplicar la CONTRASEÑA de otro Usuario");
+                    alerta.setContentText("No está permitido duplicar la NOMBRE DE USUARIO de otro Usuario");
                     alerta.showAndWait();
                 }
             } else {

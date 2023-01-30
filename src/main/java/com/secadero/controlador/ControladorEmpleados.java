@@ -1,17 +1,20 @@
 package com.secadero.controlador;
 
 import com.secadero.modelo.empleados.LeerComboBoxes.*;
+import com.secadero.modelo.empleados.LeerEmpleado;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 
 import java.io.IOException;
+import java.util.Date;
 
 public class ControladorEmpleados {
     public ControladorEmpleados(){}
@@ -81,21 +84,21 @@ public class ControladorEmpleados {
     @FXML
     private ComboBox<String> cbTiposfiltrosEmpleados;
     @FXML
-    private TableColumn<?, ?> colApellido;
+    private TableColumn<LeerEmpleado, String> colApellido;
     @FXML
-    private TableColumn<?, ?> colArea;
+    private TableColumn<LeerEmpleado, String> colArea;
     @FXML
-    private TableColumn<?, ?> colFechaIngreso;
+    private TableColumn<LeerEmpleado, Date> colFechaIngreso;
     @FXML
-    private TableColumn<?, ?> colID;
+    private TableColumn<LeerEmpleado, Integer> colID;
     @FXML
-    private TableColumn<?, ?> colLegajo;
+    private TableColumn<LeerEmpleado, Integer> colLegajo;
     @FXML
-    private TableColumn<?, ?> colNombre;
+    private TableColumn<LeerEmpleado, String> colNombre;
     @FXML
-    private TableColumn<?, ?> colPuesto;
+    private TableColumn<LeerEmpleado, String> colPuesto;
     @FXML
-    private TableColumn<?, ?> colTelefono;
+    private TableColumn<LeerEmpleado, String> colTelefono;
     @FXML
     private DatePicker dpFechaIngresoCrear;
     @FXML
@@ -165,7 +168,7 @@ public class ControladorEmpleados {
     @FXML
     private Tab tabModificarEmpleado;
     @FXML
-    private TableView<?> tablaEmpleados;
+    private TableView<LeerEmpleado> tablaEmpleados;
     @FXML
     private TextField textApellidoCrear;
     @FXML
@@ -199,6 +202,9 @@ public class ControladorEmpleados {
     @FXML
     private TextField textTelefonoModificar;
 
+    ObservableList<LeerEmpleado> listEmpleado;
+    int index = -1;
+
     String ErrorCrear = "";
     String ErrorModificar = "";
 
@@ -207,7 +213,31 @@ public class ControladorEmpleados {
         String[] tipoFiltro = {"Nombre", "Apellido", "Legajo", "Area", "Puesto"};
         cbTiposfiltrosEmpleados.getItems().addAll(tipoFiltro);
         cbTiposfiltrosEmpleados.getSelectionModel().selectFirst();
-        inicializarComboBoxBD();
+        //inicializarComboBoxBD();
+        inicializarTabla();
+    }
+
+    public void inicializarTabla(){
+        colNombre.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, String>("nombre"));
+        colApellido.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, String>("apellido"));
+        colLegajo.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, Integer>("legajo"));
+        colTelefono.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, String>("telefono"));
+        colFechaIngreso.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, Date>("fechaIngreso"));
+        colArea.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, String>("idAreaFK"));
+        colPuesto.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, String>("idPuestoFK"));
+        colID.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, Integer>("idempleados"));
+
+        listEmpleado = LeerEmpleado.listaEmpleados();
+        for (int i = 0; i < listEmpleado.size(); i++) {
+            System.out.println(listEmpleado.get(i).getNombre());
+            System.out.println(listEmpleado.get(i).getApellido());
+            System.out.println(listEmpleado.get(i).getLegajo());
+            System.out.println(listEmpleado.get(i).getTelefono());
+            System.out.println(listEmpleado.get(i).getIdAreaFK());
+            System.out.println(listEmpleado.get(i).getIdPuestoFK());
+        }
+        tablaEmpleados.getColumns().setAll(colNombre, colApellido, colLegajo, colTelefono, colFechaIngreso, colArea, colPuesto, colID);
+        tablaEmpleados.getItems().setAll(listEmpleado);
     }
 
     public void inicializarComboBoxBD() {
@@ -298,6 +328,7 @@ public class ControladorEmpleados {
     private void guardar() {
         ErrorCrear = "";
         TextField[] campos = {textNombreCrear, textApellidoCrear, textLegajoCrear, textLegajoCrear, textTelefonoCrear, textDireccionCrear};
+
 
     }
 
