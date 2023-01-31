@@ -92,7 +92,7 @@ public class CrearEmpleado {
                                     pstm.setString(10, dpFechaIngresoCrear.getEditor().getText());
                                     pstm.setInt(11, datoIdAreaFK);
                                     pstm.setInt(12, datoIdPuestoFK);
-                                    pstm.setString(13, "");
+                                    pstm.setString(13, "Disponible");
                                     pstm.setString(14, "Vigente");
                                     pstm.executeUpdate();
                                 }

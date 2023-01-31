@@ -3,6 +3,7 @@ package com.secadero.controlador;
 import com.secadero.modelo.empleados.CrearEmpleado;
 import com.secadero.modelo.empleados.LeerComboBoxes.*;
 import com.secadero.modelo.empleados.LeerEmpleado;
+import com.secadero.modelo.usuarios.LeerUsuario;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -240,6 +241,23 @@ public class ControladorEmpleados {
         tablaEmpleados.getItems().setAll(listEmpleado);
     }
 
+    @FXML
+    private void getSelecciono() {
+        index = tablaEmpleados.getSelectionModel().getSelectedIndex();
+        if (index <= -1) {
+
+            return;
+        }
+
+        labIDModificar.setText(colID.getCellData(index).toString());
+        LeerEmpleado empleadoSeleccionado = new LeerEmpleado();
+        empleadoSeleccionado.listaEmpleadoSeleccionadoM(textNombreModificar, textApellidoModificar, textLegajoModificar, textTelefonoModificar, textDireccionModificar, cbGeneroModificar, cbEstadoCivilModificar, dpFechaNaciminetoModificar, cbGrupoSanguineoModificar, dpFechaIngresoModificar, cbAreaModificar, cbPuestoModificar, labIDModificar);
+
+        labIDEliminar.setText(colID.getCellData(index).toString());
+        LeerEmpleado empleadoSeleccion = new LeerEmpleado();
+        empleadoSeleccion.listaEmpleadoSeleccionadoE(textNombreEliminar, textApellidoEliminar, textLegajoEliminar, textTelefonoEliminar, textDireccionEliminar, cbGeneroEliminar, cbEstadoCivilEliminar, dpFechaNaciminetoEliminar, cbGrupoSanguineoEliminar, dpFechaIngresoEliminar, cbAreaEliminar, cbPuestoEliminar, labIDEliminar);
+    }
+
     public void inicializarComboBoxBD() {
         // --------------------- Genero del Empleado -----------------------
         String datoEmpleado_Genero;
@@ -315,12 +333,22 @@ public class ControladorEmpleados {
 
     @FXML
     private void btnBuscar() {
+        ObservableList<LeerEmpleado> listBuscar;
+        listBuscar = LeerEmpleado.buscarEmpleado(textBuscarEmpleado);
 
+        if(textBuscarEmpleado.getText().equals("")){
+            tablaEmpleados.getItems().setAll(listEmpleado);
+        } else {
+            tablaEmpleados.getItems().setAll(listBuscar);
+        }
     }
 
     @FXML
     private void filtroEmpleado() {
+        ObservableList<LeerEmpleado> listFiltros;
+        listFiltros = LeerEmpleado.filtroEmpleado(cbTiposfiltrosEmpleados);
 
+        tablaEmpleados.getItems().setAll(listFiltros);
     }
 
     //---------------------------------------------- Eventos Importantes ----------------------------------------
@@ -381,6 +409,28 @@ public class ControladorEmpleados {
     }
 
     @FXML
+    private void regresarCLista() {
+        SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasEmpleados.getSelectionModel();
+        modeloSeleccion.select(tabListaEmpleado);
+    }
+
+    @FXML
+    private void regresarMLista() {
+        regresarCLista();
+    }
+
+    @FXML
+    private void regresarELista() {
+        regresarCLista();
+    }
+
+    @FXML
+    private void volverPrincipal() throws IOException {
+        closeWindowsPrincipalEmpleado();
+    }
+
+    // -------------------------------------------- Ausencias --------------------------------------------
+    @FXML
     private void ausenciasEmpleado() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/vistas/ausencias.fxml"));
         AnchorPane root = loader.load();
@@ -402,6 +452,7 @@ public class ControladorEmpleados {
         myEscena.close();
     }
 
+    // -------------------------------------------- Licencias --------------------------------------------
     @FXML
     private void licenciasEmpleado() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/vistas/licencias.fxml"));
@@ -422,27 +473,6 @@ public class ControladorEmpleados {
         });
         Stage myEscena = (Stage) this.btnAusenciasEmpleado.getScene().getWindow();
         myEscena.close();
-    }
-
-    @FXML
-    private void regresarCLista() {
-        SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasEmpleados.getSelectionModel();
-        modeloSeleccion.select(tabListaEmpleado);
-    }
-
-    @FXML
-    private void regresarMLista() {
-        regresarCLista();
-    }
-
-    @FXML
-    private void regresarELista() {
-        regresarCLista();
-    }
-
-    @FXML
-    private void volverPrincipal() throws IOException {
-        closeWindowsPrincipalEmpleado();
     }
 
     // ---------------------------------------- Fechas Actuales Inicializadas ----------------------------------------

@@ -33,7 +33,7 @@
                               <Font name="Georgia Bold" size="48.0" />
                            </font>
                         </Label>
-                        <TableView fx:id="tablaEmpleados" layoutX="125.0" layoutY="218.0" prefHeight="467.0" prefWidth="1059.0">
+                        <TableView fx:id="tablaEmpleados" layoutX="125.0" layoutY="218.0" onMouseClicked="#getSelecciono" prefHeight="467.0" prefWidth="1059.0">
                            <columns>
                               <TableColumn fx:id="colNombre" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Nombre" />
                               <TableColumn fx:id="colApellido" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Apellido" />
