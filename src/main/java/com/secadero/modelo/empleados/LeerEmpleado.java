@@ -121,4 +121,33 @@ public class LeerEmpleado {
         }
         return lista;
     }
+
+    //------------------------------------- Leer Empleados al seleccionar -------------------------------------------
+    public static ObservableList<LeerEmpleado> listaEmpleadoSeleccionado(){
+        Connection con = Conexion.leerConexion();
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+        ObservableList<LeerEmpleado> lista = FXCollections.observableArrayList();
+
+        try {
+            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, telefono, fechaIngreso, area.descripcion, puesto.descripcion, idempleados FROM empleados INNER JOIN area ON empleados.idAreaFK = area.idarea INNER JOIN puesto ON empleados.idPuestoFK = puesto.idpuesto WHERE estadoEmpleado = ?");
+            pstm.setString(1, "Vigente");
+            rs = pstm.executeQuery();
+
+            while (rs.next()){
+                lista.add(new LeerEmpleado(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getString("telefono"), rs.getDate("fechaIngreso"), rs.getString("area.descripcion"), rs.getString("puesto.descripcion"), Integer.parseInt(rs.getString("idempleados"))));
+            }
+        } catch (SQLException ex) {
+            System.err.println("Error: " + ex.getMessage());
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pstm != null) pstm.close();
+                if (con != null) con.close();
+            } catch (Exception ex){
+                System.err.println("Error: " + ex.getMessage());
+            }
+        }
+        return lista;
+    }
 }

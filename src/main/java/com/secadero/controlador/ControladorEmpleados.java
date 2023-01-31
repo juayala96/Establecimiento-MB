@@ -1,5 +1,6 @@
 package com.secadero.controlador;
 
+import com.secadero.modelo.empleados.CrearEmpleado;
 import com.secadero.modelo.empleados.LeerComboBoxes.*;
 import com.secadero.modelo.empleados.LeerEmpleado;
 import javafx.collections.ObservableList;
@@ -11,10 +12,16 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.Objects;
 
 public class ControladorEmpleados {
     public ControladorEmpleados(){}
@@ -213,8 +220,9 @@ public class ControladorEmpleados {
         String[] tipoFiltro = {"Nombre", "Apellido", "Legajo", "Area", "Puesto"};
         cbTiposfiltrosEmpleados.getItems().addAll(tipoFiltro);
         cbTiposfiltrosEmpleados.getSelectionModel().selectFirst();
-        //inicializarComboBoxBD();
+        inicializarComboBoxBD();
         inicializarTabla();
+        fechasInicializar();
     }
 
     public void inicializarTabla(){
@@ -228,14 +236,6 @@ public class ControladorEmpleados {
         colID.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, Integer>("idempleados"));
 
         listEmpleado = LeerEmpleado.listaEmpleados();
-        for (int i = 0; i < listEmpleado.size(); i++) {
-            System.out.println(listEmpleado.get(i).getNombre());
-            System.out.println(listEmpleado.get(i).getApellido());
-            System.out.println(listEmpleado.get(i).getLegajo());
-            System.out.println(listEmpleado.get(i).getTelefono());
-            System.out.println(listEmpleado.get(i).getIdAreaFK());
-            System.out.println(listEmpleado.get(i).getIdPuestoFK());
-        }
         tablaEmpleados.getColumns().setAll(colNombre, colApellido, colLegajo, colTelefono, colFechaIngreso, colArea, colPuesto, colID);
         tablaEmpleados.getItems().setAll(listEmpleado);
     }
@@ -325,11 +325,20 @@ public class ControladorEmpleados {
 
     //---------------------------------------------- Eventos Importantes ----------------------------------------
     @FXML
-    private void guardar() {
+    private void guardar() throws SQLException, ParseException {
         ErrorCrear = "";
         TextField[] campos = {textNombreCrear, textApellidoCrear, textLegajoCrear, textLegajoCrear, textTelefonoCrear, textDireccionCrear};
 
+        CrearEmpleado empleadoCrear = new CrearEmpleado();
+        empleadoCrear.agregarEmpleado(textNombreCrear, textApellidoCrear, textLegajoCrear, textTelefonoCrear, textDireccionCrear, cbGeneroCrear, cbEstadoCivilCrear, dpFechaNaciminetoCrear, cbGrupoSanguineoCrear, dpFechaIngresoCrear, cbAreaCrear, cbPuestoCrear, labLimpiarCamposCrear);
 
+        if(Objects.equals(labLimpiarCamposCrear.getText(), "OK")){
+            labLimpiarCamposCrear.setText("");
+            inicializarTabla();
+            regresarCLista();
+            inicializarComboBoxBD();
+            System.out.println("YES");
+        }
     }
 
     @FXML
@@ -436,6 +445,93 @@ public class ControladorEmpleados {
         closeWindowsPrincipalEmpleado();
     }
 
+    // ---------------------------------------- Fechas Actuales Inicializadas ----------------------------------------
+    public void fechasInicializar() {
+        dpFechaNaciminetoCrear.setValue(LocalDate.now());
+        dpFechaNaciminetoCrear.setConverter(new StringConverter<LocalDate>() {
+            @Override
+            public String toString(LocalDate localDate) {
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                return dtf.format(localDate);
+            }
+
+            @Override
+            public LocalDate fromString(String s) {
+                return null;
+            }
+        });
+
+        dpFechaNaciminetoModificar.setValue(LocalDate.now());
+        dpFechaNaciminetoModificar.setConverter(new StringConverter<LocalDate>() {
+            @Override
+            public String toString(LocalDate localDate) {
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                return dtf.format(localDate);
+            }
+
+            @Override
+            public LocalDate fromString(String s) {
+                return null;
+            }
+        });
+
+        dpFechaNaciminetoEliminar.setValue(LocalDate.now());
+        dpFechaNaciminetoEliminar.setConverter(new StringConverter<LocalDate>() {
+            @Override
+            public String toString(LocalDate localDate) {
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                return dtf.format(localDate);
+            }
+
+            @Override
+            public LocalDate fromString(String s) {
+                return null;
+            }
+        });
+
+        dpFechaIngresoCrear.setValue(LocalDate.now());
+        dpFechaIngresoCrear.setConverter(new StringConverter<LocalDate>() {
+            @Override
+            public String toString(LocalDate localDate) {
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                return dtf.format(localDate);
+            }
+
+            @Override
+            public LocalDate fromString(String s) {
+                return null;
+            }
+        });
+
+        dpFechaIngresoModificar.setValue(LocalDate.now());
+        dpFechaIngresoModificar.setConverter(new StringConverter<LocalDate>() {
+            @Override
+            public String toString(LocalDate localDate) {
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                return dtf.format(localDate);
+            }
+
+            @Override
+            public LocalDate fromString(String s) {
+                return null;
+            }
+        });
+
+        dpFechaIngresoEliminar.setValue(LocalDate.now());
+        dpFechaIngresoEliminar.setConverter(new StringConverter<LocalDate>() {
+            @Override
+            public String toString(LocalDate localDate) {
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                return dtf.format(localDate);
+            }
+
+            @Override
+            public LocalDate fromString(String s) {
+                return null;
+            }
+        });
+    }
+
     // ---------------------------------- Cerrar Ventana -------------------------------------------
     public void closeWindowsPrincipalEmpleado() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/vistas/principal.fxml"));
@@ -449,5 +545,4 @@ public class ControladorEmpleados {
         Stage myEscena = (Stage) this.btnVolver.getScene().getWindow();
         myEscena.close();
     }
-
 }
