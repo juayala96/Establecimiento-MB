@@ -603,6 +603,7 @@ public class ControladorUsuarios {
         labIDEliminar.setText("");
     }
 
+    // ----------------------------------------------- Labels de Errores ----------------------------------------
     private void labErroresCrear(){
         labErrorNombreCrear.setText("");
         labErrorApellidoCrear.setText("");

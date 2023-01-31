@@ -13,7 +13,7 @@ public class CrearEmpleado {
     public CrearEmpleado(){}
 
     //--------------------------------------------- Crear Empleado ---------------------------------------------------
-    public void agregarEmpleado(TextField textNombreCrear, TextField textApellidoCrear, TextField textLegajoCrear, TextField textTelefonoCrear, TextField textDireccionCrear, ComboBox<String> cbGeneroCrear, ComboBox<String> cbEstadoCivilCrear, DatePicker dpFechaNaciminetoCrear, ComboBox<String> cbGrupoSanguineoCrear, DatePicker dpFechaIngresoCrear, ComboBox<String> cbAreaCrear, ComboBox<String> cbPuestoCrear, Label labLimpiarCamposCrear) throws ParseException, SQLException {
+    public void agregarEmpleado(TextField textNombreCrear, TextField textApellidoCrear, TextField textLegajoCrear, TextField textTelefonoCrear, TextField textDireccionCrear, TextField textEmailCrear, ComboBox<String> cbGeneroCrear, ComboBox<String> cbEstadoCivilCrear, DatePicker dpFechaNaciminetoCrear, ComboBox<String> cbGrupoSanguineoCrear, DatePicker dpFechaIngresoCrear, ComboBox<String> cbAreaCrear, ComboBox<String> cbPuestoCrear, Label labLimpiarCamposCrear) throws ParseException, SQLException {
         Connection con = Conexion.leerConexion();
         PreparedStatement pstm = null;
         ResultSet rs = null;
@@ -78,22 +78,23 @@ public class CrearEmpleado {
                                 while (rs.next()) {
                                     datoIdPuestoFK = Integer.parseInt(rs.getString("idpuesto"));
 
-                                    String consulta6 = "INSERT INTO empleados(nombre, apellido, legajo, telefono, direccion, idGeneroFK, idEstadoCivilFK, fechaNacimiento, idGrupoSanguineoFK, fechaIngreso, idAreaFK, idPuestoFK, estado, estadoEmpleado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                                    String consulta6 = "INSERT INTO empleados(nombre, apellido, legajo, telefono, direccion, email, idGeneroFK, idEstadoCivilFK, fechaNacimiento, idGrupoSanguineoFK, fechaIngreso, idAreaFK, idPuestoFK, estado, estadoEmpleado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                                     pstm = con.prepareStatement(consulta6);
                                     pstm.setString(1, textNombreCrear.getText());
                                     pstm.setString(2, textApellidoCrear.getText());
                                     pstm.setInt(3, Integer.parseInt(textLegajoCrear.getText()));
                                     pstm.setString(4, textTelefonoCrear.getText());
                                     pstm.setString(5, textDireccionCrear.getText());
-                                    pstm.setInt(6, datoIdGeneroFK);
-                                    pstm.setInt(7, datoIdEstadoCivilFK);
-                                    pstm.setString(8, dpFechaNaciminetoCrear.getEditor().getText());
-                                    pstm.setInt(9, datoIdGrupoSanguineoFK);
-                                    pstm.setString(10, dpFechaIngresoCrear.getEditor().getText());
-                                    pstm.setInt(11, datoIdAreaFK);
-                                    pstm.setInt(12, datoIdPuestoFK);
-                                    pstm.setString(13, "Disponible");
-                                    pstm.setString(14, "Vigente");
+                                    pstm.setString(6, textEmailCrear.getText());
+                                    pstm.setInt(7, datoIdGeneroFK);
+                                    pstm.setInt(8, datoIdEstadoCivilFK);
+                                    pstm.setString(9, dpFechaNaciminetoCrear.getEditor().getText());
+                                    pstm.setInt(10, datoIdGrupoSanguineoFK);
+                                    pstm.setString(11, dpFechaIngresoCrear.getEditor().getText());
+                                    pstm.setInt(12, datoIdAreaFK);
+                                    pstm.setInt(13, datoIdPuestoFK);
+                                    pstm.setString(14, "Disponible");
+                                    pstm.setString(15, "Vigente");
                                     pstm.executeUpdate();
                                 }
                             }
