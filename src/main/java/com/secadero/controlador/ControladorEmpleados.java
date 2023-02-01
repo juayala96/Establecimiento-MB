@@ -1,9 +1,13 @@
 package com.secadero.controlador;
 
 import com.secadero.modelo.empleados.CrearEmpleado;
+import com.secadero.modelo.empleados.EliminarEmpleado;
 import com.secadero.modelo.empleados.LeerComboBoxes.*;
 import com.secadero.modelo.empleados.LeerEmpleado;
+import com.secadero.modelo.empleados.ModificarEmpleado;
+import com.secadero.modelo.usuarios.EliminarUsuario;
 import com.secadero.modelo.usuarios.LeerUsuario;
+import com.secadero.modelo.usuarios.ModificarUsuario;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,6 +27,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Objects;
+import java.util.Optional;
 
 public class ControladorEmpleados {
     public ControladorEmpleados(){}
@@ -245,7 +250,7 @@ public class ControladorEmpleados {
 
         labIDModificar.setText(colID.getCellData(index).toString());
         LeerEmpleado empleadoSeleccionado = new LeerEmpleado();
-        empleadoSeleccionado.listaEmpleadoSeleccionadoM(textNombreModificar, textApellidoModificar, textLegajoModificar, textTelefonoModificar, textDireccionModificar, textEmailModificar, cbGeneroModificar, cbEstadoCivilModificar, dpFechaNaciminetoModificar, cbGrupoSanguineoModificar, dpFechaIngresoModificar, cbAreaModificar, cbPuestoModificar, labIDModificar);
+        empleadoSeleccionado.listaEmpleadoSeleccionadoM(textNombreModificar, textApellidoModificar, textLegajoModificar, textTelefonoModificar, textDireccionModificar, textEmailModificar, cbGeneroModificar, cbEstadoCivilModificar, dpFechaNaciminetoModificar, cbGrupoSanguineoModificar, dpFechaIngresoModificar, cbAreaModificar, cbPuestoModificar, labIDModificar, labInformacionModificarLegajo);
 
         labIDEliminar.setText(colID.getCellData(index).toString());
         LeerEmpleado empleadoSeleccion = new LeerEmpleado();
@@ -368,6 +373,7 @@ public class ControladorEmpleados {
                                         if(Objects.equals(labLimpiarCamposCrear.getText(), "OK")){
                                             labLimpiarCamposCrear.setText("");
                                             inicializarTabla();
+                                            vaciarComboBox();
                                             inicializarComboBoxBD();
                                             regresarCLista();
                                             limpiarCamposCrear();
@@ -416,13 +422,110 @@ public class ControladorEmpleados {
     }
 
     @FXML
-    private void modificar() {
+    private void modificar() throws SQLException, ParseException {
+        ErrorModificar = "";
+        TextField[] campos = {textNombreModificar, textApellidoModificar, textLegajoModificar, textTelefonoModificar, textDireccionModificar, textEmailModificar};
+        TextField[] campoLegajo = {textLegajoModificar};
+        Label[] id = {labIDModificar};
+        labErroresModificar();
 
+        if(comprobarIDModificar(id)){
+            if(comprobarValoresModificar(campos)) {
+                if (validarLetras(textNombreModificar.getText())) {
+                    if (validarLetras(textApellidoModificar.getText())) {
+                        if (validarNumeros(textLegajoModificar.getText())) {
+                            if (comprobarValoresModificarLegajo(campoLegajo)) {
+                                if (validarNumerosTelefono(textTelefonoModificar.getText())) {
+                                    if (validarLetras(textDireccionModificar.getText())) {
+                                        if (validarLetrasEmail(textEmailModificar.getText())) {
+                                            labErroresModificar();
+
+                                            ModificarEmpleado empleadoModificar = new ModificarEmpleado();
+                                            empleadoModificar.modificarEmpleado(textNombreModificar, textApellidoModificar, textLegajoModificar, textTelefonoModificar, textDireccionModificar, textEmailModificar, cbGeneroModificar, cbEstadoCivilModificar, dpFechaNaciminetoModificar, cbGrupoSanguineoModificar, dpFechaIngresoModificar, cbAreaModificar, cbPuestoModificar, labLimpiarCamposModificar, labInformacionModificarLegajo, labIDModificar);
+
+                                            if(Objects.equals(labLimpiarCamposModificar.getText(), "OK")){
+                                                inicializarTabla();
+                                                vaciarComboBox();
+                                                inicializarComboBoxBD();
+                                                regresarCLista();
+                                                limpiarCamposModificar();
+                                                limpiarCamposEliminar();
+                                            }
+
+                                        } else {
+                                            labErrorEmailModificar.setText("No se parece a un E-mail");
+                                            ErrorModificar = "Email";
+                                            labErroresModificar2(ErrorModificar);
+                                        }
+                                    } else {
+                                        labErrorDireccionModificar.setText("Solo se admiten Letras");
+                                        ErrorModificar = "Direccion";
+                                        labErroresModificar2(ErrorModificar);
+                                    }
+                                }  else {
+                                    labErrorTelefonoModificar.setText("Solo se admiten Números");
+                                    ErrorModificar = "Telefono";
+                                    labErroresModificar2(ErrorModificar);
+                                }
+                            } else {
+                                labErrorLegajoModificar.setText("Solo se permite hasta 10 Números");
+                                ErrorModificar = "Legajo";
+                                labErroresModificar2(ErrorModificar);
+                            }
+                        } else {
+                            labErrorLegajoModificar.setText("Solo se admiten Números");
+                            ErrorModificar = "Legajo";
+                            labErroresModificar2(ErrorModificar);
+                        }
+                    } else {
+                        labErrorApellidoModificar.setText("Solo se admiten Letras");
+                        ErrorModificar = "Apellido";
+                        labErroresModificar2(ErrorModificar);
+                    }
+                } else {
+                    labErrorNombreModificar.setText("Solo se admiten Letras");
+                    ErrorModificar = "Nombre";
+                    labErroresModificar2(ErrorModificar);
+                }
+            }  else {
+                Alert alerta = new Alert(Alert.AlertType.WARNING);
+                alerta.setTitle("Error!");
+                alerta.setContentText("Debe de completar todos los campos y que NO sean cortos.");
+                alerta.showAndWait();
+            }
+        } else {
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setTitle("Error!");
+            alerta.setContentText("Debe de seleccionar antes un Empleado para Modificarlo");
+            alerta.showAndWait();
+        }
     }
 
     @FXML
     private void eliminar() {
+        Label[] id = {labIDEliminar};
+        if (comprobarIDEliminar(id)){
+            Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
+            alerta.setTitle("Confirmar Eliminar");
+            alerta.setContentText("¿Desea Eliminar el Empleado?");
+            Optional<ButtonType> resultado = alerta.showAndWait();
+            if (resultado.isPresent() && resultado.get() == ButtonType.OK){
 
+                EliminarEmpleado empleadoEliminar = new EliminarEmpleado();
+                empleadoEliminar.eliminarEmpleado(labIDEliminar);
+                inicializarTabla();
+
+                limpiarCamposEliminar();
+                limpiarCamposModificar();
+                regresarCLista();
+            }
+        } else{
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setTitle("Error!");
+            alerta.setContentText("Debe de seleccionar antes un Empleado para Eliminarlo");
+            alerta.showAndWait();
+            btnRegresarELista.requestFocus();
+        }
     }
 
     //------------------------------------ Acciones Simples de los Botones --------------------------------------
@@ -519,7 +622,7 @@ public class ControladorEmpleados {
         boolean valido = true;
         for (int i = 0; i < campos.length; i++) {
             String valor = campos[i].getText();
-            if(valor == null || valor.trim().isEmpty() || textNombreCrear.getLength() < 4|| textApellidoCrear.getLength() < 4|| textLegajoCrear.getLength() < 4 || textTelefonoCrear.getLength() < 11 || textDireccionCrear.getLength() < 4 || textEmailCrear.getLength() < 6){
+            if(valor == null || valor.trim().isEmpty() || textNombreCrear.getLength() < 4|| textApellidoCrear.getLength() < 4|| textLegajoCrear.getLength() < 4 || textTelefonoCrear.getLength() < 10 || textDireccionCrear.getLength() < 4 || textEmailCrear.getLength() < 6){
                 valido = false;
             }
         }
@@ -530,7 +633,7 @@ public class ControladorEmpleados {
         boolean valido = true;
         for (int i = 0; i < campos.length; i++) {
             String valor = campos[i].getText();
-            if(valor == null || valor.trim().isEmpty() || textNombreModificar.getLength() < 4|| textApellidoModificar.getLength() < 4|| textLegajoModificar.getLength() < 4|| textTelefonoModificar.getLength() < 11 || textDireccionModificar.getLength() < 4 || textEmailModificar.getLength() < 6){
+            if(valor == null || valor.trim().isEmpty() || textNombreModificar.getLength() < 4|| textApellidoModificar.getLength() < 4|| textLegajoModificar.getLength() < 4|| textTelefonoModificar.getLength() < 10 || textDireccionModificar.getLength() < 4 || textEmailModificar.getLength() < 6){
                 valido = false;
             }
         }
@@ -626,7 +729,9 @@ public class ControladorEmpleados {
         cbGrupoSanguineoModificar.getSelectionModel().selectFirst();
         cbAreaModificar.getSelectionModel().selectFirst();
         cbPuestoModificar.getSelectionModel().selectFirst();
+        labIDModificar.setText("");
         labLimpiarCamposModificar.setText("");
+        labInformacionModificarLegajo.setText("");
         fechasInicializar();
     }
 
@@ -642,6 +747,7 @@ public class ControladorEmpleados {
         cbGrupoSanguineoEliminar.getSelectionModel().selectFirst();
         cbAreaEliminar.getSelectionModel().selectFirst();
         cbPuestoEliminar.getSelectionModel().selectFirst();
+        labIDEliminar.setText("");
         fechasInicializar();
     }
 

@@ -128,7 +128,7 @@ public class LeerEmpleado {
     }
 
     //---------------------------------- Leer Empleados al seleccionar Modificar ----------------------------------------
-    public void listaEmpleadoSeleccionadoM(TextField textNombreModificar, TextField textApellidoModificar, TextField textLegajoModificar, TextField textTelefonoModificar, TextField textDireccionModificar, TextField textEmailModificar, ComboBox<String> cbGeneroModificar, ComboBox<String> cbEstadoCivilModificar, DatePicker dpFechaNaciminetoModificar, ComboBox<String> cbGrupoSanguineoModificar, DatePicker dpFechaIngresoModificar, ComboBox<String> cbAreaModificar, ComboBox<String> cbPuestoModificar, Label labIDModificar){
+    public void listaEmpleadoSeleccionadoM(TextField textNombreModificar, TextField textApellidoModificar, TextField textLegajoModificar, TextField textTelefonoModificar, TextField textDireccionModificar, TextField textEmailModificar, ComboBox<String> cbGeneroModificar, ComboBox<String> cbEstadoCivilModificar, DatePicker dpFechaNaciminetoModificar, ComboBox<String> cbGrupoSanguineoModificar, DatePicker dpFechaIngresoModificar, ComboBox<String> cbAreaModificar, ComboBox<String> cbPuestoModificar, Label labIDModificar, Label labInformacionModificarLegajo){
         Connection con = Conexion.leerConexion();
         PreparedStatement pstm = null;
         ResultSet rs = null;
@@ -142,6 +142,7 @@ public class LeerEmpleado {
                 textNombreModificar.setText(rs.getString("nombre"));
                 textApellidoModificar.setText(rs.getString("apellido"));
                 textLegajoModificar.setText(String.valueOf(rs.getInt("legajo")));
+                labInformacionModificarLegajo.setText(String.valueOf(rs.getInt("legajo")));
                 textTelefonoModificar.setText(rs.getString("telefono"));
                 textDireccionModificar.setText(rs.getString("direccion"));
                 textEmailModificar.setText(rs.getString("email"));

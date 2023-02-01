@@ -485,7 +485,7 @@ public class ControladorUsuarios {
         boolean valido = true;
         for (int i = 0; i < campos.length; i++) {
             String valor = campos[i].getText();
-            if(valor == null || valor.trim().isEmpty() || textNombreCrear.getLength() < 4|| textApellidoCrear.getLength() < 4|| textLegajoCrear.getLength() < 4  || textEmailCrear.getLength() < 8 || textTelefonoCrear.getLength() < 11 || textContraseniaCrear.getLength() < 4 || textRepetirContraseniaCrear.getLength() < 4){
+            if(valor == null || valor.trim().isEmpty() || textNombreCrear.getLength() < 4|| textApellidoCrear.getLength() < 4|| textLegajoCrear.getLength() < 4  || textEmailCrear.getLength() < 8 || textTelefonoCrear.getLength() < 10 || textContraseniaCrear.getLength() < 4 || textRepetirContraseniaCrear.getLength() < 4){
                 valido = false;
             }
         }
@@ -496,7 +496,7 @@ public class ControladorUsuarios {
         boolean valido = true;
         for (int i = 0; i < campos.length; i++) {
             String valor = campos[i].getText();
-            if(valor == null || valor.trim().isEmpty() || textNombreModificar.getLength() < 4|| textApellidoModificar.getLength() < 4|| textLegajoModificar.getLength() < 4  || textEmailModificar.getLength() < 8 || textTelefonoModificar.getLength() < 11 || textContraseniaModificar.getLength() < 4 || textRepetirContraseniaModificar.getLength() < 4){
+            if(valor == null || valor.trim().isEmpty() || textNombreModificar.getLength() < 4|| textApellidoModificar.getLength() < 4|| textLegajoModificar.getLength() < 4  || textEmailModificar.getLength() < 8 || textTelefonoModificar.getLength() < 10 || textContraseniaModificar.getLength() < 4 || textRepetirContraseniaModificar.getLength() < 4){
                 valido = false;
             }
         }

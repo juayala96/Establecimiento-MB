@@ -127,7 +127,7 @@ public class CrearEmpleado {
             labLimpiarCamposCrear.setText("");
             Alert alerta = new Alert(Alert.AlertType.ERROR);
             alerta.setTitle("Error!");
-            alerta.setContentText("Error: No se puede duplicar Legajos de otros empleados");
+            alerta.setContentText("No está permitido duplicar la LEGAJO de otro Empleado");
             alerta.showAndWait();
         }
     }
