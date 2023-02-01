@@ -41,7 +41,37 @@ public class ControladorAusencias {
     @FXML
     private Button btnVolver;
     @FXML
-    private ComboBox<String> cbTiposFiltrosAusencias;
+    private ComboBox<?> cbTiposFiltrosAusencias;
+    @FXML
+    private TableColumn<?, ?> colApellido;
+    @FXML
+    private TableColumn<?, ?> colLegajoEmpleadoCrear;
+    @FXML
+    private TableColumn<?, ?> colApellidoEmpleadoCrear;
+    @FXML
+    private TableColumn<?, ?> colCertificado;
+    @FXML
+    private TableColumn<?, ?> colEmailEmpleadoCrear;
+    @FXML
+    private TableColumn<?, ?> colFecha;
+    @FXML
+    private TableColumn<?, ?> colIDAusencia;
+    @FXML
+    private TableColumn<?, ?> colIDEmpleado;
+    @FXML
+    private TableColumn<?, ?> colIDEmpleadoCrear;
+    @FXML
+    private TableColumn<?, ?> colJustificado;
+    @FXML
+    private TableColumn<?, ?> colLegajo;
+    @FXML
+    private TableColumn<?, ?> colMotivo;
+    @FXML
+    private TableColumn<?, ?> colNombre;
+    @FXML
+    private TableColumn<?, ?> colNombreEmpleadoCrear;
+    @FXML
+    private TableColumn<?, ?> colTelefonoEmpleadoCrear;
     @FXML
     private DatePicker dbBuscarFecha;
     @FXML
@@ -51,21 +81,53 @@ public class ControladorAusencias {
     @FXML
     private DatePicker dpFechaModificar;
     @FXML
+    private Label labApellidoEmpleadoCrear;
+    @FXML
+    private Label labApellidoEmpleadoEliminar;
+    @FXML
+    private Label labApellidoEmpleadoModificar;
+    @FXML
+    private Label labIDAusenciaEliminar;
+    @FXML
+    private Label labIDAusenciaModificar;
+    @FXML
+    private Label labIDEmpleadoEliminar;
+    @FXML
+    private Label labIDEmpleadoLista;
+    @FXML
+    private Label labIDEmpleadoModificar;
+    @FXML
+    private Label labJustificadoEliminar;
+    @FXML
+    private Label labLegajoEmpleadoCrear;
+    @FXML
+    private Label labLegajoEmpleadoEliminar;
+    @FXML
+    private Label labLegajoEmpleadoModificar;
+    @FXML
+    private Label labLimpiarCamposCrear;
+    @FXML
+    private Label labLimpiarCamposModificar;
+    @FXML
+    private Label labNombreEmpleadoCrear;
+    @FXML
+    private Label labNombreEmpleadoEliminar;
+    @FXML
+    private Label labNombreEmpleadoModificar;
+    @FXML
     private TabPane panelPestaniasAusencias;
     @FXML
     private RadioButton rbJustificadoNoCrear;
-    @FXML
-    private RadioButton rbJustificadoNoEliminar;
     @FXML
     private RadioButton rbJustificadoNoModificar;
     @FXML
     private RadioButton rbJustificadoSiCrear;
     @FXML
-    private RadioButton rbJustificadoSiEliminar;
-    @FXML
     private RadioButton rbJustificadoSiModificar;
     @FXML
     private Tab tabEliminarAusencia;
+    @FXML
+    private TableView<?> tabEmpleadosCrear;
     @FXML
     private Tab tabListaAusencias;
     @FXML
@@ -73,22 +135,26 @@ public class ControladorAusencias {
     @FXML
     private Tab tabRegistrarAusencia;
     @FXML
-    private TableView<String> tablaAusencias;
+    private TableView<?> tablaAusencias;
     @FXML
-    private TextArea textAreaMotivoCrear;
-    @FXML
-    private TextArea textAreaMotivoEliminar;
-    @FXML
-    private TextArea textAreaMotivoModificar;
+    private TextField textBuscarAusenciaLegajoE;
     @FXML
     private TextField textCertificadoCrear;
     @FXML
     private TextField textCertificadoEliminar;
     @FXML
     private TextField textCertificadoModificar;
+    @FXML
+    private TextArea textMotivoCrear;
+    @FXML
+    private TextArea textMotivoEliminar;
+    @FXML
+    private TextArea textMotivoModificar;
 
     // -------------------------------------------- Inicialización ----------------------------------------------
-    public void initialize() {}
+    public void initialize() {
+
+    }
 
     // --------------------------------------------- Búsqueda y Filtros -----------------------------------------
 
