@@ -20,6 +20,7 @@ public class LeerEmpleado {
     private Date fechaIngreso;
     private String idAreaFK;
     private String idPuestoFK;
+    private String email;
 
     public LeerEmpleado(){}
 
@@ -31,6 +32,15 @@ public class LeerEmpleado {
         this.fechaIngreso = fechaIngreso;
         this.idAreaFK = idAreaFK;
         this.idPuestoFK = idPuestoFK;
+        this.idempleados = idempleados;
+    }
+
+    public LeerEmpleado(String nombre, String apellido, int legajo, String telefono, String email, int idempleados) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.legajo = legajo;
+        this.telefono = telefono;
+        this.email = email;
         this.idempleados = idempleados;
     }
 
@@ -96,6 +106,14 @@ public class LeerEmpleado {
 
     public void setIdPuestoFK(String idPuestoFK) {
         this.idPuestoFK = idPuestoFK;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     //------------------------------------------- Leer Empleados --------------------------------------------------
@@ -268,5 +286,34 @@ public class LeerEmpleado {
             }
         }
         return listaFiltro;
+    }
+
+    //------------------------------------------- Leer Empleado en Ausencia ------------------------------------------------
+    public static ObservableList<LeerEmpleado> listaEmpleadoAusencia(){
+        Connection con = Conexion.leerConexion();
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+        ObservableList<LeerEmpleado> lista = FXCollections.observableArrayList();
+
+        try {
+            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, telefono, email, idempleados FROM empleados  WHERE estadoEmpleado = ?");
+            pstm.setString(1, "Vigente");
+            rs = pstm.executeQuery();
+
+            while (rs.next()){
+                lista.add(new LeerEmpleado(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getString("telefono"), rs.getString("email"), Integer.parseInt(rs.getString("idempleados"))));
+            }
+        } catch (SQLException ex) {
+            System.err.println("Error: " + ex.getMessage());
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pstm != null) pstm.close();
+                if (con != null) con.close();
+            } catch (Exception ex){
+                System.err.println("Error: " + ex.getMessage());
+            }
+        }
+        return lista;
     }
 }
