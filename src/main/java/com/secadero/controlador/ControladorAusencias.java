@@ -1,6 +1,11 @@
 package com.secadero.controlador;
 
+import com.secadero.modelo.ausencia.CrearAusencia;
+import com.secadero.modelo.ausencia.EliminarAusencia;
 import com.secadero.modelo.ausencia.LeerAusencia;
+import com.secadero.modelo.ausencia.ModificarAusencia;
+import com.secadero.modelo.empleados.CrearEmpleado;
+import com.secadero.modelo.empleados.EliminarEmpleado;
 import com.secadero.modelo.empleados.LeerEmpleado;
 import com.secadero.modelo.usuarios.LeerUsuario;
 import javafx.collections.ObservableList;
@@ -17,6 +22,8 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.Objects;
+import java.util.Optional;
 
 public class ControladorAusencias {
     public ControladorAusencias(){}
@@ -89,6 +96,8 @@ public class ControladorAusencias {
     private DatePicker dpFechaEliminar;
     @FXML
     private DatePicker dpFechaModificar;
+    @FXML
+    private DatePicker dpFechaModificarDuplicada;
     @FXML
     private Label labApellidoEmpleadoCrear;
     @FXML
@@ -232,6 +241,7 @@ public class ControladorAusencias {
         labApellidoEmpleadoModificar.setText(colApellido.getCellData(index));
         labLegajoEmpleadoModificar.setText(colLegajo.getCellData(index).toString());
         dpFechaModificar.getEditor().setText(colFecha.getCellData(index).toString());
+        dpFechaModificarDuplicada.getEditor().setText(colFecha.getCellData(index).toString());
         textMotivoModificar.setText(colMotivo.getCellData(index));
         labSeleccionJustificacion.setText(colJustificado.getCellData(index));
         textCertificadoModificar.setText(colCertificado.getCellData(index));
@@ -268,28 +278,116 @@ public class ControladorAusencias {
     // --------------------------------------------- Búsqueda y Filtros -----------------------------------------
     @FXML
     private void btnBuscar() {
-
+        ObservableList<LeerAusencia> listBuscarAmbos;
+        listBuscarAmbos = LeerAusencia.buscarAusenciaAmbos(textBuscarAusenciaLegajoE, dpBuscarFecha);
+        if(textBuscarAusenciaLegajoE.getText().equals("")){
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setTitle("Error!");
+            alerta.setContentText("Debe de completar el Legajo para Buscar");
+            alerta.showAndWait();
+        } else {
+            tablaAusencias.getItems().setAll(listBuscarAmbos);
+        }
     }
 
     @FXML
     private void filtroAusencia() {
+        ObservableList<LeerAusencia> listFiltros;
+        listFiltros = LeerAusencia.filtroAusencia(cbTiposFiltrosAusencias);
+        tablaAusencias.getItems().setAll(listFiltros);
+    }
 
+    @FXML
+    private void actualizarTabla(){
+        tablaAusencias.getItems().setAll(listAusencia);
     }
 
     //---------------------------------------------- Eventos Importantes ----------------------------------------
     @FXML
     private void guardar() {
+        TextArea[] campoMotivo = {textMotivoCrear};
+        Label[] campoIDEmpleado = {labIDEmpleadoCrear};
+        if(comprobarIDCrearEmpleado(campoIDEmpleado)){
+            if(comprobarValoresCrear(campoMotivo)){
+                CrearAusencia ausenciaCrear = new CrearAusencia();
+                ausenciaCrear.agregarAusencia(labIDEmpleadoCrear, dpFechaCrear, textMotivoCrear, labJustificacionCrear, textCertificadoCrear, labLimpiarCamposCrear);
 
+                if(Objects.equals(labLimpiarCamposCrear.getText(), "OK")){
+                    labLimpiarCamposCrear.setText("");
+                    inicializarTabla();
+                    regresarCLista();
+                    limpiarCamposCrear();
+                    inicializarTablaEmpleado();
+                }
+            } else {
+                Alert alerta = new Alert(Alert.AlertType.WARNING);
+                alerta.setTitle("Error");
+                alerta.setContentText("Debes de completar el campo [Motivo] y que no sea corto");
+                alerta.showAndWait();
+            }
+        } else {
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setTitle("Error");
+            alerta.setContentText("Para guardar debes de tomar un empleado");
+            alerta.showAndWait();
+        }
     }
 
     @FXML
     private void modificar() {
+        TextArea[] campoMotivo = {textMotivoModificar};
+        Label[] campoIDAusencia = {labIDAusenciaModificar};
+        if(comprobarIDModificarAusencia(campoIDAusencia)){
+            if(comprobarValoresModificar(campoMotivo)){
+                ModificarAusencia ausenciaModificar = new ModificarAusencia();
+                ausenciaModificar.modificarAusencia(labIDEmpleadoModificar, labIDAusenciaModificar, dpFechaModificar, dpFechaModificarDuplicada, textMotivoModificar, labJustificacionModificar, textCertificadoModificar, labLimpiarCamposModificar);
 
+                if(Objects.equals(labLimpiarCamposModificar.getText(), "OK")){
+                    labLimpiarCamposModificar.setText("");
+                    dpFechaModificarDuplicada.getEditor().setText("");
+                    inicializarTabla();
+                    regresarCLista();
+                    limpiarCamposModificar();
+                    limpiarCamposEliminar();
+                }
+            } else {
+                Alert alerta = new Alert(Alert.AlertType.WARNING);
+                alerta.setTitle("Error");
+                alerta.setContentText("Debes de completar el campo [Motivo] y que no sea corto");
+                alerta.showAndWait();
+            }
+        } else {
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setTitle("Error!");
+            alerta.setContentText("Debe de seleccionar antes una Ausencia de un empleado para Modificarlo");
+            alerta.showAndWait();
+        }
     }
 
     @FXML
     private void eliminar() {
+        Label[] id = {labIDAusenciaEliminar};
+        if (comprobarIDEliminarAusencia(id)){
+            Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
+            alerta.setTitle("Confirmar Eliminar");
+            alerta.setContentText("¿Desea Eliminar la Ausencia del Empleado?");
+            Optional<ButtonType> resultado = alerta.showAndWait();
+            if (resultado.isPresent() && resultado.get() == ButtonType.OK){
 
+                EliminarAusencia ausenciaEliminar = new EliminarAusencia();
+                ausenciaEliminar.eliminarAusencia(labIDAusenciaEliminar);
+                inicializarTabla();
+
+                limpiarCamposEliminar();
+                limpiarCamposModificar();
+            }
+        } else{
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setTitle("Error!");
+            alerta.setContentText("Debe de seleccionar antes una Ausencia de un empleado para Eliminarlo");
+            alerta.showAndWait();
+            btnRegresarELista.requestFocus();
+        }
     }
 
     //------------------------------------ Acciones Simples de los Botones --------------------------------------
@@ -362,7 +460,7 @@ public class ControladorAusencias {
     }
 
     //---------------------------------------- Comprobación de Campos -------------------------------------------
-    private boolean comprobarValoresCrear(TextField[] campos){
+    private boolean comprobarValoresCrear(TextArea[] campos){
         boolean valido = true;
         for (int i = 0; i < campos.length; i++) {
             String valor = campos[i].getText();
@@ -373,7 +471,7 @@ public class ControladorAusencias {
         return valido;
     }
 
-    private boolean comprobarValoresModificar(TextField[] campos){
+    private boolean comprobarValoresModificar(TextArea[] campos){
         boolean valido = true;
         for (int i = 0; i < campos.length; i++) {
             String valor = campos[i].getText();

@@ -24,6 +24,11 @@ public class EliminarUsuario {
             pstm.setString(1, "Eliminado");
             pstm.setInt(2, Integer.parseInt(labIDEliminar.getText()));
             pstm.executeUpdate();
+
+            Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+            alerta.setTitle("Datos Eliminados");
+            alerta.setContentText("Se a Eliminado Correctamente.");
+            alerta.showAndWait();
         } catch (SQLException ex) {
             System.err.println("Error: " + ex.getMessage());
         } finally {

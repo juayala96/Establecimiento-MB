@@ -4,6 +4,10 @@ import com.secadero.conexion.Conexion;
 import com.secadero.modelo.empleados.LeerEmpleado;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -116,9 +120,8 @@ public class LeerAusencia {
         ObservableList<LeerAusencia> lista = FXCollections.observableArrayList();
 
         try {
-            pstm = con.prepareStatement("SELECT empleados.nombre, empleados.apellido, empleados.legajo, fecha, motivo, justificado, certificado, idausencias, idEmpleadoFK FROM ausencias INNER JOIN empleados ON ausencias.idEmpleadoFK = empleados.idempleados WHERE estadoAusencia = ? AND empleados.estadoEmpleado = ?");
+            pstm = con.prepareStatement("SELECT empleados.nombre, empleados.apellido, empleados.legajo, fecha, motivo, justificado, certificado, idausencias, idEmpleadoFK FROM ausencias INNER JOIN empleados ON ausencias.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ?");
             pstm.setString(1, "Vigente");
-            pstm.setString(2, "Vigente");
             rs = pstm.executeQuery();
 
             while (rs.next()){
@@ -136,5 +139,92 @@ public class LeerAusencia {
             }
         }
         return lista;
+    }
+
+    //------------------------------------------- Buscar Ausencia --------------------------------------------------
+    public static ObservableList<LeerAusencia> buscarAusenciaAmbos(TextField textBuscarAusenciaLegajoE, DatePicker dpBuscarFecha){
+        Connection con = Conexion.leerConexion();
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+        ObservableList<LeerAusencia> lista = FXCollections.observableArrayList();
+
+        try {
+            pstm = con.prepareStatement("SELECT empleados.nombre, empleados.apellido, empleados.legajo, fecha, motivo, justificado, certificado, idausencias, idEmpleadoFK FROM ausencias INNER JOIN empleados ON ausencias.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND (fecha = ? AND empleados.legajo = ?)");
+            pstm.setString(1, "Vigente");
+            pstm.setDate(2, java.sql.Date.valueOf(dpBuscarFecha.getEditor().getText()));
+            pstm.setString(3, textBuscarAusenciaLegajoE.getText());
+            rs = pstm.executeQuery();
+
+            while (rs.next()){
+                lista.add(new LeerAusencia(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getDate("fecha"), rs.getString("motivo"), rs.getString("justificado"), rs.getString("certificado"), rs.getInt("idausencias"), rs.getInt("idEmpleadoFK")));
+            }
+        } catch (SQLException ex) {
+            System.err.println("Error: " + ex.getMessage());
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pstm != null) pstm.close();
+                if (con != null) con.close();
+            } catch (Exception ex){
+                System.err.println("Error: " + ex.getMessage());
+            }
+        }
+        return lista;
+    }
+
+    //------------------------------------------- Filtro Ausencia --------------------------------------------------
+    public static ObservableList<LeerAusencia> filtroAusencia(ComboBox<String> cbTiposFiltrosAusencias){
+        Connection con = Conexion.leerConexion();
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+        ObservableList<LeerAusencia> lista = FXCollections.observableArrayList();
+        String dato = cbTiposFiltrosAusencias.getSelectionModel().getSelectedItem().toLowerCase();
+        if(!dato.equals("fecha")){
+            try {
+                pstm = con.prepareStatement("SELECT empleados.nombre, empleados.apellido, empleados.legajo, fecha, motivo, justificado, certificado, idausencias, idEmpleadoFK FROM ausencias INNER JOIN empleados ON ausencias.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? ORDER BY " + dato +" ASC");
+                pstm.setString(1, "Vigente");
+
+                rs = pstm.executeQuery();
+
+                while (rs.next()){
+                    lista.add(new LeerAusencia(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getDate("fecha"), rs.getString("motivo"), rs.getString("justificado"), rs.getString("certificado"), rs.getInt("idausencias"), rs.getInt("idEmpleadoFK")));
+                }
+            } catch (SQLException ex) {
+                System.err.println("Error: " + ex.getMessage());
+            } finally {
+                try {
+                    if (rs != null) rs.close();
+                    if (pstm != null) pstm.close();
+                    if (con != null) con.close();
+                } catch (Exception ex){
+                    System.err.println("Error: " + ex.getMessage());
+                }
+            }
+            return lista;
+        } else {
+            try {
+                pstm = con.prepareStatement("SELECT empleados.nombre, empleados.apellido, empleados.legajo, fecha, motivo, justificado, certificado, idausencias, idEmpleadoFK FROM ausencias INNER JOIN empleados ON ausencias.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? ORDER BY " + dato +" DESC");
+                pstm.setString(1, "Vigente");
+
+                rs = pstm.executeQuery();
+
+                while (rs.next()){
+                    lista.add(new LeerAusencia(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getDate("fecha"), rs.getString("motivo"), rs.getString("justificado"), rs.getString("certificado"), rs.getInt("idausencias"), rs.getInt("idEmpleadoFK")));
+                }
+            } catch (SQLException ex) {
+                System.err.println("Error: " + ex.getMessage());
+            } finally {
+                try {
+                    if (rs != null) rs.close();
+                    if (pstm != null) pstm.close();
+                    if (con != null) con.close();
+                } catch (Exception ex){
+                    System.err.println("Error: " + ex.getMessage());
+                }
+            }
+            return lista;
+        }
+
+
     }
 }

@@ -359,29 +359,23 @@ public class ControladorEmpleados {
                     if (validarNumeros(textLegajoCrear.getText())) {
                         if (comprobarValoresCrearLegajo(campoLegajo)) {
                             if (validarNumerosTelefono(textTelefonoCrear.getText())) {
-                                if (validarLetras(textDireccionCrear.getText())) {
-                                    if (validarLetrasEmail(textEmailCrear.getText())) {
-                                        labErroresCrear();
+                                if (validarLetrasEmail(textEmailCrear.getText())) {
+                                    labErroresCrear();
 
-                                        CrearEmpleado empleadoCrear = new CrearEmpleado();
-                                        empleadoCrear.agregarEmpleado(textNombreCrear, textApellidoCrear, textLegajoCrear, textTelefonoCrear, textDireccionCrear, textEmailCrear, cbGeneroCrear, cbEstadoCivilCrear, dpFechaNaciminetoCrear, cbGrupoSanguineoCrear, dpFechaIngresoCrear, cbAreaCrear, cbPuestoCrear, labLimpiarCamposCrear);
+                                    CrearEmpleado empleadoCrear = new CrearEmpleado();
+                                    empleadoCrear.agregarEmpleado(textNombreCrear, textApellidoCrear, textLegajoCrear, textTelefonoCrear, textDireccionCrear, textEmailCrear, cbGeneroCrear, cbEstadoCivilCrear, dpFechaNaciminetoCrear, cbGrupoSanguineoCrear, dpFechaIngresoCrear, cbAreaCrear, cbPuestoCrear, labLimpiarCamposCrear);
 
-                                        if(Objects.equals(labLimpiarCamposCrear.getText(), "OK")){
-                                            labLimpiarCamposCrear.setText("");
-                                            inicializarTabla();
-                                            vaciarComboBox();
-                                            inicializarComboBoxBD();
-                                            regresarCLista();
-                                            limpiarCamposCrear();
-                                        }
-                                    } else {
-                                        labErrorEmailCrear.setText("No se parece a un E-mail");
-                                        ErrorCrear = "Email";
-                                        labErroresCrear2(ErrorCrear);
+                                    if(Objects.equals(labLimpiarCamposCrear.getText(), "OK")){
+                                        labLimpiarCamposCrear.setText("");
+                                        inicializarTabla();
+                                        vaciarComboBox();
+                                        inicializarComboBoxBD();
+                                        regresarCLista();
+                                        limpiarCamposCrear();
                                     }
-                                }  else {
-                                    labErrorDireccionCrear.setText("Solo se admiten Letras");
-                                    ErrorCrear = "Direccion";
+                                } else {
+                                    labErrorEmailCrear.setText("No se parece a un E-mail");
+                                    ErrorCrear = "Email";
                                     labErroresCrear2(ErrorCrear);
                                 }
                             } else {
@@ -432,30 +426,24 @@ public class ControladorEmpleados {
                         if (validarNumeros(textLegajoModificar.getText())) {
                             if (comprobarValoresModificarLegajo(campoLegajo)) {
                                 if (validarNumerosTelefono(textTelefonoModificar.getText())) {
-                                    if (validarLetras(textDireccionModificar.getText())) {
-                                        if (validarLetrasEmail(textEmailModificar.getText())) {
-                                            labErroresModificar();
+                                    if (validarLetrasEmail(textEmailModificar.getText())) {
+                                        labErroresModificar();
 
-                                            ModificarEmpleado empleadoModificar = new ModificarEmpleado();
-                                            empleadoModificar.modificarEmpleado(textNombreModificar, textApellidoModificar, textLegajoModificar, textTelefonoModificar, textDireccionModificar, textEmailModificar, cbGeneroModificar, cbEstadoCivilModificar, dpFechaNaciminetoModificar, cbGrupoSanguineoModificar, dpFechaIngresoModificar, cbAreaModificar, cbPuestoModificar, labLimpiarCamposModificar, labInformacionModificarLegajo, labIDModificar);
+                                        ModificarEmpleado empleadoModificar = new ModificarEmpleado();
+                                        empleadoModificar.modificarEmpleado(textNombreModificar, textApellidoModificar, textLegajoModificar, textTelefonoModificar, textDireccionModificar, textEmailModificar, cbGeneroModificar, cbEstadoCivilModificar, dpFechaNaciminetoModificar, cbGrupoSanguineoModificar, dpFechaIngresoModificar, cbAreaModificar, cbPuestoModificar, labLimpiarCamposModificar, labInformacionModificarLegajo, labIDModificar);
 
-                                            if(Objects.equals(labLimpiarCamposModificar.getText(), "OK")){
-                                                inicializarTabla();
-                                                vaciarComboBox();
-                                                inicializarComboBoxBD();
-                                                regresarCLista();
-                                                limpiarCamposModificar();
-                                                limpiarCamposEliminar();
-                                            }
-
-                                        } else {
-                                            labErrorEmailModificar.setText("No se parece a un E-mail");
-                                            ErrorModificar = "Email";
-                                            labErroresModificar2(ErrorModificar);
+                                        if(Objects.equals(labLimpiarCamposModificar.getText(), "OK")){
+                                            inicializarTabla();
+                                            vaciarComboBox();
+                                            inicializarComboBoxBD();
+                                            regresarCLista();
+                                            limpiarCamposModificar();
+                                            limpiarCamposEliminar();
                                         }
+
                                     } else {
-                                        labErrorDireccionModificar.setText("Solo se admiten Letras");
-                                        ErrorModificar = "Direccion";
+                                        labErrorEmailModificar.setText("No se parece a un E-mail");
+                                        ErrorModificar = "Email";
                                         labErroresModificar2(ErrorModificar);
                                     }
                                 }  else {
