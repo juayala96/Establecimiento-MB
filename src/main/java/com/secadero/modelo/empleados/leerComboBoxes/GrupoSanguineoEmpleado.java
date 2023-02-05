@@ -1,4 +1,4 @@
-package com.secadero.modelo.empleados.LeerComboBoxes;
+package com.secadero.modelo.empleados.leerComboBoxes;
 
 import com.secadero.conexion.Conexion;
 import javafx.collections.FXCollections;
@@ -9,23 +9,23 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class PuestoEmpleado {
-    private int idpuesto;
+public class GrupoSanguineoEmpleado {
+    private int idgrupoSanguineo;
     private String descripcion;
 
-    public PuestoEmpleado(){}
+    public GrupoSanguineoEmpleado(){}
 
-    public PuestoEmpleado(String descripcion, int idpuesto) {
+    public GrupoSanguineoEmpleado(String descripcion, int idgrupoSanguineo) {
         this.descripcion = descripcion;
-        this.idpuesto = idpuesto;
+        this.idgrupoSanguineo = idgrupoSanguineo;
     }
 
-    public int getIdpuesto() {
-        return idpuesto;
+    public int getIdgrupoSanguineol() {
+        return idgrupoSanguineo;
     }
 
-    public void setIdpuesto(int idpuesto) {
-        this.idpuesto = idpuesto;
+    public void setIdgrupoSanguineo(int idgrupoSanguineo) {
+        this.idgrupoSanguineo = idgrupoSanguineo;
     }
 
     public String getDescripcion() {
@@ -36,19 +36,19 @@ public class PuestoEmpleado {
         this.descripcion = descripcion;
     }
 
-    // ------------------------------------------- Combo Box Estado Civil -----------------------------------------------
-    public static ObservableList<PuestoEmpleado> getPuesto_Empleado(){
+    // ------------------------------------------- Combo Box Grupo Sanguineo -----------------------------------------------
+    public static ObservableList<GrupoSanguineoEmpleado> getGrupoSanguineo_Empleado(){
         Connection con = Conexion.leerConexion();
         PreparedStatement pstm = null;
         ResultSet rs = null;
-        ObservableList<PuestoEmpleado> lista = FXCollections.observableArrayList();
+        ObservableList<GrupoSanguineoEmpleado> lista = FXCollections.observableArrayList();
 
         try {
-            pstm = con.prepareStatement("SELECT * FROM puesto");
+            pstm = con.prepareStatement("SELECT * FROM grupo_sanguineo");
             rs = pstm.executeQuery();
 
             while (rs.next()){
-                lista.add(new PuestoEmpleado(rs.getString("descripcion"), rs.getInt("idpuesto")));
+                lista.add(new GrupoSanguineoEmpleado(rs.getString("descripcion"), rs.getInt("idgrupoSanguineo")));
             }
         } catch (SQLException ex) {
             System.err.println("Error: " + ex.getMessage());

@@ -1,7 +1,10 @@
 package com.secadero.controlador;
 
 import com.secadero.modelo.ausencia.LeerAusencia;
+import com.secadero.modelo.empleados.LeerEmpleado;
+import com.secadero.modelo.empleados.leerComboBoxes.GeneroEmpleado;
 import com.secadero.modelo.licencias.LeerLicencia;
+import com.secadero.modelo.licencias.leerComboBoxes.TipoLicencia;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,8 +13,11 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class ControladorLicencias {
@@ -44,19 +50,19 @@ public class ControladorLicencias {
     @FXML
     private Button btnVolver;
     @FXML
-    private ComboBox<?> cbTipoLicenciaCrear;
+    private ComboBox<String> cbTipoLicenciaCrear;
     @FXML
-    private ComboBox<?> cbTipoLicenciaEliminar;
+    private ComboBox<String> cbTipoLicenciaEliminar;
     @FXML
-    private ComboBox<?> cbTipoLicenciaModificar;
+    private ComboBox<String> cbTipoLicenciaModificar;
     @FXML
-    private ComboBox<?> cbTiposFiltrosLicencia;
+    private ComboBox<String> cbTiposFiltrosLicencia;
     @FXML
     private TableColumn<LeerLicencia, String> colApellido;
     @FXML
-    private TableColumn<?, ?> colApellidoEmpleadoCrear;
+    private TableColumn<LeerEmpleado, String> colApellidoEmpleadoCrear;
     @FXML
-    private TableColumn<?, ?> colEmailEmpleadoCrear;
+    private TableColumn<LeerEmpleado, String> colEmailEmpleadoCrear;
     @FXML
     private TableColumn<LeerLicencia, Date> colFechaFin;
     @FXML
@@ -64,21 +70,21 @@ public class ControladorLicencias {
     @FXML
     private TableColumn<LeerLicencia, Integer> colIDEmpleado;
     @FXML
-    private TableColumn<?, ?> colIDEmpleadoCrear;
+    private TableColumn<LeerEmpleado, Integer> colIDEmpleadoCrear;
     @FXML
     private TableColumn<LeerLicencia, Integer> colIDLicencia;
     @FXML
     private TableColumn<LeerLicencia, Integer> colLegajo;
     @FXML
-    private TableColumn<?, ?> colLegajoEmpleadoCrear;
+    private TableColumn<LeerEmpleado, Integer> colLegajoEmpleadoCrear;
     @FXML
     private TableColumn<LeerLicencia, String> colNombre;
     @FXML
-    private TableColumn<?, ?> colNombreEmpleadoCrear;
+    private TableColumn<LeerEmpleado, String> colNombreEmpleadoCrear;
     @FXML
     private TableColumn<LeerLicencia, String> colTelefono;
     @FXML
-    private TableColumn<?, ?> colTelefonoEmpleadoCrear;
+    private TableColumn<LeerEmpleado, String> colTelefonoEmpleadoCrear;
     @FXML
     private TableColumn<LeerLicencia, String> colTipoLicencia;
     @FXML
@@ -142,7 +148,7 @@ public class ControladorLicencias {
     @FXML
     private Tab tabEliminarLicencia;
     @FXML
-    private TableView<?> tabEmpleadosCrear;
+    private TableView<LeerEmpleado> tabEmpleadosCrear;
     @FXML
     private Tab tabListaLicencias;
     @FXML
@@ -157,9 +163,18 @@ public class ControladorLicencias {
     ObservableList<LeerLicencia> listLicencia;
     int index = -1;
 
+    ObservableList<LeerEmpleado> listEmpleadoLicencia;
+    int index2 = -1;
+
     // -------------------------------------------- Inicialización ----------------------------------------------
     public void initialize() {
+        String[] tipoFiltro = {"Nombre", "Legajo", "Fecha_Inicio", "Fecha_Fin", "TipoLicencia"};
+        cbTiposFiltrosLicencia.getItems().addAll(tipoFiltro);
+        cbTiposFiltrosLicencia.getSelectionModel().selectFirst();
         inicializarTabla();
+        inicializarTablaEmpleado();
+        inicializarComboBoxBD();
+        fechasInicializar();
     }
 
     public void inicializarTabla(){
@@ -178,11 +193,74 @@ public class ControladorLicencias {
         tablaLicencia.getItems().setAll(listLicencia);
     }
 
-    @FXML
-    private void getLicencia(){}
+    public void inicializarTablaEmpleado(){
+        colNombreEmpleadoCrear.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, String>("nombre"));
+        colApellidoEmpleadoCrear.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, String>("apellido"));
+        colLegajoEmpleadoCrear.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, Integer>("legajo"));
+        colTelefonoEmpleadoCrear.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, String>("telefono"));
+        colEmailEmpleadoCrear.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, String>("email"));
+        colIDEmpleadoCrear.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, Integer>("idempleados"));
+
+        listEmpleadoLicencia = LeerEmpleado.listaEmpleadoGeneral();
+        tabEmpleadosCrear.getColumns().setAll(colNombreEmpleadoCrear, colApellidoEmpleadoCrear, colLegajoEmpleadoCrear, colTelefonoEmpleadoCrear, colEmailEmpleadoCrear, colIDEmpleadoCrear);
+        tabEmpleadosCrear.getItems().setAll(listEmpleadoLicencia);
+    }
 
     @FXML
-    private void getEmpleadoCrear(){}
+    private void getLicencia(){
+        index = tablaLicencia.getSelectionModel().getSelectedIndex();
+        if (index <= -1){
+
+            return;
+        }
+
+        labIDLicenciaModificar.setText(colIDLicencia.getCellData(index).toString());
+        labIDEmpleadoModificar.setText(colIDEmpleado.getCellData(index).toString());
+        labNombreEmpleadoModificar.setText(colNombre.getCellData(index));
+        labApellidoEmpleadoModificar.setText(colApellido.getCellData(index));
+        labLegajoEmpleadoModificar.setText(colLegajo.getCellData(index).toString());
+        dpFechaInicioModificar.getEditor().setText(colFechaInicio.getCellData(index).toString());
+        dpFechaFinModificar.getEditor().setText(colFechaFin.getCellData(index).toString());
+        cbTipoLicenciaModificar.getSelectionModel().select(colTipoLicencia.getCellData(index));
+
+        labIDLicenciaEliminar.setText(colIDLicencia.getCellData(index).toString());
+        labIDEmpleadoEliminar.setText(colIDEmpleado.getCellData(index).toString());
+        labNombreEmpleadoEliminar.setText(colNombre.getCellData(index));
+        labApellidoEmpleadoEliminar.setText(colApellido.getCellData(index));
+        labLegajoEmpleadoEliminar.setText(colLegajo.getCellData(index).toString());
+        dpFechaInicioEliminar.getEditor().setText(colFechaInicio.getCellData(index).toString());
+        dpFechaFinEliminar.getEditor().setText(colFechaFin.getCellData(index).toString());
+        cbTipoLicenciaEliminar.getSelectionModel().select(colTipoLicencia.getCellData(index));
+    }
+
+    @FXML
+    private void getEmpleadoCrear(){
+        index2 = tabEmpleadosCrear.getSelectionModel().getSelectedIndex();
+        if (index2 <= -1){
+
+            return;
+        }
+        labIDEmpleadoCrear.setText(colIDEmpleadoCrear.getCellData(index2).toString());
+        labNombreEmpleadoCrear.setText(colNombreEmpleadoCrear.getCellData(index2));
+        labApellidoEmpleadoCrear.setText(colApellidoEmpleadoCrear.getCellData(index2));
+        labLegajoEmpleadoCrear.setText(colLegajoEmpleadoCrear.getCellData(index2).toString());
+    }
+
+    public void inicializarComboBoxBD() {
+        // --------------------- Genero del Empleado -----------------------
+        String datoTipo_Licencia;
+        TipoLicencia tipoLienciaEmpleado = new TipoLicencia();
+        ObservableList<TipoLicencia> empleado_TipoLicencia = tipoLienciaEmpleado.getTipo_Licencia();
+        for (int i = 0; i < empleado_TipoLicencia.size(); i++) {
+            datoTipo_Licencia = empleado_TipoLicencia.get(i).getDescripcion();
+            cbTipoLicenciaCrear.getItems().addAll(datoTipo_Licencia);
+            cbTipoLicenciaModificar.getItems().addAll(datoTipo_Licencia);
+            cbTipoLicenciaEliminar.getItems().addAll(datoTipo_Licencia);
+        }
+        cbTipoLicenciaCrear.getSelectionModel().selectFirst();
+        cbTipoLicenciaModificar.getSelectionModel().selectFirst();
+        cbTipoLicenciaEliminar.getSelectionModel().selectFirst();
+    }
 
     // --------------------------------------------- Búsqueda y Filtros -----------------------------------------
 
@@ -197,7 +275,9 @@ public class ControladorLicencias {
     }
 
     @FXML
-    private void actualizarTabla() {}
+    private void actualizarTabla() {
+        tablaLicencia.getItems().setAll(listLicencia);
+    }
 
     //---------------------------------------------- Eventos Importantes ----------------------------------------
     @FXML
@@ -256,6 +336,106 @@ public class ControladorLicencias {
     @FXML
     private void volverEmpleados() throws IOException {
         closeWindowsPrincipalLicencias();
+    }
+
+    public void fechasInicializar() {
+        dpBuscarFechaInicio.setValue(LocalDate.now());
+        dpBuscarFechaInicio.setConverter(new StringConverter<LocalDate>() {
+            @Override
+            public String toString(LocalDate localDate) {
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                return dtf.format(localDate);
+            }
+
+            @Override
+            public LocalDate fromString(String s) {
+                return null;
+            }
+        });
+
+        dpFechaInicioCrear.setValue(LocalDate.now());
+        dpFechaInicioCrear.setConverter(new StringConverter<LocalDate>() {
+            @Override
+            public String toString(LocalDate localDate) {
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                return dtf.format(localDate);
+            }
+
+            @Override
+            public LocalDate fromString(String s) {
+                return null;
+            }
+        });
+
+        dpFechaFinCrear.setValue(LocalDate.now());
+        dpFechaFinCrear.setConverter(new StringConverter<LocalDate>() {
+            @Override
+            public String toString(LocalDate localDate) {
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                return dtf.format(localDate);
+            }
+
+            @Override
+            public LocalDate fromString(String s) {
+                return null;
+            }
+        });
+
+        dpFechaInicioModificar.setValue(LocalDate.now());
+        dpFechaInicioModificar.setConverter(new StringConverter<LocalDate>() {
+            @Override
+            public String toString(LocalDate localDate) {
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                return dtf.format(localDate);
+            }
+
+            @Override
+            public LocalDate fromString(String s) {
+                return null;
+            }
+        });
+
+        dpFechaFinModificar.setValue(LocalDate.now());
+        dpFechaFinModificar.setConverter(new StringConverter<LocalDate>() {
+            @Override
+            public String toString(LocalDate localDate) {
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                return dtf.format(localDate);
+            }
+
+            @Override
+            public LocalDate fromString(String s) {
+                return null;
+            }
+        });
+
+        dpFechaInicioEliminar.setValue(LocalDate.now());
+        dpFechaInicioEliminar.setConverter(new StringConverter<LocalDate>() {
+            @Override
+            public String toString(LocalDate localDate) {
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                return dtf.format(localDate);
+            }
+
+            @Override
+            public LocalDate fromString(String s) {
+                return null;
+            }
+        });
+
+        dpFechaFinEliminar.setValue(LocalDate.now());
+        dpFechaFinEliminar.setConverter(new StringConverter<LocalDate>() {
+            @Override
+            public String toString(LocalDate localDate) {
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                return dtf.format(localDate);
+            }
+
+            @Override
+            public LocalDate fromString(String s) {
+                return null;
+            }
+        });
     }
 
     // ---------------------------------- Cerrar Ventana -------------------------------------------

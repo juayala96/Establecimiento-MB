@@ -2,7 +2,7 @@ package com.secadero.controlador;
 
 import com.secadero.modelo.empleados.CrearEmpleado;
 import com.secadero.modelo.empleados.EliminarEmpleado;
-import com.secadero.modelo.empleados.LeerComboBoxes.*;
+import com.secadero.modelo.empleados.leerComboBoxes.*;
 import com.secadero.modelo.empleados.LeerEmpleado;
 import com.secadero.modelo.empleados.ModificarEmpleado;
 import javafx.collections.ObservableList;
@@ -882,7 +882,7 @@ public class ControladorEmpleados {
 
     // ---------------------------------------- Fechas Actuales Inicializadas ----------------------------------------
     public void fechasInicializar() {
-        dpFechaNaciminetoCrear.setValue(LocalDate.now());
+        dpFechaNaciminetoCrear.setValue(LocalDate.of(2000, 01, 01));
         dpFechaNaciminetoCrear.setConverter(new StringConverter<LocalDate>() {
             @Override
             public String toString(LocalDate localDate) {
@@ -896,7 +896,7 @@ public class ControladorEmpleados {
             }
         });
 
-        dpFechaNaciminetoModificar.setValue(LocalDate.now());
+        dpFechaNaciminetoModificar.setValue(LocalDate.of(2000, 01, 01));
         dpFechaNaciminetoModificar.setConverter(new StringConverter<LocalDate>() {
             @Override
             public String toString(LocalDate localDate) {
@@ -910,7 +910,7 @@ public class ControladorEmpleados {
             }
         });
 
-        dpFechaNaciminetoEliminar.setValue(LocalDate.now());
+        dpFechaNaciminetoEliminar.setValue(LocalDate.of(2000, 01, 01));
         dpFechaNaciminetoEliminar.setConverter(new StringConverter<LocalDate>() {
             @Override
             public String toString(LocalDate localDate) {

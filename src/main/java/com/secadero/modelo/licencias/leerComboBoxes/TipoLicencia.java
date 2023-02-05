@@ -1,4 +1,4 @@
-package com.secadero.modelo.empleados.LeerComboBoxes;
+package com.secadero.modelo.licencias.leerComboBoxes;
 
 import com.secadero.conexion.Conexion;
 import javafx.collections.FXCollections;
@@ -9,23 +9,23 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class GrupoSanguineoEmpleado {
-    private int idgrupoSanguineo;
+public class TipoLicencia {
+    private int idTipoLicencia;
     private String descripcion;
 
-    public GrupoSanguineoEmpleado(){}
+    public TipoLicencia(){}
 
-    public GrupoSanguineoEmpleado(String descripcion, int idgrupoSanguineo) {
+    public TipoLicencia(String descripcion, int idTipoLicencia) {
         this.descripcion = descripcion;
-        this.idgrupoSanguineo = idgrupoSanguineo;
+        this.idTipoLicencia = idTipoLicencia;
     }
 
-    public int getIdgrupoSanguineol() {
-        return idgrupoSanguineo;
+    public int getIdTipoLicencia() {
+        return idTipoLicencia;
     }
 
-    public void setIdgrupoSanguineo(int idgrupoSanguineo) {
-        this.idgrupoSanguineo = idgrupoSanguineo;
+    public void setIdTipoLicencia(int idTipoLicencia) {
+        this.idTipoLicencia = idTipoLicencia;
     }
 
     public String getDescripcion() {
@@ -36,19 +36,19 @@ public class GrupoSanguineoEmpleado {
         this.descripcion = descripcion;
     }
 
-    // ------------------------------------------- Combo Box Grupo Sanguineo -----------------------------------------------
-    public static ObservableList<GrupoSanguineoEmpleado> getGrupoSanguineo_Empleado(){
+    // ----------------------------------------- Combo Box Tipo de Licencia -------------------------------------------
+    public static ObservableList<TipoLicencia> getTipo_Licencia(){
         Connection con = Conexion.leerConexion();
         PreparedStatement pstm = null;
         ResultSet rs = null;
-        ObservableList<GrupoSanguineoEmpleado> lista = FXCollections.observableArrayList();
+        ObservableList<TipoLicencia> lista = FXCollections.observableArrayList();
 
         try {
-            pstm = con.prepareStatement("SELECT * FROM grupo_sanguineo");
+            pstm = con.prepareStatement("SELECT * FROM tipo_licencias");
             rs = pstm.executeQuery();
 
             while (rs.next()){
-                lista.add(new GrupoSanguineoEmpleado(rs.getString("descripcion"), rs.getInt("idgrupoSanguineo")));
+                lista.add(new TipoLicencia(rs.getString("descripcion"), rs.getInt("idTipoLicencia")));
             }
         } catch (SQLException ex) {
             System.err.println("Error: " + ex.getMessage());

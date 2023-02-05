@@ -456,7 +456,7 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="cbTipoLicenciaEliminar" layoutX="880.0" layoutY="419.0" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;" />
+                        <ComboBox fx:id="cbTipoLicenciaEliminar" disable="true" layoutX="880.0" layoutY="419.0" opacity="0.99" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;" />
                         <Label layoutX="250.0" layoutY="529.0" prefHeight="35.0" prefWidth="155.0" text="Días Disponibles:">
                            <font>
                               <Font size="20.0" />

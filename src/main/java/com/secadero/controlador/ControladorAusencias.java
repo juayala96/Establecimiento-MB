@@ -223,7 +223,7 @@ public class ControladorAusencias {
         colEmailEmpleadoCrear.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, String>("email"));
         colIDEmpleadoCrear.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, Integer>("idempleados"));
 
-        listEmpleadoAusencia = LeerEmpleado.listaEmpleadoAusencia();
+        listEmpleadoAusencia = LeerEmpleado.listaEmpleadoGeneral();
         tabEmpleadosCrear.getColumns().setAll(colNombreEmpleadoCrear, colApellidoEmpleadoCrear, colLegajoEmpleadoCrear, colTelefonoEmpleadoCrear, colEmailEmpleadoCrear, colIDEmpleadoCrear);
         tabEmpleadosCrear.getItems().setAll(listEmpleadoAusencia);
     }

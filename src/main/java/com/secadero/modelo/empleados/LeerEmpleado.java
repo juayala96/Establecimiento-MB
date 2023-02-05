@@ -288,8 +288,8 @@ public class LeerEmpleado {
         return listaFiltro;
     }
 
-    //------------------------------------------- Leer Empleado en Ausencia ------------------------------------------------
-    public static ObservableList<LeerEmpleado> listaEmpleadoAusencia(){
+    //-------------------------------------------- Leer Empleado en General -------------------------------------------
+    public static ObservableList<LeerEmpleado> listaEmpleadoGeneral(){
         Connection con = Conexion.leerConexion();
         PreparedStatement pstm = null;
         ResultSet rs = null;

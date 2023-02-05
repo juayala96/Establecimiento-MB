@@ -1,4 +1,4 @@
-package com.secadero.modelo.empleados.LeerComboBoxes;
+package com.secadero.modelo.empleados.leerComboBoxes;
 
 import com.secadero.conexion.Conexion;
 import javafx.collections.FXCollections;
