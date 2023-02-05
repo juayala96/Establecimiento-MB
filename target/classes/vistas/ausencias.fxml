@@ -169,7 +169,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Label layoutX="914.0" layoutY="173.0" prefHeight="30.0" prefWidth="64.0" text="Fecha:">
+                        <Label layoutX="914.0" layoutY="176.0" prefHeight="30.0" prefWidth="59.0" text="Fecha:">
                            <font>
                               <Font size="20.0" />
                            </font>
@@ -254,25 +254,25 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <Label layoutX="595.0" layoutY="494.0" prefHeight="27.0" prefWidth="82.0" text="Legajo:">
+                        <Label layoutX="529.0" layoutY="451.0" prefHeight="30.0" prefWidth="66.0" text="Legajo:">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </Label>
                         <Label layoutX="252.0" layoutY="524.0" prefHeight="40.0" prefWidth="250.0" style="-fx-background-color: white;" />
                         <Label layoutX="250.0" layoutY="446.0" prefHeight="40.0" prefWidth="250.0" style="-fx-background-color: white;" />
-                        <Label layoutX="595.0" layoutY="524.0" prefHeight="40.0" prefWidth="188.0" style="-fx-background-color: white;" />
-                        <Label fx:id="labLegajoEmpleadoCrear" layoutX="604.0" layoutY="524.0" prefHeight="40.0" prefWidth="178.0" textFill="#d101dc">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
+                        <Label layoutX="595.0" layoutY="447.0" prefHeight="40.0" prefWidth="188.0" style="-fx-background-color: white;" />
                         <Label fx:id="labNombreEmpleadoCrear" layoutX="260.0" layoutY="446.0" prefHeight="40.0" prefWidth="242.0" textFill="#1200ff">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
                         <Label fx:id="labApellidoEmpleadoCrear" layoutX="262.0" layoutY="524.0" prefHeight="40.0" prefWidth="240.0" textFill="#1200ff">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="labLegajoEmpleadoCrear" layoutX="605.0" layoutY="447.0" prefHeight="40.0" prefWidth="177.0" textFill="#d101dc">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -319,7 +319,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Label layoutX="797.0" layoutY="191.0" prefHeight="30.0" prefWidth="64.0" text="Fecha:">
+                        <Label layoutX="797.0" layoutY="194.0" prefHeight="30.0" prefWidth="58.0" text="Fecha:">
                            <font>
                               <Font size="20.0" />
                            </font>
@@ -450,7 +450,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Label layoutX="797.0" layoutY="191.0" prefHeight="30.0" prefWidth="64.0" text="Fecha:">
+                        <Label layoutX="797.0" layoutY="194.0" prefHeight="30.0" prefWidth="64.0" text="Fecha:">
                            <font>
                               <Font size="20.0" />
                            </font>
