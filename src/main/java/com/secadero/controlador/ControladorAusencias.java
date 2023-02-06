@@ -35,6 +35,8 @@ public class ControladorAusencias {
     @FXML
     private Button btnBuscarAusencia;
     @FXML
+    private Button btnBuscarAusenciaEmpleado;
+    @FXML
     private Button btnEliminar;
     @FXML
     private Button btnEliminarAusencia;
@@ -59,7 +61,7 @@ public class ControladorAusencias {
     @FXML
     private ComboBox<String> cbTiposFiltrosAusencias;
     @FXML
-    private TableColumn<LeerAusencia, String> colApellido;
+    private TableColumn<LeerEmpleado, String> colApellido;
     @FXML
     private TableColumn<LeerEmpleado, Integer> colLegajoEmpleadoCrear;
     @FXML
@@ -73,21 +75,23 @@ public class ControladorAusencias {
     @FXML
     private TableColumn<LeerAusencia, Integer> colIDAusencia;
     @FXML
-    private TableColumn<LeerAusencia, Integer> colIDEmpleado;
+    private TableColumn<LeerEmpleado, Integer> colIDEmpleado;
     @FXML
     private TableColumn<LeerEmpleado, Integer> colIDEmpleadoCrear;
     @FXML
     private TableColumn<LeerAusencia, String> colJustificado;
     @FXML
-    private TableColumn<LeerAusencia, Integer> colLegajo;
+    private TableColumn<LeerEmpleado, Integer> colLegajo;
     @FXML
     private TableColumn<LeerAusencia, String> colMotivo;
     @FXML
-    private TableColumn<LeerAusencia, String> colNombre;
+    private TableColumn<LeerEmpleado, String> colNombre;
     @FXML
     private TableColumn<LeerEmpleado, String> colNombreEmpleadoCrear;
     @FXML
     private TableColumn<LeerEmpleado, String> colTelefonoEmpleadoCrear;
+    @FXML
+    private TableColumn<LeerEmpleado, String> colTelefono;
     @FXML
     private DatePicker dpBuscarFecha;
     @FXML
@@ -141,6 +145,10 @@ public class ControladorAusencias {
     @FXML
     private Label labSeleccionJustificacion;
     @FXML
+    private Label labIDAusenciaLista;
+    @FXML
+    private Label labResultadoID;
+    @FXML
     private TabPane panelPestaniasAusencias;
     @FXML
     private RadioButton rbJustificadoNoCrear;
@@ -161,13 +169,15 @@ public class ControladorAusencias {
     @FXML
     private Tab tabRegistrarAusencia;
     @FXML
+    private TableView<LeerEmpleado> tablaListaEmpleados;
+    @FXML
     private TableView<LeerAusencia> tablaAusencias;
     @FXML
     private ToggleGroup justificadoCrear;
     @FXML
     private ToggleGroup justificadoModificar;
     @FXML
-    private TextField textBuscarAusenciaLegajoE;
+    private TextField textBuscarLegajoEmpleado;
     @FXML
     private TextField textCertificadoCrear;
     @FXML
@@ -181,40 +191,55 @@ public class ControladorAusencias {
     @FXML
     private TextArea textMotivoModificar;
 
-    ObservableList<LeerAusencia> listAusencia;
+    ObservableList<LeerEmpleado> listTablaEmpleados;
     int index = -1;
 
-    ObservableList<LeerEmpleado> listEmpleadoAusencia;
+    ObservableList<LeerAusencia> listAusencia;
     int index2 = -1;
+
+    ObservableList<LeerEmpleado> listEmpleadoAusencia;
+    int index3 = -1;
 
     // -------------------------------------------- Inicialización ----------------------------------------------
     public void initialize() {
         String[] tipoFiltro = {"Nombre", "Legajo", "Fecha"};
         cbTiposFiltrosAusencias.getItems().addAll(tipoFiltro);
         cbTiposFiltrosAusencias.getSelectionModel().selectFirst();
-        inicializarTabla();
+        inicializarTablaListaEmpleados();
         inicializarTablaEmpleado();
         getJustificadoCrear();
         getJustificadoModificar();
         fechasInicializar();
     }
 
-    public void inicializarTabla(){
-        colNombre.setCellValueFactory(new PropertyValueFactory<LeerAusencia, String>("nombre"));
-        colApellido.setCellValueFactory(new PropertyValueFactory<LeerAusencia, String>("apellido"));
-        colLegajo.setCellValueFactory(new PropertyValueFactory<LeerAusencia, Integer>("legajo"));
+    // ----------------------------------------- Tabla de Empleados ---------------------------------------------
+    public void inicializarTablaListaEmpleados(){
+        colNombre.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, String>("nombre"));
+        colApellido.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, String>("apellido"));
+        colLegajo.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, Integer>("legajo"));
+        colTelefono.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, String>("telefono"));
+        colIDEmpleado.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, Integer>("idempleados"));
+
+        listTablaEmpleados = LeerEmpleado.listaEmpleadoGeneral();
+        tablaListaEmpleados.getColumns().setAll(colNombre, colApellido, colLegajo, colTelefono, colIDEmpleado);
+        tablaListaEmpleados.getItems().setAll(listTablaEmpleados);
+    }
+
+    // ----------------------------------------- Tabla de Ausencias ---------------------------------------------
+    public void inicializarTablaAusencias(){
         colFecha.setCellValueFactory(new PropertyValueFactory<LeerAusencia, Date>("fecha"));
         colMotivo.setCellValueFactory(new PropertyValueFactory<LeerAusencia, String>("motivo"));
         colJustificado.setCellValueFactory(new PropertyValueFactory<LeerAusencia, String>("justificado"));
         colCertificado.setCellValueFactory(new PropertyValueFactory<LeerAusencia, String>("certificado"));
         colIDAusencia.setCellValueFactory(new PropertyValueFactory<LeerAusencia, Integer>("idausencias"));
-        colIDEmpleado.setCellValueFactory(new PropertyValueFactory<LeerAusencia, Integer>("idEmpleadoFK"));
 
-        listAusencia = LeerAusencia.listaAusencia();
-        tablaAusencias.getColumns().setAll(colNombre, colApellido, colLegajo, colFecha, colMotivo, colJustificado, colCertificado, colIDAusencia, colIDEmpleado);
+        listAusencia = LeerAusencia.listaAusencia(labIDEmpleadoLista);
+        tablaAusencias.getColumns().setAll(colFecha, colMotivo, colJustificado, colCertificado, colIDAusencia);
         tablaAusencias.getItems().setAll(listAusencia);
+
     }
 
+    // ------------------------------------ Tabla de Empleados Crear ---------------------------------------------
     public void inicializarTablaEmpleado(){
         colNombreEmpleadoCrear.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, String>("nombre"));
         colApellidoEmpleadoCrear.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, String>("apellido"));
@@ -230,76 +255,117 @@ public class ControladorAusencias {
 
     // ------------------------------------- Tomo todos los datos al Seleccionar en la tabla ------------------------
     @FXML
-    private void getAusencia(){
-        index = tablaAusencias.getSelectionModel().getSelectedIndex();
+    private void getListaEmpleados(){
+        index = tablaListaEmpleados.getSelectionModel().getSelectedIndex();
         if (index <= -1){
 
             return;
         }
-
         labNombreEmpleadoModificar.setText(colNombre.getCellData(index));
         labApellidoEmpleadoModificar.setText(colApellido.getCellData(index));
         labLegajoEmpleadoModificar.setText(colLegajo.getCellData(index).toString());
-        dpFechaModificar.getEditor().setText(colFecha.getCellData(index).toString());
-        dpFechaModificarDuplicada.getEditor().setText(colFecha.getCellData(index).toString());
-        textMotivoModificar.setText(colMotivo.getCellData(index));
-        labSeleccionJustificacion.setText(colJustificado.getCellData(index));
-        textCertificadoModificar.setText(colCertificado.getCellData(index));
         labIDEmpleadoModificar.setText(colIDEmpleado.getCellData(index).toString());
-        labIDAusenciaModificar.setText(colIDAusencia.getCellData(index).toString());
 
         labNombreEmpleadoEliminar.setText(colNombre.getCellData(index));
         labApellidoEmpleadoEliminar.setText(colApellido.getCellData(index));
         labLegajoEmpleadoEliminar.setText(colLegajo.getCellData(index).toString());
-        dpFechaEliminar.getEditor().setText(colFecha.getCellData(index).toString());
-        textMotivoEliminar.setText(colMotivo.getCellData(index));
-        labJustificadoEliminar.setText(colJustificado.getCellData(index));
-        textCertificadoEliminar.setText(colCertificado.getCellData(index));
         labIDEmpleadoEliminar.setText(colIDEmpleado.getCellData(index).toString());
-        labIDAusenciaEliminar.setText(colIDAusencia.getCellData(index).toString());
 
-        comprobacionRadioBotomSeleccion();
+        labIDAusenciaLista.setText("0");
+        labIDEmpleadoLista.setText(colIDEmpleado.getCellData(index).toString());
+        inicializarTablaAusencias();
 
+        LeerAusencia ausenciaLeer = new LeerAusencia();
+        ausenciaLeer.listaAusenciaComprobacion(labIDEmpleadoLista, labIDAusenciaLista, labResultadoID);
+        if(labResultadoID.getText().equals("NO")){
+            limpiarCamposAusencias();
+        }
     }
 
     @FXML
-    private void getEmpleadoCrear(){
-        index2 = tabEmpleadosCrear.getSelectionModel().getSelectedIndex();
+    private void getAusencia(){
+        index2 = tablaAusencias.getSelectionModel().getSelectedIndex();
         if (index2 <= -1){
 
             return;
         }
-        labIDEmpleadoCrear.setText(colIDEmpleadoCrear.getCellData(index2).toString());
-        labNombreEmpleadoCrear.setText(colNombreEmpleadoCrear.getCellData(index2));
-        labApellidoEmpleadoCrear.setText(colApellidoEmpleadoCrear.getCellData(index2));
-        labLegajoEmpleadoCrear.setText(colLegajoEmpleadoCrear.getCellData(index2).toString());
+
+        dpFechaModificar.getEditor().setText(colFecha.getCellData(index2).toString());
+        dpFechaModificarDuplicada.getEditor().setText(colFecha.getCellData(index2).toString());
+        textMotivoModificar.setText(colMotivo.getCellData(index2));
+        labSeleccionJustificacion.setText(colJustificado.getCellData(index2));
+        textCertificadoModificar.setText(colCertificado.getCellData(index2));
+        labIDAusenciaModificar.setText(colIDAusencia.getCellData(index2).toString());
+
+        dpFechaEliminar.getEditor().setText(colFecha.getCellData(index2).toString());
+        textMotivoEliminar.setText(colMotivo.getCellData(index2));
+        labJustificadoEliminar.setText(colJustificado.getCellData(index2));
+        textCertificadoEliminar.setText(colCertificado.getCellData(index2));
+        labIDAusenciaEliminar.setText(colIDAusencia.getCellData(index2).toString());
+        comprobacionRadioBotomSeleccion();
+
+        labIDAusenciaLista.setText(colIDAusencia.getCellData(index2).toString());
+    }
+
+    @FXML
+    private void getEmpleadoCrear(){
+        index3 = tabEmpleadosCrear.getSelectionModel().getSelectedIndex();
+        if (index3 <= -1){
+
+            return;
+        }
+        labIDEmpleadoCrear.setText(colIDEmpleadoCrear.getCellData(index3).toString());
+        labNombreEmpleadoCrear.setText(colNombreEmpleadoCrear.getCellData(index3));
+        labApellidoEmpleadoCrear.setText(colApellidoEmpleadoCrear.getCellData(index3));
+        labLegajoEmpleadoCrear.setText(colLegajoEmpleadoCrear.getCellData(index3).toString());
     }
 
     // --------------------------------------------- Búsqueda y Filtros -----------------------------------------
     @FXML
-    private void btnBuscar() {
-        ObservableList<LeerAusencia> listBuscarAmbos;
-        listBuscarAmbos = LeerAusencia.buscarAusenciaAmbos(textBuscarAusenciaLegajoE, dpBuscarFecha);
-        if(textBuscarAusenciaLegajoE.getText().equals("")){
+    private void btnBuscarEmpleado() {
+        ObservableList<LeerEmpleado> listBuscarEmpleado;
+        listBuscarEmpleado = LeerEmpleado.buscarEmpleadoGeneral(textBuscarLegajoEmpleado);
+        if(textBuscarLegajoEmpleado.getText().equals("")){
             Alert alerta = new Alert(Alert.AlertType.WARNING);
             alerta.setTitle("Error!");
             alerta.setContentText("Debe de completar el Legajo para Buscar");
             alerta.showAndWait();
         } else {
-            tablaAusencias.getItems().setAll(listBuscarAmbos);
+            tablaListaEmpleados.getItems().setAll(listBuscarEmpleado);
         }
     }
 
     @FXML
+    private void btnBuscarAusencia(){
+        ObservableList<LeerAusencia> listaBuscarAusencia;
+        listaBuscarAusencia = LeerAusencia.buscarAusenciaFecha(labIDEmpleadoLista, dpBuscarFecha);
+        tablaAusencias.getItems().setAll(listaBuscarAusencia);
+    }
+
+    @FXML
     private void filtroAusencia() {
-        ObservableList<LeerAusencia> listFiltros;
-        listFiltros = LeerAusencia.filtroAusencia(cbTiposFiltrosAusencias);
-        tablaAusencias.getItems().setAll(listFiltros);
+        String dato = cbTiposFiltrosAusencias.getSelectionModel().getSelectedItem().toLowerCase();
+        if(dato.equals("fecha")){
+            ObservableList<LeerAusencia> listFiltros;
+            listFiltros = LeerAusencia.filtroAusencia(cbTiposFiltrosAusencias, labIDEmpleadoLista);
+            tablaAusencias.getItems().setAll(listFiltros);
+        } else {
+            ObservableList<LeerEmpleado> listFiltrosEmpleados;
+            listFiltrosEmpleados = LeerEmpleado.filtroEmpleadoGeneral(cbTiposFiltrosAusencias);
+            tablaListaEmpleados.getItems().setAll(listFiltrosEmpleados);
+        }
     }
 
     @FXML
     private void actualizarTabla(){
-        tablaAusencias.getItems().setAll(listAusencia);
+        labIDAusenciaLista.setText("0");
+        labIDEmpleadoLista.setText("0");
+        textBuscarLegajoEmpleado.setText("");
+        tablaListaEmpleados.getItems().setAll(listEmpleadoAusencia);
+        cbTiposFiltrosAusencias.getSelectionModel().selectFirst();
+        inicializarTablaAusencias();
+        limpiarCamposModificar();
+        limpiarCamposEliminar();
     }
 
     //---------------------------------------------- Eventos Importantes ----------------------------------------
@@ -314,7 +380,10 @@ public class ControladorAusencias {
 
                 if(Objects.equals(labLimpiarCamposCrear.getText(), "OK")){
                     labLimpiarCamposCrear.setText("");
-                    inicializarTabla();
+                    labIDAusenciaLista.setText("0");
+                    labIDEmpleadoLista.setText("0");
+                    inicializarTablaListaEmpleados();
+                    inicializarTablaAusencias();
                     regresarCLista();
                     limpiarCamposCrear();
                     inicializarTablaEmpleado();
@@ -345,10 +414,13 @@ public class ControladorAusencias {
                 if(Objects.equals(labLimpiarCamposModificar.getText(), "OK")){
                     labLimpiarCamposModificar.setText("");
                     dpFechaModificarDuplicada.getEditor().setText("");
-                    inicializarTabla();
-                    regresarCLista();
+                    labIDAusenciaLista.setText("0");
+                    labIDEmpleadoLista.setText("0");
+                    inicializarTablaListaEmpleados();
+                    inicializarTablaAusencias();
                     limpiarCamposModificar();
                     limpiarCamposEliminar();
+                    regresarCLista();
                 }
             } else {
                 Alert alerta = new Alert(Alert.AlertType.WARNING);
@@ -359,7 +431,7 @@ public class ControladorAusencias {
         } else {
             Alert alerta = new Alert(Alert.AlertType.WARNING);
             alerta.setTitle("Error!");
-            alerta.setContentText("Debe de seleccionar antes una Ausencia de un empleado para Modificarlo");
+            alerta.setContentText("Debe de seleccionar antes una Ausencia de dicho empleado para Modificarlo");
             alerta.showAndWait();
         }
     }
@@ -376,15 +448,18 @@ public class ControladorAusencias {
 
                 EliminarAusencia ausenciaEliminar = new EliminarAusencia();
                 ausenciaEliminar.eliminarAusencia(labIDAusenciaEliminar);
-                inicializarTabla();
-
+                labIDAusenciaLista.setText("0");
+                labIDEmpleadoLista.setText("0");
+                inicializarTablaListaEmpleados();
+                inicializarTablaAusencias();
                 limpiarCamposEliminar();
                 limpiarCamposModificar();
+                regresarELista();
             }
         } else{
             Alert alerta = new Alert(Alert.AlertType.WARNING);
             alerta.setTitle("Error!");
-            alerta.setContentText("Debe de seleccionar antes una Ausencia de un empleado para Eliminarlo");
+            alerta.setContentText("Debe de seleccionar antes una Ausencia de dicho empleado para Eliminarlo");
             alerta.showAndWait();
             btnRegresarELista.requestFocus();
         }
@@ -410,7 +485,7 @@ public class ControladorAusencias {
     }
 
     private void comprobacionRadioBotomSeleccion(){
-        if(labSeleccionJustificacion.equals("NO")){
+        if(labSeleccionJustificacion.getText().equals("NO")){
             rbJustificadoNoModificar.fire();
         } else{
             rbJustificadoSiModificar.fire();
@@ -552,6 +627,20 @@ public class ControladorAusencias {
         labJustificadoEliminar.setText("");
         textCertificadoEliminar.setText("");
         labIDAusenciaEliminar.setText("");
+        fechasInicializar();
+    }
+
+    private void limpiarCamposAusencias(){
+        labIDAusenciaModificar.setText("");
+        dpFechaModificarDuplicada.getEditor().setText("");
+        textMotivoModificar.setText("");
+        rbJustificadoNoModificar.fire();
+        textCertificadoModificar.setText("");
+
+        labIDAusenciaEliminar.setText("");
+        textMotivoEliminar.setText("");
+        labJustificadoEliminar.setText("");
+        textCertificadoEliminar.setText("");
         fechasInicializar();
     }
 

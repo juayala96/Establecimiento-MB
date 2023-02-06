@@ -44,6 +44,14 @@ public class LeerEmpleado {
         this.idempleados = idempleados;
     }
 
+    public LeerEmpleado(String nombre, String apellido, int legajo, String telefono, int idempleados) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.legajo = legajo;
+        this.telefono = telefono;
+        this.idempleados = idempleados;
+    }
+
     public int getIdempleados() {
         return idempleados;
     }
@@ -315,5 +323,65 @@ public class LeerEmpleado {
             }
         }
         return lista;
+    }
+
+    //------------------------------------------- Buscar Empleado General ------------------------------------------------
+    public static ObservableList<LeerEmpleado> buscarEmpleadoGeneral(TextField textBuscarLegajoEmpleado){
+        Connection con = Conexion.leerConexion();
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+        ObservableList<LeerEmpleado> listaBuscar = FXCollections.observableArrayList();
+
+        try {
+            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, telefono, fechaIngreso, area.descripcion, puesto.descripcion, idempleados FROM empleados INNER JOIN area ON empleados.idAreaFK = area.idarea INNER JOIN puesto ON empleados.idPuestoFK = puesto.idpuesto WHERE empleados.estadoEmpleado = ? AND empleados.legajo LIKE ?");
+            pstm.setString(1, "Vigente");
+            pstm.setString(2, textBuscarLegajoEmpleado.getText() + "%");
+            rs = pstm.executeQuery();
+
+            while (rs.next()){
+                listaBuscar.add(new LeerEmpleado(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getString("telefono"), Integer.parseInt(rs.getString("idempleados"))));
+            }
+        } catch (SQLException ex) {
+            System.err.println("Error: " + ex.getMessage());
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pstm != null) pstm.close();
+                if (con != null) con.close();
+            } catch (Exception ex){
+                System.err.println("Error: " + ex.getMessage());
+            }
+        }
+        return listaBuscar;
+    }
+
+    //------------------------------------------- Filtro Empleado General ------------------------------------------------
+    public static ObservableList<LeerEmpleado> filtroEmpleadoGeneral(ComboBox<String> cbTiposFiltrosAusencias){
+        Connection con = Conexion.leerConexion();
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+        ObservableList<LeerEmpleado> listaBuscar = FXCollections.observableArrayList();
+        String dato = cbTiposFiltrosAusencias.getSelectionModel().getSelectedItem().toLowerCase();
+
+        try {
+            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, telefono, idempleados FROM empleados WHERE empleados.estadoEmpleado = ? ORDER BY " + dato + " ASC");
+            pstm.setString(1, "Vigente");
+            rs = pstm.executeQuery();
+
+            while (rs.next()){
+                listaBuscar.add(new LeerEmpleado(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getString("telefono"), Integer.parseInt(rs.getString("idempleados"))));
+            }
+        } catch (SQLException ex) {
+            System.err.println("Error: " + ex.getMessage());
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pstm != null) pstm.close();
+                if (con != null) con.close();
+            } catch (Exception ex){
+                System.err.println("Error: " + ex.getMessage());
+            }
+        }
+        return listaBuscar;
     }
 }

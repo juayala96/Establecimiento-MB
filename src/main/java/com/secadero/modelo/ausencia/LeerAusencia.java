@@ -4,10 +4,7 @@ import com.secadero.conexion.Conexion;
 import com.secadero.modelo.empleados.LeerEmpleado;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -28,40 +25,12 @@ public class LeerAusencia {
 
     public LeerAusencia(){}
 
-    public LeerAusencia(String nombre, String apellido, int legajo, Date fecha, String motivo, String justificado, String certificado, int idausencias, int idEmpleadoFK) {
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.legajo = legajo;
+    public LeerAusencia(Date fecha, String motivo, String justificado, String certificado, int idausencias) {
         this.fecha = fecha;
         this.motivo = motivo;
         this.justificado = justificado;
         this.certificado = certificado;
         this.idausencias = idausencias;
-        this.idEmpleadoFK = idEmpleadoFK;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-    public int getLegajo() {
-        return legajo;
-    }
-
-    public void setLegajo(int legajo) {
-        this.legajo = legajo;
     }
 
     public Date getFecha() {
@@ -104,28 +73,21 @@ public class LeerAusencia {
         this.idausencias = idausencias;
     }
 
-    public int getIdEmpleadoFK() {
-        return idEmpleadoFK;
-    }
-
-    public void setIdEmpleadoFK(int idEmpleadoFK) {
-        this.idEmpleadoFK = idEmpleadoFK;
-    }
-
     //------------------------------------------- Leer Ausencias --------------------------------------------------
-    public static ObservableList<LeerAusencia> listaAusencia(){
+    public static ObservableList<LeerAusencia> listaAusencia(Label labIDEmpleadoLista){
         Connection con = Conexion.leerConexion();
         PreparedStatement pstm = null;
         ResultSet rs = null;
         ObservableList<LeerAusencia> lista = FXCollections.observableArrayList();
 
         try {
-            pstm = con.prepareStatement("SELECT empleados.nombre, empleados.apellido, empleados.legajo, fecha, motivo, justificado, certificado, idausencias, idEmpleadoFK FROM ausencias INNER JOIN empleados ON ausencias.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ?");
+            pstm = con.prepareStatement("SELECT fecha, motivo, justificado, certificado, idausencias FROM ausencias INNER JOIN empleados ON ausencias.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND ausencias.idEmpleadoFK = ?");
             pstm.setString(1, "Vigente");
+            pstm.setInt(2, Integer.parseInt(labIDEmpleadoLista.getText()));
             rs = pstm.executeQuery();
 
             while (rs.next()){
-                lista.add(new LeerAusencia(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getDate("fecha"), rs.getString("motivo"), rs.getString("justificado"), rs.getString("certificado"), rs.getInt("idausencias"), rs.getInt("idEmpleadoFK")));
+                lista.add(new LeerAusencia(rs.getDate("fecha"), rs.getString("motivo"), rs.getString("justificado"), rs.getString("certificado"), rs.getInt("idausencias")));
             }
         } catch (SQLException ex) {
             System.err.println("Error: " + ex.getMessage());
@@ -141,22 +103,58 @@ public class LeerAusencia {
         return lista;
     }
 
-    //------------------------------------------- Buscar Ausencia --------------------------------------------------
-    public static ObservableList<LeerAusencia> buscarAusenciaAmbos(TextField textBuscarAusenciaLegajoE, DatePicker dpBuscarFecha){
+    //-------------------------------------- Leer Ausencias Comprobación ----------------------------------------------
+    public void listaAusenciaComprobacion(Label labIDEmpleadoLista, Label labIDAusenciaLista, Label labResultadoID){
+        Connection con = Conexion.leerConexion();
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+        int cont = 0;
+
+        try {
+            pstm = con.prepareStatement("SELECT idausencias FROM ausencias INNER JOIN empleados ON ausencias.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND ausencias.idEmpleadoFK = ? AND ausencias.idausencias = ?");
+            pstm.setString(1, "Vigente");
+            pstm.setInt(2, Integer.parseInt(labIDEmpleadoLista.getText()));
+            pstm.setInt(3, Integer.parseInt(labIDAusenciaLista.getText()));
+            rs = pstm.executeQuery();
+
+            while (rs.next()){
+                labResultadoID.setText("YES");
+                cont +=1;
+            }
+
+            if(cont == 0){
+                labResultadoID.setText("NO");
+            }
+        } catch (SQLException ex) {
+            System.err.println("Error: " + ex.getMessage());
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pstm != null) pstm.close();
+                if (con != null) con.close();
+            } catch (Exception ex){
+                System.err.println("Error: " + ex.getMessage());
+            }
+        }
+    }
+
+
+    //---------------------------------------- Buscar Ausencia Fecha --------------------------------------------------
+    public static ObservableList<LeerAusencia> buscarAusenciaFecha(Label labIDEmpleadoLista, DatePicker dpBuscarFecha){
         Connection con = Conexion.leerConexion();
         PreparedStatement pstm = null;
         ResultSet rs = null;
         ObservableList<LeerAusencia> lista = FXCollections.observableArrayList();
 
         try {
-            pstm = con.prepareStatement("SELECT empleados.nombre, empleados.apellido, empleados.legajo, fecha, motivo, justificado, certificado, idausencias, idEmpleadoFK FROM ausencias INNER JOIN empleados ON ausencias.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND (fecha = ? AND empleados.legajo = ?)");
+            pstm = con.prepareStatement("SELECT fecha, motivo, justificado, certificado, idausencias FROM ausencias INNER JOIN empleados ON ausencias.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND ausencias.idEmpleadoFK = ? AND ausencias.fecha = ?");
             pstm.setString(1, "Vigente");
-            pstm.setDate(2, java.sql.Date.valueOf(dpBuscarFecha.getEditor().getText()));
-            pstm.setString(3, textBuscarAusenciaLegajoE.getText());
+            pstm.setInt(2, Integer.parseInt(labIDEmpleadoLista.getText()));
+            pstm.setDate(3, java.sql.Date.valueOf(dpBuscarFecha.getEditor().getText()));
             rs = pstm.executeQuery();
 
             while (rs.next()){
-                lista.add(new LeerAusencia(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getDate("fecha"), rs.getString("motivo"), rs.getString("justificado"), rs.getString("certificado"), rs.getInt("idausencias"), rs.getInt("idEmpleadoFK")));
+                lista.add(new LeerAusencia(rs.getDate("fecha"), rs.getString("motivo"), rs.getString("justificado"), rs.getString("certificado"), rs.getInt("idausencias")));
             }
         } catch (SQLException ex) {
             System.err.println("Error: " + ex.getMessage());
@@ -173,58 +171,35 @@ public class LeerAusencia {
     }
 
     //------------------------------------------- Filtro Ausencia --------------------------------------------------
-    public static ObservableList<LeerAusencia> filtroAusencia(ComboBox<String> cbTiposFiltrosAusencias){
+    public static ObservableList<LeerAusencia> filtroAusencia(ComboBox<String> cbTiposFiltrosAusencias, Label labIDEmpleadoLista){
         Connection con = Conexion.leerConexion();
         PreparedStatement pstm = null;
         ResultSet rs = null;
         ObservableList<LeerAusencia> lista = FXCollections.observableArrayList();
         String dato = cbTiposFiltrosAusencias.getSelectionModel().getSelectedItem().toLowerCase();
-        if(!dato.equals("fecha")){
-            try {
-                pstm = con.prepareStatement("SELECT empleados.nombre, empleados.apellido, empleados.legajo, fecha, motivo, justificado, certificado, idausencias, idEmpleadoFK FROM ausencias INNER JOIN empleados ON ausencias.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? ORDER BY " + dato +" ASC");
-                pstm.setString(1, "Vigente");
 
-                rs = pstm.executeQuery();
+        try {
+            pstm = con.prepareStatement("SELECT fecha, motivo, justificado, certificado, idausencias FROM ausencias INNER JOIN empleados ON ausencias.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND empleados.idempleados = ? ORDER BY " + dato +" DESC");
+            pstm.setString(1, "Vigente");
+            pstm.setInt(2, Integer.parseInt(labIDEmpleadoLista.getText()));
 
-                while (rs.next()){
-                    lista.add(new LeerAusencia(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getDate("fecha"), rs.getString("motivo"), rs.getString("justificado"), rs.getString("certificado"), rs.getInt("idausencias"), rs.getInt("idEmpleadoFK")));
-                }
-            } catch (SQLException ex) {
-                System.err.println("Error: " + ex.getMessage());
-            } finally {
-                try {
-                    if (rs != null) rs.close();
-                    if (pstm != null) pstm.close();
-                    if (con != null) con.close();
-                } catch (Exception ex){
-                    System.err.println("Error: " + ex.getMessage());
-                }
+            rs = pstm.executeQuery();
+
+            while (rs.next()){
+                lista.add(new LeerAusencia(rs.getDate("fecha"), rs.getString("motivo"), rs.getString("justificado"), rs.getString("certificado"), rs.getInt("idausencias")));
             }
-            return lista;
-        } else {
+        } catch (SQLException ex) {
+            System.err.println("Error: " + ex.getMessage());
+        } finally {
             try {
-                pstm = con.prepareStatement("SELECT empleados.nombre, empleados.apellido, empleados.legajo, fecha, motivo, justificado, certificado, idausencias, idEmpleadoFK FROM ausencias INNER JOIN empleados ON ausencias.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? ORDER BY " + dato +" DESC");
-                pstm.setString(1, "Vigente");
-
-                rs = pstm.executeQuery();
-
-                while (rs.next()){
-                    lista.add(new LeerAusencia(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getDate("fecha"), rs.getString("motivo"), rs.getString("justificado"), rs.getString("certificado"), rs.getInt("idausencias"), rs.getInt("idEmpleadoFK")));
-                }
-            } catch (SQLException ex) {
+                if (rs != null) rs.close();
+                if (pstm != null) pstm.close();
+                if (con != null) con.close();
+            } catch (Exception ex){
                 System.err.println("Error: " + ex.getMessage());
-            } finally {
-                try {
-                    if (rs != null) rs.close();
-                    if (pstm != null) pstm.close();
-                    if (con != null) con.close();
-                } catch (Exception ex){
-                    System.err.println("Error: " + ex.getMessage());
-                }
             }
-            return lista;
         }
-
-
+        return lista;
+        }
     }
-}
+
