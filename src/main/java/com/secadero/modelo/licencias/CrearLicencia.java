@@ -16,15 +16,12 @@ public class CrearLicencia {
     public CrearLicencia() {
     }
 
-
     //--------------------------------------------- Crear Licencia ---------------------------------------------------
-    public void agregarLicencia(Label labIDEmpleadoCrear, DatePicker dpFechaInicioCrear, DatePicker dpFechaFinCrear, ComboBox<String> cbTipoLicenciaCrear, Label labLimpiarCamposCrear) throws ParseException, SQLException {
+    public void agregarLicencia(Label labIDEmpleadoCrear, Label labDiasDisponiblesCrear, DatePicker dpFechaInicioCrear, DatePicker dpFechaFinCrear, ComboBox<String> cbTipoLicenciaCrear, Label labLimpiarCamposCrear) throws ParseException, SQLException {
         Connection con = Conexion.leerConexion();
         PreparedStatement pstm = null;
         ResultSet rs = null;
-        String dato;
-        int dato2 = 0;
-        String resultado = "YES";
+        int dato2;
         String resultado2 = "YES";
         int anioGeneral = 0;
         int diasVacaciones = 0;
@@ -38,7 +35,6 @@ public class CrearLicencia {
         final int MATRIMONIO = 10;
         final int MUERTE_FAMILIAR = 4;
         int cont = 0;
-        int cont2 = 0;
         String respuestaAnio = "";
         int datoIdTipoLicenciaFK;
         int datoIDLicenciaFK;
@@ -65,10 +61,11 @@ public class CrearLicencia {
         int anio2 = Integer.parseInt(anio.substring(0, 4));
 
         try {
-            String consulta2 = "SELECT YEAR(fecha_Inicio) AS anio FROM licencias INNER JOIN empleado_licencia ON licencias.idLicencias = empleado_licencia.idLicenciaFK INNER JOIN empleados ON empleado_licencia.idEmpleadoFK = empleados.idempleados INNER JOIN tipo_licencias ON tipo_licencias.idTipoLicencia = licencias.idTipoLicenciaFK WHERE idEmpleadoFK = ? AND tipo_licencias.descripcion = ?";
+            String consulta2 = "SELECT YEAR(fecha_Inicio) AS anio FROM licencias INNER JOIN empleado_licencia ON licencias.idLicencias = empleado_licencia.idLicenciaFK INNER JOIN empleados ON empleado_licencia.idEmpleadoFK = empleados.idempleados INNER JOIN tipo_licencias ON tipo_licencias.idTipoLicencia = licencias.idTipoLicenciaFK WHERE licencias.estadoLicencia = ? AND idEmpleadoFK = ? AND tipo_licencias.descripcion = ?";
             pstm = con.prepareStatement(consulta2);
-            pstm.setString(1, labIDEmpleadoCrear.getText());
-            pstm.setString(2, cbTipoLicenciaCrear.getSelectionModel().getSelectedItem());
+            pstm.setString(1, "Vigente");
+            pstm.setString(2, labIDEmpleadoCrear.getText());
+            pstm.setString(3, cbTipoLicenciaCrear.getSelectionModel().getSelectedItem());
             rs = pstm.executeQuery();
             while (rs.next()) {
                 anioGeneral = rs.getInt("anio");
@@ -124,14 +121,19 @@ public class CrearLicencia {
             }
         } else {
             if (cbTipoLicenciaCrear.getSelectionModel().getSelectedItem().equals("Vacaciones")) {
+                labDiasDisponiblesCrear.setText(String.valueOf(VACACIONES));
                 diasVacaciones = (int) (VACACIONES - (-Cant_Dias) - 1);
             } else if (cbTipoLicenciaCrear.getSelectionModel().getSelectedItem().equals("Enfermedad")) {
+                labDiasDisponiblesCrear.setText(String.valueOf(ENFERMEDAD));
                 diasEnfermedad = (int) (ENFERMEDAD - (-Cant_Dias) - 1);
             } else if (cbTipoLicenciaCrear.getSelectionModel().getSelectedItem().equals("Accidente")) {
+                labDiasDisponiblesCrear.setText(String.valueOf(ACCIDENTE));
                 diasAccidente = (int) (ACCIDENTE - (-Cant_Dias) - 1);
             } else if (cbTipoLicenciaCrear.getSelectionModel().getSelectedItem().equals("Matrimonio")) {
+                labDiasDisponiblesCrear.setText(String.valueOf(MATRIMONIO));
                 diasMatrimonio = (int) (MATRIMONIO - (-Cant_Dias) - 1);
             } else {
+                labDiasDisponiblesCrear.setText(String.valueOf(MUERTE_FAMILIAR));
                 diasMuerteFamiliar = (int) (MUERTE_FAMILIAR - (-Cant_Dias) - 1);
             }
         }
@@ -326,7 +328,7 @@ public class CrearLicencia {
                 } else {
                     Alert alerta = new Alert(Alert.AlertType.ERROR);
                     alerta.setTitle("Error de Días Disponibles!");
-                    alerta.setContentText("La Fecha de Inicio y Fin que a Propuesto en dicho tipo de licencia ya no queda esa cantidad de Días Disponibles de este cierto año");
+                    alerta.setContentText("La Fecha de Inicio y Fin que a Propuesto en dicho "+ "\n" +"tipo de licencia ya no queda esa cantidad de Días"+ "\n" + "Disponibles de este cierto año");
                     alerta.showAndWait();
                 }
             } else {

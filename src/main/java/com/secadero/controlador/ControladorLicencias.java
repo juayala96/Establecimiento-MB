@@ -107,7 +107,9 @@ public class ControladorLicencias {
     @FXML
     private DatePicker dpFechaInicioModificar;
     @FXML
-    private DatePicker dpFechaModificarDuplicada;
+    private DatePicker dpFechaModificarDuplicadaInicio;
+    @FXML
+    private DatePicker dpFechaModificarDuplicadaFin;
     @FXML
     private Label labApellidoEmpleadoCrear;
     @FXML
@@ -276,6 +278,8 @@ public class ControladorLicencias {
         dpFechaInicioModificar.getEditor().setText(colFechaInicio.getCellData(index2).toString());
         dpFechaFinModificar.getEditor().setText(colFechaFin.getCellData(index2).toString());
         cbTipoLicenciaModificar.getSelectionModel().select(colTipoLicencia.getCellData(index2));
+        dpFechaModificarDuplicadaInicio.getEditor().setText(colFechaInicio.getCellData(index2).toString());
+        dpFechaModificarDuplicadaFin.getEditor().setText(colFechaFin.getCellData(index2).toString());
         comboBoxModificar();
 
         labIDLicenciaEliminar.setText(colIDLicencia.getCellData(index2).toString());
@@ -412,7 +416,7 @@ public class ControladorLicencias {
         Label[] campoIDEmpleado = {labIDEmpleadoCrear};
         if(comprobarIDCrearEmpleado(campoIDEmpleado)){
             CrearLicencia licenciaCrear = new CrearLicencia();
-            licenciaCrear.agregarLicencia(labIDEmpleadoCrear, dpFechaInicioCrear, dpFechaFinCrear, cbTipoLicenciaCrear, labLimpiarCamposCrear);
+            licenciaCrear.agregarLicencia(labIDEmpleadoCrear, labDiasDisponiblesCrear, dpFechaInicioCrear, dpFechaFinCrear, cbTipoLicenciaCrear, labLimpiarCamposCrear);
 
             if(Objects.equals(labLimpiarCamposCrear.getText(), "OK")){
                 labLimpiarCamposCrear.setText("");
@@ -432,11 +436,11 @@ public class ControladorLicencias {
     }
 
     @FXML
-    private void modificar() {
+    private void modificar() throws SQLException, ParseException {
         Label[] campoIDEmpleado = {labIDLicenciaModificar};
         if(comprobarIDModificarLicencia(campoIDEmpleado)){
             ModificarLicencia licenciaModificar = new ModificarLicencia();
-            //licenciaModificar.modificarLicencia(labIDEmpleadoModificar, dpFechaInicioModificar, dpFechaFinModificar, cbTipoLicenciaModificar, labLimpiarCamposModificar);
+            licenciaModificar.modificarLicencia(labIDEmpleadoModificar, labIDLicenciaModificar, labDiasDisponiblesModificar, dpFechaModificarDuplicadaInicio, dpFechaModificarDuplicadaFin, dpFechaInicioModificar, dpFechaFinModificar, cbTipoLicenciaModificar, labLimpiarCamposModificar);
 
             if(Objects.equals(labLimpiarCamposModificar.getText(), "OK")){
                 labLimpiarCamposModificar.setText("");
@@ -559,6 +563,8 @@ public class ControladorLicencias {
         labLimpiarCamposModificar.setText("");
         cbTipoLicenciaModificar.getSelectionModel().selectFirst();
         labDiasDisponiblesModificar.setText("");
+        dpFechaModificarDuplicadaInicio.getEditor().setText("");
+        dpFechaModificarDuplicadaFin.getEditor().setText("");
         fechasInicializar();
     }
 
@@ -575,7 +581,8 @@ public class ControladorLicencias {
 
     private void limpiarCamposLicencias(){
         labIDLicenciaModificar.setText("");
-        dpFechaModificarDuplicada.getEditor().setText("");
+        dpFechaModificarDuplicadaInicio.getEditor().setText("");
+        dpFechaModificarDuplicadaFin.getEditor().setText("");
         cbTipoLicenciaModificar.getSelectionModel().selectFirst();
         labDiasDisponiblesModificar.setText("");
 

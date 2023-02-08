@@ -275,7 +275,8 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <DatePicker fx:id="dpFechaModificarDuplicada" disable="true" editable="false" layoutX="8.0" layoutY="34.0" opacity="0.7" prefHeight="40.0" prefWidth="178.0" style="-fx-font-size: 18;" />
+                        <DatePicker fx:id="dpFechaModificarDuplicadaFin" disable="true" editable="false" layoutX="14.0" layoutY="90.0" opacity="0.7" prefHeight="40.0" prefWidth="178.0" style="-fx-font-size: 18;" />
+                        <DatePicker fx:id="dpFechaModificarDuplicadaInicio" disable="true" editable="false" layoutX="8.0" layoutY="34.0" opacity="0.7" prefHeight="40.0" prefWidth="178.0" style="-fx-font-size: 18;" />
                         <Label fx:id="labLimpiarCamposModificar" layoutX="448.0" layoutY="93.0" prefHeight="18.0" prefWidth="26.0" />
                         <Label fx:id="labIDLicenciaModificar" layoutX="422.0" layoutY="92.0" prefHeight="18.0" prefWidth="26.0" />
                         <Label fx:id="labIDEmpleadoModificar" layoutX="396.0" layoutY="92.0" prefHeight="18.0" prefWidth="26.0" />
