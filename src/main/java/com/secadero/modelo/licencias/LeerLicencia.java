@@ -16,15 +16,10 @@ import java.util.Date;
 
 public class LeerLicencia {
 
-    private String nombre;
-    private String apellido;
-    private int legajo;
-    private String telefono;
     private Date fecha_Inicio;
     private Date fecha_Fin;
     private String descripcion;
     private int idLicencias;
-    private int idempleados;
     private int dias_disponibles;
 
     public LeerLicencia() {
@@ -34,48 +29,11 @@ public class LeerLicencia {
         this.dias_disponibles = dias_disponibles;
     }
 
-    public LeerLicencia(String nombre, String apellido, int legajo, String telefono, Date fecha_Inicio, Date fecha_Fin, String descripcion, int idLicencias, int idempleados) {
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.legajo = legajo;
-        this.telefono = telefono;
+    public LeerLicencia(Date fecha_Inicio, Date fecha_Fin, String descripcion, int idLicencias) {
         this.fecha_Inicio = fecha_Inicio;
         this.fecha_Fin = fecha_Fin;
         this.descripcion = descripcion;
         this.idLicencias = idLicencias;
-        this.idempleados = idempleados;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-    public int getLegajo() {
-        return legajo;
-    }
-
-    public void setLegajo(int legajo) {
-        this.legajo = legajo;
-    }
-
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
     }
 
     public Date getFecha_Inicio() {
@@ -110,30 +68,30 @@ public class LeerLicencia {
         this.idLicencias = idLicencias;
     }
 
-    public int getIdempleados() {
-        return idempleados;
+    public int getDias_disponibles() {
+        return dias_disponibles;
     }
 
-    public void setIdempleados(int idempleados) {
-        this.idempleados = idempleados;
+    public void setDias_disponibles(int dias_disponibles) {
+        this.dias_disponibles = dias_disponibles;
     }
-
 
     //------------------------------------------- Leer Licencias --------------------------------------------------
-    public static ObservableList<LeerLicencia> listaLiencia() {
+    public static ObservableList<LeerLicencia> listaLicencia(Label labIDEmpleadoLista) {
         Connection con = Conexion.leerConexion();
         PreparedStatement pstm = null;
         ResultSet rs = null;
         ObservableList<LeerLicencia> lista = FXCollections.observableArrayList();
 
         try {
-            pstm = con.prepareStatement("SELECT empleados.nombre, empleados.apellido, empleados.legajo, empleados.telefono, fecha_Inicio, fecha_Fin, tipo_licencias.descripcion, idLicencias, empleados.idempleados FROM licencias INNER JOIN tipo_licencias ON licencias.idTipoLicenciaFK = tipo_licencias.idTipoLicencia INNER JOIN empleado_licencia ON licencias.idLicencias = empleado_licencia.idLicenciaFK INNER JOIN empleados ON empleado_licencia.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND licencias.estadoLicencia = ?");
+            pstm = con.prepareStatement("SELECT fecha_Inicio, fecha_Fin, tipo_licencias.descripcion, idLicencias FROM licencias INNER JOIN tipo_licencias ON licencias.idTipoLicenciaFK = tipo_licencias.idTipoLicencia INNER JOIN empleado_licencia ON licencias.idLicencias = empleado_licencia.idLicenciaFK INNER JOIN empleados ON empleado_licencia.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND licencias.estadoLicencia = ? AND empleado_licencia.idEmpleadoFK = ?");
             pstm.setString(1, "Vigente");
             pstm.setString(2, "Vigente");
+            pstm.setInt(3, Integer.parseInt(labIDEmpleadoLista.getText()));
             rs = pstm.executeQuery();
 
             while (rs.next()) {
-                lista.add(new LeerLicencia(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getString("telefono"), rs.getDate("fecha_Inicio"), rs.getDate("fecha_Fin"), rs.getString("descripcion"), rs.getInt("idLicencias"), rs.getInt("idempleados")));
+                lista.add(new LeerLicencia(rs.getDate("fecha_Inicio"), rs.getDate("fecha_Fin"), rs.getString("descripcion"), rs.getInt("idLicencias")));
             }
         } catch (SQLException ex) {
             System.err.println("Error: " + ex.getMessage());
@@ -149,23 +107,142 @@ public class LeerLicencia {
         return lista;
     }
 
-    //------------------------------------------- Leer Licencias --------------------------------------------------
-    public static ObservableList<LeerLicencia> buscarLicencia(TextField textBuscarLicenciaLegajoE, DatePicker dpBuscarFechaInicio) {
+    //-------------------------------------- Leer Licencias Comprobación ----------------------------------------------
+    public void listaLicenciaComprobacion(Label labIDEmpleadoLista, Label labIDLicenciaLista, Label labResultadoID){
+        Connection con = Conexion.leerConexion();
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+        int cont = 0;
+
+        try {
+            pstm = con.prepareStatement("SELECT idLicencias FROM licencias INNER JOIN empleado_licencia ON licencias.idLicencias = empleado_licencia.idLicenciaFK INNER JOIN empleados ON empleados.idempleados = empleado_licencia.idEmpleadoFK WHERE empleados.estadoEmpleado = ? AND licencias.estadoLicencia = ? AND empleado_licencia.idEmpleadoFK = ? AND licencias.idLicencias = ?");
+            pstm.setString(1, "Vigente");
+            pstm.setString(2, "Vigente");
+            pstm.setInt(3, Integer.parseInt(labIDEmpleadoLista.getText()));
+            pstm.setInt(4, Integer.parseInt(labIDLicenciaLista.getText()));
+            rs = pstm.executeQuery();
+
+            while (rs.next()){
+                labResultadoID.setText("YES");
+                cont +=1;
+            }
+
+            if(cont == 0){
+                labResultadoID.setText("NO");
+            }
+        } catch (SQLException ex) {
+            System.err.println("Error: " + ex.getMessage());
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pstm != null) pstm.close();
+                if (con != null) con.close();
+            } catch (Exception ex){
+                System.err.println("Error: " + ex.getMessage());
+            }
+        }
+    }
+
+    //------------------------------------------- Leer Dias Disponibles --------------------------------------------------
+    public static String comboBoxTipoLicencia(String valorActual, Label labIDEmpleadoCrear, DatePicker dpFechaInicioCrear) {
+        Connection con = Conexion.leerConexion();
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+        String lista = null;
+        int cont = 0;
+        int anioGeneral = 0;
+        String respuestaAnio = "";
+
+        String fecha = dpFechaInicioCrear.getEditor().getText();
+        String anio = fecha.replace("-", ", ");
+        int anio2 = Integer.parseInt(anio.substring(0, 4));
+
+        try {
+            String consulta2 = "SELECT YEAR(fecha_Inicio) AS anio FROM licencias INNER JOIN empleado_licencia ON licencias.idLicencias = empleado_licencia.idLicenciaFK INNER JOIN empleados ON empleado_licencia.idEmpleadoFK = empleados.idempleados INNER JOIN tipo_licencias ON tipo_licencias.idTipoLicencia = licencias.idTipoLicenciaFK WHERE empleados.estadoEmpleado = ? AND licencias.estadoLicencia = ? AND idEmpleadoFK = ? AND tipo_licencias.descripcion = ?";
+            pstm = con.prepareStatement(consulta2);
+            pstm.setString(1, "Vigente");
+            pstm.setString(2, "Vigente");
+            pstm.setString(3, labIDEmpleadoCrear.getText());
+            pstm.setString(4, valorActual);
+            rs = pstm.executeQuery();
+            while (rs.next()) {
+                anioGeneral = rs.getInt("anio");
+                if(anioGeneral == anio2){
+                    respuestaAnio = "YES";
+                } else {
+                    respuestaAnio = "NO";
+                }
+            }
+        } catch (Exception e1) {
+            System.err.println("Error: " + e1.getMessage());
+        }
+
+        if(respuestaAnio.equals("YES")){
+            try {
+                pstm = con.prepareStatement("SELECT licencias.dias_disponibles, YEAR(fecha_Inicio) AS anio FROM licencias INNER JOIN tipo_licencias ON licencias.idTipoLicenciaFK = tipo_licencias.idTipoLicencia INNER JOIN empleado_licencia ON licencias.idLicencias = empleado_licencia.idLicenciaFK INNER JOIN empleados ON empleado_licencia.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND licencias.estadoLicencia = ? AND empleado_licencia.idEmpleadoFK = ? AND tipo_licencias.descripcion = ?");
+                pstm.setString(1, "Vigente");
+                pstm.setString(2, "Vigente");
+                pstm.setInt(3, Integer.parseInt(labIDEmpleadoCrear.getText()));
+                pstm.setString(4, valorActual);
+                rs = pstm.executeQuery();
+
+                while (rs.next()) {
+                    lista = String.valueOf(rs.getInt("dias_disponibles"));
+                    cont += 1;
+                }
+                if(cont == 0){
+                    pstm = con.prepareStatement("SELECT tipo_licencias.dias_predefinidas FROM tipo_licencias WHERE tipo_licencias.descripcion = ?");
+                    pstm.setString(1, valorActual);
+                    rs = pstm.executeQuery();
+
+                    while (rs.next()) {
+                        lista = String.valueOf(rs.getInt("dias_predefinidas"));
+                    }
+                }
+            } catch (SQLException ex) {
+                System.err.println("Error: " + ex.getMessage());
+            } finally {
+                try {
+                    if (rs != null) rs.close();
+                    if (pstm != null) pstm.close();
+                    if (con != null) con.close();
+                } catch (Exception ex) {
+                    System.err.println("Error: " + ex.getMessage());
+                }
+            }
+        } else {
+            try {
+                pstm = con.prepareStatement("SELECT tipo_licencias.dias_predefinidas FROM tipo_licencias WHERE tipo_licencias.descripcion = ?");
+                pstm.setString(1, valorActual);
+                rs = pstm.executeQuery();
+
+                while (rs.next()) {
+                    lista = String.valueOf(rs.getInt("dias_predefinidas"));
+                }
+            } catch (SQLException ex) {
+                System.err.println("Error: " + ex.getMessage());
+            }
+        }
+        return lista;
+    }
+
+    //------------------------------------------- Buscar Licencias --------------------------------------------------
+    public static ObservableList<LeerLicencia> buscarLicenciaFechaInicio(Label labIDEmpleadoLista, DatePicker dpBuscarFechaInicio) {
         Connection con = Conexion.leerConexion();
         PreparedStatement pstm = null;
         ResultSet rs = null;
         ObservableList<LeerLicencia> lista = FXCollections.observableArrayList();
 
         try {
-            pstm = con.prepareStatement("SELECT empleados.nombre, empleados.apellido, empleados.legajo, empleados.telefono, fecha_Inicio, fecha_Fin, tipo_licencias.descripcion, idLicencias, empleados.idempleados FROM licencias INNER JOIN tipo_licencias ON licencias.idTipoLicenciaFK = tipo_licencias.idTipoLicencia INNER JOIN empleado_licencia ON licencias.idLicencias = empleado_licencia.idLicenciaFK INNER JOIN empleados ON empleado_licencia.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND licencias.estadoLicencia = ? AND licencias.fecha_Inicio = ? AND empleados.legajo = ?");
+            pstm = con.prepareStatement("SELECT fecha_Inicio, fecha_Fin, tipo_licencias.descripcion, idLicencias FROM licencias INNER JOIN tipo_licencias ON licencias.idTipoLicenciaFK = tipo_licencias.idTipoLicencia INNER JOIN empleado_licencia ON licencias.idLicencias = empleado_licencia.idLicenciaFK INNER JOIN empleados ON empleado_licencia.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND licencias.estadoLicencia = ? AND licencias.fecha_Inicio = ? AND empleados.idempleados = ?");
             pstm.setString(1, "Vigente");
             pstm.setString(2, "Vigente");
             pstm.setDate(3, java.sql.Date.valueOf(dpBuscarFechaInicio.getEditor().getText()));
-            pstm.setString(4, textBuscarLicenciaLegajoE.getText());
+            pstm.setString(4, labIDEmpleadoLista.getText());
             rs = pstm.executeQuery();
 
             while (rs.next()) {
-                lista.add(new LeerLicencia(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getString("telefono"), rs.getDate("fecha_Inicio"), rs.getDate("fecha_Fin"), rs.getString("descripcion"), rs.getInt("idLicencias"), rs.getInt("idempleados")));
+                lista.add(new LeerLicencia(rs.getDate("fecha_Inicio"), rs.getDate("fecha_Fin"), rs.getString("descripcion"), rs.getInt("idLicencias")));
             }
         } catch (SQLException ex) {
             System.err.println("Error: " + ex.getMessage());
@@ -182,7 +259,7 @@ public class LeerLicencia {
     }
 
     //------------------------------------------- Filtro Licencias --------------------------------------------------
-    public static ObservableList<LeerLicencia> filtroLicencia(ComboBox<String> cbTiposFiltrosLicencia) {
+    public static ObservableList<LeerLicencia> filtroLicencia(ComboBox<String> cbTiposFiltrosLicencia, Label labIDEmpleadoLista) {
         Connection con = Conexion.leerConexion();
         PreparedStatement pstm = null;
         ResultSet rs = null;
@@ -191,16 +268,20 @@ public class LeerLicencia {
         if (dato.equals("tipo_licencia")) {
             dato = "idTipoLicenciaFK";
         }
+        if(labIDEmpleadoLista.getText().equals("")){
+            labIDEmpleadoLista.setText("0");
+        }
 
         if ((!dato.equals("fecha_inicio")) && (!dato.equals("fecha_fin"))) {
             try {
-                pstm = con.prepareStatement("SELECT empleados.nombre, empleados.apellido, empleados.legajo, empleados.telefono, fecha_Inicio, fecha_Fin, tipo_licencias.descripcion, idLicencias, empleados.idempleados FROM licencias INNER JOIN tipo_licencias ON licencias.idTipoLicenciaFK = tipo_licencias.idTipoLicencia INNER JOIN empleado_licencia ON licencias.idLicencias = empleado_licencia.idLicenciaFK INNER JOIN empleados ON empleado_licencia.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND licencias.estadoLicencia = ? ORDER BY " + dato + " ASC");
+                pstm = con.prepareStatement("SELECT fecha_Inicio, fecha_Fin, tipo_licencias.descripcion, idLicencias FROM licencias INNER JOIN tipo_licencias ON licencias.idTipoLicenciaFK = tipo_licencias.idTipoLicencia INNER JOIN empleado_licencia ON licencias.idLicencias = empleado_licencia.idLicenciaFK INNER JOIN empleados ON empleado_licencia.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND licencias.estadoLicencia = ? AND empleados.idempleados = ? ORDER BY " + dato + " ASC");
                 pstm.setString(1, "Vigente");
                 pstm.setString(2, "Vigente");
+                pstm.setInt(3, Integer.parseInt(labIDEmpleadoLista.getText()));
                 rs = pstm.executeQuery();
 
                 while (rs.next()) {
-                    lista.add(new LeerLicencia(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getString("telefono"), rs.getDate("fecha_Inicio"), rs.getDate("fecha_Fin"), rs.getString("descripcion"), rs.getInt("idLicencias"), rs.getInt("idempleados")));
+                    lista.add(new LeerLicencia(rs.getDate("fecha_Inicio"), rs.getDate("fecha_Fin"), rs.getString("descripcion"), rs.getInt("idLicencias")));
                 }
             } catch (SQLException ex) {
                 System.err.println("Error: " + ex.getMessage());
@@ -216,13 +297,14 @@ public class LeerLicencia {
             return lista;
         } else {
             try {
-                pstm = con.prepareStatement("SELECT empleados.nombre, empleados.apellido, empleados.legajo, empleados.telefono, fecha_Inicio, fecha_Fin, tipo_licencias.descripcion, idLicencias, empleados.idempleados FROM licencias INNER JOIN tipo_licencias ON licencias.idTipoLicenciaFK = tipo_licencias.idTipoLicencia INNER JOIN empleado_licencia ON licencias.idLicencias = empleado_licencia.idLicenciaFK INNER JOIN empleados ON empleado_licencia.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND licencias.estadoLicencia = ? ORDER BY " + dato + " DESC");
+                pstm = con.prepareStatement("SELECT empleados.nombre, empleados.apellido, empleados.legajo, empleados.telefono, fecha_Inicio, fecha_Fin, tipo_licencias.descripcion, idLicencias, empleados.idempleados FROM licencias INNER JOIN tipo_licencias ON licencias.idTipoLicenciaFK = tipo_licencias.idTipoLicencia INNER JOIN empleado_licencia ON licencias.idLicencias = empleado_licencia.idLicenciaFK INNER JOIN empleados ON empleado_licencia.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND licencias.estadoLicencia = ? AND empleados.idempleados = ? ORDER BY " + dato + " DESC");
                 pstm.setString(1, "Vigente");
                 pstm.setString(2, "Vigente");
+                pstm.setInt(3, Integer.parseInt(labIDEmpleadoLista.getText()));
                 rs = pstm.executeQuery();
 
                 while (rs.next()) {
-                    lista.add(new LeerLicencia(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getString("telefono"), rs.getDate("fecha_Inicio"), rs.getDate("fecha_Fin"), rs.getString("descripcion"), rs.getInt("idLicencias"), rs.getInt("idempleados")));
+                    lista.add(new LeerLicencia(rs.getDate("fecha_Inicio"), rs.getDate("fecha_Fin"), rs.getString("descripcion"), rs.getInt("idLicencias")));
                 }
             } catch (SQLException ex) {
                 System.err.println("Error: " + ex.getMessage());
@@ -237,48 +319,5 @@ public class LeerLicencia {
             }
             return lista;
         }
-    }
-
-    //------------------------------------------- Leer Dias Disponibles --------------------------------------------------
-    public static String comboBoxTipoLicencia(String valorActual, Label labIDEmpleadoCrear) {
-        Connection con = Conexion.leerConexion();
-        PreparedStatement pstm = null;
-        ResultSet rs = null;
-        String lista = null;
-        int cont = 0;
-
-        try {
-            pstm = con.prepareStatement("SELECT licencias.dias_disponibles FROM licencias INNER JOIN tipo_licencias ON licencias.idTipoLicenciaFK = tipo_licencias.idTipoLicencia INNER JOIN empleado_licencia ON licencias.idLicencias = empleado_licencia.idLicenciaFK INNER JOIN empleados ON empleado_licencia.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND licencias.estadoLicencia = ? AND empleado_licencia.idEmpleadoFK = ? AND tipo_licencias.descripcion = ?");
-            pstm.setString(1, "Vigente");
-            pstm.setString(2, "Vigente");
-            pstm.setInt(3, Integer.parseInt(labIDEmpleadoCrear.getText()));
-            pstm.setString(4, valorActual);
-            rs = pstm.executeQuery();
-
-            while (rs.next()) {
-                lista = String.valueOf(rs.getInt("dias_disponibles"));
-                cont += 1;
-            }
-            if(cont == 0){
-                pstm = con.prepareStatement("SELECT tipo_licencias.dias_predefinidas FROM tipo_licencias WHERE tipo_licencias.descripcion = ?");
-                pstm.setString(1, valorActual);
-                rs = pstm.executeQuery();
-
-                while (rs.next()) {
-                    lista = String.valueOf(rs.getInt("dias_predefinidas"));
-                }
-            }
-        } catch (SQLException ex) {
-            System.err.println("Error: " + ex.getMessage());
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (pstm != null) pstm.close();
-                if (con != null) con.close();
-            } catch (Exception ex) {
-                System.err.println("Error: " + ex.getMessage());
-            }
-        }
-        return lista;
     }
 }

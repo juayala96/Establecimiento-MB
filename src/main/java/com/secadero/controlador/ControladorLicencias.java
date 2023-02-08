@@ -1,11 +1,10 @@
 package com.secadero.controlador;
 
-import com.secadero.modelo.ausencia.CrearAusencia;
 import com.secadero.modelo.ausencia.LeerAusencia;
 import com.secadero.modelo.empleados.LeerEmpleado;
-import com.secadero.modelo.empleados.leerComboBoxes.GeneroEmpleado;
 import com.secadero.modelo.licencias.CrearLicencia;
 import com.secadero.modelo.licencias.LeerLicencia;
+import com.secadero.modelo.licencias.ModificarLicencia;
 import com.secadero.modelo.licencias.leerComboBoxes.TipoLicencia;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
@@ -19,6 +18,7 @@ import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -63,7 +63,7 @@ public class ControladorLicencias {
     @FXML
     private ComboBox<String> cbTiposFiltrosLicencia;
     @FXML
-    private TableColumn<LeerLicencia, String> colApellido;
+    private TableColumn<LeerEmpleado, String> colApellido;
     @FXML
     private TableColumn<LeerEmpleado, String> colApellidoEmpleadoCrear;
     @FXML
@@ -73,21 +73,21 @@ public class ControladorLicencias {
     @FXML
     private TableColumn<LeerLicencia, Date> colFechaInicio;
     @FXML
-    private TableColumn<LeerLicencia, Integer> colIDEmpleado;
+    private TableColumn<LeerEmpleado, Integer> colIDEmpleado;
     @FXML
     private TableColumn<LeerEmpleado, Integer> colIDEmpleadoCrear;
     @FXML
     private TableColumn<LeerLicencia, Integer> colIDLicencia;
     @FXML
-    private TableColumn<LeerLicencia, Integer> colLegajo;
+    private TableColumn<LeerEmpleado, Integer> colLegajo;
     @FXML
     private TableColumn<LeerEmpleado, Integer> colLegajoEmpleadoCrear;
     @FXML
-    private TableColumn<LeerLicencia, String> colNombre;
+    private TableColumn<LeerEmpleado, String> colNombre;
     @FXML
     private TableColumn<LeerEmpleado, String> colNombreEmpleadoCrear;
     @FXML
-    private TableColumn<LeerLicencia, String> colTelefono;
+    private TableColumn<LeerEmpleado, String> colTelefono;
     @FXML
     private TableColumn<LeerEmpleado, String> colTelefonoEmpleadoCrear;
     @FXML
@@ -149,6 +149,10 @@ public class ControladorLicencias {
     @FXML
     private Label labNombreEmpleadoModificar;
     @FXML
+    private Label labIDLicenciaLista;
+    @FXML
+    private Label labResultadoID;
+    @FXML
     private TabPane panelPestaniasLicencias;
     @FXML
     private Tab tabEliminarLicencia;
@@ -161,22 +165,27 @@ public class ControladorLicencias {
     @FXML
     private Tab tabRegistrarLicencia;
     @FXML
+    private TableView<LeerEmpleado> tablaListaEmpleados;
+    @FXML
     private TableView<LeerLicencia> tablaLicencia;
     @FXML
-    private TextField textBuscarLicenciaLegajoE;
+    private TextField textBuscarLegajoEmpleado;
 
-    ObservableList<LeerLicencia> listLicencia;
+    ObservableList<LeerEmpleado> listTablaEmpleados;
     int index = -1;
 
-    ObservableList<LeerEmpleado> listEmpleadoLicencia;
+    ObservableList<LeerLicencia> listLicencia;
     int index2 = -1;
+
+    ObservableList<LeerEmpleado> listEmpleadoLicencia;
+    int index3 = -1;
 
     // -------------------------------------------- Inicialización ----------------------------------------------
     public void initialize() {
         String[] tipoFiltro = {"Nombre", "Legajo", "Fecha_Inicio", "Fecha_Fin", "Tipo_Licencia"};
         cbTiposFiltrosLicencia.getItems().addAll(tipoFiltro);
         cbTiposFiltrosLicencia.getSelectionModel().selectFirst();
-        inicializarTabla();
+        inicializarTablaListaEmpleados();
         inicializarTablaEmpleado();
         inicializarComboBoxBD();
         fechasInicializar();
@@ -184,60 +193,32 @@ public class ControladorLicencias {
         cbTipoLicenciaCrear.getSelectionModel().selectedItemProperty().addListener(this::cambioDeItem);
     }
 
-    public void comboBoxCrear(){
-        String item = cbTipoLicenciaCrear.getSelectionModel().getSelectedItem();
-        cbTipoLicenciaCrear.getSelectionModel().selectedItemProperty().addListener(this::cambioDeItem);
-        LeerLicencia licenciaLeer = new LeerLicencia();
-        String dato = licenciaLeer.comboBoxTipoLicencia(item, labIDEmpleadoCrear);
-        labDiasDisponiblesCrear.setText(dato);
+    // ----------------------------------------- Tabla de Empleados ---------------------------------------------
+    public void inicializarTablaListaEmpleados(){
+        colNombre.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, String>("nombre"));
+        colApellido.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, String>("apellido"));
+        colLegajo.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, Integer>("legajo"));
+        colTelefono.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, String>("telefono"));
+        colIDEmpleado.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, Integer>("idempleados"));
+
+        listTablaEmpleados = LeerEmpleado.listaEmpleadoGeneral();
+        tablaListaEmpleados.getColumns().setAll(colNombre, colApellido, colLegajo, colTelefono, colIDEmpleado);
+        tablaListaEmpleados.getItems().setAll(listTablaEmpleados);
     }
 
-    public void comboBoxModificar(){
-        String item = cbTipoLicenciaModificar.getSelectionModel().getSelectedItem();
-        cbTipoLicenciaModificar.getSelectionModel().selectedItemProperty().addListener(this::cambioDeItem2);
-        LeerLicencia licenciaLeer = new LeerLicencia();
-        String dato = licenciaLeer.comboBoxTipoLicencia(item, labIDEmpleadoModificar);
-        labDiasDisponiblesModificar.setText(dato);
-    }
-
-    public void comboBoxEliminar(){
-        String item = cbTipoLicenciaEliminar.getSelectionModel().getSelectedItem();
-        cbTipoLicenciaEliminar.getSelectionModel().selectedItemProperty().addListener(this::cambioDeItem2);
-        LeerLicencia licenciaLeer = new LeerLicencia();
-        String dato = licenciaLeer.comboBoxTipoLicencia(item, labIDEmpleadoEliminar);
-        labDiasDisponiblesEliminar.setText(dato);
-    }
-
-    public void cambioDeItem(ObservableValue<? extends String> observable, String valorAntiguo, String valorActual){
-        LeerLicencia licenciaLeer = new LeerLicencia();
-        String dato = licenciaLeer.comboBoxTipoLicencia(valorActual, labIDEmpleadoCrear);
-
-        labDiasDisponiblesCrear.setText(dato);
-    }
-
-    public void cambioDeItem2(ObservableValue<? extends String> observable, String valorAntiguo, String valorActual){
-        LeerLicencia licenciaLeer = new LeerLicencia();
-        String dato = licenciaLeer.comboBoxTipoLicencia(valorActual, labIDEmpleadoModificar);
-
-        labDiasDisponiblesModificar.setText(dato);
-    }
-
-    public void inicializarTabla(){
-        colNombre.setCellValueFactory(new PropertyValueFactory<LeerLicencia, String>("nombre"));
-        colApellido.setCellValueFactory(new PropertyValueFactory<LeerLicencia, String>("apellido"));
-        colLegajo.setCellValueFactory(new PropertyValueFactory<LeerLicencia, Integer>("legajo"));
-        colTelefono.setCellValueFactory(new PropertyValueFactory<LeerLicencia, String>("telefono"));
+    // ----------------------------------------- Tabla de Licencias ---------------------------------------------
+    public void inicializarTablaLicencias(){
         colFechaInicio.setCellValueFactory(new PropertyValueFactory<LeerLicencia, Date>("fecha_Inicio"));
         colFechaFin.setCellValueFactory(new PropertyValueFactory<LeerLicencia, Date>("fecha_Fin"));
         colTipoLicencia.setCellValueFactory(new PropertyValueFactory<LeerLicencia, String>("descripcion"));
         colIDLicencia.setCellValueFactory(new PropertyValueFactory<LeerLicencia, Integer>("idLicencias"));
-        colIDEmpleado.setCellValueFactory(new PropertyValueFactory<LeerLicencia, Integer>("idempleados"));
 
-        listLicencia = LeerLicencia.listaLiencia();
-        tablaLicencia.getColumns().setAll(colNombre, colApellido, colLegajo, colTelefono, colFechaInicio, colFechaFin, colTipoLicencia, colIDLicencia, colIDEmpleado);
+        listLicencia = LeerLicencia.listaLicencia(labIDEmpleadoLista);
+        tablaLicencia.getColumns().setAll(colFechaInicio, colFechaFin, colTipoLicencia, colIDLicencia);
         tablaLicencia.getItems().setAll(listLicencia);
     }
 
+    // -------------------------------------- Tabla de Empleados Crear ------------------------------------------
     public void inicializarTablaEmpleado(){
         colNombreEmpleadoCrear.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, String>("nombre"));
         colApellidoEmpleadoCrear.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, String>("apellido"));
@@ -251,49 +232,114 @@ public class ControladorLicencias {
         tabEmpleadosCrear.getItems().setAll(listEmpleadoLicencia);
     }
 
+    // ------------------------------------- Tomo todos los datos al Seleccionar en la tabla ------------------------
     @FXML
-    private void getLicencia(){
-        index = tablaLicencia.getSelectionModel().getSelectedIndex();
+    private void getListaEmpleados(){
+        index = tablaListaEmpleados.getSelectionModel().getSelectedIndex();
         if (index <= -1){
 
             return;
         }
 
-        labIDLicenciaModificar.setText(colIDLicencia.getCellData(index).toString());
-        labIDEmpleadoModificar.setText(colIDEmpleado.getCellData(index).toString());
         labNombreEmpleadoModificar.setText(colNombre.getCellData(index));
         labApellidoEmpleadoModificar.setText(colApellido.getCellData(index));
         labLegajoEmpleadoModificar.setText(colLegajo.getCellData(index).toString());
-        dpFechaInicioModificar.getEditor().setText(colFechaInicio.getCellData(index).toString());
-        dpFechaFinModificar.getEditor().setText(colFechaFin.getCellData(index).toString());
-        cbTipoLicenciaModificar.getSelectionModel().select(colTipoLicencia.getCellData(index));
-        comboBoxModificar();
+        labIDEmpleadoModificar.setText(colIDEmpleado.getCellData(index).toString());
 
-        labIDLicenciaEliminar.setText(colIDLicencia.getCellData(index).toString());
-        labIDEmpleadoEliminar.setText(colIDEmpleado.getCellData(index).toString());
         labNombreEmpleadoEliminar.setText(colNombre.getCellData(index));
         labApellidoEmpleadoEliminar.setText(colApellido.getCellData(index));
         labLegajoEmpleadoEliminar.setText(colLegajo.getCellData(index).toString());
-        dpFechaInicioEliminar.getEditor().setText(colFechaInicio.getCellData(index).toString());
-        dpFechaFinEliminar.getEditor().setText(colFechaFin.getCellData(index).toString());
-        cbTipoLicenciaEliminar.getSelectionModel().select(colTipoLicencia.getCellData(index));
-        comboBoxEliminar();
+        labIDEmpleadoEliminar.setText(colIDEmpleado.getCellData(index).toString());
+
+        labIDLicenciaLista.setText("0");
+        labIDEmpleadoLista.setText(colIDEmpleado.getCellData(index).toString());
+        inicializarTablaLicencias();
+
+        LeerLicencia licenciaLeer = new LeerLicencia();
+        licenciaLeer.listaLicenciaComprobacion(labIDEmpleadoLista, labIDLicenciaLista, labResultadoID);
+        if(labResultadoID.getText().equals("NO")){
+            limpiarCamposLicencias();
+            labDiasDisponiblesModificar.setText("");
+            labDiasDisponiblesEliminar.setText("");
+        }
     }
 
     @FXML
-    private void getEmpleadoCrear(){
-        index2 = tabEmpleadosCrear.getSelectionModel().getSelectedIndex();
+    private void getLicencia(){
+        index2 = tablaLicencia.getSelectionModel().getSelectedIndex();
         if (index2 <= -1){
 
             return;
         }
-        labIDEmpleadoCrear.setText(colIDEmpleadoCrear.getCellData(index2).toString());
-        labNombreEmpleadoCrear.setText(colNombreEmpleadoCrear.getCellData(index2));
-        labApellidoEmpleadoCrear.setText(colApellidoEmpleadoCrear.getCellData(index2));
-        labLegajoEmpleadoCrear.setText(colLegajoEmpleadoCrear.getCellData(index2).toString());
 
+        labIDLicenciaModificar.setText(colIDLicencia.getCellData(index2).toString());
+        dpFechaInicioModificar.getEditor().setText(colFechaInicio.getCellData(index2).toString());
+        dpFechaFinModificar.getEditor().setText(colFechaFin.getCellData(index2).toString());
+        cbTipoLicenciaModificar.getSelectionModel().select(colTipoLicencia.getCellData(index2));
+        comboBoxModificar();
+
+        labIDLicenciaEliminar.setText(colIDLicencia.getCellData(index2).toString());
+        dpFechaInicioEliminar.getEditor().setText(colFechaInicio.getCellData(index2).toString());
+        dpFechaFinEliminar.getEditor().setText(colFechaFin.getCellData(index2).toString());
+        cbTipoLicenciaEliminar.getSelectionModel().select(colTipoLicencia.getCellData(index2));
+        comboBoxEliminar();
+
+        labIDLicenciaLista.setText(colIDLicencia.getCellData(index2).toString());
+    }
+
+    @FXML
+    private void getEmpleadoCrear(){
+        index3 = tabEmpleadosCrear.getSelectionModel().getSelectedIndex();
+        if (index3 <= -1){
+
+            return;
+        }
+        labIDEmpleadoCrear.setText(colIDEmpleadoCrear.getCellData(index3).toString());
+        labNombreEmpleadoCrear.setText(colNombreEmpleadoCrear.getCellData(index3));
+        labApellidoEmpleadoCrear.setText(colApellidoEmpleadoCrear.getCellData(index3));
+        labLegajoEmpleadoCrear.setText(colLegajoEmpleadoCrear.getCellData(index3).toString());
         comboBoxCrear();
     }
+
+    // ------------------------ Combo Boxes actualiza los Dias Disponibles Automáticamente ------------------------
+    public void comboBoxCrear(){
+        String item = cbTipoLicenciaCrear.getSelectionModel().getSelectedItem();
+        cbTipoLicenciaCrear.getSelectionModel().selectedItemProperty().addListener(this::cambioDeItem);
+        LeerLicencia licenciaLeer = new LeerLicencia();
+        String dato = licenciaLeer.comboBoxTipoLicencia(item, labIDEmpleadoCrear, dpFechaInicioCrear);
+        labDiasDisponiblesCrear.setText(dato);
+    }
+
+    public void comboBoxModificar(){
+        String item = cbTipoLicenciaModificar.getSelectionModel().getSelectedItem();
+        cbTipoLicenciaModificar.getSelectionModel().selectedItemProperty().addListener(this::cambioDeItem2);
+        LeerLicencia licenciaLeer = new LeerLicencia();
+        String dato = licenciaLeer.comboBoxTipoLicencia(item, labIDEmpleadoModificar, dpFechaInicioModificar);
+        labDiasDisponiblesModificar.setText(dato);
+    }
+
+    public void comboBoxEliminar(){
+        String item = cbTipoLicenciaEliminar.getSelectionModel().getSelectedItem();
+        cbTipoLicenciaEliminar.getSelectionModel().selectedItemProperty().addListener(this::cambioDeItem2);
+        LeerLicencia licenciaLeer = new LeerLicencia();
+        String dato = licenciaLeer.comboBoxTipoLicencia(item, labIDEmpleadoEliminar, dpFechaInicioEliminar);
+        labDiasDisponiblesEliminar.setText(dato);
+    }
+
+    public void cambioDeItem(ObservableValue<? extends String> observable, String valorAntiguo, String valorActual){
+        LeerLicencia licenciaLeer = new LeerLicencia();
+        String dato = licenciaLeer.comboBoxTipoLicencia(valorActual, labIDEmpleadoCrear, dpFechaInicioCrear);
+
+        labDiasDisponiblesCrear.setText(dato);
+    }
+
+    public void cambioDeItem2(ObservableValue<? extends String> observable, String valorAntiguo, String valorActual){
+        LeerLicencia licenciaLeer = new LeerLicencia();
+        String dato = licenciaLeer.comboBoxTipoLicencia(valorActual, labIDEmpleadoModificar, dpFechaInicioModificar);
+
+        labDiasDisponiblesModificar.setText(dato);
+    }
+
 
     public void inicializarComboBoxBD() {
         // --------------------- Tipo de Licencia -----------------------
@@ -312,36 +358,57 @@ public class ControladorLicencias {
     }
 
     // --------------------------------------------- Búsqueda y Filtros -----------------------------------------
-
     @FXML
-    private void btnBuscar() {
-        ObservableList<LeerLicencia> listBuscarAmbos;
-        listBuscarAmbos = LeerLicencia.buscarLicencia(textBuscarLicenciaLegajoE, dpBuscarFechaInicio);
-        if(textBuscarLicenciaLegajoE.getText().equals("")){
+    private void btnBuscarEmpleado(){
+        ObservableList<LeerEmpleado> listBuscarEmpleado;
+        listBuscarEmpleado = LeerEmpleado.buscarEmpleadoGeneral(textBuscarLegajoEmpleado);
+        if(textBuscarLegajoEmpleado.getText().equals("")){
             Alert alerta = new Alert(Alert.AlertType.WARNING);
             alerta.setTitle("Error!");
             alerta.setContentText("Debe de completar el Legajo para Buscar");
             alerta.showAndWait();
         } else {
-            tablaLicencia.getItems().setAll(listBuscarAmbos);
+            tablaListaEmpleados.getItems().setAll(listBuscarEmpleado);
         }
     }
 
     @FXML
+    private void btnBuscarLicencia(){
+        ObservableList<LeerLicencia> listaBuscarLicencia;
+        listaBuscarLicencia = LeerLicencia.buscarLicenciaFechaInicio(labIDEmpleadoLista, dpBuscarFechaInicio);
+        tablaLicencia.getItems().setAll(listaBuscarLicencia);
+    }
+
+
+    @FXML
     private void filtroLicencia() {
-        ObservableList<LeerLicencia> listFiltros;
-        listFiltros = LeerLicencia.filtroLicencia(cbTiposFiltrosLicencia);
-        tablaLicencia.getItems().setAll(listFiltros);
+        String dato = cbTiposFiltrosLicencia.getSelectionModel().getSelectedItem().toLowerCase();
+        if(dato.equals("fecha_inicio") || dato.equals("fecha_fin") || dato.equals("tipo_licencia")){
+            ObservableList<LeerLicencia> listFiltros;
+            listFiltros = LeerLicencia.filtroLicencia(cbTiposFiltrosLicencia, labIDEmpleadoLista);
+            tablaLicencia.getItems().setAll(listFiltros);
+        } else {
+            ObservableList<LeerEmpleado> listFiltrosEmpleados;
+            listFiltrosEmpleados = LeerEmpleado.filtroEmpleadoGeneral(cbTiposFiltrosLicencia);
+            tablaListaEmpleados.getItems().setAll(listFiltrosEmpleados);
+        }
     }
 
     @FXML
     private void actualizarTabla() {
-        tablaLicencia.getItems().setAll(listLicencia);
+        labIDLicenciaLista.setText("0");
+        labIDEmpleadoLista.setText("0");
+        textBuscarLegajoEmpleado.setText("");
+        tablaListaEmpleados.getItems().setAll(listEmpleadoLicencia);
+        cbTiposFiltrosLicencia.getSelectionModel().selectFirst();
+        inicializarTablaLicencias();
+        limpiarCamposModificar();
+        limpiarCamposEliminar();
     }
 
     //---------------------------------------------- Eventos Importantes ----------------------------------------
     @FXML
-    private void guardar() throws ParseException {
+    private void guardar() throws ParseException, SQLException {
         Label[] campoIDEmpleado = {labIDEmpleadoCrear};
         if(comprobarIDCrearEmpleado(campoIDEmpleado)){
             CrearLicencia licenciaCrear = new CrearLicencia();
@@ -349,10 +416,12 @@ public class ControladorLicencias {
 
             if(Objects.equals(labLimpiarCamposCrear.getText(), "OK")){
                 labLimpiarCamposCrear.setText("");
-                inicializarTabla();
+                labIDLicenciaLista.setText("0");
+                labIDEmpleadoLista.setText("0");
+                inicializarTablaEmpleado();
+                inicializarTablaLicencias();
                 regresarCLista();
                 limpiarCamposCrear();
-                inicializarTablaEmpleado();
             }
         } else {
             Alert alerta = new Alert(Alert.AlertType.WARNING);
@@ -364,7 +433,27 @@ public class ControladorLicencias {
 
     @FXML
     private void modificar() {
+        Label[] campoIDEmpleado = {labIDLicenciaModificar};
+        if(comprobarIDModificarLicencia(campoIDEmpleado)){
+            ModificarLicencia licenciaModificar = new ModificarLicencia();
+            //licenciaModificar.modificarLicencia(labIDEmpleadoModificar, dpFechaInicioModificar, dpFechaFinModificar, cbTipoLicenciaModificar, labLimpiarCamposModificar);
 
+            if(Objects.equals(labLimpiarCamposModificar.getText(), "OK")){
+                labLimpiarCamposModificar.setText("");
+                labIDLicenciaLista.setText("0");
+                labIDEmpleadoLista.setText("0");
+                inicializarTablaEmpleado();
+                inicializarTablaLicencias();
+                regresarCLista();
+                limpiarCamposModificar();
+                limpiarCamposEliminar();
+            }
+        } else {
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setTitle("Error");
+            alerta.setContentText("Para Modificar debes de tomar una Licencia del empleado");
+            alerta.showAndWait();
+        }
     }
 
     @FXML
@@ -457,6 +546,7 @@ public class ControladorLicencias {
         labLegajoEmpleadoCrear.setText("");
         cbTipoLicenciaCrear.getSelectionModel().selectFirst();
         labLimpiarCamposCrear.setText("");
+        labDiasDisponiblesCrear.setText("");
         fechasInicializar();
     }
 
@@ -466,8 +556,9 @@ public class ControladorLicencias {
         labNombreEmpleadoModificar.setText("");
         labApellidoEmpleadoModificar.setText("");
         labLegajoEmpleadoModificar.setText("");
-        cbTipoLicenciaModificar.getSelectionModel().selectFirst();
         labLimpiarCamposModificar.setText("");
+        cbTipoLicenciaModificar.getSelectionModel().selectFirst();
+        labDiasDisponiblesModificar.setText("");
         fechasInicializar();
     }
 
@@ -478,6 +569,19 @@ public class ControladorLicencias {
         labApellidoEmpleadoEliminar.setText("");
         labLegajoEmpleadoEliminar.setText("");
         cbTipoLicenciaEliminar.getSelectionModel().selectFirst();
+        labDiasDisponiblesEliminar.setText("");
+        fechasInicializar();
+    }
+
+    private void limpiarCamposLicencias(){
+        labIDLicenciaModificar.setText("");
+        dpFechaModificarDuplicada.getEditor().setText("");
+        cbTipoLicenciaModificar.getSelectionModel().selectFirst();
+        labDiasDisponiblesModificar.setText("");
+
+        labIDLicenciaEliminar.setText("");
+        cbTipoLicenciaEliminar.getSelectionModel().selectFirst();
+        labDiasDisponiblesEliminar.setText("");
         fechasInicializar();
     }
 

@@ -13,15 +13,11 @@ import java.sql.SQLException;
 import java.util.Date;
 
 public class LeerAusencia {
-    private String nombre;
-    private String apellido;
-    private int legajo;
     private Date fecha;
     private String motivo;
     private String justificado;
     private String certificado;
     private int idausencias;
-    private int idEmpleadoFK;
 
     public LeerAusencia(){}
 
@@ -177,6 +173,10 @@ public class LeerAusencia {
         ResultSet rs = null;
         ObservableList<LeerAusencia> lista = FXCollections.observableArrayList();
         String dato = cbTiposFiltrosAusencias.getSelectionModel().getSelectedItem().toLowerCase();
+
+        if(labIDEmpleadoLista.getText().equals("")){
+            labIDEmpleadoLista.setText("0");
+        }
 
         try {
             pstm = con.prepareStatement("SELECT fecha, motivo, justificado, certificado, idausencias FROM ausencias INNER JOIN empleados ON ausencias.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND empleados.idempleados = ? ORDER BY " + dato +" DESC");

@@ -1,7 +1,10 @@
 package com.secadero.modelo.licencias;
 
 import com.secadero.conexion.Conexion;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,14 +14,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class CrearLicencia {
+public class ModificarLicencia {
+    public ModificarLicencia(){}
 
-    public CrearLicencia() {
-    }
-
-
-    //--------------------------------------------- Crear Licencia ---------------------------------------------------
-    public void agregarLicencia(Label labIDEmpleadoCrear, DatePicker dpFechaInicioCrear, DatePicker dpFechaFinCrear, ComboBox<String> cbTipoLicenciaCrear, Label labLimpiarCamposCrear) throws ParseException, SQLException {
+    //--------------------------------------------- Modificar Licencia ---------------------------------------------------
+    public void modificarLicencia(Label labIDEmpleadoModificar, DatePicker dpFechaInicioModificar, DatePicker dpFechaFinModificar, ComboBox<String> cbTipoLicenciaModificar, Label labLimpiarCamposModificar) throws ParseException, SQLException {
         Connection con = Conexion.leerConexion();
         PreparedStatement pstm = null;
         ResultSet rs = null;
@@ -47,28 +47,27 @@ public class CrearLicencia {
 
         SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
         // ------------------------- Fecha Inicio -------------------------------
-        String fechaI = dpFechaInicioCrear.getEditor().getText();
+        String fechaI = dpFechaInicioModificar.getEditor().getText();
         Date fechaInicio = formatoFecha.parse(fechaI);
 
         // --------------------------- Fecha Fin --------------------------------
-        String fechaF = dpFechaFinCrear.getEditor().getText();
+        String fechaF = dpFechaFinModificar.getEditor().getText();
         Date fechaFin = formatoFecha.parse(fechaF);
 
         // --------------------- Diferencia entre Fechas ------------------------
         long Diferencias = fechaInicio.getTime() - fechaFin.getTime();
         long Cant_Dias = Diferencias / (1000 * 60 * 60 * 24);
 
-
         // --------------- Comprobación del año de las fechas que se encuentra o no en la Base de Datos----------------
-        String fecha = dpFechaInicioCrear.getEditor().getText();
+        String fecha = dpFechaInicioModificar.getEditor().getText();
         String anio = fecha.replace("-", ", ");
         int anio2 = Integer.parseInt(anio.substring(0, 4));
 
         try {
             String consulta2 = "SELECT YEAR(fecha_Inicio) AS anio FROM licencias INNER JOIN empleado_licencia ON licencias.idLicencias = empleado_licencia.idLicenciaFK INNER JOIN empleados ON empleado_licencia.idEmpleadoFK = empleados.idempleados INNER JOIN tipo_licencias ON tipo_licencias.idTipoLicencia = licencias.idTipoLicenciaFK WHERE idEmpleadoFK = ? AND tipo_licencias.descripcion = ?";
             pstm = con.prepareStatement(consulta2);
-            pstm.setString(1, labIDEmpleadoCrear.getText());
-            pstm.setString(2, cbTipoLicenciaCrear.getSelectionModel().getSelectedItem());
+            pstm.setString(1, labIDEmpleadoModificar.getText());
+            pstm.setString(2, cbTipoLicenciaModificar.getSelectionModel().getSelectedItem());
             rs = pstm.executeQuery();
             while (rs.next()) {
                 anioGeneral = rs.getInt("anio");
@@ -87,18 +86,18 @@ public class CrearLicencia {
             try {
                 String consulta3 = "SELECT MIN(dias_disponibles) AS dias FROM licencias INNER JOIN empleado_licencia ON licencias.idLicencias = empleado_licencia.idLicenciaFK INNER JOIN empleados ON empleado_licencia.idEmpleadoFK = empleados.idempleados INNER JOIN tipo_licencias ON tipo_licencias.idTipoLicencia = licencias.idTipoLicenciaFK WHERE idEmpleadoFK = ? AND tipo_licencias.descripcion = ?";
                 pstm = con.prepareStatement(consulta3);
-                pstm.setString(1, labIDEmpleadoCrear.getText());
-                pstm.setString(2, cbTipoLicenciaCrear.getSelectionModel().getSelectedItem());
+                pstm.setString(1, labIDEmpleadoModificar.getText());
+                pstm.setString(2, cbTipoLicenciaModificar.getSelectionModel().getSelectedItem());
                 rs = pstm.executeQuery();
                 while (rs.next()) {
                     dato2 = rs.getInt("dias");
-                    if (cbTipoLicenciaCrear.getSelectionModel().getSelectedItem().equals("Vacaciones")) {
+                    if (cbTipoLicenciaModificar.getSelectionModel().getSelectedItem().equals("Vacaciones")) {
                         diasVacaciones = (int) (dato2 - (-Cant_Dias) - 1);
-                    } else if (cbTipoLicenciaCrear.getSelectionModel().getSelectedItem().equals("Enfermedad")) {
+                    } else if (cbTipoLicenciaModificar.getSelectionModel().getSelectedItem().equals("Enfermedad")) {
                         diasEnfermedad = (int) (dato2 - (-Cant_Dias) - 1);
-                    } else if (cbTipoLicenciaCrear.getSelectionModel().getSelectedItem().equals("Accidente")) {
+                    } else if (cbTipoLicenciaModificar.getSelectionModel().getSelectedItem().equals("Accidente")) {
                         diasAccidente = (int) (dato2 - (-Cant_Dias) - 1);
-                    } else if (cbTipoLicenciaCrear.getSelectionModel().getSelectedItem().equals("Matrimonio")) {
+                    } else if (cbTipoLicenciaModificar.getSelectionModel().getSelectedItem().equals("Matrimonio")) {
                         diasMatrimonio = (int) (dato2 - (-Cant_Dias) - 1);
                     } else {
                         diasMuerteFamiliar = (int) (dato2 - (-Cant_Dias) - 1);
@@ -106,13 +105,13 @@ public class CrearLicencia {
                     cont += 1;
                 }
                 if (cont == 0) {
-                    if (cbTipoLicenciaCrear.getSelectionModel().getSelectedItem().equals("Vacaciones")) {
+                    if (cbTipoLicenciaModificar.getSelectionModel().getSelectedItem().equals("Vacaciones")) {
                         diasVacaciones = (int) (VACACIONES - (-Cant_Dias) - 1);
-                    } else if (cbTipoLicenciaCrear.getSelectionModel().getSelectedItem().equals("Enfermedad")) {
+                    } else if (cbTipoLicenciaModificar.getSelectionModel().getSelectedItem().equals("Enfermedad")) {
                         diasEnfermedad = (int) (ENFERMEDAD - (-Cant_Dias) - 1);
-                    } else if (cbTipoLicenciaCrear.getSelectionModel().getSelectedItem().equals("Accidente")) {
+                    } else if (cbTipoLicenciaModificar.getSelectionModel().getSelectedItem().equals("Accidente")) {
                         diasAccidente = (int) (ACCIDENTE - (-Cant_Dias) - 1);
-                    } else if (cbTipoLicenciaCrear.getSelectionModel().getSelectedItem().equals("Matrimonio")) {
+                    } else if (cbTipoLicenciaModificar.getSelectionModel().getSelectedItem().equals("Matrimonio")) {
                         diasMatrimonio = (int) (MATRIMONIO - (-Cant_Dias) - 1);
                     } else {
                         diasMuerteFamiliar = (int) (MUERTE_FAMILIAR - (-Cant_Dias) - 1);
@@ -123,13 +122,13 @@ public class CrearLicencia {
                 System.err.println("Error: " + e1.getMessage());
             }
         } else {
-            if (cbTipoLicenciaCrear.getSelectionModel().getSelectedItem().equals("Vacaciones")) {
+            if (cbTipoLicenciaModificar.getSelectionModel().getSelectedItem().equals("Vacaciones")) {
                 diasVacaciones = (int) (VACACIONES - (-Cant_Dias) - 1);
-            } else if (cbTipoLicenciaCrear.getSelectionModel().getSelectedItem().equals("Enfermedad")) {
+            } else if (cbTipoLicenciaModificar.getSelectionModel().getSelectedItem().equals("Enfermedad")) {
                 diasEnfermedad = (int) (ENFERMEDAD - (-Cant_Dias) - 1);
-            } else if (cbTipoLicenciaCrear.getSelectionModel().getSelectedItem().equals("Accidente")) {
+            } else if (cbTipoLicenciaModificar.getSelectionModel().getSelectedItem().equals("Accidente")) {
                 diasAccidente = (int) (ACCIDENTE - (-Cant_Dias) - 1);
-            } else if (cbTipoLicenciaCrear.getSelectionModel().getSelectedItem().equals("Matrimonio")) {
+            } else if (cbTipoLicenciaModificar.getSelectionModel().getSelectedItem().equals("Matrimonio")) {
                 diasMatrimonio = (int) (MATRIMONIO - (-Cant_Dias) - 1);
             } else {
                 diasMuerteFamiliar = (int) (MUERTE_FAMILIAR - (-Cant_Dias) - 1);
@@ -142,15 +141,15 @@ public class CrearLicencia {
         long Diferencias2 = fechaActual.getTime() - fechaInicio.getTime();
         long Cant_Dias2 = Diferencias2 / (1000 * 60 * 60 * 24);
         String resultadoFecha;
+        // -------------------------------------------- Modificar Licencia --------------------------------------------
 
-        // -------------------------------------------- Crear Licencia --------------------------------------------
         if (-Cant_Dias >= 0) {
             if (-Cant_Dias2 > 0) {
                 if (diasVacaciones >= 0 && diasEnfermedad >= 0 && diasAccidente >= 0 && diasMatrimonio >= 0 && diasMuerteFamiliar >= 0) {
                     try {
                         String consultaFecha = "SELECT fecha_Inicio, fecha_Fin FROM licencias INNER JOIN empleado_licencia ON licencias.idLicencias = empleado_licencia.idLicenciaFK INNER JOIN empleados ON empleado_licencia.idEmpleadoFK = empleados.idempleados INNER JOIN tipo_licencias ON tipo_licencias.idTipoLicencia = licencias.idTipoLicenciaFK WHERE idEmpleadoFK = ?";
                         pstm = con.prepareStatement(consultaFecha);
-                        pstm.setString(1, labIDEmpleadoCrear.getText());
+                        pstm.setString(1, labIDEmpleadoModificar.getText());
                         rs = pstm.executeQuery();
                         while (rs.next()) {
                             datoFechaInicioMax = rs.getDate("fecha_Inicio");
@@ -180,53 +179,53 @@ public class CrearLicencia {
                                     if (dia1 >= 29) {
                                         if ((mes == 4 || mes == 6 || mes == 9 || mes == 11) && dia1 == 31) {
                                             resultadoFecha = fechaI2.substring(0, 4) + "-" + (1 + mes) + "-" + (dia1 - 30);
-                                            if (dpFechaInicioCrear.getEditor().getText().equals(resultadoFecha)) {
+                                            if (dpFechaInicioModificar.getEditor().getText().equals(resultadoFecha)) {
                                                 resultado2 = "NO";
                                             }
-                                            if (dpFechaFinCrear.getEditor().getText().equals(resultadoFecha)) {
+                                            if (dpFechaFinModificar.getEditor().getText().equals(resultadoFecha)) {
                                                 resultado2 = "NO";
                                             }
                                         }
                                         if ((mes == 1 || mes == 3 || mes == 5 || mes == 7 || mes == 8 || mes == 10 || mes == 12) && dia1 == 32) {
                                             resultadoFecha = fechaI2.substring(0, 4) + "-" + (1 + mes) + "-" + (dia1 - 31);
-                                            if (dpFechaInicioCrear.getEditor().getText().equals(resultadoFecha)) {
+                                            if (dpFechaInicioModificar.getEditor().getText().equals(resultadoFecha)) {
                                                 resultado2 = "NO";
                                             }
-                                            if (dpFechaFinCrear.getEditor().getText().equals(resultadoFecha)) {
+                                            if (dpFechaFinModificar.getEditor().getText().equals(resultadoFecha)) {
                                                 resultado2 = "NO";
                                             }
                                         }
                                         if ((mes == 2) && dia1 == 29) {
                                             resultadoFecha = fechaI2.substring(0, 4) + "-" + (1 + mes) + "-" + (dia1 - 28);
-                                            if (dpFechaInicioCrear.getEditor().getText().equals(resultadoFecha)) {
+                                            if (dpFechaInicioModificar.getEditor().getText().equals(resultadoFecha)) {
                                                 resultado2 = "NO";
                                             }
-                                            if (dpFechaFinCrear.getEditor().getText().equals(resultadoFecha)) {
+                                            if (dpFechaFinModificar.getEditor().getText().equals(resultadoFecha)) {
                                                 resultado2 = "NO";
                                             }
                                         }
                                         if (!(mes == 2) && (dia1 == 29 || dia1 == 30)) {
                                             resultadoFecha = fechaI2.substring(0, 4) + "-" + mes + "-" + dia1;
-                                            if (dpFechaInicioCrear.getEditor().getText().equals(resultadoFecha)) {
+                                            if (dpFechaInicioModificar.getEditor().getText().equals(resultadoFecha)) {
                                                 resultado2 = "NO";
                                             }
-                                            if (dpFechaFinCrear.getEditor().getText().equals(resultadoFecha)) {
+                                            if (dpFechaFinModificar.getEditor().getText().equals(resultadoFecha)) {
                                                 resultado2 = "NO";
                                             }
                                         }
                                     } else {
                                         resultadoFecha = fechaI2.substring(0, 4) + "-" + mes + "-" + dia1;
-                                        if (dpFechaInicioCrear.getEditor().getText().equals(resultadoFecha)) {
+                                        if (dpFechaInicioModificar.getEditor().getText().equals(resultadoFecha)) {
                                             resultado2 = "NO";
                                         }
-                                        if (dpFechaFinCrear.getEditor().getText().equals(resultadoFecha)) {
+                                        if (dpFechaFinModificar.getEditor().getText().equals(resultadoFecha)) {
                                             resultado2 = "NO";
                                         }
                                     }
-                                    if (dpFechaInicioCrear.getEditor().getText().equals(diaFecha)) {
+                                    if (dpFechaInicioModificar.getEditor().getText().equals(diaFecha)) {
                                         resultado2 = "NO";
                                     }
-                                    if (dpFechaFinCrear.getEditor().getText().equals(diaFecha)) {
+                                    if (dpFechaFinModificar.getEditor().getText().equals(diaFecha)) {
                                         resultado2 = "NO";
                                     }
                                 }
@@ -240,13 +239,13 @@ public class CrearLicencia {
                     try {
                         String consultaFechaIngresada = "SELECT fecha_Inicio, fecha_Fin FROM licencias INNER JOIN empleado_licencia ON licencias.idLicencias = empleado_licencia.idLicenciaFK INNER JOIN empleados ON empleado_licencia.idEmpleadoFK = empleados.idempleados INNER JOIN tipo_licencias ON tipo_licencias.idTipoLicencia = licencias.idTipoLicenciaFK WHERE idEmpleadoFK = ? AND ((fecha_Inicio BETWEEN ? AND ?) AND (fecha_Fin BETWEEN ? AND ?))";
                         pstm = con.prepareStatement(consultaFechaIngresada);
-                        pstm.setString(1, labIDEmpleadoCrear.getText());
-                        pstm.setDate(2, java.sql.Date.valueOf(dpFechaInicioCrear.getEditor().getText())
+                        pstm.setString(1, labIDEmpleadoModificar.getText());
+                        pstm.setDate(2, java.sql.Date.valueOf(dpFechaInicioModificar.getEditor().getText())
                         );
-                        pstm.setDate(3, java.sql.Date.valueOf(dpFechaFinCrear.getEditor().getText()));
-                        pstm.setDate(4, java.sql.Date.valueOf(dpFechaInicioCrear.getEditor().getText())
+                        pstm.setDate(3, java.sql.Date.valueOf(dpFechaFinModificar.getEditor().getText()));
+                        pstm.setDate(4, java.sql.Date.valueOf(dpFechaInicioModificar.getEditor().getText())
                         );
-                        pstm.setDate(5, java.sql.Date.valueOf(dpFechaFinCrear.getEditor().getText()));
+                        pstm.setDate(5, java.sql.Date.valueOf(dpFechaFinModificar.getEditor().getText()));
                         rs = pstm.executeQuery();
                         while (rs.next()) {
                             resultado2 = "NO";
@@ -260,23 +259,23 @@ public class CrearLicencia {
                             // -------------------------------------- Creación -------------------------------------
                             String consulta4 = "SELECT idTipoLicencia FROM tipo_licencias WHERE descripcion = ?";
                             pstm = con.prepareStatement(consulta4);
-                            pstm.setString(1, cbTipoLicenciaCrear.getSelectionModel().getSelectedItem());
+                            pstm.setString(1, cbTipoLicenciaModificar.getSelectionModel().getSelectedItem());
                             rs = pstm.executeQuery();
                             while (rs.next()) {
                                 datoIdTipoLicenciaFK = Integer.parseInt(rs.getString("idTipoLicencia"));
 
                                 String consulta5 = "INSERT INTO licencias(fecha_Inicio, fecha_Fin, dias_disponibles, estadoLicencia, idTipoLicenciaFK) VALUES (?, ?, ?, ?, ?)";
                                 pstm = con.prepareStatement(consulta5);
-                                pstm.setDate(1, java.sql.Date.valueOf(dpFechaInicioCrear.getEditor().getText()));
-                                pstm.setDate(2, java.sql.Date.valueOf(dpFechaFinCrear.getEditor().getText()));
+                                pstm.setDate(1, java.sql.Date.valueOf(dpFechaInicioModificar.getEditor().getText()));
+                                pstm.setDate(2, java.sql.Date.valueOf(dpFechaFinModificar.getEditor().getText()));
 
-                                if (cbTipoLicenciaCrear.getSelectionModel().getSelectedItem().equals("Vacaciones")) {
+                                if (cbTipoLicenciaModificar.getSelectionModel().getSelectedItem().equals("Vacaciones")) {
                                     pstm.setInt(3, diasVacaciones);
-                                } else if (cbTipoLicenciaCrear.getSelectionModel().getSelectedItem().equals("Enfermedad")) {
+                                } else if (cbTipoLicenciaModificar.getSelectionModel().getSelectedItem().equals("Enfermedad")) {
                                     pstm.setInt(3, diasEnfermedad);
-                                } else if (cbTipoLicenciaCrear.getSelectionModel().getSelectedItem().equals("Accidente")) {
+                                } else if (cbTipoLicenciaModificar.getSelectionModel().getSelectedItem().equals("Accidente")) {
                                     pstm.setInt(3, diasAccidente);
-                                } else if (cbTipoLicenciaCrear.getSelectionModel().getSelectedItem().equals("Matrimonio")) {
+                                } else if (cbTipoLicenciaModificar.getSelectionModel().getSelectedItem().equals("Matrimonio")) {
                                     pstm.setInt(3, diasMatrimonio);
                                 } else {
                                     pstm.setInt(3, diasMuerteFamiliar);
@@ -294,13 +293,13 @@ public class CrearLicencia {
 
                                     String consulta7 = "INSERT INTO empleado_licencia(idEmpleadoFK, idLicenciaFK) VALUES (?, ?)";
                                     pstm = con.prepareStatement(consulta7);
-                                    pstm.setInt(1, Integer.parseInt(labIDEmpleadoCrear.getText()));
+                                    pstm.setInt(1, Integer.parseInt(labIDEmpleadoModificar.getText()));
                                     pstm.setInt(2, datoIDLicenciaFK);
                                     pstm.executeUpdate();
 
                                 }
                             }
-                            labLimpiarCamposCrear.setText("OK");
+                            labLimpiarCamposModificar.setText("OK");
                             Alert alerta = new Alert(Alert.AlertType.INFORMATION);
                             alerta.setTitle("Datos Guardados");
                             alerta.setContentText("Se a Guardado los Datos.");
@@ -320,7 +319,7 @@ public class CrearLicencia {
                     } else {
                         Alert alerta = new Alert(Alert.AlertType.ERROR);
                         alerta.setTitle("Error de Licencia!");
-                        alerta.setContentText("La Fecha de Inicio y Fin que a Propuesto no se puede Crear porque ya existe una Licencia entre medio");
+                        alerta.setContentText("La Fecha de Inicio y Fin que a Propuesto no se puede Modificar porque ya existe una Licencia entre medio");
                         alerta.showAndWait();
                     }
                 } else {
