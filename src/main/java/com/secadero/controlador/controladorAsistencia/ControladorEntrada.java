@@ -1,5 +1,6 @@
 package com.secadero.controlador.controladorAsistencia;
 
+import com.secadero.modelo.asistencia.Entrada;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -8,6 +9,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.util.Objects;
 
 public class ControladorEntrada {
     public ControladorEntrada(){}
@@ -26,10 +29,18 @@ public class ControladorEntrada {
     private TextField textCodigo;
 
     @FXML
-    void aceptar() {
+    void aceptar() throws IOException, ParseException {
         if(!textCodigo.getText().equals("")){
             if(validarNumeros(textCodigo.getText())){
                 labErrorCodigo.setText("");
+                Entrada codigoEntrada = new Entrada();
+                codigoEntrada.entradaEmpleado(labInformacion, textCodigo);
+
+                if(Objects.equals(labInformacion.getText(), "OK")){
+                    textCodigo.setText("");
+                    labInformacion.setText("");
+                    closeWindowsPrincipal();
+                }
 
             } else {
                 labErrorCodigo.setText("Solo se permite Números");
@@ -58,7 +69,7 @@ public class ControladorEntrada {
         AnchorPane root = loader.load();
         Scene escena = new Scene(root);
         Stage escenario = new Stage();
-        escenario.setTitle("Gestión Secadero");
+        escenario.setTitle("Registro de Asistencias (Empleados)");
         escenario.setScene(escena);
         escenario.show();
 
