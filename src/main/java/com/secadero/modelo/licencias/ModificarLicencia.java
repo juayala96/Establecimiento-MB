@@ -343,7 +343,7 @@ public class ModificarLicencia {
             } else {
                 Alert alerta = new Alert(Alert.AlertType.ERROR);
                 alerta.setTitle("Error de Días Disponibles!");
-                alerta.setContentText("La Fecha de Inicio y Fin que a Propuesto en dicho "+ "\n" +"tipo de licencia ya no queda esa cantidad de Días"+ "\n" + "Disponibles de este cierto año");
+                alerta.setContentText("La Fecha de Inicio y Fin que a Propuesto en dicho "+ "\n" +"tipo de licencia ya no quedan Días Disponibles");
                 alerta.showAndWait();
             }
         } else {

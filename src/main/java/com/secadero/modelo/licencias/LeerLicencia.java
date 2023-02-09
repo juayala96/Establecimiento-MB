@@ -158,12 +158,13 @@ public class LeerLicencia {
         int anio2 = Integer.parseInt(anio.substring(0, 4));
 
         try {
-            String consulta2 = "SELECT YEAR(fecha_Inicio) AS anio FROM licencias INNER JOIN empleado_licencia ON licencias.idLicencias = empleado_licencia.idLicenciaFK INNER JOIN empleados ON empleado_licencia.idEmpleadoFK = empleados.idempleados INNER JOIN tipo_licencias ON tipo_licencias.idTipoLicencia = licencias.idTipoLicenciaFK WHERE empleados.estadoEmpleado = ? AND licencias.estadoLicencia = ? AND idEmpleadoFK = ? AND tipo_licencias.descripcion = ?";
+            String consulta2 = "SELECT YEAR(fecha_Inicio) AS anio FROM licencias INNER JOIN empleado_licencia ON licencias.idLicencias = empleado_licencia.idLicenciaFK INNER JOIN empleados ON empleado_licencia.idEmpleadoFK = empleados.idempleados INNER JOIN tipo_licencias ON tipo_licencias.idTipoLicencia = licencias.idTipoLicenciaFK WHERE empleados.estadoEmpleado = ? AND licencias.estadoLicencia = ? AND idEmpleadoFK = ? AND tipo_licencias.descripcion = ? AND YEAR(fecha_Inicio) = ?";
             pstm = con.prepareStatement(consulta2);
             pstm.setString(1, "Vigente");
             pstm.setString(2, "Vigente");
             pstm.setString(3, labIDEmpleadoCrear.getText());
             pstm.setString(4, valorActual);
+            pstm.setInt(5, anio2);
             rs = pstm.executeQuery();
             while (rs.next()) {
                 anioGeneral = rs.getInt("anio");
@@ -179,11 +180,12 @@ public class LeerLicencia {
 
         if(respuestaAnio.equals("YES")){
             try {
-                pstm = con.prepareStatement("SELECT licencias.dias_disponibles, YEAR(fecha_Inicio) AS anio FROM licencias INNER JOIN tipo_licencias ON licencias.idTipoLicenciaFK = tipo_licencias.idTipoLicencia INNER JOIN empleado_licencia ON licencias.idLicencias = empleado_licencia.idLicenciaFK INNER JOIN empleados ON empleado_licencia.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND licencias.estadoLicencia = ? AND empleado_licencia.idEmpleadoFK = ? AND tipo_licencias.descripcion = ?");
+                pstm = con.prepareStatement("SELECT MIN(licencias.dias_disponibles) AS dias_disponibles, YEAR(fecha_Inicio) AS anio FROM licencias INNER JOIN tipo_licencias ON licencias.idTipoLicenciaFK = tipo_licencias.idTipoLicencia INNER JOIN empleado_licencia ON licencias.idLicencias = empleado_licencia.idLicenciaFK INNER JOIN empleados ON empleado_licencia.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND licencias.estadoLicencia = ? AND empleado_licencia.idEmpleadoFK = ? AND tipo_licencias.descripcion = ? AND YEAR(fecha_Inicio) = ?");
                 pstm.setString(1, "Vigente");
                 pstm.setString(2, "Vigente");
                 pstm.setInt(3, Integer.parseInt(labIDEmpleadoCrear.getText()));
                 pstm.setString(4, valorActual);
+                pstm.setInt(5, anio2);
                 rs = pstm.executeQuery();
 
                 while (rs.next()) {
