@@ -36,6 +36,7 @@ public class CrearLicencia {
         final int MUERTE_FAMILIAR = 4;
         int cont = 0;
         int cont2 = 0;
+        int cont3 = 0;
         String respuestaAnio = "";
         int datoIdTipoLicenciaFK;
         int datoIDLicenciaFK;
@@ -62,19 +63,19 @@ public class CrearLicencia {
         int anio2 = Integer.parseInt(anio.substring(0, 4));
 
         try {
-            String consulta2 = "SELECT YEAR(fecha_Inicio) AS anio FROM licencias INNER JOIN empleado_licencia ON licencias.idLicencias = empleado_licencia.idLicenciaFK INNER JOIN empleados ON empleado_licencia.idEmpleadoFK = empleados.idempleados INNER JOIN tipo_licencias ON tipo_licencias.idTipoLicencia = licencias.idTipoLicenciaFK WHERE licencias.estadoLicencia = ? AND idEmpleadoFK = ? AND tipo_licencias.descripcion = ?";
+            String consulta2 = "SELECT YEAR(fecha_Inicio) AS anio FROM licencias INNER JOIN empleado_licencia ON licencias.idLicencias = empleado_licencia.idLicenciaFK INNER JOIN empleados ON empleado_licencia.idEmpleadoFK = empleados.idempleados INNER JOIN tipo_licencias ON tipo_licencias.idTipoLicencia = licencias.idTipoLicenciaFK WHERE licencias.estadoLicencia = ? AND idEmpleadoFK = ? AND tipo_licencias.descripcion = ? AND YEAR(fecha_Inicio) = ?";
             pstm = con.prepareStatement(consulta2);
             pstm.setString(1, "Vigente");
             pstm.setString(2, labIDEmpleadoCrear.getText());
             pstm.setString(3, cbTipoLicenciaCrear.getSelectionModel().getSelectedItem());
+            pstm.setInt(4, anio2);
             rs = pstm.executeQuery();
             while (rs.next()) {
-                anioGeneral = rs.getInt("anio");
-                if (anioGeneral == anio2) {
-                    respuestaAnio = "YES";
-                } else {
-                    respuestaAnio = "NO";
-                }
+                respuestaAnio = "YES";
+                cont3 += 1;
+            }
+            if(cont3 == 0){
+                respuestaAnio = "NO";
             }
         } catch (Exception e1) {
             System.err.println("Error: " + e1.getMessage());

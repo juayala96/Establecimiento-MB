@@ -1,8 +1,10 @@
 package com.secadero.controlador;
 
+import com.secadero.modelo.ausencia.EliminarAusencia;
 import com.secadero.modelo.ausencia.LeerAusencia;
 import com.secadero.modelo.empleados.LeerEmpleado;
 import com.secadero.modelo.licencias.CrearLicencia;
+import com.secadero.modelo.licencias.EliminarLicencia;
 import com.secadero.modelo.licencias.LeerLicencia;
 import com.secadero.modelo.licencias.ModificarLicencia;
 import com.secadero.modelo.licencias.leerComboBoxes.TipoLicencia;
@@ -24,6 +26,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Objects;
+import java.util.Optional;
 
 public class ControladorLicencias {
     public ControladorLicencias(){}
@@ -462,7 +465,31 @@ public class ControladorLicencias {
 
     @FXML
     private void eliminar() {
+        Label[] id = {labIDLicenciaEliminar};
+        if (comprobarIDEliminarLicencia(id)){
+            Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
+            alerta.setTitle("Confirmar Eliminar");
+            alerta.setContentText("¿Desea Eliminar la Licencia del Empleado?");
+            Optional<ButtonType> resultado = alerta.showAndWait();
+            if (resultado.isPresent() && resultado.get() == ButtonType.OK){
 
+                EliminarLicencia licenciaEliminar = new EliminarLicencia();
+                licenciaEliminar.eliminarLicencia(labIDLicenciaEliminar, labIDEmpleadoEliminar, dpFechaInicioEliminar, dpFechaFinEliminar, cbTipoLicenciaEliminar);
+                labIDLicenciaLista.setText("0");
+                labIDEmpleadoLista.setText("0");
+                inicializarTablaListaEmpleados();
+                inicializarTablaLicencias();
+                limpiarCamposEliminar();
+                limpiarCamposModificar();
+                regresarELista();
+            }
+        } else{
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setTitle("Error!");
+            alerta.setContentText("Debe de seleccionar antes una Licencia de dicho empleado para Eliminarlo");
+            alerta.showAndWait();
+            btnRegresarELista.requestFocus();
+        }
     }
 
     //------------------------------------ Acciones Simples de los Botones --------------------------------------
