@@ -19,6 +19,11 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="650.0" prefWidth="1000.0">
                      <children>
+                        <Label fx:id="labInformacion" layoutX="326.0" layoutY="120.0" prefHeight="26.0" prefWidth="30.0" textFill="#ff9090">
+                           <font>
+                              <Font name="Consolas" size="16.0" />
+                           </font>
+                        </Label>
                         <ImageView fitHeight="683.0" fitWidth="1027.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../imagenes/color-verde.jpg" />
@@ -32,27 +37,32 @@
                               <Font name="System Bold Italic" size="64.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="textCodigo" layoutX="326.0" layoutY="265.0" prefHeight="46.0" prefWidth="374.0">
+                        <TextField fx:id="textCodigo" layoutX="358.0" layoutY="265.0" prefHeight="46.0" prefWidth="310.0">
                            <font>
                               <Font size="22.0" />
                            </font>
                         </TextField>
-                        <Label layoutX="238.0" layoutY="272.0" text="Código:" textFill="WHITE">
+                        <Label layoutX="274.0" layoutY="272.0" text="Código:" textFill="WHITE">
                            <font>
                               <Font size="22.0" />
                            </font>
                         </Label>
-                        <Button fx:id="btnSalir" layoutX="216.0" layoutY="450.0" mnemonicParsing="false" onAction="#salir" prefHeight="45.0" prefWidth="141.0" text="Salir">
+                        <Button fx:id="btnSalir" layoutX="191.0" layoutY="450.0" mnemonicParsing="false" onAction="#salir" prefHeight="61.0" prefWidth="166.0" text="Salir">
                            <font>
-                              <Font size="18.0" />
+                              <Font size="22.0" />
                            </font>
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button fx:id="btnAceptar" layoutX="668.0" layoutY="450.0" mnemonicParsing="false" onAction="#aceptar" prefHeight="45.0" prefWidth="141.0" text="Aceptar">
+                        <Label fx:id="labErrorCodigo" layoutX="357.0" layoutY="312.0" prefHeight="26.0" prefWidth="312.0" textFill="#a60707">
                            <font>
-                              <Font size="18.0" />
+                              <Font name="Consolas" size="16.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="btnAceptar" layoutX="668.0" layoutY="450.0" mnemonicParsing="false" onAction="#aceptar" prefHeight="61.0" prefWidth="166.0" text="Aceptar">
+                           <font>
+                              <Font size="22.0" />
                            </font>
                            <cursor>
                               <Cursor fx:constant="HAND" />

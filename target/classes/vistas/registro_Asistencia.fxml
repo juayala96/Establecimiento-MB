@@ -14,17 +14,17 @@
             <Image url="@../imagenes/yerba_empleados.jpg" />
          </image>
       </ImageView>
-      <Label layoutX="216.0" layoutY="98.0" prefHeight="70.0" prefWidth="575.0" text="Registros de Asistencias" textAlignment="CENTER" textFill="WHITE" underline="true">
+      <Label layoutX="212.0" layoutY="96.0" prefHeight="70.0" prefWidth="575.0" text="Registros de Asistencias" textAlignment="CENTER" textFill="WHITE" underline="true">
          <font>
             <Font name="Arial Bold Italic" size="48.0" />
          </font>
       </Label>
-      <Button fx:id="btnEntrada" layoutX="56.0" layoutY="303.0" mnemonicParsing="false" onAction="#getEntrada" prefHeight="150.0" prefWidth="400.0" text="ENTRADA" textFill="#110aff">
+      <Button fx:id="btnEntrada" layoutX="63.0" layoutY="313.0" mnemonicParsing="false" onAction="#getEntrada" prefHeight="120.0" prefWidth="350.0" text="ENTRADA" textFill="#110aff">
          <font>
             <Font size="36.0" />
          </font>
       </Button>
-      <Button fx:id="btnSalida" layoutX="548.0" layoutY="303.0" mnemonicParsing="false" onAction="#getSalida" prefHeight="150.0" prefWidth="400.0" text="SALIDA" textFill="RED">
+      <Button fx:id="btnSalida" layoutX="592.0" layoutY="313.0" mnemonicParsing="false" onAction="#getSalida" prefHeight="120.0" prefWidth="350.0" text="SALIDA" textFill="RED">
          <font>
             <Font size="36.0" />
          </font>
@@ -32,6 +32,6 @@
       <Label layoutX="-5.0" layoutY="640.0" prefHeight="31.0" prefWidth="1014.0" style="-fx-background-color: #30373e;" />
       <Label layoutX="-5.0" layoutY="-2.0" prefHeight="31.0" prefWidth="1014.0" style="-fx-background-color: #30373e;" />
       <Label layoutX="990.0" layoutY="29.0" prefHeight="623.0" prefWidth="19.0" style="-fx-background-color: #30373e;" />
-      <Label layoutY="21.0" prefHeight="623.0" prefWidth="19.0" style="-fx-background-color: #30373e;" />
+      <Label layoutY="21.0" prefHeight="623.0" prefWidth="13.0" style="-fx-background-color: #30373e;" />
    </children>
 </AnchorPane>
