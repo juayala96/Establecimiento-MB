@@ -13,11 +13,15 @@ public class ControladorCronograma {
     public ControladorCronograma(){}
 
     @FXML
-    private Button btnBuscarCronograma;
+    private Button btnActualizar;
+    @FXML
+    private Button btnBuscarCronogramaFecha;
     @FXML
     private Button btnBuscarDisponibleCrear;
     @FXML
     private Button btnBuscarDisponibleModificar;
+    @FXML
+    private Button btnBuscarListaEmpleadoDisponible;
     @FXML
     private Button btnCalendario;
     @FXML
@@ -27,7 +31,7 @@ public class ControladorCronograma {
     @FXML
     private Button btnEliminarCronograma;
     @FXML
-    private Button btnFiltroEmpleados;
+    private Button btnFiltroEmpleadoCronograma;
     @FXML
     private Button btnGuardar;
     @FXML
@@ -45,15 +49,35 @@ public class ControladorCronograma {
     @FXML
     private Button btnVolver;
     @FXML
-    private ComboBox<String> cbTiposFiltrosCronograma;
+    private ComboBox<?> cbTiposFiltrosCronograma;
     @FXML
-    private ComboBox<String> cbTurnoCrear;
+    private ComboBox<?> cbTurnoCrear;
     @FXML
-    private ComboBox<String> cbTurnoEliminar;
+    private ComboBox<?> cbTurnoEliminar;
     @FXML
-    private ComboBox<String> cbTurnoModificar;
+    private ComboBox<?> cbTurnoModificar;
     @FXML
-    private DatePicker dbBuscarFecha;
+    private TableColumn<?, ?> colApellido;
+    @FXML
+    private TableColumn<?, ?> colFecha;
+    @FXML
+    private TableColumn<?, ?> colHoraEntrada;
+    @FXML
+    private TableColumn<?, ?> colHoraSalida;
+    @FXML
+    private TableColumn<?, ?> colIDCronograma;
+    @FXML
+    private TableColumn<?, ?> colIDEmpleado;
+    @FXML
+    private TableColumn<?, ?> colLegajo;
+    @FXML
+    private TableColumn<?, ?> colNombre;
+    @FXML
+    private TableColumn<?, ?> colTelefono;
+    @FXML
+    private TableColumn<?, ?> colTurno;
+    @FXML
+    private DatePicker dpBuscarFecha;
     @FXML
     private DatePicker dpFechaCrear;
     @FXML
@@ -81,13 +105,17 @@ public class ControladorCronograma {
     @FXML
     private Tab tabModificarCronograma;
     @FXML
-    private TreeView<String> tabViewEmpleadosDisponiblesCrear;
+    private TreeView<?> tabViewEmpleadosDisponiblesCrear;
     @FXML
-    private TreeView<String> tabViewEmpleadosDisponiblesModificar;
+    private TreeView<?> tabViewEmpleadosDisponiblesModificar;
     @FXML
-    private TableView<String> tablaCronograma;
+    private TableView<?> tablaCronograma;
     @FXML
-    private TableView<String> tablaEmpleados;
+    private TableView<?> tablaEmpleados;
+    @FXML
+    private TableView<?> tablaListaEmpleados;
+    @FXML
+    private TextField textBuscarLegajoEmpleado;
     @FXML
     private TextField textHoraLlegadaCrear;
     @FXML
@@ -100,6 +128,7 @@ public class ControladorCronograma {
     private TextField textHoraSalidaEliminar;
     @FXML
     private TextField textHoraSalidaModificar;
+
 
     // -------------------------------------------- Inicialización ----------------------------------------------
     public void initialize() {}
@@ -126,6 +155,25 @@ public class ControladorCronograma {
     private void buscarDisponibleModificar() {
 
     }
+
+    @FXML
+    private void actualizarTabla() {
+
+    }
+
+    @FXML
+    private void btnBuscarCronograma() {
+
+    }
+
+    @FXML
+    private void getListaEmpleados(){}
+
+    @FXML
+    private void btnBuscarEmpleadoDisponible() {
+
+    }
+
     //---------------------------------------------- Eventos Importantes ----------------------------------------
 
     @FXML
