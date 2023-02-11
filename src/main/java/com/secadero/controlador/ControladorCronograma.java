@@ -167,7 +167,9 @@ public class ControladorCronograma {
     }
 
     @FXML
-    private void getListaEmpleados(){}
+    private void getListaEmpleados(){
+
+    }
 
     @FXML
     private void btnBuscarEmpleadoDisponible() {
