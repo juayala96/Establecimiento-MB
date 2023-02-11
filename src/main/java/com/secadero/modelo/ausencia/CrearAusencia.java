@@ -13,7 +13,7 @@ public class CrearAusencia {
     public CrearAusencia(){}
 
     //--------------------------------------------- Crear Ausencia ---------------------------------------------------
-    public void agregarAusencia(Label labIDEmpleadoCrear, DatePicker dpFechaCrear, TextArea textMotivoCrear, Label labJustificacionCrear, TextField textCertificadoCrear, Label labLimpiarCamposCrear){
+    public void agregarAusencia(Label labIDEmpleadoCrear, DatePicker dpFechaCrear, TextArea textMotivoCrear, Label labJustificacionCrear, Label labCertificadoCrear, Label labLimpiarCamposCrear){
         Connection con = Conexion.leerConexion();
         PreparedStatement pstm = null;
         ResultSet rs = null;
@@ -43,7 +43,7 @@ public class CrearAusencia {
                 pstm.setString(1, dpFechaCrear.getEditor().getText());
                 pstm.setString(2, textMotivoCrear.getText());
                 pstm.setString(3, labJustificacionCrear.getText());
-                pstm.setString(4, textCertificadoCrear.getText());
+                pstm.setString(4, labCertificadoCrear.getText());
                 pstm.setInt(5, Integer.parseInt(labIDEmpleadoCrear.getText()));
                 pstm.executeUpdate();
 

@@ -145,7 +145,7 @@ public class LeerUsuario {
         ObservableList<LeerUsuario> listaBuscar = FXCollections.observableArrayList();
 
         try {
-            pstm = con.prepareStatement("SELECT * FROM usuarios WHERE estadoUsuario = ? AND nombre LIKE ?");
+            pstm = con.prepareStatement("SELECT * FROM usuarios WHERE estadoUsuario = ? AND legajo LIKE ?");
             pstm.setString(1, "Vigente");
             pstm.setString(2, textBuscarUsuario.getText() + "%");
             rs = pstm.executeQuery();

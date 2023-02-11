@@ -106,6 +106,12 @@ public class ControladorAusencias {
     @FXML
     private Label labApellidoEmpleadoModificar;
     @FXML
+    private Label labCertificadoCrear;
+    @FXML
+    private Label labCertificadoEliminar;
+    @FXML
+    private Label labCertificadoModificar;
+    @FXML
     private Label labIDAusenciaEliminar;
     @FXML
     private Label labIDAusenciaModificar;
@@ -140,6 +146,8 @@ public class ControladorAusencias {
     @FXML
     private Label labJustificacionModificar;
     @FXML
+    private Label labSeleccionCertificado;
+    @FXML
     private Label labSeleccionJustificacion;
     @FXML
     private Label labIDAusenciaLista;
@@ -147,6 +155,14 @@ public class ControladorAusencias {
     private Label labResultadoID;
     @FXML
     private TabPane panelPestaniasAusencias;
+    @FXML
+    private RadioButton rbCertificadoNoCrear;
+    @FXML
+    private RadioButton rbCertificadoNoModificar;
+    @FXML
+    private RadioButton rbCertificadoSiCrear;
+    @FXML
+    private RadioButton rbCertificadoSiModificar;
     @FXML
     private RadioButton rbJustificadoNoCrear;
     @FXML
@@ -174,13 +190,11 @@ public class ControladorAusencias {
     @FXML
     private ToggleGroup justificadoModificar;
     @FXML
+    private ToggleGroup certificadoCrear;
+    @FXML
+    private ToggleGroup certificadoModificar;
+    @FXML
     private TextField textBuscarLegajoEmpleado;
-    @FXML
-    private TextField textCertificadoCrear;
-    @FXML
-    private TextField textCertificadoEliminar;
-    @FXML
-    private TextField textCertificadoModificar;
     @FXML
     private TextArea textMotivoCrear;
     @FXML
@@ -206,6 +220,8 @@ public class ControladorAusencias {
         inicializarTablaEmpleado();
         getJustificadoCrear();
         getJustificadoModificar();
+        getCertificadoCrear();
+        getCertificadoModificar();
         fechasInicializar();
     }
 
@@ -291,15 +307,16 @@ public class ControladorAusencias {
         dpFechaModificarDuplicada.getEditor().setText(colFecha.getCellData(index2).toString());
         textMotivoModificar.setText(colMotivo.getCellData(index2));
         labSeleccionJustificacion.setText(colJustificado.getCellData(index2));
-        textCertificadoModificar.setText(colCertificado.getCellData(index2));
+        labSeleccionCertificado.setText(colCertificado.getCellData(index2));
         labIDAusenciaModificar.setText(colIDAusencia.getCellData(index2).toString());
 
         dpFechaEliminar.getEditor().setText(colFecha.getCellData(index2).toString());
         textMotivoEliminar.setText(colMotivo.getCellData(index2));
         labJustificadoEliminar.setText(colJustificado.getCellData(index2));
-        textCertificadoEliminar.setText(colCertificado.getCellData(index2));
+        labCertificadoEliminar.setText(colCertificado.getCellData(index2));
         labIDAusenciaEliminar.setText(colIDAusencia.getCellData(index2).toString());
         comprobacionRadioBotomSeleccion();
+        comprobacionRadioBotomSeleccionC();
 
         labIDAusenciaLista.setText(colIDAusencia.getCellData(index2).toString());
     }
@@ -373,7 +390,7 @@ public class ControladorAusencias {
         if(comprobarIDCrearEmpleado(campoIDEmpleado)){
             if(comprobarValoresCrear(campoMotivo)){
                 CrearAusencia ausenciaCrear = new CrearAusencia();
-                ausenciaCrear.agregarAusencia(labIDEmpleadoCrear, dpFechaCrear, textMotivoCrear, labJustificacionCrear, textCertificadoCrear, labLimpiarCamposCrear);
+                ausenciaCrear.agregarAusencia(labIDEmpleadoCrear, dpFechaCrear, textMotivoCrear, labJustificacionCrear, labCertificadoCrear, labLimpiarCamposCrear);
 
                 if(Objects.equals(labLimpiarCamposCrear.getText(), "OK")){
                     labLimpiarCamposCrear.setText("");
@@ -406,7 +423,7 @@ public class ControladorAusencias {
         if(comprobarIDModificarAusencia(campoIDAusencia)){
             if(comprobarValoresModificar(campoMotivo)){
                 ModificarAusencia ausenciaModificar = new ModificarAusencia();
-                ausenciaModificar.modificarAusencia(labIDEmpleadoModificar, labIDAusenciaModificar, dpFechaModificar, dpFechaModificarDuplicada, textMotivoModificar, labJustificacionModificar, textCertificadoModificar, labLimpiarCamposModificar);
+                ausenciaModificar.modificarAusencia(labIDEmpleadoModificar, labIDAusenciaModificar, dpFechaModificar, dpFechaModificarDuplicada, textMotivoModificar, labJustificacionModificar, labCertificadoModificar, labLimpiarCamposModificar);
 
                 if(Objects.equals(labLimpiarCamposModificar.getText(), "OK")){
                     labLimpiarCamposModificar.setText("");
@@ -481,11 +498,37 @@ public class ControladorAusencias {
         }
     }
 
+    @FXML
+    public void getCertificadoCrear(){
+        if(rbCertificadoNoCrear.isSelected()){
+            labCertificadoCrear.setText("NO");
+        } else if(rbCertificadoSiCrear.isSelected()){
+            labCertificadoCrear.setText("SI");
+        }
+    }
+
+    @FXML
+    public void getCertificadoModificar(){
+        if(rbCertificadoNoModificar.isSelected()){
+            labCertificadoModificar.setText("NO");
+        } else if(rbCertificadoSiModificar.isSelected()){
+            labCertificadoModificar.setText("SI");
+        }
+    }
+
     private void comprobacionRadioBotomSeleccion(){
         if(labSeleccionJustificacion.getText().equals("NO")){
             rbJustificadoNoModificar.fire();
         } else{
             rbJustificadoSiModificar.fire();
+        }
+    }
+
+    private void comprobacionRadioBotomSeleccionC(){
+        if(labSeleccionCertificado.getText().equals("NO")){
+            rbCertificadoNoModificar.fire();
+        } else{
+            rbCertificadoSiModificar.fire();
         }
     }
 
@@ -595,9 +638,10 @@ public class ControladorAusencias {
         labLegajoEmpleadoCrear.setText("");
         textMotivoCrear.setText("");
         rbJustificadoNoCrear.fire();
-        textCertificadoCrear.setText("");
+        rbCertificadoNoCrear.fire();
         labLimpiarCamposCrear.setText("");
         getJustificadoCrear();
+        getCertificadoCrear();
         fechasInicializar();
     }
 
@@ -608,10 +652,11 @@ public class ControladorAusencias {
         labLegajoEmpleadoModificar.setText("");
         textMotivoModificar.setText("");
         rbJustificadoNoModificar.fire();
-        textCertificadoModificar.setText("");
+        rbCertificadoNoModificar.fire();
         labLimpiarCamposModificar.setText("");
         labIDAusenciaModificar.setText("");
         getJustificadoModificar();
+        getCertificadoModificar();
         fechasInicializar();
     }
 
@@ -622,7 +667,7 @@ public class ControladorAusencias {
         labLegajoEmpleadoEliminar.setText("");
         textMotivoEliminar.setText("");
         labJustificadoEliminar.setText("");
-        textCertificadoEliminar.setText("");
+        labCertificadoEliminar.setText("");
         labIDAusenciaEliminar.setText("");
         fechasInicializar();
     }
@@ -632,12 +677,12 @@ public class ControladorAusencias {
         dpFechaModificarDuplicada.getEditor().setText("");
         textMotivoModificar.setText("");
         rbJustificadoNoModificar.fire();
-        textCertificadoModificar.setText("");
+        rbCertificadoNoModificar.fire();
 
         labIDAusenciaEliminar.setText("");
         textMotivoEliminar.setText("");
         labJustificadoEliminar.setText("");
-        textCertificadoEliminar.setText("");
+        labCertificadoEliminar.setText("");
         fechasInicializar();
     }
 

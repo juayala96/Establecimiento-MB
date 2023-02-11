@@ -13,7 +13,7 @@ public class ModificarAusencia {
     public ModificarAusencia(){}
 
     //--------------------------------------------- Modificar Ausencia ---------------------------------------------------
-    public void modificarAusencia(Label labIDEmpleadoModificar, Label labIDAusenciaModificar, DatePicker dpFechaModificar, DatePicker dpFechaModificarDuplicada, TextArea textMotivoModificar, Label labJustificacionModificar, TextField textCertificadoModificar, Label labLimpiarCamposModificar) {
+    public void modificarAusencia(Label labIDEmpleadoModificar, Label labIDAusenciaModificar, DatePicker dpFechaModificar, DatePicker dpFechaModificarDuplicada, TextArea textMotivoModificar, Label labJustificacionModificar, Label labCertificadoModificar, Label labLimpiarCamposModificar) {
         Connection con = Conexion.leerConexion();
         PreparedStatement pstm = null;
         ResultSet rs = null;
@@ -45,7 +45,7 @@ public class ModificarAusencia {
                 pstm.setString(1, dpFechaModificar.getEditor().getText());
                 pstm.setString(2, textMotivoModificar.getText());
                 pstm.setString(3, labJustificacionModificar.getText());
-                pstm.setString(4, textCertificadoModificar.getText());
+                pstm.setString(4, labCertificadoModificar.getText());
                 pstm.setInt(5, Integer.parseInt(labIDAusenciaModificar.getText()));
                 pstm.executeUpdate();
 

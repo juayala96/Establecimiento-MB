@@ -240,7 +240,7 @@ public class LeerEmpleado {
         ObservableList<LeerEmpleado> listaBuscar = FXCollections.observableArrayList();
 
         try {
-            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, telefono, fechaIngreso, area.descripcion, puesto.descripcion, idempleados FROM empleados INNER JOIN area ON empleados.idAreaFK = area.idarea INNER JOIN puesto ON empleados.idPuestoFK = puesto.idpuesto WHERE empleados.estadoEmpleado = ? AND empleados.nombre LIKE ?");
+            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, telefono, fechaIngreso, area.descripcion, puesto.descripcion, idempleados FROM empleados INNER JOIN area ON empleados.idAreaFK = area.idarea INNER JOIN puesto ON empleados.idPuestoFK = puesto.idpuesto WHERE empleados.estadoEmpleado = ? AND empleados.legajo LIKE ?");
             pstm.setString(1, "Vigente");
             pstm.setString(2, textBuscarEmpleado.getText() + "%");
             rs = pstm.executeQuery();

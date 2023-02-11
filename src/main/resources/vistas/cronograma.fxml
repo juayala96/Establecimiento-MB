@@ -10,6 +10,8 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -21,6 +23,11 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
+                        <ImageView fitHeight="1192.0" fitWidth="1649.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imagenes/verde_agua.jpg" />
+                           </image>
+                        </ImageView>
                         <Button fx:id="btnVolver" layoutX="1312.0" layoutY="627.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#volverPrincipal" prefHeight="52.0" prefWidth="150.0" text="Volver" textFill="#8c0909">
                            <font>
                               <Font size="18.0" />
@@ -151,6 +158,11 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
+                        <ImageView fitHeight="1192.0" fitWidth="1649.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imagenes/verde_agua.jpg" />
+                           </image>
+                        </ImageView>
                         <Label fx:id="labIDEmpleadoCrear" layoutX="228.0" layoutY="84.0" prefHeight="18.0" prefWidth="26.0" />
                         <Label fx:id="labLimpiarCamposCrear" layoutX="188.0" layoutY="84.0" prefHeight="18.0" prefWidth="26.0" />
                         <Label layoutY="-4.0" prefHeight="44.0" prefWidth="1536.0" text="__________________________________________________________________________________________________________________________________________________________">
@@ -272,6 +284,11 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
+                        <ImageView fitHeight="1192.0" fitWidth="1649.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imagenes/verde_agua.jpg" />
+                           </image>
+                        </ImageView>
                         <Label layoutY="-4.0" prefHeight="44.0" prefWidth="1536.0" text="__________________________________________________________________________________________________________________________________________________________">
                            <font>
                               <Font name="System Bold" size="24.0" />
@@ -386,6 +403,11 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
+                        <ImageView fitHeight="1192.0" fitWidth="1649.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imagenes/verde_agua.jpg" />
+                           </image>
+                        </ImageView>
                         <Label layoutY="-4.0" prefHeight="44.0" prefWidth="1536.0" text="__________________________________________________________________________________________________________________________________________________________">
                            <font>
                               <Font name="System Bold" size="24.0" />
@@ -512,6 +534,11 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
+                        <ImageView fitHeight="1192.0" fitWidth="1649.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imagenes/verde_agua.jpg" />
+                           </image>
+                        </ImageView>
                         <Label layoutY="-4.0" prefHeight="44.0" prefWidth="1536.0" text="__________________________________________________________________________________________________________________________________________________________">
                            <font>
                               <Font name="System Bold" size="24.0" />
