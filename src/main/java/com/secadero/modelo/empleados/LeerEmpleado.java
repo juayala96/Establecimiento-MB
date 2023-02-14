@@ -1,13 +1,17 @@
 package com.secadero.modelo.empleados;
 
 import com.secadero.conexion.Conexion;
-import com.secadero.modelo.usuarios.LeerUsuario;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+
+import java.text.CompactNumberFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import java.sql.*;
 
@@ -383,5 +387,153 @@ public class LeerEmpleado {
             }
         }
         return listaBuscar;
+    }
+
+    //------------------------------------------- Leer Empleado Disponibles en Cronograma ---------------------------------
+    public static ObservableList<LeerEmpleado> listaEmpleadoDisponible(){
+        Connection con = Conexion.leerConexion();
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+        ObservableList<LeerEmpleado> lista = FXCollections.observableArrayList();
+
+        try {
+            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, telefono, email, idempleados FROM empleados  WHERE estadoEmpleado = ? AND estado = ?");
+            pstm.setString(1, "Vigente");
+            pstm.setString(2, "Disponible");
+            rs = pstm.executeQuery();
+
+            while (rs.next()){
+                lista.add(new LeerEmpleado(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getString("telefono"), rs.getString("email"), Integer.parseInt(rs.getString("idempleados"))));
+            }
+        } catch (SQLException ex) {
+            System.err.println("Error: " + ex.getMessage());
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pstm != null) pstm.close();
+                if (con != null) con.close();
+            } catch (Exception ex){
+                System.err.println("Error: " + ex.getMessage());
+            }
+        }
+        return lista;
+    }
+
+    //----------------------------------------- Buscar Empleado Disponibles en Cronograma ---------------------------------
+    public static ObservableList<LeerEmpleado> buscarEmpleadoDisponible(TextField textBuscarLegajoEmpleado){
+        Connection con = Conexion.leerConexion();
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+        ObservableList<LeerEmpleado> listaBuscar = FXCollections.observableArrayList();
+
+        try {
+            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, telefono, fechaIngreso, area.descripcion, puesto.descripcion, idempleados FROM empleados INNER JOIN area ON empleados.idAreaFK = area.idarea INNER JOIN puesto ON empleados.idPuestoFK = puesto.idpuesto WHERE empleados.estadoEmpleado = ? AND empleados.estado = ? AND empleados.legajo LIKE ?");
+            pstm.setString(1, "Vigente");
+            pstm.setString(2, "Disponible");
+            pstm.setString(3, textBuscarLegajoEmpleado.getText() + "%");
+            rs = pstm.executeQuery();
+
+            while (rs.next()){
+                listaBuscar.add(new LeerEmpleado(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getString("telefono"), Integer.parseInt(rs.getString("idempleados"))));
+            }
+        } catch (SQLException ex) {
+            System.err.println("Error: " + ex.getMessage());
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pstm != null) pstm.close();
+                if (con != null) con.close();
+            } catch (Exception ex){
+                System.err.println("Error: " + ex.getMessage());
+            }
+        }
+        return listaBuscar;
+    }
+
+    //-------------------------------------- Filtro Empleado Disponibles en Cronograma -----------------------------------
+    public static ObservableList<LeerEmpleado> filtroEmpleadoDisponible(ComboBox<String> cbTiposFiltrosAusencias){
+        Connection con = Conexion.leerConexion();
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+        ObservableList<LeerEmpleado> listaBuscar = FXCollections.observableArrayList();
+        String dato = cbTiposFiltrosAusencias.getSelectionModel().getSelectedItem().toLowerCase();
+
+        try {
+            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, telefono, idempleados FROM empleados WHERE empleados.estadoEmpleado = ? AND empleados.estado = ? ORDER BY " + dato + " ASC");
+            pstm.setString(1, "Vigente");
+            pstm.setString(2, "Disponible");
+            rs = pstm.executeQuery();
+
+            while (rs.next()){
+                listaBuscar.add(new LeerEmpleado(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getString("telefono"), Integer.parseInt(rs.getString("idempleados"))));
+            }
+        } catch (SQLException ex) {
+            System.err.println("Error: " + ex.getMessage());
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pstm != null) pstm.close();
+                if (con != null) con.close();
+            } catch (Exception ex){
+                System.err.println("Error: " + ex.getMessage());
+            }
+        }
+        return listaBuscar;
+    }
+
+    //------------------------------------------- Reloj de Empleados Estado (Licencia) ---------------------------------
+    public static void relojEmpleados() throws ParseException {
+        Connection con = Conexion.leerConexion();
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+        ResultSet rs2 = null;
+        String IDEmpleadoGeneral;
+        String IDEmpleado;
+
+        try {
+            String consulta = "UPDATE empleados SET estado = ?";
+            pstm = con.prepareStatement(consulta);
+            pstm.setString(1, "Disponible");
+            pstm.executeUpdate();
+        } catch (SQLException ex) {
+            System.err.println("Error: " + ex.getMessage());
+        }
+
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+        Date fechaActualPais = new Date();
+        String fecha_Actual = (formatoFecha.format(fechaActualPais));
+
+        try {
+            pstm = con.prepareStatement("SELECT idempleados, fecha_Inicio, fecha_Fin FROM licencias INNER JOIN tipo_licencias ON licencias.idTipoLicenciaFK = tipo_licencias.idTipoLicencia INNER JOIN empleado_licencia ON licencias.idLicencias = empleado_licencia.idLicenciaFK INNER JOIN empleados ON empleado_licencia.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND licencias.estadoLicencia = ? AND (((licencias.fecha_Inicio <= ?) AND (licencias.fecha_Fin >= ?)) OR ((licencias.fecha_Inicio >= ?) AND (licencias.fecha_Fin <= ?)))");
+            pstm.setString(1, "Vigente");
+            pstm.setString(2, "Vigente");
+            pstm.setDate(3, java.sql.Date.valueOf(fecha_Actual));
+            pstm.setDate(4, java.sql.Date.valueOf(fecha_Actual));
+            pstm.setDate(5, java.sql.Date.valueOf(fecha_Actual));
+            pstm.setDate(6, java.sql.Date.valueOf(fecha_Actual));
+            rs = pstm.executeQuery();
+
+            while (rs.next()){
+                IDEmpleado = rs.getString("idempleados");
+
+                String consulta2 = "UPDATE empleados SET estado = ? WHERE idempleados = ?";
+                pstm = con.prepareStatement(consulta2);
+                pstm.setString(1, "Licencia");
+                pstm.setInt(2, Integer.parseInt(IDEmpleado));
+                pstm.executeUpdate();
+
+            }
+
+        } catch (SQLException ex) {
+            System.err.println("Error: " + ex.getMessage());
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pstm != null) pstm.close();
+                if (con != null) con.close();
+            } catch (Exception ex){
+                System.err.println("Error: " + ex.getMessage());
+            }
+        }
     }
 }

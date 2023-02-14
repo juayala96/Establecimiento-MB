@@ -23,6 +23,9 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
+                        <Label fx:id="labResultadoID" layoutX="1173.0" layoutY="73.0" prefHeight="18.0" prefWidth="26.0" />
+                        <Label fx:id="labIDCronogramaLista" layoutX="1200.0" layoutY="73.0" prefHeight="18.0" prefWidth="26.0" />
+                        <Label fx:id="labIDEmpleadoLista" layoutX="1227.0" layoutY="73.0" prefHeight="18.0" prefWidth="26.0" />
                         <ImageView fitHeight="1192.0" fitWidth="1649.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../imagenes/verde_agua.jpg" />
@@ -73,7 +76,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <TableView fx:id="tablaCronograma" layoutX="695.0" layoutY="212.0" prefHeight="467.0" prefWidth="559.0">
+                        <TableView fx:id="tablaCronograma" layoutX="695.0" layoutY="212.0" onMouseClicked="#getCronograma" prefHeight="467.0" prefWidth="559.0">
                            <columns>
                               <TableColumn fx:id="colFecha" prefWidth="140.0" style="-fx-font-size: 14;" text="Fecha" />
                               <TableColumn fx:id="colTurno" prefWidth="140.0" style="-fx-font-size: 14;" text="Turno" />
@@ -201,7 +204,7 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <TableView fx:id="tabEmpleadosCrear" layoutX="170.0" layoutY="171.0" prefHeight="248.0" prefWidth="610.0" style="-fx-background-color: #e4e4e4;">
+                        <TableView fx:id="tabEmpleadosCrear" layoutX="170.0" layoutY="171.0" onMouseClicked="#getListaEmpleadosCrear" prefHeight="248.0" prefWidth="610.0" style="-fx-background-color: #e4e4e4;">
                            <columns>
                               <TableColumn fx:id="colNombreEmpleadoCrear" prefWidth="110.39993286132812" text="Nombre" />
                               <TableColumn fx:id="colApellidoEmpleadoCrear" prefWidth="120.80006408691406" text="Apellido" />
@@ -284,6 +287,9 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
+                        <Label fx:id="labIDEmpleadoModificar" layoutX="416.0" layoutY="85.0" prefHeight="18.0" prefWidth="26.0" />
+                        <Label fx:id="labIDCronogramaModificar" layoutX="390.0" layoutY="85.0" prefHeight="18.0" prefWidth="26.0" />
+                        <Label fx:id="labLimpiarCamposModificar" layoutX="356.0" layoutY="85.0" prefHeight="18.0" prefWidth="26.0" />
                         <ImageView fitHeight="1192.0" fitWidth="1649.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../imagenes/verde_agua.jpg" />
@@ -347,16 +353,6 @@
                               <Font size="16.0" />
                            </font>
                         </TextField>
-                        <Label fx:id="labHoraLlegadaModificar" layoutX="423.0" layoutY="450.0" prefHeight="33.0" prefWidth="199.0" textFill="#f20000" wrapText="true">
-                           <font>
-                              <Font name="Consolas" size="12.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="labHoraSalidaModificar" layoutX="423.0" layoutY="572.0" prefHeight="33.0" prefWidth="199.0" textFill="#f20000" wrapText="true">
-                           <font>
-                              <Font name="Consolas" size="12.0" />
-                           </font>
-                        </Label>
                         <Label layoutX="483.0" layoutY="66.0" prefHeight="56.0" prefWidth="569.0" text="Modificar Cronograma">
                            <font>
                               <Font name="Georgia Bold" size="48.0" />
@@ -478,16 +474,6 @@
                               <Cursor fx:constant="DISAPPEAR" />
                            </cursor>
                         </TextField>
-                        <Label fx:id="labHoraLlegadaModificar1" layoutX="423.0" layoutY="450.0" prefHeight="33.0" prefWidth="199.0" textFill="#f20000" wrapText="true">
-                           <font>
-                              <Font name="Consolas" size="12.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="labHoraSalidaModificar1" layoutX="423.0" layoutY="572.0" prefHeight="33.0" prefWidth="199.0" textFill="#f20000" wrapText="true">
-                           <font>
-                              <Font name="Consolas" size="12.0" />
-                           </font>
-                        </Label>
                         <Label layoutX="493.0" layoutY="65.0" prefHeight="56.0" prefWidth="550.0" text="Eliminar Cronograma">
                            <font>
                               <Font name="Georgia Bold" size="48.0" />
@@ -526,6 +512,8 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
+                        <Label fx:id="labIDEmpleadoEliminar" layoutX="358.0" layoutY="83.0" prefHeight="18.0" prefWidth="26.0" />
+                        <Label fx:id="labIDCronogramaEliminar" layoutX="390.0" layoutY="83.0" prefHeight="18.0" prefWidth="26.0" />
                      </children>
                   </AnchorPane>
                </content>
