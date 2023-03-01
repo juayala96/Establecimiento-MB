@@ -536,4 +536,33 @@ public class LeerEmpleado {
             }
         }
     }
+
+    //------------------------------------------- Leer Empleado Agregado ---------------------------------
+    public static void listaEmpleadoAgregado(Label labNombreEmpleadoAgregadoCrear, Label labApellidoEmpleadoAgregadoCrear, String legajo){
+        Connection con = Conexion.leerConexion();
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+
+        try {
+            pstm = con.prepareStatement("SELECT nombre, apellido FROM empleados  WHERE estadoEmpleado = ? AND legajo = ?");
+            pstm.setString(1, "Vigente");
+            pstm.setInt(2, Integer.parseInt(legajo));
+            rs = pstm.executeQuery();
+
+            while (rs.next()){
+                labNombreEmpleadoAgregadoCrear.setText(rs.getString("nombre"));
+                labApellidoEmpleadoAgregadoCrear.setText(rs.getString("apellido"));
+            }
+        } catch (SQLException ex) {
+            System.err.println("Error: " + ex.getMessage());
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pstm != null) pstm.close();
+                if (con != null) con.close();
+            } catch (Exception ex){
+                System.err.println("Error: " + ex.getMessage());
+            }
+        }
+    }
 }
