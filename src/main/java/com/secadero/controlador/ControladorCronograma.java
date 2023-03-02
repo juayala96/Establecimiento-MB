@@ -52,6 +52,8 @@ public class ControladorCronograma {
     @FXML
     private Button btnModificarCronograma;
     @FXML
+    private Button btnCalendario;
+    @FXML
     private Button btnRegresarCCMenu;
     @FXML
     private Button btnRegresarCMenu;
@@ -61,6 +63,12 @@ public class ControladorCronograma {
     private Button btnRegresarMMenu;
     @FXML
     private Button btnVolver;
+    @FXML
+    private Button btnBuscarFechaEmpleadoCalendario;
+    @FXML
+    private Button btnActualizarCalendario;
+    @FXML
+    private Button btnBuscarListaEmpleadoCalendario;
     @FXML
     private ComboBox<String> cbTiposFiltrosCronograma;
     @FXML
@@ -102,6 +110,26 @@ public class ControladorCronograma {
     @FXML
     private TableColumn<LeerCronograma, String> colTurno;
     @FXML
+    private TableColumn<LeerCronograma, String> colNombreCalendario;
+    @FXML
+    private TableColumn<LeerCronograma, String> colApellidoCalendario;
+    @FXML
+    private TableColumn<LeerCronograma, Integer> colLegajoCalendario;
+    @FXML
+    private TableColumn<LeerCronograma, String> colTelefonoCalendario;
+    @FXML
+    private TableColumn<LeerCronograma, Date> colFechaCalendario;
+    @FXML
+    private TableColumn<LeerCronograma, String> colTurnoCalendario;
+    @FXML
+    private TableColumn<LeerCronograma, String> colHoraEntradaCalendario;
+    @FXML
+    private TableColumn<LeerCronograma, String> colHoraSalidaCalendario;
+    @FXML
+    private TableColumn<LeerCronograma, Integer> colIDEmpleadoCalendario;
+    @FXML
+    private TableColumn<LeerCronograma, Integer> colIDCronogramaCalendario;
+    @FXML
     private DatePicker dpBuscarFecha;
     @FXML
     private DatePicker dpFechaCrear;
@@ -111,6 +139,8 @@ public class ControladorCronograma {
     private DatePicker dpFechaModificarDuplicada;
     @FXML
     private DatePicker dpFechaModificar;
+    @FXML
+    private DatePicker dpFechaCalendario;
     @FXML
     private Label labApellidoEmpleadoCrear;
     @FXML
@@ -162,9 +192,13 @@ public class ControladorCronograma {
     @FXML
     private Tab tabModificarCronograma;
     @FXML
+    private Tab tabCalendario;
+    @FXML
     private TableView<LeerCronograma> tablaCronograma;
     @FXML
     private TableView<LeerEmpleado> tablaListaEmpleados;
+    @FXML
+    private TableView<LeerCronograma> tablaListaEmpleadosCalendario;
     @FXML
     private TextField textBuscarLegajoEmpleado;
     @FXML
@@ -179,6 +213,8 @@ public class ControladorCronograma {
     private TextField textHoraSalidaEliminar;
     @FXML
     private TextField textHoraSalidaModificar;
+    @FXML
+    private TextField textBuscarLegajoEmpleadoCalendario;
     @FXML
     private ListView<String> listEmpleadosAgregados;
     @FXML
@@ -195,6 +231,8 @@ public class ControladorCronograma {
     ObservableList<LeerEmpleado> listEmpleado;
     int index3 = -1;
     int index4 = -1;
+
+    ObservableList<LeerCronograma> listEmpleadoCalendario;
 
     // -------------------------------------------- Inicialización ----------------------------------------------
     public void initialize() throws ParseException {
@@ -213,6 +251,7 @@ public class ControladorCronograma {
         cbTurnoEliminar.getItems().addAll(tipoTurnos);
         cbTurnoEliminar.getSelectionModel().selectFirst();
         fechasInicializar();
+        fechaCalendario();
         relojEmpleadoDisponible();
         inicializarTablaListaEmpleadosDisponible();
         inicializarTablaEmpleado();
@@ -256,6 +295,25 @@ public class ControladorCronograma {
         listEmpleado = LeerEmpleado.listaEmpleadoDisponible();
         tabEmpleadosCrear.getColumns().setAll(colNombreEmpleadoCrear, colApellidoEmpleadoCrear, colLegajoEmpleadoCrear, colTelefonoEmpleadoCrear, colEmailEmpleadoCrear, colIDEmpleadoCrear);
         tabEmpleadosCrear.getItems().setAll(listEmpleado);
+    }
+
+    // ------------------------------------ Tabla de Empleados Calendario ---------------------------------------------
+    public void inicializarTablaEmpleadoCalendario(){
+
+        colNombreCalendario.setCellValueFactory(new PropertyValueFactory<LeerCronograma, String>("nombre"));
+        colApellidoCalendario.setCellValueFactory(new PropertyValueFactory<LeerCronograma, String>("apellido"));
+        colLegajoCalendario.setCellValueFactory(new PropertyValueFactory<LeerCronograma, Integer>("legajo"));
+        colTelefonoCalendario.setCellValueFactory(new PropertyValueFactory<LeerCronograma, String>("telefono"));
+        colFechaCalendario.setCellValueFactory(new PropertyValueFactory<LeerCronograma, Date>("fecha"));
+        colTurnoCalendario.setCellValueFactory(new PropertyValueFactory<LeerCronograma, String>("turno"));
+        colHoraEntradaCalendario.setCellValueFactory(new PropertyValueFactory<LeerCronograma, String>("horario_entrada"));
+        colHoraSalidaCalendario.setCellValueFactory(new PropertyValueFactory<LeerCronograma, String>("horario_salida"));
+        colIDEmpleadoCalendario.setCellValueFactory(new PropertyValueFactory<LeerCronograma, Integer>("idempleados"));
+        colIDCronogramaCalendario.setCellValueFactory(new PropertyValueFactory<LeerCronograma, Integer>("idCronograma"));
+
+        listEmpleadoCalendario = LeerCronograma.listaEmpleadoCalendario(dpFechaCalendario);
+        tablaListaEmpleadosCalendario.getColumns().setAll(colNombreCalendario, colApellidoCalendario, colLegajoCalendario, colTelefonoCalendario, colFechaCalendario, colTurnoCalendario, colHoraEntradaCalendario, colHoraSalidaCalendario, colIDEmpleadoCalendario, colIDCronogramaCalendario);
+        tablaListaEmpleadosCalendario.getItems().setAll(listEmpleadoCalendario);
     }
 
     // ------------------------------------- Tomo todos los datos al Seleccionar en la tabla ------------------------
@@ -427,6 +485,27 @@ public class ControladorCronograma {
         limpiarCamposEliminar();
     }
 
+    @FXML
+    private void buscarFechaEmpleadoCalendario(){
+        ObservableList<LeerCronograma> listaBuscarCalendario;
+        listaBuscarCalendario = LeerCronograma.buscarFechaCalendario(dpFechaCalendario);
+        tablaListaEmpleadosCalendario.getItems().setAll(listaBuscarCalendario);
+    }
+
+    @FXML
+    private void buscarListaEmpleadoCalendario(){
+        ObservableList<LeerCronograma> listaBuscarCalendario;
+        listaBuscarCalendario = LeerCronograma.buscarLegajoCalendario(textBuscarLegajoEmpleadoCalendario, dpFechaCalendario);
+        tablaListaEmpleadosCalendario.getItems().setAll(listaBuscarCalendario);
+    }
+
+    @FXML
+    private void actualizarCalendario(){
+        textBuscarLegajoEmpleadoCalendario.setText("");
+        fechaCalendario();
+        inicializarTablaEmpleadoCalendario();
+    }
+
     // ------------------------------------------ Agrego en la Lista ---------------------------------------------
     @FXML
     private void agregarCrear(){
@@ -485,8 +564,10 @@ public class ControladorCronograma {
                     labLimpiarCamposCrear.setText("");
                     labIDCronogramaLista.setText("0");
                     labIDEmpleadoLista.setText("0");
+                    inicializarTablaListaEmpleadosDisponible();
                     inicializarTablaEmpleado();
                     inicializarTablaCronograma();
+                    inicializarTablaEmpleadoCalendario();
                     regresarCCMenu();
                     limpiarCamposCrear();
                 }
@@ -532,8 +613,9 @@ public class ControladorCronograma {
                         labLimpiarCamposModificar.setText("");
                         labIDCronogramaLista.setText("0");
                         labIDEmpleadoLista.setText("0");
-                        inicializarTablaEmpleado();
+                        inicializarTablaListaEmpleadosDisponible();
                         inicializarTablaCronograma();
+                        inicializarTablaEmpleadoCalendario();
                         regresarCCMenu();
                         limpiarCamposModificar();
                         limpiarCamposEliminar();
@@ -547,7 +629,7 @@ public class ControladorCronograma {
             } else {
                 Alert alerta = new Alert(Alert.AlertType.ERROR);
                 alerta.setTitle("Error de Modificar");
-                alerta.setContentText("El cronograma que desea modificar en este empleado no esta permitido.  Motivo: es una fecha pasada");
+                alerta.setContentText("El cronograma que desea modificar en este empleado ya no está permitido.  Motivo: es una Fecha Pasada");
                 alerta.showAndWait();
             }
         } else {
@@ -585,6 +667,7 @@ public class ControladorCronograma {
                     labIDEmpleadoLista.setText("0");
                     inicializarTablaListaEmpleadosDisponible();
                     inicializarTablaCronograma();
+                    inicializarTablaEmpleadoCalendario();
                     limpiarCamposEliminar();
                     limpiarCamposModificar();
                     regresarCMenu();
@@ -592,7 +675,7 @@ public class ControladorCronograma {
             } else {
                 Alert alerta = new Alert(Alert.AlertType.ERROR);
                 alerta.setTitle("Error de Eliminar");
-                alerta.setContentText("El cronograma que desea eliminar en este empleado no esta permitido.  Motivo: es una fecha pasada");
+                alerta.setContentText("El cronograma que desea eliminar en este empleado ya no está permitido.  Motivo: es una Fecha Pasada");
                 alerta.showAndWait();
             }
         } else{
@@ -629,6 +712,13 @@ public class ControladorCronograma {
         SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasCronograma.getSelectionModel();
         modeloSeleccion.select(tabEliminarCronograma);
         btnEliminar.requestFocus();
+    }
+
+    @FXML
+    private void calendario() {
+        SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasCronograma.getSelectionModel();
+        modeloSeleccion.select(tabCalendario);
+        inicializarTablaEmpleadoCalendario();
     }
 
     @FXML
@@ -756,6 +846,22 @@ public class ControladorCronograma {
 
         dpFechaEliminar.setValue(LocalDate.now());
         dpFechaEliminar.setConverter(new StringConverter<LocalDate>() {
+            @Override
+            public String toString(LocalDate localDate) {
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                return dtf.format(localDate);
+            }
+
+            @Override
+            public LocalDate fromString(String s) {
+                return null;
+            }
+        });
+    }
+
+    public void fechaCalendario(){
+        dpFechaCalendario.setValue(LocalDate.now());
+        dpFechaCalendario.setConverter(new StringConverter<LocalDate>() {
             @Override
             public String toString(LocalDate localDate) {
                 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");

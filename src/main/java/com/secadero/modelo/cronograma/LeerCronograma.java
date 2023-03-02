@@ -1,18 +1,21 @@
 package com.secadero.modelo.cronograma;
 
 import com.secadero.conexion.Conexion;
-import com.secadero.modelo.ausencia.LeerAusencia;
-import com.secadero.modelo.licencias.LeerLicencia;
+import com.secadero.modelo.empleados.LeerEmpleado;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 
 import java.sql.*;
 import java.util.Date;
 
 public class LeerCronograma {
+    private String nombre;
+    private String apellido;
+    private int legajo;
+    private String telefono;
+    private int idempleados;
+
     private Date fecha;
     private String turno;
     private String horario_entrada;
@@ -26,6 +29,19 @@ public class LeerCronograma {
         this.turno = turno;
         this.horario_entrada = horario_entrada;
         this.horario_salida = horario_salida;
+        this.idCronograma = idCronograma;
+    }
+
+    public LeerCronograma(String nombre, String apellido, int legajo, String telefono, Date fecha, String turno, String horario_entrada, String horario_salida, int idempleados, int idCronograma) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.legajo = legajo;
+        this.telefono = telefono;
+        this.fecha = fecha;
+        this.turno = turno;
+        this.horario_entrada = horario_entrada;
+        this.horario_salida = horario_salida;
+        this.idempleados = idempleados;
         this.idCronograma = idCronograma;
     }
 
@@ -67,6 +83,46 @@ public class LeerCronograma {
 
     public void setIdCronograma(int idCronograma) {
         this.idCronograma = idCronograma;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public int getLegajo() {
+        return legajo;
+    }
+
+    public void setLegajo(int legajo) {
+        this.legajo = legajo;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public int getIdempleados() {
+        return idempleados;
+    }
+
+    public void setIdempleados(int idempleados) {
+        this.idempleados = idempleados;
     }
 
     //------------------------------------------- Leer Cronograma --------------------------------------------------
@@ -241,6 +297,103 @@ public class LeerCronograma {
             }
         }
 
+        return lista;
+    }
+
+    //-------------------------------------------Leer Cronograma Calendario --------------------------------------------------
+    public static ObservableList<LeerCronograma> listaEmpleadoCalendario(DatePicker dpFechaCalendario) {
+        Connection con = Conexion.leerConexion();
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+        ObservableList<LeerCronograma> lista = FXCollections.observableArrayList();
+
+        try {
+            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, telefono, fecha, turno, horario_entrada, horario_salida, idempleados, idCronograma FROM cronograma INNER JOIN empleado_cronograma ON cronograma.idCronograma = empleado_cronograma.idCronogramaFK INNER JOIN empleados ON empleados.idempleados = empleado_cronograma.idEmpleadoFK WHERE empleados.estadoEmpleado = ? AND cronograma.estadoCronograma = ? AND cronograma.fecha = ?");
+            pstm.setString(1, "Vigente");
+            pstm.setString(2, "Vigente");
+            pstm.setString(3, dpFechaCalendario.getEditor().getText());
+            rs = pstm.executeQuery();
+
+            while (rs.next()){
+                lista.add(new LeerCronograma(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getString("telefono"), rs.getDate("fecha"), rs.getString("turno"), rs.getString("horario_entrada"), rs.getString("horario_salida"), rs.getInt("idempleados"), rs.getInt("idCronograma")));
+            }
+
+        } catch (SQLException ex) {
+            System.err.println("Error: " + ex.getMessage());
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pstm != null) pstm.close();
+                if (con != null) con.close();
+            } catch (Exception ex) {
+                System.err.println("Error: " + ex.getMessage());
+            }
+        }
+        return lista;
+    }
+
+    //---------------------------------------- Buscar Cronograma Calendario ----------------------------------------------
+    public static ObservableList<LeerCronograma> buscarFechaCalendario(DatePicker dpFechaCalendario) {
+        Connection con = Conexion.leerConexion();
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+        ObservableList<LeerCronograma> lista = FXCollections.observableArrayList();
+
+        try {
+            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, telefono, fecha, turno, horario_entrada, horario_salida, idempleados, idCronograma FROM cronograma INNER JOIN empleado_cronograma ON cronograma.idCronograma = empleado_cronograma.idCronogramaFK INNER JOIN empleados ON empleados.idempleados = empleado_cronograma.idEmpleadoFK WHERE empleados.estadoEmpleado = ? AND cronograma.estadoCronograma = ? AND cronograma.fecha = ?");
+            pstm.setString(1, "Vigente");
+            pstm.setString(2, "Vigente");
+            pstm.setString(3, dpFechaCalendario.getEditor().getText());
+            rs = pstm.executeQuery();
+
+            while (rs.next()){
+                lista.add(new LeerCronograma(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getString("telefono"), rs.getDate("fecha"), rs.getString("turno"), rs.getString("horario_entrada"), rs.getString("horario_salida"), rs.getInt("idempleados"), rs.getInt("idCronograma")));
+            }
+
+        } catch (SQLException ex) {
+            System.err.println("Error: " + ex.getMessage());
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pstm != null) pstm.close();
+                if (con != null) con.close();
+            } catch (Exception ex) {
+                System.err.println("Error: " + ex.getMessage());
+            }
+        }
+        return lista;
+    }
+
+    //---------------------------------------- Buscar Legajo Calendario ----------------------------------------------
+    public static ObservableList<LeerCronograma> buscarLegajoCalendario(TextField textBuscarLegajoEmpleadoCalendario, DatePicker dpFechaCalendario) {
+        Connection con = Conexion.leerConexion();
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+        ObservableList<LeerCronograma> lista = FXCollections.observableArrayList();
+
+        try {
+            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, telefono, fecha, turno, horario_entrada, horario_salida, idempleados, idCronograma FROM cronograma INNER JOIN empleado_cronograma ON cronograma.idCronograma = empleado_cronograma.idCronogramaFK INNER JOIN empleados ON empleados.idempleados = empleado_cronograma.idEmpleadoFK WHERE empleados.estadoEmpleado = ? AND cronograma.estadoCronograma = ? AND cronograma.fecha = ? AND empleados.legajo LIKE ?");
+            pstm.setString(1, "Vigente");
+            pstm.setString(2, "Vigente");
+            pstm.setString(3, dpFechaCalendario.getEditor().getText());
+            pstm.setString(4, textBuscarLegajoEmpleadoCalendario.getText()  + "%");
+            rs = pstm.executeQuery();
+
+            while (rs.next()){
+                lista.add(new LeerCronograma(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getString("telefono"), rs.getDate("fecha"), rs.getString("turno"), rs.getString("horario_entrada"), rs.getString("horario_salida"), rs.getInt("idempleados"), rs.getInt("idCronograma")));
+            }
+
+        } catch (SQLException ex) {
+            System.err.println("Error: " + ex.getMessage());
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pstm != null) pstm.close();
+                if (con != null) con.close();
+            } catch (Exception ex) {
+                System.err.println("Error: " + ex.getMessage());
+            }
+        }
         return lista;
     }
 }

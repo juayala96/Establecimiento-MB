@@ -62,7 +62,7 @@
                               <Cursor fx:constant="DISAPPEAR" />
                            </cursor>
                         </ComboBox>
-                        <Button fx:id="btnModificarCronograma" layoutX="1312.0" layoutY="294.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#modificarCronograma" prefHeight="52.0" prefWidth="150.0" text="Modificar">
+                        <Button fx:id="btnModificarCronograma" layoutX="1312.0" layoutY="263.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#modificarCronograma" prefHeight="52.0" prefWidth="150.0" text="Modificar">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -70,7 +70,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button fx:id="btnEliminarCronograma" layoutX="1312.0" layoutY="420.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#eliminarCronograma" prefHeight="52.0" prefWidth="150.0" text="Eliminar">
+                        <Button fx:id="btnEliminarCronograma" layoutX="1312.0" layoutY="360.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#eliminarCronograma" prefHeight="52.0" prefWidth="150.0" text="Eliminar">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -147,6 +147,14 @@
                               <Font name="Georgia Bold" size="48.0" />
                            </font>
                         </Label>
+                        <Button fx:id="btnCalendario" layoutX="1312.0" layoutY="454.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#calendario" prefHeight="52.0" prefWidth="150.0" text="Calendario" textFill="#1b0086">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
                      </children>
                   </AnchorPane>
                </content>
@@ -568,6 +576,105 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab fx:id="tabCalendario" text="Calendario">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label fx:id="labIDCronogramaEliminar1" layoutX="390.0" layoutY="83.0" prefHeight="18.0" prefWidth="26.0" />
+                        <Label fx:id="labIDEmpleadoEliminar1" layoutX="358.0" layoutY="83.0" prefHeight="18.0" prefWidth="26.0" />
+                        <ImageView fitHeight="1192.0" fitWidth="1649.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imagenes/verde_agua.jpg" />
+                           </image>
+                        </ImageView>
+                        <Label layoutY="-4.0" prefHeight="44.0" prefWidth="1536.0" text="__________________________________________________________________________________________________________________________________________________________">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label layoutY="715.0" prefHeight="35.0" prefWidth="1536.0" text="__________________________________________________________________________________________________________________________________________________________">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="btnRegresarCCMenu" layoutX="635.0" layoutY="676.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#regresarCCMenu" prefHeight="46.0" prefWidth="266.0" text="Regresar" textFill="#7e0a0a">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Label layoutX="316.0" layoutY="118.0" prefHeight="30.0" prefWidth="64.0" text="Fecha:">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <DatePicker fx:id="dpFechaCalendario" editable="false" layoutX="315.0" layoutY="148.0" opacity="0.99" prefHeight="50.0" prefWidth="200.0" style="-fx-font-size: 18;">
+                           <cursor>
+                              <Cursor fx:constant="DISAPPEAR" />
+                           </cursor>
+                        </DatePicker>
+                        <Label layoutX="584.0" layoutY="40.0" prefHeight="74.0" prefWidth="368.0" text="Calendario" underline="true">
+                           <font>
+                              <Font name="Georgia Bold" size="64.0" />
+                           </font>
+                        </Label>
+                        <TableView fx:id="tablaListaEmpleadosCalendario" layoutX="163.0" layoutY="203.0" onMouseClicked="#getListaEmpleados" prefHeight="444.0" prefWidth="1210.0">
+                           <columns>
+                              <TableColumn fx:id="colNombreCalendario" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Nombre" />
+                              <TableColumn fx:id="colApellidoCalendario" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Apellido" />
+                              <TableColumn fx:id="colLegajoCalendario" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Legajo" />
+                              <TableColumn fx:id="colTelefonoCalendario" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Telefono" />
+                              <TableColumn fx:id="colFechaCalendario" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Fecha" />
+                              <TableColumn fx:id="colTurnoCalendario" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Turno" />
+                              <TableColumn fx:id="colHoraEntradaCalendario" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Hora de Entrada" />
+                              <TableColumn fx:id="colHoraSalidaCalendario" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Hora de Salida" />
+                              <TableColumn fx:id="colIDEmpleadoCalendario" prefWidth="120.0" style="-fx-font-size: 14;" text="IDEmpleado" />
+                              <TableColumn fx:id="colIDCronogramaCalendario" prefWidth="120.0" style="-fx-font-size: 14;" text="IDCronograma" />
+                           </columns>
+                           <cursor>
+                              <Cursor fx:constant="DISAPPEAR" />
+                           </cursor>
+                        </TableView>
+                        <Button fx:id="btnActualizarCalendario" layoutX="1221.0" layoutY="151.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#actualizarCalendario" prefHeight="48.0" prefWidth="152.0" text="Actualizar" textFill="#022c7b">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Button fx:id="btnBuscarFechaEmpleadoCalendario" layoutX="163.0" layoutY="149.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#buscarFechaEmpleadoCalendario" prefHeight="48.0" prefWidth="152.0" text="Buscar:" textFill="#022c7b">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Label layoutX="697.0" layoutY="123.0" prefHeight="12.0" prefWidth="67.0" text="Legajo:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="btnBuscarListaEmpleadoCalendario" layoutX="551.0" layoutY="151.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#buscarListaEmpleadoCalendario" prefHeight="48.0" prefWidth="145.0" text="Buscar Empleado:" textFill="#022c7b">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <TextField fx:id="textBuscarLegajoEmpleadoCalendario" layoutX="697.0" layoutY="151.0" prefHeight="48.0" prefWidth="159.0">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </TextField>
                      </children>
                   </AnchorPane>
                </content>
