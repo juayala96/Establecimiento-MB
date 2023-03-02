@@ -79,10 +79,11 @@ public class LeerCronograma {
         String hora_salida;
 
         try {
-            pstm = con.prepareStatement("SELECT fecha, turno, horario_entrada, horario_salida, idCronograma FROM cronograma INNER JOIN empleado_cronograma ON cronograma.idCronograma = empleado_cronograma.idCronogramaFK INNER JOIN empleados ON empleado_cronograma.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND empleados.estado = ? AND empleado_cronograma.idEmpleadoFK = ?");
+            pstm = con.prepareStatement("SELECT fecha, turno, horario_entrada, horario_salida, idCronograma FROM cronograma INNER JOIN empleado_cronograma ON cronograma.idCronograma = empleado_cronograma.idCronogramaFK INNER JOIN empleados ON empleado_cronograma.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND empleados.estado = ? AND cronograma.estadoCronograma = ? AND empleado_cronograma.idEmpleadoFK = ?");
             pstm.setString(1, "Vigente");
             pstm.setString(2, "Disponible");
-            pstm.setInt(3, Integer.parseInt(labIDEmpleadoLista.getText()));
+            pstm.setString(3, "Vigente");
+            pstm.setInt(4, Integer.parseInt(labIDEmpleadoLista.getText()));
             rs = pstm.executeQuery();
 
             while (rs.next()){

@@ -62,7 +62,7 @@
                               <Cursor fx:constant="DISAPPEAR" />
                            </cursor>
                         </ComboBox>
-                        <Button fx:id="btnModificarCronograma" layoutX="1312.0" layoutY="267.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#modificarCronograma" prefHeight="52.0" prefWidth="150.0" text="Modificar">
+                        <Button fx:id="btnModificarCronograma" layoutX="1312.0" layoutY="294.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#modificarCronograma" prefHeight="52.0" prefWidth="150.0" text="Modificar">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -70,7 +70,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button fx:id="btnEliminarCronograma" layoutX="1312.0" layoutY="374.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#eliminarCronograma" prefHeight="52.0" prefWidth="150.0" text="Eliminar">
+                        <Button fx:id="btnEliminarCronograma" layoutX="1312.0" layoutY="420.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#eliminarCronograma" prefHeight="52.0" prefWidth="150.0" text="Eliminar">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -90,14 +90,6 @@
                               <Cursor fx:constant="DISAPPEAR" />
                            </cursor>
                         </TableView>
-                        <Button fx:id="btnCalendario" layoutX="1312.0" layoutY="479.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#irCalendario" prefHeight="52.0" prefWidth="150.0" text="Calendario" textFill="#05059e">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
                         <TableView fx:id="tablaListaEmpleados" layoutX="90.0" layoutY="212.0" onMouseClicked="#getListaEmpleados" prefHeight="467.0" prefWidth="605.0">
                            <columns>
                               <TableColumn fx:id="colNombre" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Nombre" />
@@ -348,6 +340,7 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
+                        <DatePicker fx:id="dpFechaModificarDuplicada" disable="true" editable="false" layoutX="18.0" layoutY="44.0" opacity="0.7" prefHeight="40.0" prefWidth="178.0" style="-fx-font-size: 18;" />
                         <Label fx:id="labIDEmpleadoModificar" layoutX="416.0" layoutY="85.0" prefHeight="18.0" prefWidth="26.0" />
                         <Label fx:id="labIDCronogramaModificar" layoutX="390.0" layoutY="85.0" prefHeight="18.0" prefWidth="26.0" />
                         <Label fx:id="labLimpiarCamposModificar" layoutX="356.0" layoutY="85.0" prefHeight="18.0" prefWidth="26.0" />
@@ -575,59 +568,6 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                     </children>
-                  </AnchorPane>
-               </content>
-            </Tab>
-            <Tab fx:id="tabCalendario" text="Calendario">
-               <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <ImageView fitHeight="1192.0" fitWidth="1649.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../imagenes/verde_agua.jpg" />
-                           </image>
-                        </ImageView>
-                        <Label layoutY="-4.0" prefHeight="44.0" prefWidth="1536.0" text="__________________________________________________________________________________________________________________________________________________________">
-                           <font>
-                              <Font name="System Bold" size="24.0" />
-                           </font>
-                        </Label>
-                        <Label layoutY="715.0" prefHeight="35.0" prefWidth="1536.0" text="__________________________________________________________________________________________________________________________________________________________">
-                           <font>
-                              <Font name="System Bold" size="24.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="198.0" layoutY="67.0" prefHeight="56.0" prefWidth="274.0" text="Calendario">
-                           <font>
-                              <Font name="Georgia Bold" size="48.0" />
-                           </font>
-                        </Label>
-                        <Button fx:id="btnRegresarCCMenu" layoutX="685.0" layoutY="668.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#regresarCCMenu" prefHeight="46.0" prefWidth="166.0" text="Regresar">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
-                        <Label layoutX="1005.0" layoutY="67.0" prefHeight="56.0" prefWidth="278.0" text="Empleados">
-                           <font>
-                              <Font name="Georgia Bold" size="48.0" />
-                           </font>
-                        </Label>
-                        <TableView fx:id="tablaEmpleados" layoutX="768.0" layoutY="138.0" prefHeight="467.0" prefWidth="752.0">
-                           <columns>
-                              <TableColumn prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Nombre" />
-                              <TableColumn prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Apellido" />
-                              <TableColumn prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Turno" />
-                              <TableColumn prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Fecha de Llegada" />
-                              <TableColumn prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Fecha de Salida" />
-                           </columns>
-                           <cursor>
-                              <Cursor fx:constant="DISAPPEAR" />
-                           </cursor>
-                        </TableView>
                      </children>
                   </AnchorPane>
                </content>

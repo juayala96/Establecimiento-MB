@@ -2,9 +2,12 @@ package com.secadero.controlador;
 
 import com.secadero.modelo.ausencia.LeerAusencia;
 import com.secadero.modelo.cronograma.CrearCronograma;
+import com.secadero.modelo.cronograma.EliminarCronograma;
 import com.secadero.modelo.cronograma.LeerCronograma;
+import com.secadero.modelo.cronograma.ModificarCronograma;
 import com.secadero.modelo.empleados.LeerEmpleado;
 import com.secadero.modelo.licencias.CrearLicencia;
+import com.secadero.modelo.licencias.EliminarLicencia;
 import com.secadero.modelo.licencias.LeerLicencia;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
@@ -23,10 +26,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Collections;
-import java.util.Date;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 public class ControladorCronograma {
     public ControladorCronograma(){}
@@ -37,8 +37,6 @@ public class ControladorCronograma {
     private Button btnBuscarCronogramaFecha;
     @FXML
     private Button btnBuscarListaEmpleadoDisponible;
-    @FXML
-    private Button btnCalendario;
     @FXML
     private Button btnCrearCronograma;
     @FXML
@@ -110,6 +108,8 @@ public class ControladorCronograma {
     @FXML
     private DatePicker dpFechaEliminar;
     @FXML
+    private DatePicker dpFechaModificarDuplicada;
+    @FXML
     private DatePicker dpFechaModificar;
     @FXML
     private Label labApellidoEmpleadoCrear;
@@ -150,13 +150,7 @@ public class ControladorCronograma {
     @FXML
     private Label labResultadoID;
     @FXML
-    private Label labErrorHoraEntradaCrear;
-    @FXML
-    private Label labErrorHoraSalidaCrear;
-    @FXML
     private TabPane panelPestaniasCronograma;
-    @FXML
-    private Tab tabCalendario;
     @FXML
     private Tab tabCrearCronograma;
     @FXML
@@ -169,8 +163,6 @@ public class ControladorCronograma {
     private Tab tabModificarCronograma;
     @FXML
     private TableView<LeerCronograma> tablaCronograma;
-    @FXML
-    private TableView<?> tablaEmpleados;
     @FXML
     private TableView<LeerEmpleado> tablaListaEmpleados;
     @FXML
@@ -208,6 +200,7 @@ public class ControladorCronograma {
     public void initialize() throws ParseException {
         String[] tipoFiltro = {"Nombre", "Legajo", "Fecha", "Turno"};
         String[] tipoTurnos = {"Dia", "Noche"};
+        dpFechaModificarDuplicada.getEditor().setText("2000-01-01");
         comboBoxCrear();
         comboBoxModificar();
         comboBoxEliminar();
@@ -307,6 +300,7 @@ public class ControladorCronograma {
         cbTurnoModificar.getSelectionModel().select(colTurno.getCellData(index2));
         cbTurnoEliminar.getSelectionModel().select(colTurno.getCellData(index2));
         dpFechaModificar.getEditor().setText(colFecha.getCellData(index2).toString());
+        dpFechaModificarDuplicada.getEditor().setText(colFecha.getCellData(index2).toString());
         dpFechaEliminar.getEditor().setText(colFecha.getCellData(index2).toString());
         textHoraEntradaModificar.setText(colHoraEntrada.getCellData(index2));
         textHoraEntradaEliminar.setText(colHoraEntrada.getCellData(index2));
@@ -511,13 +505,103 @@ public class ControladorCronograma {
     }
 
     @FXML
-    private void modificar() {
-        limpiarCamposModificar();
+    private void modificar() throws ParseException {
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+        String fechaI = dpFechaModificar.getEditor().getText();
+        Date fecha = formatoFecha.parse(fechaI);
+
+        String fechaD = dpFechaModificarDuplicada.getEditor().getText();
+        Date fechaDuplicado = formatoFecha.parse(fechaD);
+
+        Date fechaActualPais = new Date();
+        String Fecha_Actual = (formatoFecha.format(fechaActualPais));
+        Date fechaActual = formatoFecha.parse(Fecha_Actual);
+        long Diferencias2 = fechaActual.getTime() - fecha.getTime();
+        long Cant_Dias2 = Diferencias2 / (1000 * 60 * 60 * 24);
+
+        long Diferencias = fechaActual.getTime() - fechaDuplicado.getTime();
+        long Cant_Dias = Diferencias / (1000 * 60 * 60 * 24);
+
+        if(labIDCronogramaModificar.getText() != ""){
+            if((-Cant_Dias) >= 0){
+                if((-Cant_Dias2) >= 0){
+                    ModificarCronograma cronogramaModificar = new ModificarCronograma();
+                    cronogramaModificar.modificarCronograma(labIDEmpleadoModificar, labIDCronogramaModificar, dpFechaModificar, dpFechaModificarDuplicada, cbTurnoModificar, textHoraEntradaModificar, textHoraSalidaModificar, labLimpiarCamposModificar);
+
+                    if(Objects.equals(labLimpiarCamposModificar.getText(), "OK")){
+                        labLimpiarCamposModificar.setText("");
+                        labIDCronogramaLista.setText("0");
+                        labIDEmpleadoLista.setText("0");
+                        inicializarTablaEmpleado();
+                        inicializarTablaCronograma();
+                        regresarCCMenu();
+                        limpiarCamposModificar();
+                        limpiarCamposEliminar();
+                    }
+                } else {
+                    Alert alerta = new Alert(Alert.AlertType.ERROR);
+                    alerta.setTitle("Error de Fecha!");
+                    alerta.setContentText("La Fecha Ingresada solo se permite Modificar entre la Fecha Actual o Superior");
+                    alerta.showAndWait();
+                }
+            } else {
+                Alert alerta = new Alert(Alert.AlertType.ERROR);
+                alerta.setTitle("Error de Modificar");
+                alerta.setContentText("El cronograma que desea modificar en este empleado no esta permitido.  Motivo: es una fecha pasada");
+                alerta.showAndWait();
+            }
+        } else {
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setTitle("Error");
+            alerta.setContentText("Para Modificar debes de tomar un Cronograma del empleado");
+            alerta.showAndWait();
+        }
+
     }
 
     @FXML
-    private void eliminar() {
-        limpiarCamposEliminar();
+    private void eliminar() throws ParseException {
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+        String fechaI = dpFechaEliminar.getEditor().getText();
+        Date fecha = formatoFecha.parse(fechaI);
+
+        Date fechaActualPais = new Date();
+        String Fecha_Actual = (formatoFecha.format(fechaActualPais));
+        Date fechaActual = formatoFecha.parse(Fecha_Actual);
+        long Diferencias2 = fechaActual.getTime() - fecha.getTime();
+        long Cant_Dias2 = Diferencias2 / (1000 * 60 * 60 * 24);
+
+        if (labIDCronogramaEliminar.getText() != ""){
+            if((-Cant_Dias2) >= 0){
+                Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
+                alerta.setTitle("Confirmar Eliminar");
+                alerta.setContentText("¿Desea Eliminar el Cronograma del Empleado?");
+                Optional<ButtonType> resultado = alerta.showAndWait();
+                if (resultado.isPresent() && resultado.get() == ButtonType.OK){
+
+                    EliminarCronograma licenciaEliminar = new EliminarCronograma();
+                    licenciaEliminar.eliminarCronograma(labIDCronogramaEliminar, labIDEmpleadoEliminar);
+                    labIDCronogramaLista.setText("0");
+                    labIDEmpleadoLista.setText("0");
+                    inicializarTablaListaEmpleadosDisponible();
+                    inicializarTablaCronograma();
+                    limpiarCamposEliminar();
+                    limpiarCamposModificar();
+                    regresarCMenu();
+                }
+            } else {
+                Alert alerta = new Alert(Alert.AlertType.ERROR);
+                alerta.setTitle("Error de Eliminar");
+                alerta.setContentText("El cronograma que desea eliminar en este empleado no esta permitido.  Motivo: es una fecha pasada");
+                alerta.showAndWait();
+            }
+        } else{
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setTitle("Error!");
+            alerta.setContentText("Debe de seleccionar antes una Licencia de dicho empleado para Eliminarlo");
+            alerta.showAndWait();
+            btnRegresarEMenu.requestFocus();
+        }
     }
 
     // ---------------------------- Reloj del estado de la fecha actual del empleado-----------------------------
@@ -545,12 +629,6 @@ public class ControladorCronograma {
         SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasCronograma.getSelectionModel();
         modeloSeleccion.select(tabEliminarCronograma);
         btnEliminar.requestFocus();
-    }
-
-    @FXML
-    private void irCalendario() {
-        SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasCronograma.getSelectionModel();
-        modeloSeleccion.select(tabCalendario);
     }
 
     @FXML
@@ -604,10 +682,9 @@ public class ControladorCronograma {
         labApellidoEmpleadoModificar.setText("");
         labLegajoEmpleadoModificar.setText("");
         labLimpiarCamposModificar.setText("");
+        dpFechaModificarDuplicada.getEditor().setText("2000-01-01");
         cbTurnoModificar.getSelectionModel().selectFirst();
         comboBoxModificar();
-
-        //dpFechaModificarDuplicada.getEditor().setText("");
         fechasInicializar();
     }
 
