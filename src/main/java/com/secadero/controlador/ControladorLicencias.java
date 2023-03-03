@@ -22,6 +22,7 @@ import javafx.util.StringConverter;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -455,6 +456,7 @@ public class ControladorLicencias {
                 limpiarCamposModificar();
                 limpiarCamposEliminar();
             }
+
         } else {
             Alert alerta = new Alert(Alert.AlertType.WARNING);
             alerta.setTitle("Error");
@@ -464,24 +466,46 @@ public class ControladorLicencias {
     }
 
     @FXML
-    private void eliminar() {
+    private void eliminar() throws ParseException {
         Label[] id = {labIDLicenciaEliminar};
-        if (comprobarIDEliminarLicencia(id)){
-            Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
-            alerta.setTitle("Confirmar Eliminar");
-            alerta.setContentText("¿Desea Eliminar la Licencia del Empleado?");
-            Optional<ButtonType> resultado = alerta.showAndWait();
-            if (resultado.isPresent() && resultado.get() == ButtonType.OK){
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+        String fechaI = dpFechaInicioEliminar.getEditor().getText();
+        Date fechaInicio = formatoFecha.parse(fechaI);
+        String fechaF = dpFechaFinEliminar.getEditor().getText();
+        Date fechaFin = formatoFecha.parse(fechaF);
 
-                EliminarLicencia licenciaEliminar = new EliminarLicencia();
-                licenciaEliminar.eliminarLicencia(labIDLicenciaEliminar, labIDEmpleadoEliminar, dpFechaInicioEliminar, dpFechaFinEliminar, cbTipoLicenciaEliminar);
-                labIDLicenciaLista.setText("0");
-                labIDEmpleadoLista.setText("0");
-                inicializarTablaListaEmpleados();
-                inicializarTablaLicencias();
-                limpiarCamposEliminar();
-                limpiarCamposModificar();
-                regresarELista();
+        Date fechaActualPais = new Date();
+        String Fecha_Actual = (formatoFecha.format(fechaActualPais));
+        Date fechaActual = formatoFecha.parse(Fecha_Actual);
+        long DiferenciasInicio = fechaActual.getTime() - fechaInicio.getTime();
+        long Cant_DiasInicio = DiferenciasInicio / (1000 * 60 * 60 * 24);
+        long DiferenciasFin= fechaActual.getTime() - fechaFin.getTime();
+        long Cant_DiasFin= DiferenciasFin/ (1000 * 60 * 60 * 24);
+
+        if (comprobarIDEliminarLicencia(id)){
+            if((-Cant_DiasInicio) >= 0 && (-Cant_DiasFin) >= 0){
+                Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
+                alerta.setTitle("Confirmar Eliminar");
+                alerta.setContentText("¿Desea Eliminar la Licencia del Empleado?");
+                Optional<ButtonType> resultado = alerta.showAndWait();
+                if (resultado.isPresent() && resultado.get() == ButtonType.OK){
+
+                    EliminarLicencia licenciaEliminar = new EliminarLicencia();
+                    licenciaEliminar.eliminarLicencia(labIDLicenciaEliminar, labIDEmpleadoEliminar, dpFechaInicioEliminar, dpFechaFinEliminar, cbTipoLicenciaEliminar);
+                    labIDLicenciaLista.setText("0");
+                    labIDEmpleadoLista.setText("0");
+                    inicializarTablaListaEmpleados();
+                    inicializarTablaLicencias();
+                    limpiarCamposEliminar();
+                    limpiarCamposModificar();
+                    regresarELista();
+                }
+            } else {
+                Alert alerta = new Alert(Alert.AlertType.ERROR);
+                alerta.setTitle("Error de Eliminar");
+                alerta.setContentText("La Licencia que desea eliminar en este empleado ya no está" + "\n" + "permitido.  Motivo: es una Fecha Pasada o ya se encuentra" + "\n" + "con Licencia");
+                alerta.showAndWait();
+
             }
         } else{
             Alert alerta = new Alert(Alert.AlertType.WARNING);
