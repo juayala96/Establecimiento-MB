@@ -25,19 +25,17 @@ public class CrearUsuario {
         String respuesta2 = "YES";
 
         try {
-            String consulta = "SELECT * FROM usuarios WHERE legajo = ? AND estadoUsuario = ?";
+            String consulta = "SELECT * FROM usuarios WHERE legajo = ?";
             pstm = con.prepareStatement(consulta);
             pstm.setString(1, textLegajoCrear.getText());
-            pstm.setString(2, "Vigente");
             rs = pstm.executeQuery();
             if(rs.next()){
                 respuesta = "NO";
             }
 
-            String consulta2 = "SELECT * FROM usuarios WHERE nombreUsuario = ? AND estadoUsuario = ?";
+            String consulta2 = "SELECT * FROM usuarios WHERE nombreUsuario = ?";
             pstm2 = con.prepareStatement(consulta2);
             pstm2.setString(1, textNombreUsuarioCrear.getText());
-            pstm2.setString(2, "Vigente");
             rs2 = pstm2.executeQuery();
             if(rs2.next()){
                 respuesta2 = "NO";
@@ -45,7 +43,7 @@ public class CrearUsuario {
 
             if(respuesta.equals("YES")){
                 if(respuesta2.equals("YES")){
-                    String consulta3 = "INSERT INTO usuarios(nombre, apellido, legajo, email, telefono, nombreUsuario, contrasenia, rol, estadoUsuario) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    String consulta3 = "INSERT INTO usuarios(nombre, apellido, legajo, email, telefono, nombreUsuario, contrasenia, rol) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
                     pstm = con.prepareStatement(consulta3);
                     pstm.setString(1, textNombreCrear.getText());
                     pstm.setString(2, textApellidoCrear.getText());
@@ -55,7 +53,6 @@ public class CrearUsuario {
                     pstm.setString(6, textNombreUsuarioCrear.getText());
                     pstm.setString(7, textContraseniaCrear.getText());
                     pstm.setString(8, cbRolCrear.getSelectionModel().getSelectedItem());
-                    pstm.setString(9, "Vigente");
                     pstm.executeUpdate();
 
                     Alert alerta = new Alert(Alert.AlertType.INFORMATION);

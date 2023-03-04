@@ -24,10 +24,9 @@ public class ModificarUsuario {
         String respuesta2 = "YES";
 
         try {
-            String consulta = "SELECT * FROM usuarios WHERE legajo = ? AND estadoUsuario = ?";
+            String consulta = "SELECT * FROM usuarios WHERE legajo = ?";
             pstm = con.prepareStatement(consulta);
             pstm.setInt(1, Integer.parseInt(textLegajoModificar.getText()));
-            pstm.setString(2, "Vigente");
             rs = pstm.executeQuery();
             if(rs.next()){
                 int legajo = rs.getInt("legajo");
@@ -38,10 +37,9 @@ public class ModificarUsuario {
                 }
             }
 
-            String consulta2 = "SELECT * FROM usuarios WHERE nombreUsuario = ? AND estadoUsuario = ?";
+            String consulta2 = "SELECT * FROM usuarios WHERE nombreUsuario = ?";
             pstm = con.prepareStatement(consulta2);
             pstm.setString(1, textNombreUsuarioModificar.getText());
-            pstm.setString(2, "Vigente");
             rs = pstm.executeQuery();
             if(rs.next()){
                 String nombreUsuario = rs.getString("nombreUsuario");

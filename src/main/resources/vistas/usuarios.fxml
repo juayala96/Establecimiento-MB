@@ -64,7 +64,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <TextField fx:id="textBuscarUsuario" layoutX="166.0" layoutY="171.0" prefHeight="46.0" prefWidth="407.0">
+                        <TextField fx:id="textBuscarUsuario" layoutX="166.0" layoutY="171.0" prefHeight="46.0" prefWidth="250.0">
                            <font>
                               <Font size="16.0" />
                            </font>
@@ -82,7 +82,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button fx:id="btnFiltroUsuarios" layoutX="930.0" layoutY="171.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#filtroUsuarios" prefHeight="46.0" prefWidth="86.0" text="Filtros:" textFill="#022c7b">
+                        <Button fx:id="btnFiltroUsuarios" layoutX="936.0" layoutY="171.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#filtroUsuarios" prefHeight="46.0" prefWidth="86.0" text="Filtros:" textFill="#022c7b">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -90,7 +90,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <ComboBox fx:id="cbTiposFiltrosUsuarios" layoutX="1027.0" layoutY="171.0" prefHeight="46.0" prefWidth="254.0" style="-fx-font-size: 16;">
+                        <ComboBox fx:id="cbTiposFiltrosUsuarios" layoutX="1030.0" layoutY="171.0" prefHeight="46.0" prefWidth="250.0" style="-fx-font-size: 16;">
                            <cursor>
                               <Cursor fx:constant="DISAPPEAR" />
                            </cursor></ComboBox>

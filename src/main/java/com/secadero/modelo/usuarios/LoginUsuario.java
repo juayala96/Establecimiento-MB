@@ -21,11 +21,10 @@ public class LoginUsuario {
         ResultSet rs = null;
 
         try {
-            String consulta = "SELECT idusuarios FROM usuarios WHERE nombreUsuario = ? AND contrasenia = ? AND estadoUsuario = ?";
+            String consulta = "SELECT idusuarios FROM usuarios WHERE nombreUsuario = ? AND contrasenia = ?";
             pstm = con.prepareStatement(consulta);
             pstm.setString(1, campoNombre.getText());
             pstm.setString(2, campoPassword.getText());
-            pstm.setString(3, "Vigente");
             rs = pstm.executeQuery();
             while (rs.next()){
                 labID.setText(String.valueOf(rs.getInt("idusuarios")));

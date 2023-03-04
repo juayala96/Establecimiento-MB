@@ -19,10 +19,9 @@ public class EliminarUsuario {
         ResultSet rs = null;
 
         try {
-            String consulta = "UPDATE usuarios SET estadoUsuario = ? WHERE idusuarios = ?";
+            String consulta = "DELETE FROM usuarios WHERE idusuarios = ?";
             pstm = con.prepareStatement(consulta);
-            pstm.setString(1, "Eliminado");
-            pstm.setInt(2, Integer.parseInt(labIDEliminar.getText()));
+            pstm.setInt(1, Integer.parseInt(labIDEliminar.getText()));
             pstm.executeUpdate();
 
             Alert alerta = new Alert(Alert.AlertType.INFORMATION);

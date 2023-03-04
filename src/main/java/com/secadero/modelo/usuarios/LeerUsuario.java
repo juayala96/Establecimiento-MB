@@ -116,8 +116,7 @@ public class LeerUsuario {
         ObservableList<LeerUsuario> lista = FXCollections.observableArrayList();
 
         try {
-            pstm = con.prepareStatement("SELECT * FROM usuarios WHERE estadoUsuario = ?");
-            pstm.setString(1, "Vigente");
+            pstm = con.prepareStatement("SELECT * FROM usuarios");
             rs = pstm.executeQuery();
 
             while (rs.next()){
@@ -145,9 +144,8 @@ public class LeerUsuario {
         ObservableList<LeerUsuario> listaBuscar = FXCollections.observableArrayList();
 
         try {
-            pstm = con.prepareStatement("SELECT * FROM usuarios WHERE estadoUsuario = ? AND legajo LIKE ?");
-            pstm.setString(1, "Vigente");
-            pstm.setString(2, textBuscarUsuario.getText() + "%");
+            pstm = con.prepareStatement("SELECT * FROM usuarios WHERE legajo LIKE ?");
+            pstm.setString(1, textBuscarUsuario.getText() + "%");
             rs = pstm.executeQuery();
 
             while (rs.next()){
@@ -176,8 +174,7 @@ public class LeerUsuario {
         String dato = cbTiposFiltrosUsuarios.getSelectionModel().getSelectedItem().toLowerCase();
 
         try {
-            pstm = con.prepareStatement("SELECT * FROM usuarios WHERE estadoUsuario = ? ORDER BY " + dato + " ASC");
-            pstm.setString(1, "Vigente");
+            pstm = con.prepareStatement("SELECT * FROM usuarios ORDER BY " + dato + " ASC");
             rs = pstm.executeQuery();
 
             while (rs.next()){

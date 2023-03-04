@@ -136,7 +136,7 @@ public class LeerEmpleado {
         ObservableList<LeerEmpleado> lista = FXCollections.observableArrayList();
 
         try {
-            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, telefono, fechaIngreso, area.descripcion, puesto.descripcion, idempleados FROM empleados INNER JOIN area ON empleados.idAreaFK = area.idarea INNER JOIN puesto ON empleados.idPuestoFK = puesto.idpuesto WHERE estadoEmpleado = ?");
+            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, telefono, fechaIngreso, area.descripcion, puesto.descripcion, idempleados FROM empleados INNER JOIN area ON empleados.idAreaFK = area.idarea INNER JOIN puesto ON empleados.idPuestoFK = puesto.idpuesto WHERE estadoEmpleado = ? ORDER BY legajo DESC");
             pstm.setString(1, "Vigente");
             rs = pstm.executeQuery();
 
@@ -244,7 +244,7 @@ public class LeerEmpleado {
         ObservableList<LeerEmpleado> listaBuscar = FXCollections.observableArrayList();
 
         try {
-            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, telefono, fechaIngreso, area.descripcion, puesto.descripcion, idempleados FROM empleados INNER JOIN area ON empleados.idAreaFK = area.idarea INNER JOIN puesto ON empleados.idPuestoFK = puesto.idpuesto WHERE empleados.estadoEmpleado = ? AND empleados.legajo LIKE ?");
+            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, telefono, fechaIngreso, area.descripcion, puesto.descripcion, idempleados FROM empleados INNER JOIN area ON empleados.idAreaFK = area.idarea INNER JOIN puesto ON empleados.idPuestoFK = puesto.idpuesto WHERE empleados.estadoEmpleado = ? AND empleados.legajo LIKE ? ORDER BY legajo DESC");
             pstm.setString(1, "Vigente");
             pstm.setString(2, textBuscarEmpleado.getText() + "%");
             rs = pstm.executeQuery();
@@ -308,7 +308,7 @@ public class LeerEmpleado {
         ObservableList<LeerEmpleado> lista = FXCollections.observableArrayList();
 
         try {
-            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, telefono, email, idempleados FROM empleados  WHERE estadoEmpleado = ?");
+            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, telefono, email, idempleados FROM empleados  WHERE estadoEmpleado = ? ORDER BY legajo DESC");
             pstm.setString(1, "Vigente");
             rs = pstm.executeQuery();
 
@@ -337,7 +337,7 @@ public class LeerEmpleado {
         ObservableList<LeerEmpleado> listaBuscar = FXCollections.observableArrayList();
 
         try {
-            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, telefono, fechaIngreso, area.descripcion, puesto.descripcion, idempleados FROM empleados INNER JOIN area ON empleados.idAreaFK = area.idarea INNER JOIN puesto ON empleados.idPuestoFK = puesto.idpuesto WHERE empleados.estadoEmpleado = ? AND empleados.legajo LIKE ?");
+            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, telefono, fechaIngreso, area.descripcion, puesto.descripcion, idempleados FROM empleados INNER JOIN area ON empleados.idAreaFK = area.idarea INNER JOIN puesto ON empleados.idPuestoFK = puesto.idpuesto WHERE empleados.estadoEmpleado = ? AND empleados.legajo LIKE ? ORDER BY legajo DESC");
             pstm.setString(1, "Vigente");
             pstm.setString(2, textBuscarLegajoEmpleado.getText() + "%");
             rs = pstm.executeQuery();
@@ -397,7 +397,7 @@ public class LeerEmpleado {
         ObservableList<LeerEmpleado> lista = FXCollections.observableArrayList();
 
         try {
-            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, telefono, email, idempleados FROM empleados  WHERE estadoEmpleado = ? AND estado = ?");
+            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, telefono, email, idempleados FROM empleados  WHERE estadoEmpleado = ? AND estado = ? ORDER BY legajo DESC");
             pstm.setString(1, "Vigente");
             pstm.setString(2, "Disponible");
             rs = pstm.executeQuery();
@@ -427,7 +427,7 @@ public class LeerEmpleado {
         ObservableList<LeerEmpleado> listaBuscar = FXCollections.observableArrayList();
 
         try {
-            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, telefono, fechaIngreso, area.descripcion, puesto.descripcion, idempleados FROM empleados INNER JOIN area ON empleados.idAreaFK = area.idarea INNER JOIN puesto ON empleados.idPuestoFK = puesto.idpuesto WHERE empleados.estadoEmpleado = ? AND empleados.estado = ? AND empleados.legajo LIKE ?");
+            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, telefono, fechaIngreso, area.descripcion, puesto.descripcion, idempleados FROM empleados INNER JOIN area ON empleados.idAreaFK = area.idarea INNER JOIN puesto ON empleados.idPuestoFK = puesto.idpuesto WHERE empleados.estadoEmpleado = ? AND empleados.estado = ? AND empleados.legajo LIKE ? ORDER BY legajo DESC");
             pstm.setString(1, "Vigente");
             pstm.setString(2, "Disponible");
             pstm.setString(3, textBuscarLegajoEmpleado.getText() + "%");
@@ -544,7 +544,7 @@ public class LeerEmpleado {
         ResultSet rs = null;
 
         try {
-            pstm = con.prepareStatement("SELECT nombre, apellido FROM empleados  WHERE estadoEmpleado = ? AND legajo = ?");
+            pstm = con.prepareStatement("SELECT nombre, apellido FROM empleados  WHERE estadoEmpleado = ? AND legajo = ? ORDER BY legajo DESC");
             pstm.setString(1, "Vigente");
             pstm.setInt(2, Integer.parseInt(legajo));
             rs = pstm.executeQuery();
