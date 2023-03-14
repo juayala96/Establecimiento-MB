@@ -66,7 +66,7 @@ public class ControladorAusencias {
     @FXML
     private TableColumn<LeerAusencia, String> colCertificado;
     @FXML
-    private TableColumn<LeerEmpleado, String> colEmailEmpleadoCrear;
+    private TableColumn<LeerEmpleado, Integer> colDNIEmpleadoCrear;
     @FXML
     private TableColumn<LeerAusencia, Date> colFecha;
     @FXML
@@ -88,7 +88,7 @@ public class ControladorAusencias {
     @FXML
     private TableColumn<LeerEmpleado, String> colTelefonoEmpleadoCrear;
     @FXML
-    private TableColumn<LeerEmpleado, String> colTelefono;
+    private TableColumn<LeerEmpleado, Integer> colDNI;
     @FXML
     private DatePicker dpBuscarFecha;
     @FXML
@@ -213,7 +213,7 @@ public class ControladorAusencias {
 
     // -------------------------------------------- Inicialización ----------------------------------------------
     public void initialize() {
-        String[] tipoFiltro = {"Nombre", "Legajo", "Fecha"};
+        String[] tipoFiltro = {"Nombre", "Legajo", "DNI", "Fecha"};
         cbTiposFiltrosAusencias.getItems().addAll(tipoFiltro);
         cbTiposFiltrosAusencias.getSelectionModel().selectFirst();
         inicializarTablaListaEmpleados();
@@ -230,11 +230,11 @@ public class ControladorAusencias {
         colNombre.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, String>("nombre"));
         colApellido.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, String>("apellido"));
         colLegajo.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, Integer>("legajo"));
-        colTelefono.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, String>("telefono"));
+        colDNI.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, Integer>("dni"));
         colIDEmpleado.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, Integer>("idempleados"));
 
         listTablaEmpleados = LeerEmpleado.listaEmpleadoGeneral();
-        tablaListaEmpleados.getColumns().setAll(colNombre, colApellido, colLegajo, colTelefono, colIDEmpleado);
+        tablaListaEmpleados.getColumns().setAll(colNombre, colApellido, colLegajo, colDNI, colIDEmpleado);
         tablaListaEmpleados.getItems().setAll(listTablaEmpleados);
     }
 
@@ -257,12 +257,12 @@ public class ControladorAusencias {
         colNombreEmpleadoCrear.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, String>("nombre"));
         colApellidoEmpleadoCrear.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, String>("apellido"));
         colLegajoEmpleadoCrear.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, Integer>("legajo"));
+        colDNIEmpleadoCrear.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, Integer>("dni"));
         colTelefonoEmpleadoCrear.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, String>("telefono"));
-        colEmailEmpleadoCrear.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, String>("email"));
         colIDEmpleadoCrear.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, Integer>("idempleados"));
 
         listEmpleadoAusencia = LeerEmpleado.listaEmpleadoGeneral();
-        tabEmpleadosCrear.getColumns().setAll(colNombreEmpleadoCrear, colApellidoEmpleadoCrear, colLegajoEmpleadoCrear, colTelefonoEmpleadoCrear, colEmailEmpleadoCrear, colIDEmpleadoCrear);
+        tabEmpleadosCrear.getColumns().setAll(colNombreEmpleadoCrear, colApellidoEmpleadoCrear, colLegajoEmpleadoCrear, colDNIEmpleadoCrear, colTelefonoEmpleadoCrear, colIDEmpleadoCrear);
         tabEmpleadosCrear.getItems().setAll(listEmpleadoAusencia);
     }
 

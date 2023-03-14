@@ -197,7 +197,7 @@ public class ControladorUsuarios {
 
     // -------------------------------------------- Inicialización ----------------------------------------------
     public void initialize(){
-        String[] tipoFiltro = {"Nombre", "Apellido", "Legajo", "Rol"};
+        String[] tipoFiltro = {"Nombre", "Apellido", "Legajo", "DNI", "Rol"};
         String[] tipoRol = {"Administrador", "Operador"};
         cbTiposFiltrosUsuarios.getItems().addAll(tipoFiltro);
         cbTiposFiltrosUsuarios.getSelectionModel().selectFirst();

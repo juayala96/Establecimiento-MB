@@ -41,20 +41,20 @@ public class LeerEmpleado {
         this.idempleados = idempleados;
     }
 
-    public LeerEmpleado(String nombre, String apellido, int legajo, String telefono, String email, int idempleados) {
+    public LeerEmpleado(String nombre, String apellido, int legajo, int dni, String telefono, int idempleados) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.legajo = legajo;
+        this.dni = dni;
         this.telefono = telefono;
-        this.email = email;
         this.idempleados = idempleados;
     }
 
-    public LeerEmpleado(String nombre, String apellido, int legajo, String telefono, int idempleados) {
+    public LeerEmpleado(String nombre, String apellido, int legajo, int dni, int idempleados) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.legajo = legajo;
-        this.telefono = telefono;
+        this.dni = dni;
         this.idempleados = idempleados;
     }
 
@@ -321,12 +321,12 @@ public class LeerEmpleado {
         ObservableList<LeerEmpleado> lista = FXCollections.observableArrayList();
 
         try {
-            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, telefono, email, idempleados FROM empleados  WHERE estadoEmpleado = ? ORDER BY legajo DESC");
+            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, dni, telefono, idempleados FROM empleados  WHERE estadoEmpleado = ? ORDER BY legajo DESC");
             pstm.setString(1, "Vigente");
             rs = pstm.executeQuery();
 
             while (rs.next()){
-                lista.add(new LeerEmpleado(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getString("telefono"), rs.getString("email"), Integer.parseInt(rs.getString("idempleados"))));
+                lista.add(new LeerEmpleado(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getInt("dni"), rs.getString("telefono"), Integer.parseInt(rs.getString("idempleados"))));
             }
         } catch (SQLException ex) {
             System.err.println("Error: " + ex.getMessage());
@@ -350,13 +350,13 @@ public class LeerEmpleado {
         ObservableList<LeerEmpleado> listaBuscar = FXCollections.observableArrayList();
 
         try {
-            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, telefono, fechaIngreso, area.descripcion, puesto.descripcion, idempleados FROM empleados INNER JOIN area ON empleados.idAreaFK = area.idarea INNER JOIN puesto ON empleados.idPuestoFK = puesto.idpuesto WHERE empleados.estadoEmpleado = ? AND empleados.legajo LIKE ? ORDER BY legajo DESC");
+            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, dni, telefono, fechaIngreso, area.descripcion, puesto.descripcion, idempleados FROM empleados INNER JOIN area ON empleados.idAreaFK = area.idarea INNER JOIN puesto ON empleados.idPuestoFK = puesto.idpuesto WHERE empleados.estadoEmpleado = ? AND empleados.legajo LIKE ? ORDER BY legajo DESC");
             pstm.setString(1, "Vigente");
             pstm.setString(2, textBuscarLegajoEmpleado.getText() + "%");
             rs = pstm.executeQuery();
 
             while (rs.next()){
-                listaBuscar.add(new LeerEmpleado(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getString("telefono"), Integer.parseInt(rs.getString("idempleados"))));
+                listaBuscar.add(new LeerEmpleado(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getInt("dni"), Integer.parseInt(rs.getString("idempleados"))));
             }
         } catch (SQLException ex) {
             System.err.println("Error: " + ex.getMessage());
@@ -381,12 +381,12 @@ public class LeerEmpleado {
         String dato = cbTiposFiltrosAusencias.getSelectionModel().getSelectedItem().toLowerCase();
 
         try {
-            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, telefono, idempleados FROM empleados WHERE empleados.estadoEmpleado = ? ORDER BY " + dato + " ASC");
+            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, dni, idempleados FROM empleados WHERE empleados.estadoEmpleado = ? ORDER BY " + dato + " ASC");
             pstm.setString(1, "Vigente");
             rs = pstm.executeQuery();
 
             while (rs.next()){
-                listaBuscar.add(new LeerEmpleado(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getString("telefono"), Integer.parseInt(rs.getString("idempleados"))));
+                listaBuscar.add(new LeerEmpleado(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getInt("dni"), Integer.parseInt(rs.getString("idempleados"))));
             }
         } catch (SQLException ex) {
             System.err.println("Error: " + ex.getMessage());
@@ -410,13 +410,13 @@ public class LeerEmpleado {
         ObservableList<LeerEmpleado> lista = FXCollections.observableArrayList();
 
         try {
-            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, telefono, email, idempleados FROM empleados  WHERE estadoEmpleado = ? AND estado = ? ORDER BY legajo DESC");
+            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, dni, idempleados FROM empleados  WHERE estadoEmpleado = ? AND estado = ? ORDER BY legajo DESC");
             pstm.setString(1, "Vigente");
             pstm.setString(2, "Disponible");
             rs = pstm.executeQuery();
 
             while (rs.next()){
-                lista.add(new LeerEmpleado(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getString("telefono"), rs.getString("email"), Integer.parseInt(rs.getString("idempleados"))));
+                lista.add(new LeerEmpleado(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getInt("dni"), Integer.parseInt(rs.getString("idempleados"))));
             }
         } catch (SQLException ex) {
             System.err.println("Error: " + ex.getMessage());
@@ -440,14 +440,14 @@ public class LeerEmpleado {
         ObservableList<LeerEmpleado> listaBuscar = FXCollections.observableArrayList();
 
         try {
-            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, telefono, fechaIngreso, area.descripcion, puesto.descripcion, idempleados FROM empleados INNER JOIN area ON empleados.idAreaFK = area.idarea INNER JOIN puesto ON empleados.idPuestoFK = puesto.idpuesto WHERE empleados.estadoEmpleado = ? AND empleados.estado = ? AND empleados.legajo LIKE ? ORDER BY legajo DESC");
+            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, dni, fechaIngreso, area.descripcion, puesto.descripcion, idempleados FROM empleados INNER JOIN area ON empleados.idAreaFK = area.idarea INNER JOIN puesto ON empleados.idPuestoFK = puesto.idpuesto WHERE empleados.estadoEmpleado = ? AND empleados.estado = ? AND empleados.legajo LIKE ? ORDER BY legajo DESC");
             pstm.setString(1, "Vigente");
             pstm.setString(2, "Disponible");
             pstm.setString(3, textBuscarLegajoEmpleado.getText() + "%");
             rs = pstm.executeQuery();
 
             while (rs.next()){
-                listaBuscar.add(new LeerEmpleado(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getString("telefono"), Integer.parseInt(rs.getString("idempleados"))));
+                listaBuscar.add(new LeerEmpleado(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getInt("dni"), Integer.parseInt(rs.getString("idempleados"))));
             }
         } catch (SQLException ex) {
             System.err.println("Error: " + ex.getMessage());
@@ -472,13 +472,13 @@ public class LeerEmpleado {
         String dato = cbTiposFiltrosAusencias.getSelectionModel().getSelectedItem().toLowerCase();
 
         try {
-            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, telefono, idempleados FROM empleados WHERE empleados.estadoEmpleado = ? AND empleados.estado = ? ORDER BY " + dato + " ASC");
+            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, dni, idempleados FROM empleados WHERE empleados.estadoEmpleado = ? AND empleados.estado = ? ORDER BY " + dato + " ASC");
             pstm.setString(1, "Vigente");
             pstm.setString(2, "Disponible");
             rs = pstm.executeQuery();
 
             while (rs.next()){
-                listaBuscar.add(new LeerEmpleado(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getString("telefono"), Integer.parseInt(rs.getString("idempleados"))));
+                listaBuscar.add(new LeerEmpleado(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getInt("dni"), Integer.parseInt(rs.getString("idempleados"))));
             }
         } catch (SQLException ex) {
             System.err.println("Error: " + ex.getMessage());
@@ -577,5 +577,35 @@ public class LeerEmpleado {
                 System.err.println("Error: " + ex.getMessage());
             }
         }
+    }
+
+    //------------------------------------------- Buscar Empleado Informes ------------------------------------------------
+    public static ObservableList<LeerEmpleado> buscarEmpleadoInformes(TextField textBuscarLegajoEmpleado){
+        Connection con = Conexion.leerConexion();
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+        ObservableList<LeerEmpleado> listaBuscar = FXCollections.observableArrayList();
+
+        try {
+            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, dni, telefono, idempleados FROM empleados WHERE empleados.estadoEmpleado = ? AND empleados.legajo LIKE ? ORDER BY legajo DESC");
+            pstm.setString(1, "Vigente");
+            pstm.setString(2, textBuscarLegajoEmpleado.getText() + "%");
+            rs = pstm.executeQuery();
+
+            while (rs.next()){
+                listaBuscar.add(new LeerEmpleado(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getInt("dni"), rs.getString("telefono"), Integer.parseInt(rs.getString("idempleados"))));
+            }
+        } catch (SQLException ex) {
+            System.err.println("Error: " + ex.getMessage());
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pstm != null) pstm.close();
+                if (con != null) con.close();
+            } catch (Exception ex){
+                System.err.println("Error: " + ex.getMessage());
+            }
+        }
+        return listaBuscar;
     }
 }

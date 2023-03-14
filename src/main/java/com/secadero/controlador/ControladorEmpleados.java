@@ -228,7 +228,7 @@ public class ControladorEmpleados {
 
     // -------------------------------------------- Inicialización ----------------------------------------------
     public void initialize() {
-        String[] tipoFiltro = {"Nombre", "Apellido", "Legajo", "Area", "Puesto"};
+        String[] tipoFiltro = {"Nombre", "Apellido", "Legajo", "DNI", "Area", "Puesto"};
         cbTiposfiltrosEmpleados.getItems().addAll(tipoFiltro);
         cbTiposfiltrosEmpleados.getSelectionModel().selectFirst();
         inicializarComboBoxBD();

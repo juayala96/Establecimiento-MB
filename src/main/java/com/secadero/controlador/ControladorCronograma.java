@@ -82,7 +82,7 @@ public class ControladorCronograma {
     @FXML
     private TableColumn<LeerEmpleado, String> colApellidoEmpleadoCrear;
     @FXML
-    private TableColumn<LeerEmpleado, String> colEmailEmpleadoCrear;
+    private TableColumn<LeerEmpleado, Integer> colDNIEmpleadoCrear;
     @FXML
     private TableColumn<LeerCronograma, Date> colFecha;
     @FXML
@@ -104,7 +104,7 @@ public class ControladorCronograma {
     @FXML
     private TableColumn<LeerEmpleado, String> colNombreEmpleadoCrear;
     @FXML
-    private TableColumn<LeerEmpleado, String> colTelefono;
+    private TableColumn<LeerEmpleado, Integer> colDNI;
     @FXML
     private TableColumn<LeerEmpleado, String> colTelefonoEmpleadoCrear;
     @FXML
@@ -116,7 +116,7 @@ public class ControladorCronograma {
     @FXML
     private TableColumn<LeerCronograma, Integer> colLegajoCalendario;
     @FXML
-    private TableColumn<LeerCronograma, String> colTelefonoCalendario;
+    private TableColumn<LeerCronograma, Integer> colDNICalendario;
     @FXML
     private TableColumn<LeerCronograma, Date> colFechaCalendario;
     @FXML
@@ -236,7 +236,7 @@ public class ControladorCronograma {
 
     // -------------------------------------------- Inicialización ----------------------------------------------
     public void initialize() throws ParseException {
-        String[] tipoFiltro = {"Nombre", "Legajo", "Fecha", "Turno"};
+        String[] tipoFiltro = {"Nombre", "Legajo", "DNI", "Fecha", "Turno"};
         String[] tipoTurnos = {"Dia", "Noche"};
         dpFechaModificarDuplicada.getEditor().setText("2000-01-01");
         comboBoxCrear();
@@ -262,11 +262,11 @@ public class ControladorCronograma {
         colNombre.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, String>("nombre"));
         colApellido.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, String>("apellido"));
         colLegajo.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, Integer>("legajo"));
-        colTelefono.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, String>("telefono"));
+        colDNI.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, Integer>("dni"));
         colIDEmpleado.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, Integer>("idempleados"));
 
         listTablaEmpleadosDisponible = LeerEmpleado.listaEmpleadoDisponible();
-        tablaListaEmpleados.getColumns().setAll(colNombre, colApellido, colLegajo, colTelefono, colIDEmpleado);
+        tablaListaEmpleados.getColumns().setAll(colNombre, colApellido, colLegajo, colDNI, colIDEmpleado);
         tablaListaEmpleados.getItems().setAll(listTablaEmpleadosDisponible);
     }
 
@@ -288,12 +288,11 @@ public class ControladorCronograma {
         colNombreEmpleadoCrear.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, String>("nombre"));
         colApellidoEmpleadoCrear.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, String>("apellido"));
         colLegajoEmpleadoCrear.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, Integer>("legajo"));
-        colTelefonoEmpleadoCrear.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, String>("telefono"));
-        colEmailEmpleadoCrear.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, String>("email"));
+        colDNIEmpleadoCrear.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, Integer>("dni"));
         colIDEmpleadoCrear.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, Integer>("idempleados"));
 
         listEmpleado = LeerEmpleado.listaEmpleadoDisponible();
-        tabEmpleadosCrear.getColumns().setAll(colNombreEmpleadoCrear, colApellidoEmpleadoCrear, colLegajoEmpleadoCrear, colTelefonoEmpleadoCrear, colEmailEmpleadoCrear, colIDEmpleadoCrear);
+        tabEmpleadosCrear.getColumns().setAll(colNombreEmpleadoCrear, colApellidoEmpleadoCrear, colLegajoEmpleadoCrear, colDNIEmpleadoCrear, colIDEmpleadoCrear);
         tabEmpleadosCrear.getItems().setAll(listEmpleado);
     }
 
@@ -303,7 +302,7 @@ public class ControladorCronograma {
         colNombreCalendario.setCellValueFactory(new PropertyValueFactory<LeerCronograma, String>("nombre"));
         colApellidoCalendario.setCellValueFactory(new PropertyValueFactory<LeerCronograma, String>("apellido"));
         colLegajoCalendario.setCellValueFactory(new PropertyValueFactory<LeerCronograma, Integer>("legajo"));
-        colTelefonoCalendario.setCellValueFactory(new PropertyValueFactory<LeerCronograma, String>("telefono"));
+        colDNICalendario.setCellValueFactory(new PropertyValueFactory<LeerCronograma, Integer>("dni"));
         colFechaCalendario.setCellValueFactory(new PropertyValueFactory<LeerCronograma, Date>("fecha"));
         colTurnoCalendario.setCellValueFactory(new PropertyValueFactory<LeerCronograma, String>("turno"));
         colHoraEntradaCalendario.setCellValueFactory(new PropertyValueFactory<LeerCronograma, String>("horario_entrada"));
@@ -312,7 +311,7 @@ public class ControladorCronograma {
         colIDCronogramaCalendario.setCellValueFactory(new PropertyValueFactory<LeerCronograma, Integer>("idCronograma"));
 
         listEmpleadoCalendario = LeerCronograma.listaEmpleadoCalendario(dpFechaCalendario);
-        tablaListaEmpleadosCalendario.getColumns().setAll(colNombreCalendario, colApellidoCalendario, colLegajoCalendario, colTelefonoCalendario, colFechaCalendario, colTurnoCalendario, colHoraEntradaCalendario, colHoraSalidaCalendario, colIDEmpleadoCalendario, colIDCronogramaCalendario);
+        tablaListaEmpleadosCalendario.getColumns().setAll(colNombreCalendario, colApellidoCalendario, colLegajoCalendario, colDNICalendario, colFechaCalendario, colTurnoCalendario, colHoraEntradaCalendario, colHoraSalidaCalendario, colIDEmpleadoCalendario, colIDCronogramaCalendario);
         tablaListaEmpleadosCalendario.getItems().setAll(listEmpleadoCalendario);
     }
 
