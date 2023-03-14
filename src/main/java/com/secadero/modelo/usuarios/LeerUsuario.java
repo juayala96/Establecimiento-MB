@@ -12,35 +12,29 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class LeerUsuario {
-    private int idusuarios;
     private String nombre;
     private String apellido;
     private int legajo;
-    private String email;
+    private int dni;
     private String telefono;
     private String nombreUsuario;
     private String contrasenia;
     private String rol;
+    private String email;
+    private int idusuarios;
 
     public LeerUsuario(){}
 
-    public LeerUsuario(String nombre, String apellido, int legajo, String email, String telefono, String nombreUsuario, String contrasenia, String rol, int idusuarios) {
+    public LeerUsuario(String nombre, String apellido, int legajo, int dni, String telefono, String nombreUsuario, String contrasenia, String rol, String email, int idusuarios) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.legajo = legajo;
-        this.email = email;
+        this.dni = dni;
         this.telefono = telefono;
         this.nombreUsuario = nombreUsuario;
         this.contrasenia = contrasenia;
         this.rol = rol;
-        this.idusuarios = idusuarios;
-    }
-
-    public int getIdusuarios() {
-        return idusuarios;
-    }
-
-    public void setIdusuarios(int idusuarios) {
+        this.email = email;
         this.idusuarios = idusuarios;
     }
 
@@ -68,12 +62,12 @@ public class LeerUsuario {
         this.legajo = legajo;
     }
 
-    public String getEmail() {
-        return email;
+    public int getDni() {
+        return dni;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setDni(int dni) {
+        this.dni = dni;
     }
 
     public String getTelefono() {
@@ -108,6 +102,22 @@ public class LeerUsuario {
         this.rol = rol;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public int getIdusuarios() {
+        return idusuarios;
+    }
+
+    public void setIdusuarios(int idusuarios) {
+        this.idusuarios = idusuarios;
+    }
+
     //------------------------------------------- Leer Usuarios --------------------------------------------------
     public static ObservableList<LeerUsuario> listaUsuarios(){
         Connection con = Conexion.leerConexion();
@@ -120,7 +130,7 @@ public class LeerUsuario {
             rs = pstm.executeQuery();
 
             while (rs.next()){
-                lista.add(new LeerUsuario(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getString("email"), rs.getString("telefono"), rs.getString("nombreUsuario"), rs.getString("contrasenia"), rs.getString("rol"), rs.getInt("idusuarios")));
+                lista.add(new LeerUsuario(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getInt("dni"), rs.getString("telefono"), rs.getString("nombreUsuario"), rs.getString("contrasenia"), rs.getString("rol"), rs.getString("email"), rs.getInt("idusuarios")));
             }
         } catch (SQLException ex) {
             System.err.println("Error: " + ex.getMessage());
@@ -149,7 +159,7 @@ public class LeerUsuario {
             rs = pstm.executeQuery();
 
             while (rs.next()){
-                listaBuscar.add(new LeerUsuario(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getString("email"), rs.getString("telefono"), rs.getString("nombreUsuario"), rs.getString("contrasenia"), rs.getString("rol"), rs.getInt("idusuarios")));
+                listaBuscar.add(new LeerUsuario(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getInt("dni"), rs.getString("telefono"), rs.getString("nombreUsuario"), rs.getString("contrasenia"), rs.getString("rol"), rs.getString("email"), rs.getInt("idusuarios")));
             }
         } catch (SQLException ex) {
             System.err.println("Error: " + ex.getMessage());
@@ -178,7 +188,7 @@ public class LeerUsuario {
             rs = pstm.executeQuery();
 
             while (rs.next()){
-                listaFiltro.add(new LeerUsuario(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getString("email"), rs.getString("telefono"), rs.getString("nombreUsuario"), rs.getString("contrasenia"), rs.getString("rol"), rs.getInt("idusuarios")));
+                listaFiltro.add(new LeerUsuario(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getInt("dni"), rs.getString("telefono"), rs.getString("nombreUsuario"), rs.getString("contrasenia"), rs.getString("rol"), rs.getString("email"), rs.getInt("idusuarios")));
             }
         } catch (SQLException ex) {
             System.err.println("Error: " + ex.getMessage());

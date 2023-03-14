@@ -15,7 +15,7 @@ public class ModificarEmpleado {
     public ModificarEmpleado(){}
 
     //--------------------------------------------- Modificar Empleado ---------------------------------------------------
-    public void modificarEmpleado(TextField textNombreModificar, TextField textApellidoModificar, TextField textLegajoModificar, TextField textTelefonoModificar, TextField textDireccionModificar, TextField textEmailModificar, ComboBox<String> cbGeneroModificar, ComboBox<String> cbEstadoCivilModificar, DatePicker dpFechaNaciminetoModificar, ComboBox<String> cbGrupoSanguineoModificar, DatePicker dpFechaIngresoModificar, ComboBox<String> cbAreaModificar, ComboBox<String> cbPuestoModificar, Label labLimpiarCamposModificar, Label labInformacionModificarLegajo, Label labIDModificar) throws ParseException, SQLException {
+    public void modificarEmpleado(TextField textNombreModificar, TextField textApellidoModificar, TextField textLegajoModificar, TextField textDNIModificar, TextField textTelefonoModificar, TextField textDireccionModificar, TextField textEmailModificar, ComboBox<String> cbGeneroModificar, ComboBox<String> cbEstadoCivilModificar, DatePicker dpFechaNaciminetoModificar, ComboBox<String> cbGrupoSanguineoModificar, DatePicker dpFechaIngresoModificar, ComboBox<String> cbAreaModificar, ComboBox<String> cbPuestoModificar, Label labLimpiarCamposModificar, Label labInformacionModificarLegajo, Label labInformacionModificarDNI, Label labIDModificar) throws ParseException, SQLException {
 
         Connection con = Conexion.leerConexion();
         PreparedStatement pstm = null;
@@ -26,6 +26,7 @@ public class ModificarEmpleado {
         int datoIdAreaFK;
         int datoIdPuestoFK;
         String respuesta = "YES";
+        String respuesta2 = "YES";
 
         try {
             String consulta = "SELECT * FROM empleados WHERE legajo = ? AND estadoEmpleado = ?";
@@ -45,86 +46,113 @@ public class ModificarEmpleado {
             System.err.println("Error: " + e1.getMessage());
         }
 
-        if(respuesta.equals("YES")){
-            try {
-                String consulta1 = "SELECT idgenero FROM genero WHERE descripcion = ?";
-                pstm = con.prepareStatement(consulta1);
-                pstm.setString(1, cbGeneroModificar.getSelectionModel().getSelectedItem());
-                rs = pstm.executeQuery();
-                while (rs.next()) {
-                    datoIdGeneroFK = Integer.parseInt(rs.getString("idgenero"));
+        try {
+            String consulta = "SELECT * FROM empleados WHERE dni = ? AND estadoEmpleado = ?";
+            pstm = con.prepareStatement(consulta);
+            pstm.setInt(1, Integer.parseInt(textDNIModificar.getText()));
+            pstm.setString(2, "Vigente");
+            rs = pstm.executeQuery();
+            if (rs.next()) {
+                int dni = rs.getInt("dni");
+                if (Objects.equals(Integer.parseInt(labInformacionModificarDNI.getText()), dni)) {
+                    respuesta2 = "YES";
+                } else {
+                    respuesta2 = "NO";
+                }
+            }
+        }catch (Exception e1){
+            System.err.println("Error: " + e1.getMessage());
+        }
 
-                    String consulta2 = "SELECT idestadoCivil FROM estado_civil WHERE descripcion = ? ";
-                    pstm = con.prepareStatement(consulta2);
-                    pstm.setString(1, cbEstadoCivilModificar.getSelectionModel().getSelectedItem());
+        if(respuesta.equals("YES")){
+            if(respuesta2.equals("YES")){
+                try {
+                    String consulta1 = "SELECT idgenero FROM genero WHERE descripcion = ?";
+                    pstm = con.prepareStatement(consulta1);
+                    pstm.setString(1, cbGeneroModificar.getSelectionModel().getSelectedItem());
                     rs = pstm.executeQuery();
                     while (rs.next()) {
-                        datoIdEstadoCivilFK = Integer.parseInt(rs.getString("idestadoCivil"));
+                        datoIdGeneroFK = Integer.parseInt(rs.getString("idgenero"));
 
-                        String consulta3 = "SELECT idgrupoSanguineo FROM grupo_sanguineo WHERE descripcion = ? ";
-                        pstm = con.prepareStatement(consulta3);
-                        pstm.setString(1, cbGrupoSanguineoModificar.getSelectionModel().getSelectedItem());
+                        String consulta2 = "SELECT idestadoCivil FROM estado_civil WHERE descripcion = ? ";
+                        pstm = con.prepareStatement(consulta2);
+                        pstm.setString(1, cbEstadoCivilModificar.getSelectionModel().getSelectedItem());
                         rs = pstm.executeQuery();
                         while (rs.next()) {
-                            datoIdGrupoSanguineoFK = Integer.parseInt(rs.getString("idgrupoSanguineo"));
+                            datoIdEstadoCivilFK = Integer.parseInt(rs.getString("idestadoCivil"));
 
-                            String consulta4 = "SELECT idarea FROM area WHERE descripcion = ? ";
-                            pstm = con.prepareStatement(consulta4);
-                            pstm.setString(1, cbAreaModificar.getSelectionModel().getSelectedItem());
+                            String consulta3 = "SELECT idgrupoSanguineo FROM grupo_sanguineo WHERE descripcion = ? ";
+                            pstm = con.prepareStatement(consulta3);
+                            pstm.setString(1, cbGrupoSanguineoModificar.getSelectionModel().getSelectedItem());
                             rs = pstm.executeQuery();
                             while (rs.next()) {
-                                datoIdAreaFK = Integer.parseInt(rs.getString("idarea"));
+                                datoIdGrupoSanguineoFK = Integer.parseInt(rs.getString("idgrupoSanguineo"));
 
-                                String consulta5 = "SELECT idpuesto FROM puesto WHERE descripcion = ? ";
-                                pstm = con.prepareStatement(consulta5);
-                                pstm.setString(1, cbPuestoModificar.getSelectionModel().getSelectedItem());
+                                String consulta4 = "SELECT idarea FROM area WHERE descripcion = ? ";
+                                pstm = con.prepareStatement(consulta4);
+                                pstm.setString(1, cbAreaModificar.getSelectionModel().getSelectedItem());
                                 rs = pstm.executeQuery();
                                 while (rs.next()) {
-                                    datoIdPuestoFK = Integer.parseInt(rs.getString("idpuesto"));
+                                    datoIdAreaFK = Integer.parseInt(rs.getString("idarea"));
 
-                                    String consulta6 = "UPDATE empleados SET nombre = ?, apellido = ?, legajo = ?, telefono = ?, direccion = ?, email = ?, idGeneroFK = ?,  idEstadoCivilFK = ?, fechaNacimiento = ?, idGrupoSanguineoFK = ?, fechaIngreso = ?, idAreaFK = ?, idPuestoFK = ? WHERE idempleados = ?";
-                                    pstm = con.prepareStatement(consulta6);
-                                    pstm.setString(1, textNombreModificar.getText());
-                                    pstm.setString(2, textApellidoModificar.getText());
-                                    pstm.setInt(3, Integer.parseInt(textLegajoModificar.getText()));
-                                    pstm.setString(4, textTelefonoModificar.getText());
-                                    pstm.setString(5, textDireccionModificar.getText());
-                                    pstm.setString(6, textEmailModificar.getText());
-                                    pstm.setInt(7, datoIdGeneroFK);
-                                    pstm.setInt(8, datoIdEstadoCivilFK);
-                                    pstm.setString(9, dpFechaNaciminetoModificar.getEditor().getText());
-                                    pstm.setInt(10, datoIdGrupoSanguineoFK);
-                                    pstm.setString(11, dpFechaIngresoModificar.getEditor().getText());
-                                    pstm.setInt(12, datoIdAreaFK);
-                                    pstm.setInt(13, datoIdPuestoFK);
-                                    pstm.setInt(14, Integer.parseInt(labIDModificar.getText()));
-                                    pstm.executeUpdate();
+                                    String consulta5 = "SELECT idpuesto FROM puesto WHERE descripcion = ? ";
+                                    pstm = con.prepareStatement(consulta5);
+                                    pstm.setString(1, cbPuestoModificar.getSelectionModel().getSelectedItem());
+                                    rs = pstm.executeQuery();
+                                    while (rs.next()) {
+                                        datoIdPuestoFK = Integer.parseInt(rs.getString("idpuesto"));
+
+                                        String consulta6 = "UPDATE empleados SET nombre = ?, apellido = ?, legajo = ?, dni = ?, telefono = ?, direccion = ?, email = ?, idGeneroFK = ?,  idEstadoCivilFK = ?, fechaNacimiento = ?, idGrupoSanguineoFK = ?, fechaIngreso = ?, idAreaFK = ?, idPuestoFK = ? WHERE idempleados = ?";
+                                        pstm = con.prepareStatement(consulta6);
+                                        pstm.setString(1, textNombreModificar.getText());
+                                        pstm.setString(2, textApellidoModificar.getText());
+                                        pstm.setInt(3, Integer.parseInt(textLegajoModificar.getText()));
+                                        pstm.setInt(4, Integer.parseInt(textDNIModificar.getText()));
+                                        pstm.setString(5, textTelefonoModificar.getText());
+                                        pstm.setString(6, textDireccionModificar.getText());
+                                        pstm.setString(7, textEmailModificar.getText());
+                                        pstm.setInt(8, datoIdGeneroFK);
+                                        pstm.setInt(9, datoIdEstadoCivilFK);
+                                        pstm.setString(10, dpFechaNaciminetoModificar.getEditor().getText());
+                                        pstm.setInt(11, datoIdGrupoSanguineoFK);
+                                        pstm.setString(12, dpFechaIngresoModificar.getEditor().getText());
+                                        pstm.setInt(13, datoIdAreaFK);
+                                        pstm.setInt(14, datoIdPuestoFK);
+                                        pstm.setInt(15, Integer.parseInt(labIDModificar.getText()));
+                                        pstm.executeUpdate();
+                                    }
                                 }
                             }
                         }
                     }
-                }
-                labLimpiarCamposModificar.setText("OK");
-                Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-                alerta.setTitle("Datos Modificados");
-                alerta.setContentText("Se a Guardado los Datos Correctamente.");
-                alerta.showAndWait();
-            } catch (SQLException e) {
-                labLimpiarCamposModificar.setText("");
-                System.err.println("Error: " + e.getMessage());
-            } finally {
-                try {
-                    if (rs != null) rs.close();
-                    if (pstm != null) pstm.close();
-                    if (con != null) con.close();
-                } catch (Exception ex){
-                    Alert alerta = new Alert(Alert.AlertType.ERROR);
-                    alerta.setTitle("Error!");
-                    alerta.setContentText("Error en la Base de Datos");
+                    labLimpiarCamposModificar.setText("OK");
+                    Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+                    alerta.setTitle("Datos Modificados");
+                    alerta.setContentText("Se a Guardado los Datos Correctamente.");
                     alerta.showAndWait();
-                    System.err.println("Error: " + ex.getMessage());
+                } catch (SQLException e) {
+                    labLimpiarCamposModificar.setText("");
+                    System.err.println("Error: " + e.getMessage());
+                } finally {
+                    try {
+                        if (rs != null) rs.close();
+                        if (pstm != null) pstm.close();
+                        if (con != null) con.close();
+                    } catch (Exception ex){
+                        Alert alerta = new Alert(Alert.AlertType.ERROR);
+                        alerta.setTitle("Error!");
+                        alerta.setContentText("Error en la Base de Datos");
+                        alerta.showAndWait();
+                        System.err.println("Error: " + ex.getMessage());
+                    }
                 }
+            } else {
+                Alert alerta = new Alert(Alert.AlertType.ERROR);
+                alerta.setTitle("ERROR de Duplicación");
+                alerta.setContentText("No está permitido duplicar el DNI de otro Empleado");
+                alerta.showAndWait();
             }
+
         } else {
             Alert alerta = new Alert(Alert.AlertType.ERROR);
             alerta.setTitle("ERROR de Duplicación");

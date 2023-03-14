@@ -20,6 +20,7 @@ public class LeerEmpleado {
     private String nombre;
     private String apellido;
     private int legajo;
+    private int dni;
     private String telefono;
     private Date fechaIngreso;
     private String idAreaFK;
@@ -28,10 +29,11 @@ public class LeerEmpleado {
 
     public LeerEmpleado(){}
 
-    public LeerEmpleado(String nombre, String apellido, int legajo, String telefono, Date fechaIngreso, String idAreaFK, String idPuestoFK, int idempleados) {
+    public LeerEmpleado(String nombre, String apellido, int legajo, int dni, String telefono, Date fechaIngreso, String idAreaFK, String idPuestoFK, int idempleados) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.legajo = legajo;
+        this.dni = dni;
         this.telefono = telefono;
         this.fechaIngreso = fechaIngreso;
         this.idAreaFK = idAreaFK;
@@ -128,6 +130,14 @@ public class LeerEmpleado {
         this.email = email;
     }
 
+    public int getDni() {
+        return dni;
+    }
+
+    public void setDni(int dni) {
+        this.dni = dni;
+    }
+
     //------------------------------------------- Leer Empleados --------------------------------------------------
     public static ObservableList<LeerEmpleado> listaEmpleados(){
         Connection con = Conexion.leerConexion();
@@ -136,12 +146,12 @@ public class LeerEmpleado {
         ObservableList<LeerEmpleado> lista = FXCollections.observableArrayList();
 
         try {
-            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, telefono, fechaIngreso, area.descripcion, puesto.descripcion, idempleados FROM empleados INNER JOIN area ON empleados.idAreaFK = area.idarea INNER JOIN puesto ON empleados.idPuestoFK = puesto.idpuesto WHERE estadoEmpleado = ? ORDER BY legajo DESC");
+            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, dni,  telefono, fechaIngreso, area.descripcion, puesto.descripcion, idempleados FROM empleados INNER JOIN area ON empleados.idAreaFK = area.idarea INNER JOIN puesto ON empleados.idPuestoFK = puesto.idpuesto WHERE estadoEmpleado = ? ORDER BY legajo DESC");
             pstm.setString(1, "Vigente");
             rs = pstm.executeQuery();
 
             while (rs.next()){
-                lista.add(new LeerEmpleado(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getString("telefono"), rs.getDate("fechaIngreso"), rs.getString("area.descripcion"), rs.getString("puesto.descripcion"), Integer.parseInt(rs.getString("idempleados"))));
+                lista.add(new LeerEmpleado(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getInt("dni"), rs.getString("telefono"), rs.getDate("fechaIngreso"), rs.getString("area.descripcion"), rs.getString("puesto.descripcion"), Integer.parseInt(rs.getString("idempleados"))));
             }
         } catch (SQLException ex) {
             System.err.println("Error: " + ex.getMessage());
@@ -158,13 +168,13 @@ public class LeerEmpleado {
     }
 
     //---------------------------------- Leer Empleados al seleccionar Modificar ----------------------------------------
-    public void listaEmpleadoSeleccionadoM(TextField textNombreModificar, TextField textApellidoModificar, TextField textLegajoModificar, TextField textTelefonoModificar, TextField textDireccionModificar, TextField textEmailModificar, ComboBox<String> cbGeneroModificar, ComboBox<String> cbEstadoCivilModificar, DatePicker dpFechaNaciminetoModificar, ComboBox<String> cbGrupoSanguineoModificar, DatePicker dpFechaIngresoModificar, ComboBox<String> cbAreaModificar, ComboBox<String> cbPuestoModificar, Label labIDModificar, Label labInformacionModificarLegajo){
+    public void listaEmpleadoSeleccionadoM(TextField textNombreModificar, TextField textApellidoModificar, TextField textLegajoModificar, TextField textDNIModificar, TextField textTelefonoModificar, TextField textDireccionModificar, TextField textEmailModificar, ComboBox<String> cbGeneroModificar, ComboBox<String> cbEstadoCivilModificar, DatePicker dpFechaNaciminetoModificar, ComboBox<String> cbGrupoSanguineoModificar, DatePicker dpFechaIngresoModificar, ComboBox<String> cbAreaModificar, ComboBox<String> cbPuestoModificar, Label labIDModificar, Label labInformacionModificarLegajo, Label labInformacionModificarDNI){
         Connection con = Conexion.leerConexion();
         PreparedStatement pstm = null;
         ResultSet rs = null;
 
         try {
-            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, telefono, direccion, email, genero.descripcion, estado_civil.descripcion, fechaNacimiento, grupo_sanguineo.descripcion, fechaIngreso, area.descripcion, puesto.descripcion FROM empleados INNER JOIN genero ON empleados.idGeneroFK = genero.idgenero INNER JOIN estado_civil ON empleados.idEstadoCivilFK = estado_civil.idestadoCivil INNER JOIN grupo_sanguineo ON empleados.idGrupoSanguineoFK = grupo_sanguineo.idgrupoSanguineo INNER JOIN area ON empleados.idAreaFK = area.idarea INNER JOIN puesto ON empleados.idPuestoFK = puesto.idpuesto WHERE idempleados = ?");
+            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, dni, telefono, direccion, email, genero.descripcion, estado_civil.descripcion, fechaNacimiento, grupo_sanguineo.descripcion, fechaIngreso, area.descripcion, puesto.descripcion FROM empleados INNER JOIN genero ON empleados.idGeneroFK = genero.idgenero INNER JOIN estado_civil ON empleados.idEstadoCivilFK = estado_civil.idestadoCivil INNER JOIN grupo_sanguineo ON empleados.idGrupoSanguineoFK = grupo_sanguineo.idgrupoSanguineo INNER JOIN area ON empleados.idAreaFK = area.idarea INNER JOIN puesto ON empleados.idPuestoFK = puesto.idpuesto WHERE idempleados = ?");
             pstm.setString(1, labIDModificar.getText());
             rs = pstm.executeQuery();
 
@@ -173,6 +183,8 @@ public class LeerEmpleado {
                 textApellidoModificar.setText(rs.getString("apellido"));
                 textLegajoModificar.setText(String.valueOf(rs.getInt("legajo")));
                 labInformacionModificarLegajo.setText(String.valueOf(rs.getInt("legajo")));
+                textDNIModificar.setText(String.valueOf(rs.getInt("dni")));
+                labInformacionModificarDNI.setText(String.valueOf(rs.getInt("dni")));
                 textTelefonoModificar.setText(rs.getString("telefono"));
                 textDireccionModificar.setText(rs.getString("direccion"));
                 textEmailModificar.setText(rs.getString("email"));
@@ -198,13 +210,13 @@ public class LeerEmpleado {
     }
 
     //---------------------------------- Leer Empleados al seleccionar Eliminar ----------------------------------------
-    public void listaEmpleadoSeleccionadoE(TextField textNombreEliminar, TextField textApellidoEliminar, TextField textLegajoEliminar, TextField textTelefonoEliminar, TextField textDireccionEliminar, TextField textEmailEliminar, ComboBox<String> cbGeneroEliminar, ComboBox<String> cbEstadoCivilEliminar, DatePicker dpFechaNaciminetoEliminar, ComboBox<String> cbGrupoSanguineoEliminar, DatePicker dpFechaIngresoEliminar, ComboBox<String> cbAreaEliminar, ComboBox<String> cbPuestoEliminar, Label labIDEliminar){
+    public void listaEmpleadoSeleccionadoE(TextField textNombreEliminar, TextField textApellidoEliminar, TextField textLegajoEliminar, TextField textDNIEliminar, TextField textTelefonoEliminar, TextField textDireccionEliminar, TextField textEmailEliminar, ComboBox<String> cbGeneroEliminar, ComboBox<String> cbEstadoCivilEliminar, DatePicker dpFechaNaciminetoEliminar, ComboBox<String> cbGrupoSanguineoEliminar, DatePicker dpFechaIngresoEliminar, ComboBox<String> cbAreaEliminar, ComboBox<String> cbPuestoEliminar, Label labIDEliminar){
         Connection con = Conexion.leerConexion();
         PreparedStatement pstm = null;
         ResultSet rs = null;
 
         try {
-            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, telefono, direccion, email, genero.descripcion, estado_civil.descripcion, fechaNacimiento, grupo_sanguineo.descripcion, fechaIngreso, area.descripcion, puesto.descripcion FROM empleados INNER JOIN genero ON empleados.idGeneroFK = genero.idgenero INNER JOIN estado_civil ON empleados.idEstadoCivilFK = estado_civil.idestadoCivil INNER JOIN grupo_sanguineo ON empleados.idGrupoSanguineoFK = grupo_sanguineo.idgrupoSanguineo INNER JOIN area ON empleados.idAreaFK = area.idarea INNER JOIN puesto ON empleados.idPuestoFK = puesto.idpuesto WHERE idempleados = ?");
+            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, dni, telefono, direccion, email, genero.descripcion, estado_civil.descripcion, fechaNacimiento, grupo_sanguineo.descripcion, fechaIngreso, area.descripcion, puesto.descripcion FROM empleados INNER JOIN genero ON empleados.idGeneroFK = genero.idgenero INNER JOIN estado_civil ON empleados.idEstadoCivilFK = estado_civil.idestadoCivil INNER JOIN grupo_sanguineo ON empleados.idGrupoSanguineoFK = grupo_sanguineo.idgrupoSanguineo INNER JOIN area ON empleados.idAreaFK = area.idarea INNER JOIN puesto ON empleados.idPuestoFK = puesto.idpuesto WHERE idempleados = ?");
             pstm.setString(1, labIDEliminar.getText());
             rs = pstm.executeQuery();
 
@@ -212,6 +224,7 @@ public class LeerEmpleado {
                 textNombreEliminar.setText(rs.getString("nombre"));
                 textApellidoEliminar.setText(rs.getString("apellido"));
                 textLegajoEliminar.setText(String.valueOf(rs.getInt("legajo")));
+                textDNIEliminar.setText(String.valueOf(rs.getInt("dni")));
                 textTelefonoEliminar.setText(rs.getString("telefono"));
                 textDireccionEliminar.setText(rs.getString("direccion"));
                 textEmailEliminar.setText(rs.getString("email"));
@@ -244,13 +257,13 @@ public class LeerEmpleado {
         ObservableList<LeerEmpleado> listaBuscar = FXCollections.observableArrayList();
 
         try {
-            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, telefono, fechaIngreso, area.descripcion, puesto.descripcion, idempleados FROM empleados INNER JOIN area ON empleados.idAreaFK = area.idarea INNER JOIN puesto ON empleados.idPuestoFK = puesto.idpuesto WHERE empleados.estadoEmpleado = ? AND empleados.legajo LIKE ? ORDER BY legajo DESC");
+            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, dni, telefono, fechaIngreso, area.descripcion, puesto.descripcion, idempleados FROM empleados INNER JOIN area ON empleados.idAreaFK = area.idarea INNER JOIN puesto ON empleados.idPuestoFK = puesto.idpuesto WHERE empleados.estadoEmpleado = ? AND empleados.legajo LIKE ? ORDER BY legajo DESC");
             pstm.setString(1, "Vigente");
             pstm.setString(2, textBuscarEmpleado.getText() + "%");
             rs = pstm.executeQuery();
 
             while (rs.next()){
-                listaBuscar.add(new LeerEmpleado(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getString("telefono"), rs.getDate("fechaIngreso"), rs.getString("area.descripcion"), rs.getString("puesto.descripcion"), Integer.parseInt(rs.getString("idempleados"))));
+                listaBuscar.add(new LeerEmpleado(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getInt("dni"), rs.getString("telefono"), rs.getDate("fechaIngreso"), rs.getString("area.descripcion"), rs.getString("puesto.descripcion"), Integer.parseInt(rs.getString("idempleados"))));
             }
         } catch (SQLException ex) {
             System.err.println("Error: " + ex.getMessage());
@@ -279,12 +292,12 @@ public class LeerEmpleado {
             dato = "idPuestoFK";
 
         try {
-            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, telefono, fechaIngreso, area.descripcion, puesto.descripcion, idempleados FROM empleados INNER JOIN area ON empleados.idAreaFK = area.idarea INNER JOIN puesto ON empleados.idPuestoFK = puesto.idpuesto WHERE empleados.estadoEmpleado = ? ORDER BY " + dato + " ASC");
+            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, dni, telefono, fechaIngreso, area.descripcion, puesto.descripcion, idempleados FROM empleados INNER JOIN area ON empleados.idAreaFK = area.idarea INNER JOIN puesto ON empleados.idPuestoFK = puesto.idpuesto WHERE empleados.estadoEmpleado = ? ORDER BY " + dato + " ASC");
             pstm.setString(1, "Vigente");
             rs = pstm.executeQuery();
 
             while (rs.next()){
-                listaFiltro.add(new LeerEmpleado(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getString("telefono"), rs.getDate("fechaIngreso"), rs.getString("area.descripcion"), rs.getString("puesto.descripcion"), Integer.parseInt(rs.getString("idempleados"))));
+                listaFiltro.add(new LeerEmpleado(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getInt("dni"), rs.getString("telefono"), rs.getDate("fechaIngreso"), rs.getString("area.descripcion"), rs.getString("puesto.descripcion"), Integer.parseInt(rs.getString("idempleados"))));
             }
         } catch (SQLException ex) {
             System.err.println("Error: " + ex.getMessage());

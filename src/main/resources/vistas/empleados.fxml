@@ -28,16 +28,17 @@
                               <Image url="@../imagenes/color-Verde-General.jpg" />
                            </image>
                         </ImageView>
-                        <Label layoutX="125.0" layoutY="67.0" prefHeight="56.0" prefWidth="487.0" text="Lista de Empleados" textFill="#fff9f9" underline="true">
+                        <Label layoutX="45.0" layoutY="58.0" prefHeight="56.0" prefWidth="487.0" text="Lista de Empleados" textFill="#fff9f9" underline="true">
                            <font>
                               <Font name="Georgia Bold" size="48.0" />
                            </font>
                         </Label>
-                        <TableView fx:id="tablaEmpleados" layoutX="125.0" layoutY="218.0" onMouseClicked="#getSelecciono" prefHeight="467.0" prefWidth="1059.0">
+                        <TableView fx:id="tablaEmpleados" layoutX="45.0" layoutY="222.0" onMouseClicked="#getSelecciono" prefHeight="467.0" prefWidth="1211.0">
                            <columns>
                               <TableColumn fx:id="colNombre" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Nombre" />
                               <TableColumn fx:id="colApellido" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Apellido" />
                               <TableColumn fx:id="colLegajo" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Legajo" />
+                              <TableColumn fx:id="colDNI" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="DNI" />
                               <TableColumn fx:id="colTelefono" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Teléfono" />
                               <TableColumn fx:id="colFechaIngreso" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Fecha de Ingreso" />
                               <TableColumn fx:id="colArea" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Area" />
@@ -48,7 +49,7 @@
                               <Cursor fx:constant="DISAPPEAR" />
                            </cursor>
                         </TableView>
-                        <Button fx:id="btnVolver" layoutX="1260.0" layoutY="633.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#volverPrincipal" prefHeight="52.0" prefWidth="150.0" text="Volver" textFill="#8c0909">
+                        <Button fx:id="btnVolver" layoutX="1308.0" layoutY="635.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#volverPrincipal" prefHeight="52.0" prefWidth="150.0" text="Volver" textFill="#8c0909">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -56,7 +57,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button fx:id="btnCrearEmpleado" layoutX="1260.0" layoutY="168.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#crearEmpleado" prefHeight="52.0" prefWidth="150.0" text="Crear">
+                        <Button fx:id="btnCrearEmpleado" layoutX="1308.0" layoutY="170.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#crearEmpleado" prefHeight="52.0" prefWidth="150.0" text="Crear">
                            <font>
                               <Font size="20.0" />
                            </font>
@@ -64,17 +65,17 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <TextField fx:id="textBuscarEmpleado" layoutX="224.0" layoutY="172.0" prefHeight="46.0" prefWidth="250.0">
+                        <TextField fx:id="textBuscarEmpleado" layoutX="144.0" layoutY="175.0" prefHeight="46.0" prefWidth="250.0">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </TextField>
-                        <Label layoutX="224.0" layoutY="146.0" prefHeight="12.0" prefWidth="67.0" text="Legajo:" textFill="#f7f4f4">
+                        <Label layoutX="144.0" layoutY="147.0" prefHeight="12.0" prefWidth="67.0" text="Legajo:" textFill="#f7f4f4">
                            <font>
                               <Font size="17.0" />
                            </font>
                         </Label>
-                        <Button fx:id="btnBuscarEmpleado" layoutX="125.0" layoutY="171.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnBuscar" prefHeight="46.0" prefWidth="87.0" text="Buscar:" textFill="#022c7b">
+                        <Button fx:id="btnBuscarEmpleado" layoutX="45.0" layoutY="174.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnBuscar" prefHeight="46.0" prefWidth="87.0" text="Buscar:" textFill="#022c7b">
                            <font>
                               <Font size="16.0" />
                            </font>
@@ -82,7 +83,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button fx:id="btnFiltroUsuarios" layoutX="840.0" layoutY="170.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#filtroEmpleado" prefHeight="46.0" prefWidth="86.0" text="Filtros:" textFill="#022c7b">
+                        <Button fx:id="btnFiltroUsuarios" layoutX="912.0" layoutY="175.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#filtroEmpleado" prefHeight="46.0" prefWidth="86.0" text="Filtros:" textFill="#022c7b">
                            <font>
                               <Font size="16.0" />
                            </font>
@@ -90,12 +91,12 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <ComboBox fx:id="cbTiposfiltrosEmpleados" layoutX="933.0" layoutY="170.0" prefHeight="46.0" prefWidth="250.0" style="-fx-font-size: 16;">
+                        <ComboBox fx:id="cbTiposfiltrosEmpleados" layoutX="1005.0" layoutY="175.0" prefHeight="46.0" prefWidth="250.0" style="-fx-font-size: 16;">
                            <cursor>
                               <Cursor fx:constant="DISAPPEAR" />
                            </cursor>
                         </ComboBox>
-                        <Button fx:id="btnModificarEmpleado" layoutX="1261.0" layoutY="260.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#modificarEmpleado" prefHeight="52.0" prefWidth="148.0" text="Modificar">
+                        <Button fx:id="btnModificarEmpleado" layoutX="1309.0" layoutY="262.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#modificarEmpleado" prefHeight="52.0" prefWidth="148.0" text="Modificar">
                            <font>
                               <Font size="20.0" />
                            </font>
@@ -103,7 +104,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button fx:id="btnEliminarEmpleado" layoutX="1260.0" layoutY="348.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#eliminarEmpleado" prefHeight="52.0" prefWidth="150.0" text="Eliminar">
+                        <Button fx:id="btnEliminarEmpleado" layoutX="1308.0" layoutY="350.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#eliminarEmpleado" prefHeight="52.0" prefWidth="150.0" text="Eliminar">
                            <font>
                               <Font size="20.0" />
                            </font>
@@ -111,7 +112,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button fx:id="btnLicenciasEmpleado" layoutX="1260.0" layoutY="524.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#licenciasEmpleado" prefHeight="52.0" prefWidth="150.0" text="Licencias" textFill="#06069c">
+                        <Button fx:id="btnLicenciasEmpleado" layoutX="1308.0" layoutY="526.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#licenciasEmpleado" prefHeight="52.0" prefWidth="150.0" text="Licencias" textFill="#06069c">
                            <font>
                               <Font size="20.0" />
                            </font>
@@ -119,7 +120,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button fx:id="btnAusenciasEmpleado" layoutX="1260.0" layoutY="437.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#ausenciasEmpleado" prefHeight="52.0" prefWidth="150.0" text="Ausencias" textFill="#05059e">
+                        <Button fx:id="btnAusenciasEmpleado" layoutX="1308.0" layoutY="439.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#ausenciasEmpleado" prefHeight="52.0" prefWidth="150.0" text="Ausencias" textFill="#05059e">
                            <font>
                               <Font size="20.0" />
                            </font>
@@ -135,7 +136,6 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Label fx:id="labInformacionCrearLegajo" layoutX="165.0" layoutY="94.0" prefHeight="18.0" prefWidth="17.0" textFill="#1d3557" />
                         <Label fx:id="labLimpiarCamposCrear" layoutX="146.0" layoutY="94.0" prefHeight="18.0" prefWidth="17.0" textFill="#1d3557" />
                         <ImageView fitHeight="1168.0" fitWidth="1536.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -152,7 +152,7 @@
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
-                        <Label layoutX="565.0" layoutY="66.0" prefHeight="56.0" prefWidth="391.0" text="Crear Empleado" textFill="#fff9f9">
+                        <Label layoutX="564.0" layoutY="56.0" prefHeight="56.0" prefWidth="391.0" text="Crear Empleado" textFill="#fff9f9">
                            <font>
                               <Font name="Georgia Bold" size="46.0" />
                            </font>
@@ -165,12 +165,12 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Label layoutX="145.0" layoutY="153.0" prefHeight="26.0" prefWidth="72.0" text="Nombre:" textFill="#fff9f9">
+                        <Label layoutX="145.0" layoutY="122.0" prefHeight="26.0" prefWidth="72.0" text="Nombre:" textFill="#fff9f9">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="textNombreCrear" layoutX="145.0" layoutY="181.0" prefHeight="40.0" prefWidth="330.0">
+                        <TextField fx:id="textNombreCrear" layoutX="145.0" layoutY="150.0" prefHeight="40.0" prefWidth="330.0">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -183,22 +183,22 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Label layoutX="145.0" layoutY="277.0" prefHeight="24.0" prefWidth="72.0" text="Apellido:" textFill="#fff9f9">
+                        <Label layoutX="145.0" layoutY="221.0" prefHeight="24.0" prefWidth="72.0" text="Apellido:" textFill="#fff9f9">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="textApellidoCrear" layoutX="145.0" layoutY="307.0" prefHeight="40.0" prefWidth="330.0">
+                        <TextField fx:id="textApellidoCrear" layoutX="145.0" layoutY="251.0" prefHeight="40.0" prefWidth="330.0">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </TextField>
-                        <Label layoutX="144.0" layoutY="404.0" prefHeight="18.0" prefWidth="58.0" text="Legajo:" textFill="#fff9f9">
+                        <Label layoutX="144.0" layoutY="327.0" prefHeight="18.0" prefWidth="58.0" text="Legajo:" textFill="#fff9f9">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="textLegajoCrear" layoutX="145.0" layoutY="430.0" prefHeight="40.0" prefWidth="330.0">
+                        <TextField fx:id="textLegajoCrear" layoutX="145.0" layoutY="353.0" prefHeight="40.0" prefWidth="330.0">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -213,68 +213,68 @@
                               <Font size="18.0" />
                            </font>
                         </TextField>
-                        <Label layoutX="596.0" layoutY="527.0" prefHeight="27.0" prefWidth="98.0" text="Estado Civil:" textFill="#fff9f9">
+                        <Label layoutX="596.0" layoutY="425.0" prefHeight="27.0" prefWidth="98.0" text="Estado Civil:" textFill="#fff9f9">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="1051.0" layoutY="153.0" prefHeight="27.0" prefWidth="175.0" text="Fecha de Nacimiento:" textFill="#fff9f9">
+                        <Label layoutX="1049.0" layoutY="122.0" prefHeight="27.0" prefWidth="175.0" text="Fecha de Nacimiento:" textFill="#fff9f9">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="596.0" layoutY="404.0" prefHeight="27.0" prefWidth="66.0" text="Genero:" textFill="#fff9f9">
+                        <Label layoutX="596.0" layoutY="527.0" prefHeight="27.0" prefWidth="66.0" text="Genero:" textFill="#fff9f9">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="1052.0" layoutY="277.0" prefHeight="27.0" prefWidth="147.0" text="Grupo Sanguineo:" textFill="#fff9f9">
+                        <Label layoutX="596.0" layoutY="323.0" prefHeight="31.0" prefWidth="147.0" text="Grupo Sanguineo:" textFill="#fff9f9">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="1051.0" layoutY="402.0" prefHeight="27.0" prefWidth="53.0" text="Area:" textFill="#fff9f9">
+                        <Label layoutX="1049.0" layoutY="327.0" prefHeight="21.0" prefWidth="54.0" text="Area:" textFill="#fff9f9">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="1051.0" layoutY="527.0" prefHeight="27.0" prefWidth="61.0" text="Puesto:" textFill="#fff9f9">
+                        <Label layoutX="1050.0" layoutY="425.0" prefHeight="27.0" prefWidth="61.0" text="Puesto:" textFill="#fff9f9">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="596.0" layoutY="153.0" prefHeight="27.0" prefWidth="82.0" text="Dirección:" textFill="#fff9f9">
+                        <Label layoutX="595.0" layoutY="122.0" prefHeight="27.0" prefWidth="82.0" text="Dirección:" textFill="#fff9f9">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="textDireccionCrear" layoutX="596.0" layoutY="181.0" prefHeight="40.0" prefWidth="330.0">
+                        <TextField fx:id="textDireccionCrear" layoutX="595.0" layoutY="150.0" prefHeight="40.0" prefWidth="330.0">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </TextField>
-                        <Label layoutX="1260.0" layoutY="153.0" prefHeight="27.0" prefWidth="142.0" text="Fecha de Ingreso:" textFill="#fff9f9">
+                        <Label layoutX="1049.0" layoutY="226.0" prefHeight="27.0" prefWidth="142.0" text="Fecha de Ingreso:" textFill="#fff9f9">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="cbEstadoCivilCrear" layoutX="596.0" layoutY="555.0" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;" />
-                        <ComboBox fx:id="cbGeneroCrear" layoutX="596.0" layoutY="430.0" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;" />
-                        <ComboBox fx:id="cbAreaCrear" layoutX="1052.0" layoutY="430.0" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;" />
-                        <ComboBox fx:id="cbPuestoCrear" layoutX="1052.0" layoutY="555.0" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;" />
-                        <DatePicker fx:id="dpFechaNaciminetoCrear" editable="false" layoutX="1051.0" layoutY="181.0" prefHeight="40.0" prefWidth="170.0" style="-fx-font-size: 16;" />
-                        <DatePicker fx:id="dpFechaIngresoCrear" editable="false" layoutX="1260.0" layoutY="181.0" prefHeight="40.0" prefWidth="170.0" style="-fx-font-size: 16;" />
-                        <Label fx:id="labErrorNombreCrear" layoutX="145.0" layoutY="221.0" prefHeight="21.0" prefWidth="330.0" textFill="#ff9090">
+                        <ComboBox fx:id="cbEstadoCivilCrear" layoutX="596.0" layoutY="453.0" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;" />
+                        <ComboBox fx:id="cbGeneroCrear" layoutX="596.0" layoutY="555.0" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;" />
+                        <ComboBox fx:id="cbAreaCrear" layoutX="1050.0" layoutY="353.0" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;" />
+                        <ComboBox fx:id="cbPuestoCrear" layoutX="1050.0" layoutY="453.0" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;" />
+                        <DatePicker fx:id="dpFechaNaciminetoCrear" editable="false" layoutX="1049.0" layoutY="150.0" prefHeight="40.0" prefWidth="170.0" style="-fx-font-size: 16;" />
+                        <DatePicker fx:id="dpFechaIngresoCrear" editable="false" layoutX="1049.0" layoutY="254.0" prefHeight="40.0" prefWidth="170.0" style="-fx-font-size: 16;" />
+                        <Label fx:id="labErrorNombreCrear" layoutX="145.0" layoutY="190.0" prefHeight="21.0" prefWidth="330.0" textFill="#ff9090">
                            <font>
                               <Font name="Consolas" size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="labErrorApellidoCrear" layoutX="145.0" layoutY="347.0" prefHeight="21.0" prefWidth="330.0" textFill="#ff9090">
+                        <Label fx:id="labErrorApellidoCrear" layoutX="145.0" layoutY="291.0" prefHeight="21.0" prefWidth="330.0" textFill="#ff9090">
                            <font>
                               <Font name="Consolas" size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="labErrorLegajoCrear" layoutX="145.0" layoutY="470.0" prefHeight="21.0" prefWidth="330.0" textFill="#ff9090">
+                        <Label fx:id="labErrorLegajoCrear" layoutX="145.0" layoutY="393.0" prefHeight="21.0" prefWidth="330.0" textFill="#ff9090">
                            <font>
                               <Font name="Consolas" size="14.0" />
                            </font>
@@ -284,28 +284,43 @@
                               <Font name="Consolas" size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="labErrorDireccionCrear" layoutX="596.0" layoutY="221.0" prefHeight="21.0" prefWidth="330.0" textFill="#ff9090">
+                        <Label fx:id="labErrorDireccionCrear" layoutX="595.0" layoutY="190.0" prefHeight="21.0" prefWidth="330.0" textFill="#ff9090">
                            <font>
                               <Font name="Consolas" size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="labErrorFechaNacimientoCrear" layoutX="1050.0" layoutY="220.0" prefHeight="22.0" prefWidth="174.0" textFill="#ff9090">
+                        <Label fx:id="labErrorFechaNacimientoCrear" layoutX="1049.0" layoutY="190.0" prefHeight="22.0" prefWidth="174.0" textFill="#ff9090">
                            <font>
                               <Font name="Consolas" size="14.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="cbGrupoSanguineoCrear" layoutX="1052.0" layoutY="307.0" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;" />
-                        <TextField fx:id="textEmailCrear" layoutX="596.0" layoutY="307.0" prefHeight="40.0" prefWidth="330.0">
+                        <ComboBox fx:id="cbGrupoSanguineoCrear" layoutX="596.0" layoutY="353.0" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;" />
+                        <TextField fx:id="textEmailCrear" layoutX="595.0" layoutY="254.0" prefHeight="40.0" prefWidth="330.0">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </TextField>
-                        <Label layoutX="596.0" layoutY="279.0" prefHeight="26.0" prefWidth="82.0" text="Email:" textFill="#fff9f9">
+                        <Label layoutX="595.0" layoutY="226.0" prefHeight="26.0" prefWidth="82.0" text="Email:" textFill="#fff9f9">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label fx:id="labErrorEmailCrear" layoutX="596.0" layoutY="347.0" prefHeight="21.0" prefWidth="330.0" textFill="#ff9090">
+                        <Label fx:id="labErrorEmailCrear" layoutX="595.0" layoutY="294.0" prefHeight="21.0" prefWidth="330.0" textFill="#ff9090">
+                           <font>
+                              <Font name="Consolas" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="145.0" layoutY="425.0" prefHeight="27.0" prefWidth="76.0" text="DNI:" textFill="#fff9f9">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="textDNICrear" layoutX="145.0" layoutY="453.0" prefHeight="40.0" prefWidth="330.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </TextField>
+                        <Label fx:id="labErrorDNICrear" layoutX="145.0" layoutY="493.0" prefHeight="21.0" prefWidth="330.0" textFill="#ff9090">
                            <font>
                               <Font name="Consolas" size="14.0" />
                            </font>
@@ -318,6 +333,7 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
+                        <Label fx:id="labInformacionModificarDNI" layoutX="201.0" layoutY="76.0" prefHeight="18.0" prefWidth="17.0" textFill="#1d3557" />
                         <Label fx:id="labInformacionModificarLegajo" layoutX="183.0" layoutY="84.0" prefHeight="18.0" prefWidth="17.0" textFill="#1d3557" />
                         <Label fx:id="labLimpiarCamposModificar" layoutX="164.0" layoutY="85.0" prefHeight="18.0" prefWidth="17.0" textFill="#1d3557" />
                         <Label fx:id="labIDModificar" layoutX="146.0" layoutY="85.0" prefHeight="18.0" prefWidth="17.0" textFill="#1d3557" />
@@ -336,7 +352,7 @@
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
-                        <Label layoutX="517.0" layoutY="66.0" prefHeight="56.0" prefWidth="487.0" text="Modificar Empleado" textFill="#fff9f9">
+                        <Label layoutX="517.0" layoutY="56.0" prefHeight="56.0" prefWidth="487.0" text="Modificar Empleado" textFill="#fff9f9">
                            <font>
                               <Font name="Georgia Bold" size="46.0" />
                            </font>
@@ -349,12 +365,12 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Label layoutX="145.0" layoutY="153.0" prefHeight="26.0" prefWidth="72.0" text="Nombre:" textFill="#fff9f9">
+                        <Label layoutX="145.0" layoutY="122.0" prefHeight="26.0" prefWidth="72.0" text="Nombre:" textFill="#fff9f9">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="textNombreModificar" layoutX="145.0" layoutY="181.0" prefHeight="40.0" prefWidth="330.0">
+                        <TextField fx:id="textNombreModificar" layoutX="145.0" layoutY="150.0" prefHeight="40.0" prefWidth="330.0">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -367,22 +383,22 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Label layoutX="145.0" layoutY="277.0" prefHeight="24.0" prefWidth="72.0" text="Apellido:" textFill="#fff9f9">
+                        <Label layoutX="145.0" layoutY="221.0" prefHeight="24.0" prefWidth="72.0" text="Apellido:" textFill="#fff9f9">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="textApellidoModificar" layoutX="145.0" layoutY="307.0" prefHeight="40.0" prefWidth="330.0">
+                        <TextField fx:id="textApellidoModificar" layoutX="145.0" layoutY="251.0" prefHeight="40.0" prefWidth="330.0">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </TextField>
-                        <Label layoutX="144.0" layoutY="404.0" prefHeight="18.0" prefWidth="58.0" text="Legajo:" textFill="#fff9f9">
+                        <Label layoutX="144.0" layoutY="327.0" prefHeight="18.0" prefWidth="58.0" text="Legajo:" textFill="#fff9f9">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="textLegajoModificar" layoutX="145.0" layoutY="430.0" prefHeight="40.0" prefWidth="330.0">
+                        <TextField fx:id="textLegajoModificar" layoutX="145.0" layoutY="353.0" prefHeight="40.0" prefWidth="330.0">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -397,68 +413,68 @@
                               <Font size="18.0" />
                            </font>
                         </TextField>
-                        <Label layoutX="596.0" layoutY="527.0" prefHeight="27.0" prefWidth="98.0" text="Estado Civil:" textFill="#fff9f9">
+                        <Label layoutX="596.0" layoutY="425.0" prefHeight="27.0" prefWidth="98.0" text="Estado Civil:" textFill="#fff9f9">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="1051.0" layoutY="153.0" prefHeight="27.0" prefWidth="175.0" text="Fecha de Nacimiento:" textFill="#fff9f9">
+                        <Label layoutX="1049.0" layoutY="122.0" prefHeight="27.0" prefWidth="175.0" text="Fecha de Nacimiento:" textFill="#fff9f9">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="596.0" layoutY="404.0" prefHeight="27.0" prefWidth="66.0" text="Genero:" textFill="#fff9f9">
+                        <Label layoutX="596.0" layoutY="527.0" prefHeight="27.0" prefWidth="66.0" text="Genero:" textFill="#fff9f9">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="1052.0" layoutY="277.0" prefHeight="27.0" prefWidth="147.0" text="Grupo Sanguineo:" textFill="#fff9f9">
+                        <Label layoutX="596.0" layoutY="324.0" prefHeight="30.0" prefWidth="147.0" text="Grupo Sanguineo:" textFill="#fff9f9">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="1051.0" layoutY="402.0" prefHeight="27.0" prefWidth="53.0" text="Area:" textFill="#fff9f9">
+                        <Label layoutX="1049.0" layoutY="327.0" prefHeight="22.0" prefWidth="54.0" text="Area:" textFill="#fff9f9">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="1051.0" layoutY="527.0" prefHeight="27.0" prefWidth="61.0" text="Puesto:" textFill="#fff9f9">
+                        <Label layoutX="1050.0" layoutY="425.0" prefHeight="27.0" prefWidth="61.0" text="Puesto:" textFill="#fff9f9">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="596.0" layoutY="153.0" prefHeight="27.0" prefWidth="82.0" text="Dirección:" textFill="#fff9f9">
+                        <Label layoutX="595.0" layoutY="122.0" prefHeight="27.0" prefWidth="82.0" text="Dirección:" textFill="#fff9f9">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="textDireccionModificar" layoutX="596.0" layoutY="181.0" prefHeight="40.0" prefWidth="330.0">
+                        <TextField fx:id="textDireccionModificar" layoutX="595.0" layoutY="150.0" prefHeight="40.0" prefWidth="330.0">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </TextField>
-                        <Label layoutX="1260.0" layoutY="153.0" prefHeight="27.0" prefWidth="142.0" text="Fecha de Ingreso:" textFill="#fff9f9">
+                        <Label layoutX="1049.0" layoutY="226.0" prefHeight="27.0" prefWidth="142.0" text="Fecha de Ingreso:" textFill="#fff9f9">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="cbEstadoCivilModificar" layoutX="596.0" layoutY="555.0" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;" />
-                        <ComboBox fx:id="cbGeneroModificar" layoutX="596.0" layoutY="430.0" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;" />
-                        <ComboBox fx:id="cbAreaModificar" layoutX="1052.0" layoutY="430.0" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;" />
-                        <ComboBox fx:id="cbPuestoModificar" layoutX="1052.0" layoutY="555.0" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;" />
-                        <DatePicker fx:id="dpFechaNaciminetoModificar" editable="false" layoutX="1051.0" layoutY="181.0" prefHeight="40.0" prefWidth="170.0" style="-fx-font-size: 16;" />
-                        <DatePicker fx:id="dpFechaIngresoModificar" editable="false" layoutX="1260.0" layoutY="181.0" prefHeight="40.0" prefWidth="170.0" style="-fx-font-size: 16;" />
-                        <Label fx:id="labErrorNombreModificar" layoutX="145.0" layoutY="221.0" prefHeight="21.0" prefWidth="330.0" textFill="#ff9090">
+                        <ComboBox fx:id="cbEstadoCivilModificar" layoutX="596.0" layoutY="453.0" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;" />
+                        <ComboBox fx:id="cbGeneroModificar" layoutX="596.0" layoutY="555.0" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;" />
+                        <ComboBox fx:id="cbAreaModificar" layoutX="1050.0" layoutY="353.0" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;" />
+                        <ComboBox fx:id="cbPuestoModificar" layoutX="1050.0" layoutY="453.0" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;" />
+                        <DatePicker fx:id="dpFechaNaciminetoModificar" editable="false" layoutX="1049.0" layoutY="150.0" prefHeight="40.0" prefWidth="170.0" style="-fx-font-size: 16;" />
+                        <DatePicker fx:id="dpFechaIngresoModificar" editable="false" layoutX="1049.0" layoutY="254.0" prefHeight="40.0" prefWidth="170.0" style="-fx-font-size: 16;" />
+                        <Label fx:id="labErrorNombreModificar" layoutX="145.0" layoutY="190.0" prefHeight="21.0" prefWidth="330.0" textFill="#ff9090">
                            <font>
                               <Font name="Consolas" size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="labErrorApellidoModificar" layoutX="145.0" layoutY="347.0" prefHeight="21.0" prefWidth="330.0" textFill="#ff9090">
+                        <Label fx:id="labErrorApellidoModificar" layoutX="145.0" layoutY="291.0" prefHeight="21.0" prefWidth="330.0" textFill="#ff9090">
                            <font>
                               <Font name="Consolas" size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="labErrorLegajoModificar" layoutX="145.0" layoutY="470.0" prefHeight="21.0" prefWidth="330.0" textFill="#ff9090">
+                        <Label fx:id="labErrorLegajoModificar" layoutX="145.0" layoutY="393.0" prefHeight="21.0" prefWidth="330.0" textFill="#ff9090">
                            <font>
                               <Font name="Consolas" size="14.0" />
                            </font>
@@ -468,28 +484,43 @@
                               <Font name="Consolas" size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="labErrorDireccionModificar" layoutX="596.0" layoutY="221.0" prefHeight="21.0" prefWidth="330.0" textFill="#ff9090">
+                        <Label fx:id="labErrorDireccionModificar" layoutX="595.0" layoutY="190.0" prefHeight="21.0" prefWidth="330.0" textFill="#ff9090">
                            <font>
                               <Font name="Consolas" size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="labErrorFechaNacimientoModificar" layoutX="1050.0" layoutY="220.0" prefHeight="22.0" prefWidth="174.0" textFill="#ff9090">
+                        <Label fx:id="labErrorFechaNacimientoModificar" layoutX="1049.0" layoutY="190.0" prefHeight="22.0" prefWidth="174.0" textFill="#ff9090">
                            <font>
                               <Font name="Consolas" size="14.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="cbGrupoSanguineoModificar" layoutX="1052.0" layoutY="307.0" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;" />
-                        <TextField fx:id="textEmailModificar" layoutX="596.0" layoutY="307.0" prefHeight="40.0" prefWidth="330.0">
+                        <ComboBox fx:id="cbGrupoSanguineoModificar" layoutX="596.0" layoutY="353.0" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;" />
+                        <TextField fx:id="textEmailModificar" layoutX="595.0" layoutY="254.0" prefHeight="40.0" prefWidth="330.0">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </TextField>
-                        <Label layoutX="596.0" layoutY="279.0" prefHeight="26.0" prefWidth="82.0" text="Email:" textFill="#fff9f9">
+                        <Label layoutX="595.0" layoutY="226.0" prefHeight="26.0" prefWidth="82.0" text="Email:" textFill="#fff9f9">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label fx:id="labErrorEmailModificar" layoutX="596.0" layoutY="347.0" prefHeight="21.0" prefWidth="330.0" textFill="#ff9090">
+                        <Label fx:id="labErrorEmailModificar" layoutX="595.0" layoutY="294.0" prefHeight="21.0" prefWidth="330.0" textFill="#ff9090">
+                           <font>
+                              <Font name="Consolas" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="145.0" layoutY="425.0" prefHeight="27.0" prefWidth="76.0" text="DNI:" textFill="#fff9f9">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="textDNIModificar" layoutX="145.0" layoutY="453.0" prefHeight="40.0" prefWidth="330.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </TextField>
+                        <Label fx:id="labErrorDNIModificar" layoutX="145.0" layoutY="493.0" prefHeight="21.0" prefWidth="330.0" textFill="#ff9090">
                            <font>
                               <Font name="Consolas" size="14.0" />
                            </font>
@@ -502,7 +533,7 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Label fx:id="labIDEliminar" layoutX="146.0" layoutY="85.0" prefHeight="18.0" prefWidth="17.0" textFill="#1d3557" />
+                        <Label fx:id="labIDEliminar" layoutX="144.0" layoutY="75.0" prefHeight="18.0" prefWidth="17.0" textFill="#1d3557" />
                         <ImageView fitHeight="1168.0" fitWidth="1536.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../imagenes/color-Verde-General.jpg" />
@@ -518,7 +549,7 @@
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
-                        <Label layoutX="525.0" layoutY="66.0" prefHeight="56.0" prefWidth="472.0" text="Eliminar Empleado" textFill="#fff9f9">
+                        <Label layoutX="525.0" layoutY="56.0" prefHeight="56.0" prefWidth="470.0" text="Eliminar Empleado" textFill="#fff9f9">
                            <font>
                               <Font name="Georgia Bold" size="46.0" />
                            </font>
@@ -531,18 +562,15 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Label layoutX="145.0" layoutY="153.0" prefHeight="26.0" prefWidth="72.0" text="Nombre:" textFill="#fff9f9">
+                        <Label layoutX="145.0" layoutY="122.0" prefHeight="26.0" prefWidth="72.0" text="Nombre:" textFill="#fff9f9">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="textNombreEliminar" editable="false" layoutX="145.0" layoutY="181.0" opacity="0.9" prefHeight="40.0" prefWidth="330.0">
+                        <TextField fx:id="textNombreEliminar" editable="false" layoutX="145.0" layoutY="150.0" opacity="0.9" prefHeight="40.0" prefWidth="330.0">
                            <font>
                               <Font size="18.0" />
                            </font>
-                           <cursor>
-                              <Cursor fx:constant="DISAPPEAR" />
-                           </cursor>
                         </TextField>
                         <Button fx:id="btnRegresarELista" layoutX="393.0" layoutY="668.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#regresarELista" prefHeight="46.0" prefWidth="166.0" text="Regresar">
                            <font>
@@ -552,31 +580,25 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Label layoutX="145.0" layoutY="277.0" prefHeight="24.0" prefWidth="72.0" text="Apellido:" textFill="#fff9f9">
+                        <Label layoutX="145.0" layoutY="221.0" prefHeight="24.0" prefWidth="72.0" text="Apellido:" textFill="#fff9f9">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="textApellidoEliminar" editable="false" layoutX="145.0" layoutY="307.0" opacity="0.9" prefHeight="40.0" prefWidth="330.0">
+                        <TextField fx:id="textApellidoEliminar" editable="false" layoutX="145.0" layoutY="251.0" opacity="0.9" prefHeight="40.0" prefWidth="330.0">
                            <font>
                               <Font size="18.0" />
                            </font>
-                           <cursor>
-                              <Cursor fx:constant="DISAPPEAR" />
-                           </cursor>
                         </TextField>
-                        <Label layoutX="144.0" layoutY="404.0" prefHeight="18.0" prefWidth="58.0" text="Legajo:" textFill="#fff9f9">
+                        <Label layoutX="144.0" layoutY="327.0" prefHeight="18.0" prefWidth="58.0" text="Legajo:" textFill="#fff9f9">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="textLegajoEliminar" editable="false" layoutX="145.0" layoutY="430.0" opacity="0.9" prefHeight="40.0" prefWidth="330.0">
+                        <TextField fx:id="textLegajoEliminar" editable="false" layoutX="145.0" layoutY="353.0" opacity="0.9" prefHeight="40.0" prefWidth="330.0">
                            <font>
                               <Font size="18.0" />
                            </font>
-                           <cursor>
-                              <Cursor fx:constant="DISAPPEAR" />
-                           </cursor>
                         </TextField>
                         <Label layoutX="145.0" layoutY="527.0" prefHeight="27.0" prefWidth="76.0" text="Teléfono:" textFill="#fff9f9">
                            <font>
@@ -587,111 +609,79 @@
                            <font>
                               <Font size="18.0" />
                            </font>
-                           <cursor>
-                              <Cursor fx:constant="DISAPPEAR" />
-                           </cursor>
                         </TextField>
-                        <Label layoutX="596.0" layoutY="527.0" prefHeight="27.0" prefWidth="98.0" text="Estado Civil:" textFill="#fff9f9">
+                        <Label layoutX="596.0" layoutY="425.0" prefHeight="27.0" prefWidth="98.0" text="Estado Civil:" textFill="#fff9f9">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="1051.0" layoutY="153.0" prefHeight="27.0" prefWidth="175.0" text="Fecha de Nacimiento:" textFill="#fff9f9">
+                        <Label layoutX="1049.0" layoutY="122.0" prefHeight="27.0" prefWidth="175.0" text="Fecha de Nacimiento:" textFill="#fff9f9">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="596.0" layoutY="404.0" prefHeight="27.0" prefWidth="66.0" text="Genero:" textFill="#fff9f9">
+                        <Label layoutX="596.0" layoutY="527.0" prefHeight="27.0" prefWidth="66.0" text="Genero:" textFill="#fff9f9">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="1052.0" layoutY="277.0" prefHeight="27.0" prefWidth="147.0" text="Grupo Sanguineo:" textFill="#fff9f9">
+                        <Label layoutX="596.0" layoutY="324.0" prefHeight="30.0" prefWidth="147.0" text="Grupo Sanguineo:" textFill="#fff9f9">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="1051.0" layoutY="402.0" prefHeight="27.0" prefWidth="53.0" text="Area:" textFill="#fff9f9">
+                        <Label layoutX="1049.0" layoutY="327.0" prefHeight="22.0" prefWidth="54.0" text="Area:" textFill="#fff9f9">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="1051.0" layoutY="527.0" prefHeight="27.0" prefWidth="61.0" text="Puesto:" textFill="#fff9f9">
+                        <Label layoutX="1050.0" layoutY="425.0" prefHeight="27.0" prefWidth="61.0" text="Puesto:" textFill="#fff9f9">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="596.0" layoutY="153.0" prefHeight="27.0" prefWidth="82.0" text="Dirección:" textFill="#fff9f9">
+                        <Label layoutX="595.0" layoutY="122.0" prefHeight="27.0" prefWidth="82.0" text="Dirección:" textFill="#fff9f9">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="textDireccionEliminar" editable="false" layoutX="596.0" layoutY="181.0" opacity="0.9" prefHeight="40.0" prefWidth="330.0">
+                        <TextField fx:id="textDireccionEliminar" editable="false" layoutX="595.0" layoutY="150.0" opacity="0.9" prefHeight="40.0" prefWidth="330.0">
                            <font>
                               <Font size="18.0" />
                            </font>
-                           <cursor>
-                              <Cursor fx:constant="DISAPPEAR" />
-                           </cursor>
                         </TextField>
-                        <Label layoutX="1260.0" layoutY="153.0" prefHeight="27.0" prefWidth="142.0" text="Fecha de Ingreso:" textFill="#fff9f9">
+                        <Label layoutX="1049.0" layoutY="226.0" prefHeight="27.0" prefWidth="142.0" text="Fecha de Ingreso:" textFill="#fff9f9">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="cbEstadoCivilEliminar" disable="true" layoutX="596.0" layoutY="555.0" opacity="0.9" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;">
-                           <cursor>
-                              <Cursor fx:constant="DISAPPEAR" />
-                           </cursor>
-                        </ComboBox>
-                        <ComboBox fx:id="cbGeneroEliminar" disable="true" layoutX="596.0" layoutY="430.0" opacity="0.9" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;">
-                           <cursor>
-                              <Cursor fx:constant="DISAPPEAR" />
-                           </cursor>
-                        </ComboBox>
-                        <ComboBox fx:id="cbAreaEliminar" disable="true" layoutX="1052.0" layoutY="430.0" opacity="0.9" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;">
-                           <cursor>
-                              <Cursor fx:constant="DISAPPEAR" />
-                           </cursor>
-                        </ComboBox>
-                        <ComboBox fx:id="cbPuestoEliminar" disable="true" layoutX="1052.0" layoutY="555.0" opacity="0.9" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;">
-                           <cursor>
-                              <Cursor fx:constant="DISAPPEAR" />
-                           </cursor>
-                        </ComboBox>
-                        <DatePicker fx:id="dpFechaNaciminetoEliminar" disable="true" editable="false" layoutX="1051.0" layoutY="181.0" opacity="0.9" prefHeight="40.0" prefWidth="170.0" style="-fx-font-size: 16;">
-                           <cursor>
-                              <Cursor fx:constant="DISAPPEAR" />
-                           </cursor>
-                        </DatePicker>
-                        <DatePicker fx:id="dpFechaIngresoEliminar" disable="true" editable="false" layoutX="1260.0" layoutY="181.0" opacity="0.9" prefHeight="40.0" prefWidth="170.0" style="-fx-font-size: 16;">
-                           <cursor>
-                              <Cursor fx:constant="DISAPPEAR" />
-                           </cursor>
-                        </DatePicker>
-                        <Label fx:id="labErrorFechaNacimientoModificar1" layoutX="1050.0" layoutY="220.0" prefHeight="22.0" prefWidth="174.0" textFill="#ff9090">
-                           <font>
-                              <Font name="Consolas" size="14.0" />
-                           </font>
-                        </Label>
-                        <ComboBox fx:id="cbGrupoSanguineoEliminar" disable="true" layoutX="1052.0" layoutY="307.0" opacity="0.9" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;">
-                           <cursor>
-                              <Cursor fx:constant="DISAPPEAR" />
-                           </cursor>
-                        </ComboBox>
-                        <TextField fx:id="textEmailEliminar" editable="false" layoutX="596.0" layoutY="307.0" opacity="0.9" prefHeight="40.0" prefWidth="330.0">
+                        <ComboBox fx:id="cbEstadoCivilEliminar" disable="true" layoutX="596.0" layoutY="453.0" opacity="0.99" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;" />
+                        <ComboBox fx:id="cbGeneroEliminar" disable="true" layoutX="596.0" layoutY="555.0" opacity="0.99" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;" />
+                        <ComboBox fx:id="cbAreaEliminar" disable="true" layoutX="1050.0" layoutY="353.0" opacity="0.99" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;" />
+                        <ComboBox fx:id="cbPuestoEliminar" disable="true" layoutX="1050.0" layoutY="453.0" opacity="0.99" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;" />
+                        <DatePicker fx:id="dpFechaNaciminetoEliminar" disable="true" editable="false" layoutX="1049.0" layoutY="150.0" opacity="0.9" prefHeight="40.0" prefWidth="170.0" style="-fx-font-size: 16;" />
+                        <DatePicker fx:id="dpFechaIngresoEliminar" disable="true" editable="false" layoutX="1049.0" layoutY="254.0" opacity="0.9" prefHeight="40.0" prefWidth="170.0" style="-fx-font-size: 16;" />
+                        <ComboBox fx:id="cbGrupoSanguineoEliminar" disable="true" layoutX="596.0" layoutY="353.0" opacity="0.99" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;" />
+                        <TextField fx:id="textEmailEliminar" editable="false" layoutX="595.0" layoutY="254.0" opacity="0.9" prefHeight="40.0" prefWidth="330.0">
                            <font>
                               <Font size="18.0" />
                            </font>
-                           <cursor>
-                              <Cursor fx:constant="DISAPPEAR" />
-                           </cursor>
                         </TextField>
-                        <Label layoutX="596.0" layoutY="279.0" prefHeight="26.0" prefWidth="82.0" text="Email:" textFill="#fff9f9">
+                        <Label layoutX="595.0" layoutY="226.0" prefHeight="26.0" prefWidth="82.0" text="Email:" textFill="#fff9f9">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
+                        <Label layoutX="145.0" layoutY="425.0" prefHeight="27.0" prefWidth="76.0" text="DNI:" textFill="#fff9f9">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="textDNIEliminar" editable="false" layoutX="145.0" layoutY="453.0" opacity="0.9" prefHeight="40.0" prefWidth="330.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </TextField>
                      </children>
                   </AnchorPane>
                </content>

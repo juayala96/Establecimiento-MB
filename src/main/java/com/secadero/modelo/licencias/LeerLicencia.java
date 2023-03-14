@@ -236,7 +236,7 @@ public class LeerLicencia {
         ObservableList<LeerLicencia> lista = FXCollections.observableArrayList();
 
         try {
-            pstm = con.prepareStatement("SELECT fecha_Inicio, fecha_Fin, tipo_licencias.descripcion, idLicencias FROM licencias INNER JOIN tipo_licencias ON licencias.idTipoLicenciaFK = tipo_licencias.idTipoLicencia INNER JOIN empleado_licencia ON licencias.idLicencias = empleado_licencia.idLicenciaFK INNER JOIN empleados ON empleado_licencia.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND licencias.estadoLicencia = ? AND licencias.fecha_Inicio = ? AND empleados.idempleados = ?");
+            pstm = con.prepareStatement("SELECT fecha_Inicio, fecha_Fin, tipo_licencias.descripcion, idLicencias FROM licencias INNER JOIN tipo_licencias ON licencias.idTipoLicenciaFK = tipo_licencias.idTipoLicencia INNER JOIN empleado_licencia ON licencias.idLicencias = empleado_licencia.idLicenciaFK INNER JOIN empleados ON empleado_licencia.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND licencias.estadoLicencia = ? AND licencias.fecha_Inicio = ? AND empleados.idempleados = ? ORDER BY fecha_Inicio DESC");
             pstm.setString(1, "Vigente");
             pstm.setString(2, "Vigente");
             pstm.setDate(3, java.sql.Date.valueOf(dpBuscarFechaInicio.getEditor().getText()));

@@ -304,6 +304,7 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
+                        <Label fx:id="labSeleccionCertificado" layoutX="1138.0" layoutY="461.0" prefHeight="18.0" prefWidth="26.0" />
                         <Label fx:id="labCertificadoModificar" layoutX="1172.0" layoutY="461.0" prefHeight="18.0" prefWidth="26.0" />
                         <DatePicker fx:id="dpFechaModificarDuplicada" disable="true" editable="false" layoutX="8.0" layoutY="34.0" opacity="0.7" prefHeight="40.0" prefWidth="178.0" style="-fx-font-size: 18;" />
                         <Label fx:id="labSeleccionJustificacion" layoutX="1172.0" layoutY="498.0" prefHeight="18.0" prefWidth="26.0" />
@@ -432,7 +433,6 @@
                               <Font size="18.0" />
                            </font>
                         </RadioButton>
-                        <Label fx:id="labSeleccionCertificado" layoutX="1138.0" layoutY="461.0" prefHeight="18.0" prefWidth="26.0" />
                      </children>
                   </AnchorPane>
                </content>

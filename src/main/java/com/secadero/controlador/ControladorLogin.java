@@ -58,7 +58,7 @@ public class ControladorLogin {
             } else {
                 Alert alerta = new Alert(Alert.AlertType.WARNING);
                 alerta.setTitle("Error de Datos!");
-                alerta.setContentText("Los Datos Ingresados Son Incorrectos");
+                alerta.setContentText("Ingrese el nombre de usuario y contraseña válidos");
                 alerta.showAndWait();
             }
         } else {

@@ -77,7 +77,7 @@ public class LeerAusencia {
         ObservableList<LeerAusencia> lista = FXCollections.observableArrayList();
 
         try {
-            pstm = con.prepareStatement("SELECT fecha, motivo, justificado, certificado, idausencias FROM ausencias INNER JOIN empleados ON ausencias.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND ausencias.idEmpleadoFK = ?");
+            pstm = con.prepareStatement("SELECT fecha, motivo, justificado, certificado, idausencias FROM ausencias INNER JOIN empleados ON ausencias.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND ausencias.idEmpleadoFK = ? ORDER BY fecha DESC");
             pstm.setString(1, "Vigente");
             pstm.setInt(2, Integer.parseInt(labIDEmpleadoLista.getText()));
             rs = pstm.executeQuery();

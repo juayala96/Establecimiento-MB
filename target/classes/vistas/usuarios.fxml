@@ -27,28 +27,29 @@
                               <Image url="@../imagenes/color-Verde-General.jpg" />
                            </image>
                         </ImageView>
-                        <Label layoutX="66.0" layoutY="70.0" prefHeight="58.0" prefWidth="438.0" text="Lista de Usuarios" textFill="WHITE" underline="true">
+                        <Label layoutX="71.0" layoutY="66.0" prefHeight="58.0" prefWidth="438.0" text="Lista de Usuarios" textFill="WHITE" underline="true">
                            <font>
                               <Font name="Georgia Bold" size="48.0" />
                            </font>
                         </Label>
-                        <TableView fx:id="tablaUsuarios" layoutX="67.0" layoutY="218.0" onMouseClicked="#getSelecciono" prefHeight="467.0" prefWidth="1214.0" style="-fx-background-color: #e4e4e4;">
+                        <TableView fx:id="tablaUsuarios" layoutX="71.0" layoutY="216.0" onMouseClicked="#getSelecciono" prefHeight="467.0" prefWidth="1214.0" style="-fx-background-color: #e4e4e4;">
                            <columns>
                               <TableColumn fx:id="colNombre" prefWidth="150.0" style="-fx-font-size: 14;" text="Nombre" />
                               <TableColumn fx:id="colApellido" prefWidth="150.0" style="-fx-font-size: 14;" text="Apellido" />
                               <TableColumn fx:id="colLegajo" prefWidth="150.0" style="-fx-font-size: 14;" text="Legajo" />
-                              <TableColumn fx:id="colEmail" prefWidth="150.0" style="-fx-font-size: 14;" text="Email" />
+                              <TableColumn fx:id="colDNIUsuario" prefWidth="150.0" style="-fx-font-size: 14;" text="DNI" />
                               <TableColumn fx:id="colTelefono" prefWidth="160.0" style="-fx-font-size: 14;" text="Teléfono" />
                               <TableColumn fx:id="colNombreUsuario" prefWidth="150.0" style="-fx-font-size: 14;" text="Nombre_Usuario" />
                               <TableColumn fx:id="colContrasenia" prefWidth="150.0" style="-fx-font-size: 14;" text="Contraseña" />
                               <TableColumn fx:id="colRol" prefWidth="150.0" style="-fx-font-size: 14;" text="Rol" />
+                              <TableColumn fx:id="colEmail" prefWidth="150.0" style="-fx-font-size: 14;" text="Email" />
                               <TableColumn fx:id="colID" prefWidth="150.0" style="-fx-font-size: 14;" text="ID" />
                            </columns>
                            <cursor>
                               <Cursor fx:constant="DISAPPEAR" />
                            </cursor>
                         </TableView>
-                        <Button fx:id="btnVolver" layoutX="1313.0" layoutY="623.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#volverPrincipal" prefHeight="60.0" prefWidth="160.0" text="Volver" textFill="#8c0909">
+                        <Button fx:id="btnVolver" layoutX="1338.0" layoutY="631.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#volverPrincipal" prefHeight="52.0" prefWidth="148.0" text="Volver" textFill="#8c0909">
                            <font>
                               <Font size="20.0" />
                            </font>
@@ -56,7 +57,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button fx:id="btnCrearUsuario" layoutX="1313.0" layoutY="170.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#crearUsuario" prefHeight="60.0" prefWidth="160.0" text="Crear">
+                        <Button fx:id="btnCrearUsuario" layoutX="1338.0" layoutY="166.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#crearUsuario" prefHeight="52.0" prefWidth="148.0" text="Crear">
                            <font>
                               <Font size="20.0" />
                            </font>
@@ -64,17 +65,17 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <TextField fx:id="textBuscarUsuario" layoutX="166.0" layoutY="171.0" prefHeight="46.0" prefWidth="407.0">
+                        <TextField fx:id="textBuscarUsuario" layoutX="170.0" layoutY="169.0" prefHeight="46.0" prefWidth="250.0">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </TextField>
-                        <Label layoutX="166.0" layoutY="145.0" prefHeight="12.0" prefWidth="67.0" text="Legajo:" textFill="WHITE">
+                        <Label layoutX="170.0" layoutY="143.0" prefHeight="12.0" prefWidth="67.0" text="Legajo:" textFill="WHITE">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <Button fx:id="btnBuscarUsuario" layoutX="67.0" layoutY="170.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnBuscar" prefHeight="46.0" prefWidth="87.0" text="Buscar:" textFill="#022c7b">
+                        <Button fx:id="btnBuscarUsuario" layoutX="71.0" layoutY="168.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnBuscar" prefHeight="46.0" prefWidth="87.0" text="Buscar:" textFill="#022c7b">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -82,7 +83,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button fx:id="btnFiltroUsuarios" layoutX="930.0" layoutY="171.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#filtroUsuarios" prefHeight="46.0" prefWidth="86.0" text="Filtros:" textFill="#022c7b">
+                        <Button fx:id="btnFiltroUsuarios" layoutX="940.0" layoutY="169.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#filtroUsuarios" prefHeight="46.0" prefWidth="86.0" text="Filtros:" textFill="#022c7b">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -90,11 +91,11 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <ComboBox fx:id="cbTiposFiltrosUsuarios" layoutX="1027.0" layoutY="171.0" prefHeight="46.0" prefWidth="254.0" style="-fx-font-size: 16;">
+                        <ComboBox fx:id="cbTiposFiltrosUsuarios" layoutX="1034.0" layoutY="168.0" prefHeight="46.0" prefWidth="250.0" style="-fx-font-size: 16;">
                            <cursor>
                               <Cursor fx:constant="DISAPPEAR" />
                            </cursor></ComboBox>
-                        <Button fx:id="btnModificarUsuario" layoutX="1313.0" layoutY="297.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#modificarUsuario" prefHeight="60.0" prefWidth="160.0" text="Modificar">
+                        <Button fx:id="btnModificarUsuario" layoutX="1338.0" layoutY="284.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#modificarUsuario" prefHeight="52.0" prefWidth="148.0" text="Modificar">
                            <font>
                               <Font size="20.0" />
                            </font>
@@ -102,7 +103,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button fx:id="btnEliminarUsuario" layoutX="1313.0" layoutY="420.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#eliminarUsuario" prefHeight="60.0" prefWidth="160.0" text="Eliminar">
+                        <Button fx:id="btnEliminarUsuario" layoutX="1338.0" layoutY="404.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#eliminarUsuario" prefHeight="52.0" prefWidth="148.0" text="Eliminar">
                            <font>
                               <Font size="20.0" />
                            </font>
@@ -142,12 +143,12 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Label layoutX="172.0" layoutY="189.0" prefHeight="26.0" prefWidth="72.0" text="Nombre:" textFill="WHITE">
+                        <Label layoutX="172.0" layoutY="153.0" prefHeight="26.0" prefWidth="72.0" text="Nombre:" textFill="WHITE">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="textNombreCrear" layoutX="172.0" layoutY="213.0" prefHeight="40.0" prefWidth="330.0">
+                        <TextField fx:id="textNombreCrear" layoutX="172.0" layoutY="177.0" prefHeight="40.0" prefWidth="330.0">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -155,12 +156,12 @@
                               <Cursor fx:constant="TEXT" />
                            </cursor>
                         </TextField>
-                        <Label layoutX="1033.0" layoutY="189.0" prefHeight="18.0" prefWidth="98.0" text="Contraseña:" textFill="WHITE">
+                        <Label layoutX="1033.0" layoutY="153.0" prefHeight="18.0" prefWidth="98.0" text="Contraseña:" textFill="WHITE">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="textRepetirContraseniaCrear" layoutX="1033.0" layoutY="354.0" prefHeight="40.0" prefWidth="330.0">
+                        <TextField fx:id="textRepetirContraseniaCrear" layoutX="1033.0" layoutY="288.0" prefHeight="40.0" prefWidth="330.0">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -176,12 +177,12 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Label layoutX="172.0" layoutY="329.0" prefHeight="24.0" prefWidth="72.0" text="Apellido:" textFill="WHITE">
+                        <Label layoutX="172.0" layoutY="263.0" prefHeight="24.0" prefWidth="72.0" text="Apellido:" textFill="WHITE">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="textApellidoCrear" layoutX="172.0" layoutY="354.0" prefHeight="40.0" prefWidth="330.0">
+                        <TextField fx:id="textApellidoCrear" layoutX="172.0" layoutY="288.0" prefHeight="40.0" prefWidth="330.0">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -189,12 +190,12 @@
                               <Cursor fx:constant="TEXT" />
                            </cursor>
                         </TextField>
-                        <Label layoutX="172.0" layoutY="479.0" prefHeight="26.0" prefWidth="58.0" text="Legajo:" textFill="WHITE">
+                        <Label layoutX="172.0" layoutY="371.0" prefHeight="26.0" prefWidth="58.0" text="Legajo:" textFill="WHITE">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="textLegajoCrear" layoutX="172.0" layoutY="505.0" prefHeight="40.0" prefWidth="330.0">
+                        <TextField fx:id="textLegajoCrear" layoutX="172.0" layoutY="397.0" prefHeight="40.0" prefWidth="330.0">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -202,12 +203,12 @@
                               <Cursor fx:constant="TEXT" />
                            </cursor>
                         </TextField>
-                        <Label layoutX="602.0" layoutY="189.0" prefHeight="22.0" prefWidth="50.0" text="Email:" textFill="WHITE">
+                        <Label layoutX="602.0" layoutY="154.0" prefHeight="22.0" prefWidth="50.0" text="Email:" textFill="WHITE">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="textEmailCrear" layoutX="602.0" layoutY="213.0" prefHeight="40.0" prefWidth="330.0">
+                        <TextField fx:id="textEmailCrear" layoutX="602.0" layoutY="177.0" prefHeight="40.0" prefWidth="330.0">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -215,12 +216,12 @@
                               <Cursor fx:constant="TEXT" />
                            </cursor>
                         </TextField>
-                        <Label layoutX="1033.0" layoutY="329.0" prefHeight="22.0" prefWidth="159.0" text="Repetir Contraseña:" textFill="WHITE">
+                        <Label layoutX="1033.0" layoutY="263.0" prefHeight="22.0" prefWidth="159.0" text="Repetir Contraseña:" textFill="WHITE">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="textContraseniaCrear" layoutX="1033.0" layoutY="213.0" prefHeight="40.0" prefWidth="330.0">
+                        <TextField fx:id="textContraseniaCrear" layoutX="1033.0" layoutY="177.0" prefHeight="40.0" prefWidth="330.0">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -228,22 +229,22 @@
                               <Cursor fx:constant="TEXT" />
                            </cursor>
                         </TextField>
-                        <Label layoutX="1033.0" layoutY="477.0" prefHeight="32.0" prefWidth="44.0" text="Rol:" textFill="WHITE">
+                        <Label layoutX="601.0" layoutY="492.0" prefHeight="27.0" prefWidth="44.0" text="Rol:" textFill="WHITE">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="cbRolCrear" layoutX="1033.0" layoutY="505.0" prefHeight="40.0" prefWidth="330.0" style="-fx-font-size: 18;">
+                        <ComboBox fx:id="cbRolCrear" layoutX="602.0" layoutY="519.0" prefHeight="40.0" prefWidth="330.0" style="-fx-font-size: 18;">
                            <cursor>
                               <Cursor fx:constant="DISAPPEAR" />
                            </cursor>
                         </ComboBox>
-                        <Label layoutX="600.0" layoutY="329.0" prefHeight="18.0" prefWidth="98.0" text="Teléfono:" textFill="WHITE">
+                        <Label layoutX="601.0" layoutY="259.0" prefHeight="18.0" prefWidth="98.0" text="Teléfono:" textFill="WHITE">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="textTelefonoCrear" layoutX="601.0" layoutY="354.0" prefHeight="40.0" prefWidth="330.0">
+                        <TextField fx:id="textTelefonoCrear" layoutX="602.0" layoutY="288.0" prefHeight="40.0" prefWidth="330.0">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -251,47 +252,47 @@
                               <Cursor fx:constant="TEXT" />
                            </cursor>
                         </TextField>
-                        <Label layoutX="587.0" layoutY="97.0" prefHeight="56.0" prefWidth="359.0" text="Crear Usuario" textFill="WHITE">
+                        <Label layoutX="588.0" layoutY="69.0" prefHeight="56.0" prefWidth="359.0" text="Crear Usuario" textFill="WHITE">
                            <font>
                               <Font name="Georgia Bold" size="48.0" />
                            </font>
                         </Label>
-                        <Label fx:id="labErrorNombreCrear" layoutX="172.0" layoutY="253.0" prefHeight="20.0" prefWidth="330.0" textFill="#ff9090">
+                        <Label fx:id="labErrorNombreCrear" layoutX="172.0" layoutY="217.0" prefHeight="20.0" prefWidth="330.0" textFill="#ff9090">
                            <font>
                               <Font name="Consolas" size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="labErrorApellidoCrear" layoutX="172.0" layoutY="394.0" prefHeight="20.0" prefWidth="330.0" textFill="#ff9090">
+                        <Label fx:id="labErrorApellidoCrear" layoutX="172.0" layoutY="328.0" prefHeight="20.0" prefWidth="330.0" textFill="#ff9090">
                            <font>
                               <Font name="Consolas" size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="labErrorLegajoCrear" layoutX="172.0" layoutY="545.0" prefHeight="20.0" prefWidth="330.0" textFill="#ff9090">
+                        <Label fx:id="labErrorLegajoCrear" layoutX="172.0" layoutY="437.0" prefHeight="20.0" prefWidth="330.0" textFill="#ff9090">
                            <font>
                               <Font name="Consolas" size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="labErrorEmailCrear" layoutX="602.0" layoutY="256.0" prefHeight="20.0" prefWidth="330.0" textFill="#ff9090">
+                        <Label fx:id="labErrorEmailCrear" layoutX="602.0" layoutY="217.0" prefHeight="20.0" prefWidth="330.0" textFill="#ff9090">
                            <font>
                               <Font name="Consolas" size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="labErrorTelefonoCrear" layoutX="601.0" layoutY="394.0" prefHeight="20.0" prefWidth="330.0" textFill="#ff9090">
+                        <Label fx:id="labErrorTelefonoCrear" layoutX="602.0" layoutY="328.0" prefHeight="20.0" prefWidth="330.0" textFill="#ff9090">
                            <font>
                               <Font name="Consolas" size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="labErrorContraseniaCrear" layoutX="1033.0" layoutY="253.0" prefHeight="20.0" prefWidth="330.0" textFill="#ff9090">
+                        <Label fx:id="labErrorContraseniaCrear" layoutX="1033.0" layoutY="217.0" prefHeight="20.0" prefWidth="330.0" textFill="#ff9090">
                            <font>
                               <Font name="Consolas" size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="labErrorRepetirContraseniaCrear" layoutX="1033.0" layoutY="394.0" prefHeight="20.0" prefWidth="330.0" textFill="#ff9090">
+                        <Label fx:id="labErrorRepetirContraseniaCrear" layoutX="1033.0" layoutY="328.0" prefHeight="20.0" prefWidth="330.0" textFill="#ff9090">
                            <font>
                               <Font name="Consolas" size="14.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="textNombreUsuarioCrear" layoutX="601.0" layoutY="505.0" prefHeight="40.0" prefWidth="330.0">
+                        <TextField fx:id="textNombreUsuarioCrear" layoutX="602.0" layoutY="397.0" prefHeight="40.0" prefWidth="330.0">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -299,12 +300,30 @@
                               <Cursor fx:constant="TEXT" />
                            </cursor>
                         </TextField>
-                        <Label layoutX="602.0" layoutY="479.0" prefHeight="27.0" prefWidth="164.0" text="Nombre de Usuario:" textFill="WHITE">
+                        <Label layoutX="602.0" layoutY="371.0" prefHeight="27.0" prefWidth="164.0" text="Nombre de Usuario:" textFill="WHITE">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label fx:id="labErrorNombreUsuarioCrear" layoutX="601.0" layoutY="545.0" prefHeight="20.0" prefWidth="330.0" textFill="#ff9090">
+                        <Label fx:id="labErrorNombreUsuarioCrear" layoutX="602.0" layoutY="437.0" prefHeight="20.0" prefWidth="330.0" textFill="#ff9090">
+                           <font>
+                              <Font name="Consolas" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="textDNICrear" layoutX="172.0" layoutY="519.0" prefHeight="40.0" prefWidth="330.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="TEXT" />
+                           </cursor>
+                        </TextField>
+                        <Label layoutX="173.0" layoutY="493.0" prefHeight="27.0" prefWidth="46.0" text="DNI:" textFill="WHITE">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="labErrorDNICrear" layoutX="172.0" layoutY="559.0" prefHeight="20.0" prefWidth="330.0" textFill="#ff9090">
                            <font>
                               <Font name="Consolas" size="14.0" />
                            </font>
@@ -317,10 +336,11 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Label fx:id="labInformacionModificarNombreUsuario" layoutX="235.0" layoutY="116.0" prefHeight="18.0" prefWidth="17.0" textFill="#1d3557" />
-                        <Label fx:id="labInformacionModificarLegajo" layoutX="192.0" layoutY="116.0" prefHeight="18.0" prefWidth="17.0" textFill="#1d3557" />
-                        <Label fx:id="labLimpiarCamposModificar" layoutX="181.0" layoutY="116.0" prefHeight="18.0" prefWidth="17.0" textFill="#1d3557" />
-                        <Label fx:id="labIDModificar" layoutX="172.0" layoutY="116.0" prefHeight="18.0" prefWidth="17.0" textFill="#1d3557" />
+                        <Label fx:id="labInformacionModificarDNI" layoutX="268.0" layoutY="88.0" prefHeight="18.0" prefWidth="17.0" textFill="#1d3557" />
+                        <Label fx:id="labInformacionModificarNombreUsuario" layoutX="244.0" layoutY="87.0" prefHeight="18.0" prefWidth="17.0" textFill="#1d3557" />
+                        <Label fx:id="labInformacionModificarLegajo" layoutX="221.0" layoutY="87.0" prefHeight="18.0" prefWidth="17.0" textFill="#1d3557" />
+                        <Label fx:id="labLimpiarCamposModificar" layoutX="192.0" layoutY="87.0" prefHeight="18.0" prefWidth="17.0" textFill="#1d3557" />
+                        <Label fx:id="labIDModificar" layoutX="172.0" layoutY="88.0" prefHeight="18.0" prefWidth="17.0" textFill="#1d3557" />
                         <ImageView fitHeight="1168.0" fitWidth="1536.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../imagenes/color-Verde-General.jpg" />
@@ -344,12 +364,12 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Label layoutX="172.0" layoutY="189.0" prefHeight="26.0" prefWidth="72.0" text="Nombre:" textFill="WHITE">
+                        <Label layoutX="172.0" layoutY="153.0" prefHeight="26.0" prefWidth="72.0" text="Nombre:" textFill="WHITE">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="textNombreModificar" layoutX="172.0" layoutY="213.0" prefHeight="40.0" prefWidth="330.0">
+                        <TextField fx:id="textNombreModificar" layoutX="172.0" layoutY="177.0" prefHeight="40.0" prefWidth="330.0">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -357,12 +377,12 @@
                               <Cursor fx:constant="TEXT" />
                            </cursor>
                         </TextField>
-                        <Label layoutX="1033.0" layoutY="189.0" prefHeight="18.0" prefWidth="98.0" text="Contraseña:" textFill="WHITE">
+                        <Label layoutX="1033.0" layoutY="153.0" prefHeight="18.0" prefWidth="98.0" text="Contraseña:" textFill="WHITE">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="textRepetirContraseniaModificar" layoutX="1033.0" layoutY="354.0" prefHeight="40.0" prefWidth="330.0">
+                        <TextField fx:id="textRepetirContraseniaModificar" layoutX="1033.0" layoutY="288.0" prefHeight="40.0" prefWidth="330.0">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -378,12 +398,12 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Label layoutX="172.0" layoutY="329.0" prefHeight="24.0" prefWidth="72.0" text="Apellido:" textFill="WHITE">
+                        <Label layoutX="172.0" layoutY="263.0" prefHeight="24.0" prefWidth="72.0" text="Apellido:" textFill="WHITE">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="textApellidoModificar" layoutX="172.0" layoutY="354.0" prefHeight="40.0" prefWidth="330.0">
+                        <TextField fx:id="textApellidoModificar" layoutX="172.0" layoutY="288.0" prefHeight="40.0" prefWidth="330.0">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -391,12 +411,12 @@
                               <Cursor fx:constant="TEXT" />
                            </cursor>
                         </TextField>
-                        <Label layoutX="172.0" layoutY="479.0" prefHeight="26.0" prefWidth="58.0" text="Legajo:" textFill="WHITE">
+                        <Label layoutX="172.0" layoutY="371.0" prefHeight="26.0" prefWidth="58.0" text="Legajo:" textFill="WHITE">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="textLegajoModificar" layoutX="172.0" layoutY="505.0" prefHeight="40.0" prefWidth="330.0">
+                        <TextField fx:id="textLegajoModificar" layoutX="172.0" layoutY="397.0" prefHeight="40.0" prefWidth="330.0">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -404,12 +424,12 @@
                               <Cursor fx:constant="TEXT" />
                            </cursor>
                         </TextField>
-                        <Label layoutX="602.0" layoutY="189.0" prefHeight="22.0" prefWidth="50.0" text="Email:" textFill="WHITE">
+                        <Label layoutX="602.0" layoutY="154.0" prefHeight="22.0" prefWidth="50.0" text="Email:" textFill="WHITE">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="textEmailModificar" layoutX="602.0" layoutY="213.0" prefHeight="40.0" prefWidth="330.0">
+                        <TextField fx:id="textEmailModificar" layoutX="602.0" layoutY="177.0" prefHeight="40.0" prefWidth="330.0">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -417,12 +437,12 @@
                               <Cursor fx:constant="TEXT" />
                            </cursor>
                         </TextField>
-                        <Label layoutX="1033.0" layoutY="329.0" prefHeight="22.0" prefWidth="159.0" text="Repetir Contraseña:" textFill="WHITE">
+                        <Label layoutX="1033.0" layoutY="263.0" prefHeight="22.0" prefWidth="159.0" text="Repetir Contraseña:" textFill="WHITE">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="textContraseniaModificar" layoutX="1033.0" layoutY="213.0" prefHeight="40.0" prefWidth="330.0">
+                        <TextField fx:id="textContraseniaModificar" layoutX="1033.0" layoutY="177.0" prefHeight="40.0" prefWidth="330.0">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -430,22 +450,22 @@
                               <Cursor fx:constant="TEXT" />
                            </cursor>
                         </TextField>
-                        <Label layoutX="1033.0" layoutY="477.0" prefHeight="32.0" prefWidth="44.0" text="Rol:" textFill="WHITE">
+                        <Label layoutX="601.0" layoutY="492.0" prefHeight="27.0" prefWidth="44.0" text="Rol:" textFill="WHITE">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="cbRolModificar" layoutX="1033.0" layoutY="505.0" prefHeight="40.0" prefWidth="330.0" style="-fx-font-size: 18;">
+                        <ComboBox fx:id="cbRolModificar" layoutX="602.0" layoutY="519.0" prefHeight="40.0" prefWidth="330.0" style="-fx-font-size: 18;">
                            <cursor>
                               <Cursor fx:constant="DISAPPEAR" />
                            </cursor>
                         </ComboBox>
-                        <Label layoutX="600.0" layoutY="329.0" prefHeight="18.0" prefWidth="98.0" text="Teléfono:" textFill="WHITE">
+                        <Label layoutX="601.0" layoutY="259.0" prefHeight="18.0" prefWidth="98.0" text="Teléfono:" textFill="WHITE">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="textTelefonoModificar" layoutX="601.0" layoutY="354.0" prefHeight="40.0" prefWidth="330.0">
+                        <TextField fx:id="textTelefonoModificar" layoutX="602.0" layoutY="288.0" prefHeight="40.0" prefWidth="330.0">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -453,47 +473,47 @@
                               <Cursor fx:constant="TEXT" />
                            </cursor>
                         </TextField>
-                        <Label layoutX="537.0" layoutY="97.0" prefHeight="56.0" prefWidth="457.0" text="Modificar Usuario" textFill="WHITE">
+                        <Label layoutX="539.0" layoutY="69.0" prefHeight="56.0" prefWidth="454.0" text="Modificar Usuario" textFill="WHITE">
                            <font>
                               <Font name="Georgia Bold" size="48.0" />
                            </font>
                         </Label>
-                        <Label fx:id="labErrorNombreModificar" layoutX="172.0" layoutY="253.0" prefHeight="20.0" prefWidth="330.0" textFill="#ff9090">
+                        <Label fx:id="labErrorNombreModificar" layoutX="172.0" layoutY="217.0" prefHeight="20.0" prefWidth="330.0" textFill="#ff9090">
                            <font>
                               <Font name="Consolas" size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="labErrorApellidoModificar" layoutX="172.0" layoutY="394.0" prefHeight="20.0" prefWidth="330.0" textFill="#ff9090">
+                        <Label fx:id="labErrorApellidoModificar" layoutX="172.0" layoutY="328.0" prefHeight="20.0" prefWidth="330.0" textFill="#ff9090">
                            <font>
                               <Font name="Consolas" size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="labErrorLegajoModificar" layoutX="172.0" layoutY="545.0" prefHeight="20.0" prefWidth="330.0" textFill="#ff9090">
+                        <Label fx:id="labErrorLegajoModificar" layoutX="172.0" layoutY="437.0" prefHeight="20.0" prefWidth="330.0" textFill="#ff9090">
                            <font>
                               <Font name="Consolas" size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="labErrorEmailModificar" layoutX="602.0" layoutY="256.0" prefHeight="20.0" prefWidth="330.0" textFill="#ff9090">
+                        <Label fx:id="labErrorEmailModificar" layoutX="602.0" layoutY="217.0" prefHeight="20.0" prefWidth="330.0" textFill="#ff9090">
                            <font>
                               <Font name="Consolas" size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="labErrorTelefonoModificar" layoutX="601.0" layoutY="394.0" prefHeight="20.0" prefWidth="330.0" textFill="#ff9090">
+                        <Label fx:id="labErrorTelefonoModificar" layoutX="602.0" layoutY="328.0" prefHeight="20.0" prefWidth="330.0" textFill="#ff9090">
                            <font>
                               <Font name="Consolas" size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="labErrorContraseniaModificar" layoutX="1033.0" layoutY="253.0" prefHeight="20.0" prefWidth="330.0" textFill="#ff9090">
+                        <Label fx:id="labErrorContraseniaModificar" layoutX="1033.0" layoutY="217.0" prefHeight="20.0" prefWidth="330.0" textFill="#ff9090">
                            <font>
                               <Font name="Consolas" size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="labErrorRepetirContraseniaModificar" layoutX="1033.0" layoutY="394.0" prefHeight="20.0" prefWidth="330.0" textFill="#ff9090">
+                        <Label fx:id="labErrorRepetirContraseniaModificar" layoutX="1033.0" layoutY="328.0" prefHeight="20.0" prefWidth="330.0" textFill="#ff9090">
                            <font>
                               <Font name="Consolas" size="14.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="textNombreUsuarioModificar" layoutX="601.0" layoutY="505.0" prefHeight="40.0" prefWidth="330.0">
+                        <TextField fx:id="textNombreUsuarioModificar" layoutX="602.0" layoutY="397.0" prefHeight="40.0" prefWidth="330.0">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -501,12 +521,30 @@
                               <Cursor fx:constant="TEXT" />
                            </cursor>
                         </TextField>
-                        <Label layoutX="602.0" layoutY="479.0" prefHeight="27.0" prefWidth="164.0" text="Nombre de Usuario:" textFill="WHITE">
+                        <Label layoutX="602.0" layoutY="371.0" prefHeight="27.0" prefWidth="164.0" text="Nombre de Usuario:" textFill="WHITE">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label fx:id="labErrorNombreUsuarioModificar" layoutX="601.0" layoutY="545.0" prefHeight="20.0" prefWidth="330.0" textFill="#ff9090">
+                        <Label fx:id="labErrorNombreUsuarioModificar" layoutX="602.0" layoutY="437.0" prefHeight="20.0" prefWidth="330.0" textFill="#ff9090">
+                           <font>
+                              <Font name="Consolas" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="textDNIModificar" layoutX="172.0" layoutY="519.0" prefHeight="40.0" prefWidth="330.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="TEXT" />
+                           </cursor>
+                        </TextField>
+                        <Label layoutX="173.0" layoutY="493.0" prefHeight="27.0" prefWidth="46.0" text="DNI:" textFill="WHITE">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="labErrorDNIModificar" layoutX="172.0" layoutY="559.0" prefHeight="20.0" prefWidth="330.0" textFill="#ff9090">
                            <font>
                               <Font name="Consolas" size="14.0" />
                            </font>
@@ -519,6 +557,7 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
+                        <Label fx:id="labIDEliminar" layoutX="172.0" layoutY="125.0" prefHeight="18.0" prefWidth="17.0" textFill="#1d3557" />
                         <ImageView fitHeight="1168.0" fitWidth="1536.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../imagenes/color-Verde-General.jpg" />
@@ -542,20 +581,20 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Label layoutX="172.0" layoutY="189.0" prefHeight="26.0" prefWidth="72.0" text="Nombre:" textFill="WHITE">
+                        <Label layoutX="172.0" layoutY="195.0" prefHeight="26.0" prefWidth="72.0" text="Nombre:" textFill="WHITE">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="textNombreEliminar" editable="false" layoutX="172.0" layoutY="213.0" opacity="0.9" prefHeight="40.0" prefWidth="330.0">
+                        <TextField fx:id="textNombreEliminar" editable="false" layoutX="172.0" layoutY="219.0" opacity="0.9" prefHeight="40.0" prefWidth="330.0">
                            <font>
                               <Font size="18.0" />
                            </font>
                            <cursor>
-                              <Cursor fx:constant="DISAPPEAR" />
+                              <Cursor fx:constant="TEXT" />
                            </cursor>
                         </TextField>
-                        <Label layoutX="1033.0" layoutY="189.0" prefHeight="18.0" prefWidth="98.0" text="Contraseña:" textFill="WHITE">
+                        <Label layoutX="1033.0" layoutY="476.0" prefHeight="18.0" prefWidth="98.0" text="Contraseña:" textFill="WHITE">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -568,95 +607,107 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Label layoutX="172.0" layoutY="329.0" prefHeight="24.0" prefWidth="72.0" text="Apellido:" textFill="WHITE">
+                        <Label layoutX="172.0" layoutY="336.0" prefHeight="24.0" prefWidth="72.0" text="Apellido:" textFill="WHITE">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="textApellidoEliminar" editable="false" layoutX="172.0" layoutY="354.0" opacity="0.9" prefHeight="40.0" prefWidth="330.0">
+                        <TextField fx:id="textApellidoEliminar" editable="false" layoutX="172.0" layoutY="361.0" opacity="0.9" prefHeight="40.0" prefWidth="330.0">
                            <font>
                               <Font size="18.0" />
                            </font>
                            <cursor>
-                              <Cursor fx:constant="DISAPPEAR" />
+                              <Cursor fx:constant="TEXT" />
                            </cursor>
                         </TextField>
-                        <Label layoutX="172.0" layoutY="479.0" prefHeight="26.0" prefWidth="58.0" text="Legajo:" textFill="WHITE">
+                        <Label layoutX="172.0" layoutY="476.0" prefHeight="26.0" prefWidth="58.0" text="Legajo:" textFill="WHITE">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="textLegajoEliminar" editable="false" layoutX="172.0" layoutY="505.0" opacity="0.9" prefHeight="40.0" prefWidth="330.0">
+                        <TextField fx:id="textLegajoEliminar" editable="false" layoutX="172.0" layoutY="502.0" opacity="0.9" prefHeight="40.0" prefWidth="330.0">
                            <font>
                               <Font size="18.0" />
                            </font>
                            <cursor>
-                              <Cursor fx:constant="DISAPPEAR" />
+                              <Cursor fx:constant="TEXT" />
                            </cursor>
                         </TextField>
-                        <Label layoutX="602.0" layoutY="189.0" prefHeight="22.0" prefWidth="50.0" text="Email:" textFill="WHITE">
+                        <Label layoutX="597.0" layoutY="333.0" prefHeight="22.0" prefWidth="50.0" text="Email:" textFill="WHITE">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="textEmailEliminar" editable="false" layoutX="602.0" layoutY="213.0" opacity="0.9" prefHeight="40.0" prefWidth="330.0">
+                        <TextField fx:id="textEmailEliminar" editable="false" layoutX="599.0" layoutY="361.0" opacity="0.9" prefHeight="40.0" prefWidth="330.0">
                            <font>
                               <Font size="18.0" />
                            </font>
                            <cursor>
-                              <Cursor fx:constant="DISAPPEAR" />
+                              <Cursor fx:constant="TEXT" />
                            </cursor>
                         </TextField>
-                        <TextField fx:id="textContraseniaEliminar" editable="false" layoutX="1033.0" layoutY="213.0" opacity="0.9" prefHeight="40.0" prefWidth="330.0">
+                        <TextField fx:id="textContraseniaEliminar" editable="false" layoutX="1033.0" layoutY="502.0" opacity="0.9" prefHeight="40.0" prefWidth="330.0">
                            <font>
                               <Font size="18.0" />
                            </font>
                            <cursor>
-                              <Cursor fx:constant="DISAPPEAR" />
+                              <Cursor fx:constant="TEXT" />
                            </cursor>
                         </TextField>
-                        <Label layoutX="1033.0" layoutY="327.0" prefHeight="32.0" prefWidth="44.0" text="Rol:" textFill="WHITE">
+                        <Label layoutX="1033.0" layoutY="333.0" prefHeight="27.0" prefWidth="44.0" text="Rol:" textFill="WHITE">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="cbRolEliminar" disable="true" layoutX="1033.0" layoutY="354.0" opacity="0.9" prefHeight="40.0" prefWidth="330.0" style="-fx-font-size: 18;">
+                        <ComboBox fx:id="cbRolEliminar" disable="true" layoutX="1033.0" layoutY="361.0" opacity="0.99" prefHeight="40.0" prefWidth="330.0" style="-fx-font-size: 18;">
                            <cursor>
                               <Cursor fx:constant="DISAPPEAR" />
                            </cursor>
                         </ComboBox>
-                        <Label layoutX="600.0" layoutY="329.0" prefHeight="18.0" prefWidth="98.0" text="Teléfono:" textFill="WHITE">
+                        <Label layoutX="598.0" layoutY="476.0" prefHeight="18.0" prefWidth="98.0" text="Teléfono:" textFill="WHITE">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="textTelefonoEliminar" editable="false" layoutX="601.0" layoutY="354.0" opacity="0.9" prefHeight="40.0" prefWidth="330.0">
+                        <TextField fx:id="textTelefonoEliminar" editable="false" layoutX="599.0" layoutY="502.0" opacity="0.9" prefHeight="40.0" prefWidth="330.0">
                            <font>
                               <Font size="18.0" />
                            </font>
                            <cursor>
-                              <Cursor fx:constant="DISAPPEAR" />
+                              <Cursor fx:constant="TEXT" />
                            </cursor>
                         </TextField>
-                        <Label layoutX="550.0" layoutY="97.0" prefHeight="56.0" prefWidth="434.0" text="Eliminar Usuario" textFill="WHITE">
+                        <Label layoutX="547.0" layoutY="78.0" prefHeight="56.0" prefWidth="433.0" text="Eliminar Usuario" textFill="WHITE">
                            <font>
                               <Font name="Georgia Bold" size="48.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="textNombreUsuarioEliminar" editable="false" layoutX="601.0" layoutY="505.0" opacity="0.9" prefHeight="40.0" prefWidth="330.0">
+                        <TextField fx:id="textNombreUsuarioEliminar" editable="false" layoutX="1033.0" layoutY="219.0" opacity="0.9" prefHeight="40.0" prefWidth="330.0">
                            <font>
                               <Font size="18.0" />
                            </font>
                            <cursor>
-                              <Cursor fx:constant="DISAPPEAR" />
+                              <Cursor fx:constant="TEXT" />
                            </cursor>
                         </TextField>
-                        <Label layoutX="602.0" layoutY="479.0" prefHeight="27.0" prefWidth="164.0" text="Nombre de Usuario:" textFill="WHITE">
+                        <Label layoutX="1033.0" layoutY="192.0" prefHeight="30.0" prefWidth="164.0" text="Nombre de Usuario:" textFill="WHITE">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label fx:id="labIDEliminar" layoutX="172.0" layoutY="116.0" prefHeight="18.0" prefWidth="17.0" textFill="#1d3557" />
+                        <TextField fx:id="textDNIEliminar" editable="false" layoutX="599.0" layoutY="219.0" opacity="0.9" prefHeight="40.0" prefWidth="330.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="TEXT" />
+                           </cursor>
+                        </TextField>
+                        <Label layoutX="599.0" layoutY="194.0" prefHeight="23.0" prefWidth="46.0" text="DNI:" textFill="WHITE">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
                      </children>
                   </AnchorPane>
                </content>
