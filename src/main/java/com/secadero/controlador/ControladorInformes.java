@@ -1,6 +1,8 @@
 package com.secadero.controlador;
 
+import com.secadero.modelo.ausencia.ModificarAusencia;
 import com.secadero.modelo.empleados.LeerEmpleado;
+import com.secadero.modelo.informePresentismo.Informe;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,6 +14,7 @@ import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -98,8 +101,9 @@ public class ControladorInformes {
 
     //------------------------------------------ Evento Importante ----------------------------------------------
     @FXML
-    private void generar() {
-
+    private void generar() throws ParseException {
+        Informe informePresentismo = new Informe();
+        informePresentismo.informePresentismo(labLegajoEmpleado, dpFechaDesde, dpFechaHasta, btnGenerarFolrmulario);
     }
 
     //---------------------------------------- Acción Simple del Botón ------------------------------------------

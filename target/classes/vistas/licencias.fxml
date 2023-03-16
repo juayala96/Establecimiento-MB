@@ -36,7 +36,7 @@
                               <TableColumn fx:id="colNombre" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Nombre" />
                               <TableColumn fx:id="colApellido" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Apellido" />
                               <TableColumn fx:id="colLegajo" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Legajo" />
-                              <TableColumn fx:id="colTelefono" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Telefono" />
+                              <TableColumn fx:id="colDNI" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="DNI" />
                               <TableColumn fx:id="colIDEmpleado" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="IDEmpleado" />
                            </columns>
                            <cursor>
@@ -206,8 +206,8 @@
                               <TableColumn fx:id="colNombreEmpleadoCrear" prefWidth="110.39993286132812" text="Nombre" />
                               <TableColumn fx:id="colApellidoEmpleadoCrear" prefWidth="120.80006408691406" text="Apellido" />
                               <TableColumn fx:id="colLegajoEmpleadoCrear" prefWidth="117.5999755859375" text="Legajo" />
-                              <TableColumn fx:id="colTelefonoEmpleadoCrear" prefWidth="113.5999755859375" text="Telefono" />
-                              <TableColumn fx:id="colEmailEmpleadoCrear" prefWidth="145.60003662109375" text="Email" />
+                              <TableColumn fx:id="colDNIEmpleadoCrear" prefWidth="113.5999755859375" text="DNI" />
+                              <TableColumn fx:id="colTelefonoEmpleadoCrear" prefWidth="145.60003662109375" text="Telefono" />
                               <TableColumn fx:id="colIDEmpleadoCrear" prefWidth="63.199951171875" text="ID" />
                            </columns>
                         </TableView>

@@ -9,6 +9,8 @@ module com.example.secadero {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires java.sql;
+    requires itextpdf;
+    requires java.desktop;
 
     opens com.secadero to javafx.fxml;
     exports com.secadero;

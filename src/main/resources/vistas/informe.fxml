@@ -12,7 +12,7 @@
 
 <AnchorPane prefHeight="800.0" prefWidth="1536.0" style="-fx-background-color: #07c75a;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.secadero.controlador.ControladorInformes">
    <children>
-      <Label layoutX="308.0" layoutY="43.0" prefHeight="82.0" prefWidth="917.0" text="Informe de Presentismo" underline="true">
+      <Label layoutX="308.0" layoutY="43.0" prefHeight="82.0" prefWidth="917.0" text="Informe de Presentismo" textAlignment="CENTER" underline="true">
          <font>
             <Font name="Georgia Bold" size="72.0" />
          </font>

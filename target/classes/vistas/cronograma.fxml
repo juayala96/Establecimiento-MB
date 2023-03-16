@@ -95,7 +95,7 @@
                               <TableColumn fx:id="colNombre" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Nombre" />
                               <TableColumn fx:id="colApellido" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Apellido" />
                               <TableColumn fx:id="colLegajo" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Legajo" />
-                              <TableColumn fx:id="colTelefono" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Telefono" />
+                              <TableColumn fx:id="colDNI" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="DNI" />
                               <TableColumn fx:id="colIDEmpleado" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="IDEmpleado" />
                            </columns>
                            <cursor>
@@ -211,7 +211,7 @@
                               <TableColumn fx:id="colNombreEmpleadoCrear" prefWidth="110.39993286132812" text="Nombre" />
                               <TableColumn fx:id="colApellidoEmpleadoCrear" prefWidth="120.80006408691406" text="Apellido" />
                               <TableColumn fx:id="colLegajoEmpleadoCrear" prefWidth="117.5999755859375" text="Legajo" />
-                              <TableColumn fx:id="colTelefonoEmpleadoCrear" prefWidth="113.5999755859375" text="Telefono" />
+                              <TableColumn fx:id="colDNIEmpleadoCrear" prefWidth="113.5999755859375" text="DNI" />
                               <TableColumn fx:id="colEmailEmpleadoCrear" prefWidth="145.60003662109375" text="Email" />
                               <TableColumn fx:id="colIDEmpleadoCrear" prefWidth="63.199951171875" text="ID" />
                            </columns>
@@ -629,7 +629,7 @@
                               <TableColumn fx:id="colNombreCalendario" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Nombre" />
                               <TableColumn fx:id="colApellidoCalendario" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Apellido" />
                               <TableColumn fx:id="colLegajoCalendario" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Legajo" />
-                              <TableColumn fx:id="colTelefonoCalendario" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Telefono" />
+                              <TableColumn fx:id="colDNICalendario" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="DNI" />
                               <TableColumn fx:id="colFechaCalendario" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Fecha" />
                               <TableColumn fx:id="colTurnoCalendario" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Turno" />
                               <TableColumn fx:id="colHoraEntradaCalendario" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Hora de Entrada" />
