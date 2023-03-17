@@ -122,8 +122,25 @@ public class ControladorPrincipal {
 
     //------------------------------------------ Pre-Recibo ----------------------------------------------------
     @FXML
-    private void PreRecibo() {
+    private void PreRecibo() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/vistas/preRecibo.fxml"));
+        AnchorPane root = loader.load();
+        ControladorPreRecibo preRecibo = loader.getController();
+        Scene escena = new Scene(root);
+        Stage escenario = new Stage();
+        escenario.setTitle("Gestión Secadero (Pre-Recibo)");
+        escenario.setScene(escena);
+        escenario.show();
 
+        escenario.setOnCloseRequest(e -> {
+            try {
+                preRecibo.closeWindowsPrincipalPreRecibo();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+        Stage myEscena = (Stage) this.btnPreRecibo.getScene().getWindow();
+        myEscena.close();
     }
 
     //------------------------------------------ Cerrar Sesión ----------------------------------------------------

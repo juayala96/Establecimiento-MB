@@ -1,4 +1,4 @@
-package com.secadero.modelo.informePresentismo;
+package com.secadero.modelo.preRecibo;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -6,28 +6,25 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.secadero.conexion.Conexion;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 
-import java.awt.*;
-import java.io.*;
-import java.sql.Time;
-
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.text.ParseException;
+import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Informe extends Component {
-    FileOutputStream archivo;
-    public Informe(){}
+public class PreRecibo {
+    public PreRecibo (){}
 
-    public void informePresentismo(Label labLegajoEmpleado, DatePicker dpFechaDesde, DatePicker dpFechaHasta) throws ParseException {
+    public void preRecibo(Label labLegajoEmpleado, DatePicker dpFechaDesde, DatePicker dpFechaHasta){
         Connection con = Conexion.leerConexion();
         PreparedStatement pstm = null;
         ResultSet rs = null;
@@ -42,6 +39,8 @@ public class Informe extends Component {
         int cont2 = 0;
         int cont3 = 0;
         int cont4 = 0;
+        int salario = 0;
+        int saldo = 0;
         Time horaEntrada = null;
         Time horaSalida = null;
         Set<String> fechasDiasTrabajados = new HashSet<>();
@@ -96,7 +95,7 @@ public class Informe extends Component {
                 int mes = Integer.parseInt(fechaI2.substring(5, 7));
                 int resultadoDia = 0;
                 // ---------- Generar las Fechas que Existe desde el Inicio y Fin ------------
-                for (int i = -2; i < ((-Cant_Dias3) - 1); i++) {
+                for (int i = -2; i < ((-Cant_Dias3) -1); i++) {
                     resultadoFecha = fechaI2.substring(0, 8) + dia1;
 
                     if (dia1 >= 29) {
@@ -224,7 +223,7 @@ public class Informe extends Component {
                                         resultadoFecha2 = fechaI3.substring(0, 4) + "-" + mes2 + "-" + dia2;
                                     }
 
-                                    if (resultadoFecha.equals(resultadoFecha2)) {
+                                    if(resultadoFecha.equals(resultadoFecha2)){
                                         cont2 += 1;
                                     }
 
@@ -269,6 +268,17 @@ public class Informe extends Component {
                     cont3 += 1;
                 }
 
+                // --------------------------------- Sueldo por Hora ----------------------------------
+                String consultaSalario = "SELECT precio FROM sueldo";
+                pstm = con.prepareStatement(consultaSalario);
+                rs = pstm.executeQuery();
+                while (rs.next()) {
+                    salario = rs.getInt("precio");
+                }
+                for (int m = 0; m < cont4; m++) {
+                    saldo += salario;
+                }
+
                 // ----------------------------------- Documento --------------------------------------
                 try {
                     var doc = new Document();
@@ -281,18 +291,19 @@ public class Informe extends Component {
                     var fechas = new Paragraph("Fechas Desde: " + dpFechaDesde.getEditor().getText() + "                                                                  Fecha Hasta: " + dpFechaHasta.getEditor().getText());
                     var datosPersonales = new Paragraph("DATOS PERSONALES");
                     var datosLegajo = new Paragraph("Legajo:       " + legajo);
-                    var datosNombre = new Paragraph("Nombre:     " + nombre);
+                    var datosNombre= new Paragraph("Nombre:     " + nombre);
                     var datosApellido = new Paragraph("Apellido:     " + apellido);
                     var datosDNI = new Paragraph("DNI:            " + dni);
-                    var datosTelefono = new Paragraph("Teléfono:    " + telefono);
+                    var datosTelefono= new Paragraph("Teléfono:    " + telefono);
                     var datosEmail = new Paragraph("E-mail:        " + email);
                     var datosArea = new Paragraph("Area:          " + area);
                     var datosPuesto = new Paragraph("Puesto:       " + puesto);
 
                     var cantidadAusencia = new Paragraph("Total de días Ausente:   " + cont + " días");
                     var cantidadLicencias = new Paragraph("Total de días Licencias:  " + cont2 + " días");
-                    var cantidadDiasTrabajadas = new Paragraph("Total de días Trabajadas:  " + cont3 + " días");
-                    var cantidadHorasTrabajadas = new Paragraph("Total de Horas Trabajadas:  " + cont4 + " Horas");
+                    var cantidadDiasTrabajadas= new Paragraph("Total de días Trabajadas:  " + cont3 + " días");
+                    var cantidadHorasTrabajadas= new Paragraph("Total de Horas Trabajadas:  " + cont4 + " Horas");
+                    var cantidadSalario = new Paragraph("Total de Sueldo Acumulado: $" + saldo);
 
                     doc.add(paragraph);
                     doc.add(saltoLinea);
@@ -312,6 +323,7 @@ public class Informe extends Component {
                     doc.add(cantidadLicencias);
                     doc.add(cantidadDiasTrabajadas);
                     doc.add(cantidadHorasTrabajadas);
+                    doc.add(cantidadSalario);
 
                     doc.close();
 
@@ -325,8 +337,10 @@ public class Informe extends Component {
                 } catch (DocumentException | FileNotFoundException e) {
                     e.printStackTrace();
                 }
+
             }
-            } catch (Exception e1){
+
+        } catch (Exception e1){
             System.err.println("Error: " + e1.getMessage());
         }finally {
             try {

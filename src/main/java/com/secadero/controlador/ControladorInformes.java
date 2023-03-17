@@ -1,6 +1,5 @@
 package com.secadero.controlador;
 
-import com.secadero.modelo.ausencia.ModificarAusencia;
 import com.secadero.modelo.empleados.LeerEmpleado;
 import com.secadero.modelo.informePresentismo.Informe;
 import javafx.collections.ObservableList;
@@ -15,9 +14,10 @@ import javafx.util.StringConverter;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
+import java.util.Date;
 
 public class ControladorInformes {
     public ControladorInformes(){}
@@ -99,11 +99,42 @@ public class ControladorInformes {
         tabEmpleados.getItems().setAll(listBuscarEmpleado);
     }
 
+
     //------------------------------------------ Evento Importante ----------------------------------------------
     @FXML
     private void generar() throws ParseException {
-        Informe informePresentismo = new Informe();
-        informePresentismo.informePresentismo(labLegajoEmpleado, dpFechaDesde, dpFechaHasta, btnGenerarFolrmulario);
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+        // ------------------------- Fecha Inicio -------------------------------
+        String fechaI = dpFechaDesde.getEditor().getText();
+        Date fechaInicio = formatoFecha.parse(fechaI);
+
+        // --------------------------- Fecha Fin --------------------------------
+        String fechaF = dpFechaHasta.getEditor().getText();
+        Date fechaFin = formatoFecha.parse(fechaF);
+
+        // --------------------- Diferencia entre Fechas ------------------------
+        long Diferencias = fechaInicio.getTime() - fechaFin.getTime();
+        long Cant_Dias = Diferencias / (1000 * 60 * 60 * 24);
+
+        if(labLegajoEmpleado.getText().equals("")){
+            Alert alerta = new Alert(Alert.AlertType.ERROR);
+            alerta.setTitle("Error!");
+            alerta.setContentText("Error debe de seleccionar un empleado antes");
+            alerta.showAndWait();
+        } else {
+            if((-Cant_Dias) >= 0){
+                Informe informePresentismo = new Informe();
+                informePresentismo.informePresentismo(labLegajoEmpleado, dpFechaDesde, dpFechaHasta);
+                inicializarTablaListaEmpleados();
+                fechasInicializar();
+                limpiarCampos();
+            } else {
+                Alert alerta = new Alert(Alert.AlertType.ERROR);
+                alerta.setTitle("Error de Fechas!");
+                alerta.setContentText("La Fecha de Inicio debe de ser Antes de la Fecha de Fin");
+                alerta.showAndWait();
+            }
+        }
     }
 
     //---------------------------------------- Acción Simple del Botón ------------------------------------------
