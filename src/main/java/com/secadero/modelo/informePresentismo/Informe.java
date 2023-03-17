@@ -273,10 +273,10 @@ public class Informe extends Component {
                 try {
                     var doc = new Document();
                     // Nombre del Archivo
-                    PdfWriter.getInstance(doc, new FileOutputStream("PreRecibo_" + nombre + "_" + apellido + "_" + labLegajoEmpleado.getText() + "_" + dpFechaDesde.getEditor().getText() + "_" + dpFechaHasta.getEditor().getText() + ".pdf"));
+                    PdfWriter.getInstance(doc, new FileOutputStream("Informe_" + nombre + "_" + apellido + "_" + labLegajoEmpleado.getText() + "_" + dpFechaDesde.getEditor().getText() + "_" + dpFechaHasta.getEditor().getText() + ".pdf"));
                     doc.open();
 
-                    var paragraph = new Paragraph("------------------------------------ PRE-RECIBO DE " + nombre.toUpperCase() + " " + apellido.toUpperCase() + " ------------------------------------");
+                    var paragraph = new Paragraph("------------------------ INFORME DE PRESENTISMO DE " + nombre.toUpperCase() + " " + apellido.toUpperCase() + " ------------------------");
                     var saltoLinea = new Paragraph(" ");
                     var fechas = new Paragraph("Fechas Desde: " + dpFechaDesde.getEditor().getText() + "                                                                  Fecha Hasta: " + dpFechaHasta.getEditor().getText());
                     var datosPersonales = new Paragraph("DATOS PERSONALES");
@@ -315,7 +315,7 @@ public class Informe extends Component {
 
                     doc.close();
 
-                    File archivo = new File("PreRecibo_" + nombre + "_" + apellido + "_" + labLegajoEmpleado.getText() + "_" + dpFechaDesde.getEditor().getText() + "_" + dpFechaHasta.getEditor().getText() + ".pdf");
+                    File archivo = new File("Informe_" + nombre + "_" + apellido + "_" + labLegajoEmpleado.getText() + "_" + dpFechaDesde.getEditor().getText() + "_" + dpFechaHasta.getEditor().getText() + ".pdf");
 
                     String url = archivo.getAbsolutePath();
                     ProcessBuilder p = new ProcessBuilder();

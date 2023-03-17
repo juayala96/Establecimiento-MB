@@ -18,13 +18,23 @@ public class ControladorSalida {
     @FXML
     private Button btnAceptar;
     @FXML
+    private Button btnSalir2;
+    @FXML
     private Button btnSalir;
+    @FXML
+    private Button btnOpcionCodigo;
+    @FXML
+    private Button btnOpcionTarjeta;
     @FXML
     private Label labErrorCodigo;
     @FXML
     private Label labInformacion;
     @FXML
     private Tab tabRegistroSalidaCodigo;
+    @FXML
+    private Tab tabRegistroSalidaTarjeta;
+    @FXML
+    private TabPane panelRegistroSalida;
     @FXML
     private TextField textCodigo;
 
@@ -53,7 +63,24 @@ public class ControladorSalida {
     }
 
     @FXML
-    void salir() throws IOException {
+    private void opcionCodigo(){
+        SingleSelectionModel<Tab> modeloSeleccion = panelRegistroSalida.getSelectionModel();
+        modeloSeleccion.select(tabRegistroSalidaCodigo);
+    }
+
+    @FXML
+    private void opcionTarjeta(){
+        SingleSelectionModel<Tab> modeloSeleccion = panelRegistroSalida.getSelectionModel();
+        modeloSeleccion.select(tabRegistroSalidaTarjeta);
+    }
+
+    @FXML
+    private void salir2() throws IOException {
+        closeWindowsPrincipal();
+    }
+
+    @FXML
+    private void salir() throws IOException {
         closeWindowsPrincipal();
     }
 
