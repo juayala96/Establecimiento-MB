@@ -175,7 +175,7 @@
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
-                        <Label layoutX="542.0" layoutY="65.0" prefHeight="56.0" prefWidth="475.0" text="Registrar Asuencia">
+                        <Label layoutX="542.0" layoutY="65.0" prefHeight="56.0" prefWidth="475.0" text="Registrar Ausencia">
                            <font>
                               <Font name="Georgia Bold" size="48.0" />
                            </font>
@@ -327,7 +327,7 @@
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
-                        <Label layoutX="547.0" layoutY="74.0" prefHeight="56.0" prefWidth="486.0" text="Modificar Asuencia">
+                        <Label layoutX="547.0" layoutY="74.0" prefHeight="56.0" prefWidth="486.0" text="Modificar Ausencia">
                            <font>
                               <Font name="Georgia Bold" size="48.0" />
                            </font>
@@ -458,7 +458,7 @@
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
-                        <Label layoutX="564.0" layoutY="74.0" prefHeight="56.0" prefWidth="465.0" text="Eliminar Asuencia">
+                        <Label layoutX="564.0" layoutY="74.0" prefHeight="56.0" prefWidth="465.0" text="Eliminar Ausencia">
                            <font>
                               <Font name="Georgia Bold" size="48.0" />
                            </font>
