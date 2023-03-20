@@ -12,7 +12,7 @@
 
 <AnchorPane prefHeight="800.0" prefWidth="1536.0" style="-fx-background-color: #1dcf88;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.secadero.controlador.ControladorPreRecibo">
    <children>
-      <Label layoutX="637.0" layoutY="44.0" prefHeight="82.0" prefWidth="413.0" text="Pre-Recibo" underline="true">
+      <Label layoutX="561.0" layoutY="45.0" prefHeight="82.0" prefWidth="413.0" text="Pre-Recibo" underline="true">
          <font>
             <Font name="Georgia Bold" size="72.0" />
          </font>
