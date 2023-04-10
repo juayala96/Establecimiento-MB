@@ -3,6 +3,7 @@ package com.secadero.modelo.preRecibo;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.secadero.conexion.Conexion;
 import javafx.scene.control.Alert;
@@ -285,47 +286,101 @@ public class PreRecibo {
                     // Nombre del Archivo
                     PdfWriter.getInstance(doc, new FileOutputStream("PreRecibo_" + nombre + "_" + apellido + "_" + labLegajoEmpleado.getText() + "_" + dpFechaDesde.getEditor().getText() + "_" + dpFechaHasta.getEditor().getText() + ".pdf"));
                     doc.open();
-
                     var paragraph = new Paragraph("------------------------------------ PRE-RECIBO DE " + nombre.toUpperCase() + " " + apellido.toUpperCase() + " ------------------------------------");
                     var saltoLinea = new Paragraph(" ");
                     var fechas = new Paragraph("Fechas Desde: " + dpFechaDesde.getEditor().getText() + "                                                                  Fecha Hasta: " + dpFechaHasta.getEditor().getText());
-                    var datosPersonales = new Paragraph("DATOS PERSONALES");
-                    var datosLegajo = new Paragraph("Legajo:       " + legajo);
-                    var datosNombre= new Paragraph("Nombre:     " + nombre);
-                    var datosApellido = new Paragraph("Apellido:     " + apellido);
-                    var datosDNI = new Paragraph("DNI:            " + dni);
-                    var datosTelefono= new Paragraph("Teléfono:    " + telefono);
-                    var datosEmail = new Paragraph("E-mail:        " + email);
-                    var datosArea = new Paragraph("Area:          " + area);
-                    var datosPuesto = new Paragraph("Puesto:       " + puesto);
+                    PdfPTable tableTitulo = new PdfPTable(1);
+                    tableTitulo.addCell("DATOS PERSONALES");
 
-                    var cantidadAusencia = new Paragraph("Total de días Ausente:   " + cont + " días");
-                    var cantidadLicencias = new Paragraph("Total de días Licencias:  " + cont2 + " días");
-                    var cantidadDiasTrabajadas= new Paragraph("Total de días Trabajadas:  " + cont3 + " días");
-                    var cantidadHorasTrabajadas= new Paragraph("Total de Horas Trabajadas:  " + cont4 + " Horas");
-                    var cantidadSalario = new Paragraph("Total de Sueldo Acumulado: $" + saldo);
+                    PdfPTable tableDatos = new PdfPTable(2);
+                    tableDatos.addCell("Legajo:");
+                    tableDatos.addCell("" + legajo);
+                    tableDatos.addCell("Nombre:");
+                    tableDatos.addCell("" + nombre);
+                    tableDatos.addCell("Apellido:");
+                    tableDatos.addCell("" + apellido);
+                    tableDatos.addCell("DNI:");
+                    tableDatos.addCell("" + dni);
+                    tableDatos.addCell("Teléfono:");
+                    tableDatos.addCell("" + telefono);
+                    tableDatos.addCell("E-mail:");
+                    tableDatos.addCell("" + email);
+                    tableDatos.addCell("Area:");
+                    tableDatos.addCell("" + area);
+                    tableDatos.addCell("Puesto:");
+                    tableDatos.addCell("" + puesto);
+
+                    PdfPTable table = new PdfPTable(4);
+                    table.addCell("Unidad");
+                    table.addCell("Concepto");
+                    table.addCell("Remuneración");
+                    table.addCell("Descuento");
+
+                    // Cuento los años de dicho empleado y referente a eso lo calculo por la antiguedad ej 5, 10, 25 años
+                    table.addCell("(Hora)");
+                    table.addCell("Sueldo Básico");
+                    // El sueldo basico de todos
+                    table.addCell("$");
+                    // Descuento
+                    table.addCell("");
+
+
+                    table.addCell("");
+                    table.addCell("Antigüedad");
+                    table.addCell("$");
+                    table.addCell("");
+
+                    table.addCell("(Horas)");
+                    table.addCell("Horas Trabajadas");
+                    table.addCell("$");
+                    table.addCell("");
+
+                    table.addCell("(Días)");
+                    table.addCell("Vacaciones");
+                    table.addCell("$");
+                    table.addCell("");
+
+                    table.addCell("");
+                    table.addCell("Aporte Jubilatorio");
+                    table.addCell("");
+                    table.addCell("$");
+
+                    table.addCell("");
+                    table.addCell("Aporte a la Obra Social");
+                    table.addCell("");
+                    table.addCell("$");
+
+                    table.addCell("");
+                    table.addCell("Impuestos (Retención de Ganancias)");
+                    table.addCell("");
+                    table.addCell("$");
+
+                    PdfPTable table2 = new PdfPTable(1);
+                    table2.addCell(" ");
+
+                    PdfPTable table3 = new PdfPTable(4);
+                    table3.addCell("");
+                    table3.addCell("TOTALES: ");
+                    table3.addCell("$");
+                    table3.addCell("$");
+
+                    PdfPTable table4 = new PdfPTable(2);
+                    table4.addCell("TOTAL NETO A PAGAR: ");
+                    table4.addCell("$");
 
                     doc.add(paragraph);
                     doc.add(saltoLinea);
                     doc.add(fechas);
                     doc.add(saltoLinea);
-                    doc.add(datosPersonales);
-                    doc.add(datosLegajo);
-                    doc.add(datosNombre);
-                    doc.add(datosApellido);
-                    doc.add(datosDNI);
-                    doc.add(datosTelefono);
-                    doc.add(datosEmail);
-                    doc.add(datosArea);
-                    doc.add(datosPuesto);
+                    doc.add(tableTitulo);
+                    doc.add(tableDatos);
                     doc.add(saltoLinea);
-                    doc.add(cantidadAusencia);
-                    doc.add(cantidadLicencias);
-                    doc.add(cantidadDiasTrabajadas);
-                    doc.add(cantidadHorasTrabajadas);
-                    doc.add(cantidadSalario);
-
+                    doc.add(table);
+                    doc.add(table2);
+                    doc.add(table3);
+                    doc.add(table4);
                     doc.close();
+
 
                     File archivo = new File("PreRecibo_" + nombre + "_" + apellido + "_" + labLegajoEmpleado.getText() + "_" + dpFechaDesde.getEditor().getText() + "_" + dpFechaHasta.getEditor().getText() + ".pdf");
 

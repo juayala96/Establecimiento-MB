@@ -11,6 +11,7 @@ module com.example.secadero {
     requires java.sql;
     requires itextpdf;
     requires java.desktop;
+    requires layout;
 
     opens com.secadero to javafx.fxml;
     exports com.secadero;

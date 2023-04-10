@@ -46,7 +46,7 @@
                               <Cursor fx:constant="DISAPPEAR" />
                            </cursor>
                         </TableView>
-                        <Button fx:id="btnVolver" layoutX="1289.0" layoutY="672.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#volverEmpleados" prefHeight="52.0" prefWidth="150.0" text="Volver" textFill="#8c0909">
+                        <Button fx:id="btnVolver" layoutX="1289.0" layoutY="672.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#volverEmpleados" prefHeight="52.0" prefWidth="196.0" text="Volver" textFill="#8c0909">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -54,7 +54,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button fx:id="btnRegistrarAusencia" layoutX="1289.0" layoutY="205.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#registrarAusencia" prefHeight="52.0" prefWidth="150.0" text="Registrar">
+                        <Button fx:id="btnRegistrarAusencia" layoutX="1289.0" layoutY="205.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#registrarAusencia" prefHeight="52.0" prefWidth="196.0" text="Registrar Ausencia">
                            <font>
                               <Font size="20.0" />
                            </font>
@@ -88,7 +88,7 @@
                               <Cursor fx:constant="DISAPPEAR" />
                            </cursor>
                         </ComboBox>
-                        <Button fx:id="btnModificarAusencia" layoutX="1289.0" layoutY="334.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#modificarAusencia" prefHeight="52.0" prefWidth="150.0" text="Modificar">
+                        <Button fx:id="btnModificarAusencia" layoutX="1289.0" layoutY="334.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#modificarAusencia" prefHeight="52.0" prefWidth="196.0" text="Modificar Ausencia">
                            <font>
                               <Font size="20.0" />
                            </font>
@@ -96,7 +96,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button fx:id="btnEliminarAusencia" layoutX="1289.0" layoutY="465.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#eliminarAusencia" prefHeight="52.0" prefWidth="150.0" text="Eliminar">
+                        <Button fx:id="btnEliminarAusencia" layoutX="1289.0" layoutY="465.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#eliminarAusencia" prefHeight="52.0" prefWidth="196.0" text="Eliminar Ausencia">
                            <font>
                               <Font size="20.0" />
                            </font>
@@ -120,7 +120,7 @@
                               <Font size="16.0" />
                            </font>
                         </TextField>
-                        <Button fx:id="btnActualizar" layoutX="1076.0" layoutY="83.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#actualizarTabla" prefHeight="46.0" prefWidth="150.0" text="Actualizar" textFill="#6b027a">
+                        <Button fx:id="btnActualizar" layoutX="1076.0" layoutY="83.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#actualizarTabla" prefHeight="46.0" prefWidth="150.0" text="Actualizar Listas" textFill="#6b027a">
                            <font>
                               <Font size="16.0" />
                            </font>
