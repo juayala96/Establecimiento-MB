@@ -405,12 +405,12 @@
                         </Label>
                         <ComboBox fx:id="cbTurnoModificar" layoutX="926.0" layoutY="299.0" prefHeight="40.0" prefWidth="200.0" style="-fx-font-size: 16;" />
                         <DatePicker fx:id="dpFechaModificar" editable="false" layoutX="927.0" layoutY="192.0" prefHeight="40.0" prefWidth="200.0" style="-fx-font-size: 16;" />
-                        <TextField fx:id="textHoraEntradaModificar" layoutX="926.0" layoutY="418.0" prefHeight="40.0" prefWidth="200.0">
+                        <TextField fx:id="textHoraEntradaModificar" editable="false" layoutX="926.0" layoutY="418.0" prefHeight="40.0" prefWidth="200.0">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="textHoraSalidaModificar" layoutX="926.0" layoutY="540.0" prefHeight="40.0" prefWidth="200.0">
+                        <TextField fx:id="textHoraSalidaModificar" editable="false" layoutX="926.0" layoutY="540.0" prefHeight="40.0" prefWidth="200.0">
                            <font>
                               <Font size="16.0" />
                            </font>
