@@ -13,50 +13,52 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="670.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.secadero.controlador.controladorAsistencia.ControladorSalida">
    <children>
-      <TabPane fx:id="panelRegistroSalida" prefHeight="670.0" prefWidth="1000.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane fx:id="panelRegistroSalida" prefHeight="670.0" prefWidth="1000.0" style="-fx-background-color: #7dc8cc;" tabClosingPolicy="UNAVAILABLE">
         <tabs>
             <Tab fx:id="tabRegistroSalidaTarjeta" text="Registro Salida (Tarjeta)">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="650.0" prefWidth="1000.0">
                      <children>
-                        <ImageView fitHeight="683.0" fitWidth="1027.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../imagenes/color-verde.jpg" />
-                           </image>
-                        </ImageView>
                         <Label layoutY="616.0" prefHeight="35.0" prefWidth="1008.0" style="-fx-background-color: #30373e;" />
                         <Label prefHeight="27.0" prefWidth="1008.0" style="-fx-background-color: #30373e;" />
                         <Label prefHeight="623.0" prefWidth="19.0" style="-fx-background-color: #30373e;" />
                         <Label layoutX="981.0" layoutY="9.0" prefHeight="623.0" prefWidth="24.0" style="-fx-background-color: #30373e;" />
-                        <Label layoutX="416.0" layoutY="86.0" prefHeight="94.0" prefWidth="195.0" text="Salida" textFill="WHITE" underline="true">
+                        <Label layoutX="415.0" layoutY="86.0" prefHeight="94.0" prefWidth="192.0" text="Salida" textFill="#080808">
                            <font>
                               <Font name="System Bold Italic" size="64.0" />
                            </font>
                         </Label>
-                        <Button fx:id="btnSalir2" layoutX="191.0" layoutY="450.0" mnemonicParsing="false" onAction="#salir2" prefHeight="61.0" prefWidth="166.0" text="Salir">
+                        <Button fx:id="btnSalir2" alignment="CENTER" layoutX="191.0" layoutY="450.0" mnemonicParsing="false" onAction="#salir2" prefHeight="61.0" prefWidth="166.0" text="Salir">
                            <font>
-                              <Font size="22.0" />
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <graphic>
+                              <ImageView fitHeight="30.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../imagenes/iconos/Cerrar.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="btnOpcionCodigo" layoutX="668.0" layoutY="450.0" mnemonicParsing="false" onAction="#opcionCodigo" prefHeight="61.0" prefWidth="179.0" text="Opción Código" textFill="#550b66">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
                            </font>
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button fx:id="btnOpcionCodigo" layoutX="668.0" layoutY="450.0" mnemonicParsing="false" onAction="#opcionCodigo" prefHeight="61.0" prefWidth="179.0" text="Opcion Código">
+                        <Label layoutX="261.0" layoutY="202.0" prefHeight="67.0" prefWidth="515.0" text="Ingrese su Tarjeta Porfavor" textFill="#080808">
                            <font>
-                              <Font size="22.0" />
-                           </font>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
-                        <Label layoutX="206.0" layoutY="217.0" prefHeight="67.0" prefWidth="615.0" text="Ingrese su Tarjeta Porfavor" textFill="WHITE" underline="true">
-                           <font>
-                              <Font name="System Bold Italic" size="48.0" />
+                              <Font name="System Bold Italic" size="40.0" />
                            </font>
                         </Label>
-                        <ImageView fitHeight="287.0" fitWidth="259.0" layoutX="384.0" layoutY="294.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="207.0" fitWidth="190.0" layoutX="432.0" layoutY="312.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../imagenes/flecha.png" />
+                              <Image url="@../imagenes/flecha.jpg" />
                            </image>
                         </ImageView>
                      </children>
@@ -72,58 +74,76 @@
                               <Font name="Consolas" size="16.0" />
                            </font>
                         </Label>
-                        <ImageView fitHeight="683.0" fitWidth="1027.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../imagenes/color-verde.jpg" />
-                           </image></ImageView>
                         <Label layoutY="616.0" prefHeight="35.0" prefWidth="1008.0" style="-fx-background-color: #30373e;" />
                         <Label prefHeight="27.0" prefWidth="1008.0" style="-fx-background-color: #30373e;" />
                         <Label prefHeight="623.0" prefWidth="19.0" style="-fx-background-color: #30373e;" />
                         <Label layoutX="981.0" layoutY="9.0" prefHeight="623.0" prefWidth="24.0" style="-fx-background-color: #30373e;" />
-                        <Label layoutX="416.0" layoutY="86.0" prefHeight="94.0" prefWidth="194.0" text="Salida" textFill="WHITE" underline="true">
+                        <Label layoutX="415.0" layoutY="86.0" prefHeight="94.0" prefWidth="194.0" text="Salida" textFill="#080808">
                            <font>
                               <Font name="System Bold Italic" size="64.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="textCodigo" layoutX="358.0" layoutY="265.0" prefHeight="46.0" prefWidth="310.0">
+                        <TextField fx:id="textCodigo" layoutX="358.0" layoutY="207.0" prefHeight="46.0" prefWidth="310.0">
                            <font>
                               <Font size="22.0" />
                            </font>
                         </TextField>
-                        <Label layoutX="274.0" layoutY="272.0" text="Código:" textFill="WHITE">
+                        <Label layoutX="274.0" layoutY="214.0" text="Código:" textFill="#080808">
                            <font>
                               <Font size="22.0" />
                            </font>
                         </Label>
                         <Button fx:id="btnSalir" layoutX="191.0" layoutY="450.0" mnemonicParsing="false" onAction="#salir" prefHeight="61.0" prefWidth="166.0" text="Salir">
                            <font>
-                              <Font size="22.0" />
+                              <Font name="System Bold" size="20.0" />
                            </font>
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
+                           <graphic>
+                              <ImageView fitHeight="30.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../imagenes/iconos/Cerrar.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
                         </Button>
-                        <Label fx:id="labErrorCodigo" layoutX="357.0" layoutY="312.0" prefHeight="26.0" prefWidth="312.0" textFill="#a60707">
+                        <Label fx:id="labErrorCodigo" layoutX="357.0" layoutY="254.0" prefHeight="26.0" prefWidth="312.0" textFill="#bc0f0f">
                            <font>
                               <Font name="Consolas" size="16.0" />
                            </font>
                         </Label>
-                        <Button fx:id="btnAceptar" layoutX="668.0" layoutY="450.0" mnemonicParsing="false" onAction="#aceptar" prefHeight="61.0" prefWidth="166.0" text="Aceptar">
+                        <Button fx:id="btnAceptar" layoutX="668.0" layoutY="450.0" mnemonicParsing="false" onAction="#aceptar" prefHeight="61.0" prefWidth="166.0" style="-fx-background-color: #010b56;" text="Aceptar" textFill="WHITE">
                            <font>
-                              <Font size="22.0" />
+                              <Font size="20.0" />
                            </font>
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button fx:id="btnOpcionTarjeta" layoutX="424.0" layoutY="450.0" mnemonicParsing="false" onAction="#opcionTarjeta" prefHeight="61.0" prefWidth="179.0" text="Opcion Tarjeta">
+                        <Button fx:id="btnOpcionTarjeta" layoutX="424.0" layoutY="450.0" mnemonicParsing="false" onAction="#opcionTarjeta" prefHeight="61.0" prefWidth="179.0" text="Opción Tarjeta" textFill="#550b66">
                            <font>
-                              <Font size="22.0" />
+                              <Font name="System Bold" size="20.0" />
                            </font>
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
+                        <TextField fx:id="textDNI" layoutX="357.0" layoutY="312.0" prefHeight="46.0" prefWidth="310.0">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                        </TextField>
+                        <Label layoutX="303.0" layoutY="320.0" text="DNI:" textFill="#080808">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="labErrorDNI" layoutX="357.0" layoutY="358.0" prefHeight="26.0" prefWidth="312.0" textFill="#bc0f0f">
+                           <font>
+                              <Font name="Consolas" size="16.0" />
+                           </font>
+                        </Label>
                      </children>
                   </AnchorPane>
             </content>

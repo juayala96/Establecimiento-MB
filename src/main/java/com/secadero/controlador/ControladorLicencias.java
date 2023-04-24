@@ -176,6 +176,8 @@ public class ControladorLicencias {
     private TableView<LeerLicencia> tablaLicencia;
     @FXML
     private TextField textBuscarLegajoEmpleado;
+    @FXML
+    private TextField textBuscarLegajoEmpleadoCrear;
 
     ObservableList<LeerEmpleado> listTablaEmpleados;
     int index = -1;
@@ -400,6 +402,13 @@ public class ControladorLicencias {
             listFiltrosEmpleados = LeerEmpleado.filtroEmpleadoGeneral(cbTiposFiltrosLicencia);
             tablaListaEmpleados.getItems().setAll(listFiltrosEmpleados);
         }
+    }
+
+    @FXML
+    private void btnBuscarEmpleadoCrear(){
+        ObservableList<LeerEmpleado> listBuscarEmpleadoCrear;
+        listBuscarEmpleadoCrear = LeerEmpleado.buscarEmpleadoGeneralCrear(textBuscarLegajoEmpleadoCrear);
+        tabEmpleadosCrear.getItems().setAll(listBuscarEmpleadoCrear);
     }
 
     @FXML

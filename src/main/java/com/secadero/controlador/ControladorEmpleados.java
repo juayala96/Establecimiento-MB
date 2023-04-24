@@ -356,10 +356,24 @@ public class ControladorEmpleados {
 
     @FXML
     private void filtroEmpleado() {
-        ObservableList<LeerEmpleado> listFiltros;
-        listFiltros = LeerEmpleado.filtroEmpleado(cbTiposfiltrosEmpleados);
+        if(textBuscarEmpleado.getText().equals("")){
+            ObservableList<LeerEmpleado> listFiltros;
+            listFiltros = LeerEmpleado.filtroEmpleado(cbTiposfiltrosEmpleados);
 
-        tablaEmpleados.getItems().setAll(listFiltros);
+            tablaEmpleados.getItems().setAll(listFiltros);
+        } else {
+            ObservableList<LeerEmpleado> listFiltros2;
+            listFiltros2 = LeerEmpleado.filtroEmpleadoBusqueda(cbTiposfiltrosEmpleados, textBuscarEmpleado);
+
+            tablaEmpleados.getItems().setAll(listFiltros2);
+        }
+    }
+
+    @FXML
+    private void actualizarTabla(){
+        textBuscarEmpleado.setText("");
+        cbTiposfiltrosEmpleados.getSelectionModel().selectFirst();
+        tablaEmpleados.getItems().setAll(listEmpleado);
     }
 
     //---------------------------------------------- Eventos Importantes ----------------------------------------

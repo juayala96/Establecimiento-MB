@@ -201,6 +201,8 @@ public class ControladorAusencias {
     private TextArea textMotivoEliminar;
     @FXML
     private TextArea textMotivoModificar;
+    @FXML
+    private TextField textBuscarLegajoEmpleadoCrear;
 
     ObservableList<LeerEmpleado> listTablaEmpleados;
     int index = -1;
@@ -368,6 +370,13 @@ public class ControladorAusencias {
             listFiltrosEmpleados = LeerEmpleado.filtroEmpleadoGeneral(cbTiposFiltrosAusencias);
             tablaListaEmpleados.getItems().setAll(listFiltrosEmpleados);
         }
+    }
+
+    @FXML
+    private void btnBuscarEmpleadoCrear(){
+        ObservableList<LeerEmpleado> listBuscarEmpleadoCrear;
+        listBuscarEmpleadoCrear = LeerEmpleado.buscarEmpleadoGeneralCrear(textBuscarLegajoEmpleadoCrear);
+        tabEmpleadosCrear.getItems().setAll(listBuscarEmpleadoCrear);
     }
 
     @FXML

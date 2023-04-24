@@ -19,13 +19,17 @@ public class LeerUsuario {
     private String telefono;
     private String nombreUsuario;
     private String contrasenia;
-    private String rol;
-    private String email;
     private int idusuarios;
 
     public LeerUsuario(){}
 
-    public LeerUsuario(String nombre, String apellido, int legajo, int dni, String telefono, String nombreUsuario, String contrasenia, String rol, String email, int idusuarios) {
+    public LeerUsuario(String nombreUsuario, String contrasenia, int idusuarios) {
+        this.nombreUsuario = nombreUsuario;
+        this.contrasenia = contrasenia;
+        this.idusuarios = idusuarios;
+    }
+
+    public LeerUsuario(String nombre, String apellido, int legajo, int dni, String telefono, String nombreUsuario, String contrasenia, int idusuarios) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.legajo = legajo;
@@ -33,8 +37,6 @@ public class LeerUsuario {
         this.telefono = telefono;
         this.nombreUsuario = nombreUsuario;
         this.contrasenia = contrasenia;
-        this.rol = rol;
-        this.email = email;
         this.idusuarios = idusuarios;
     }
 
@@ -94,22 +96,6 @@ public class LeerUsuario {
         this.contrasenia = contrasenia;
     }
 
-    public String getRol() {
-        return rol;
-    }
-
-    public void setRol(String rol) {
-        this.rol = rol;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public int getIdusuarios() {
         return idusuarios;
     }
@@ -126,11 +112,12 @@ public class LeerUsuario {
         ObservableList<LeerUsuario> lista = FXCollections.observableArrayList();
 
         try {
-            pstm = con.prepareStatement("SELECT * FROM usuarios");
+            pstm = con.prepareStatement("SELECT * FROM usuarios INNER JOIN empleados ON usuarios.idEmpleadoFK = empleados.idempleados WHERE estadoEmpleado = ?");
+            pstm.setString(1, "Vigente");
             rs = pstm.executeQuery();
 
             while (rs.next()){
-                lista.add(new LeerUsuario(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getInt("dni"), rs.getString("telefono"), rs.getString("nombreUsuario"), rs.getString("contrasenia"), rs.getString("rol"), rs.getString("email"), rs.getInt("idusuarios")));
+                lista.add(new LeerUsuario(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getInt("dni"), rs.getString("telefono"), rs.getString("nombreUsuario"), rs.getString("contrasenia"), rs.getInt("idusuarios")));
             }
         } catch (SQLException ex) {
             System.err.println("Error: " + ex.getMessage());
@@ -154,12 +141,13 @@ public class LeerUsuario {
         ObservableList<LeerUsuario> listaBuscar = FXCollections.observableArrayList();
 
         try {
-            pstm = con.prepareStatement("SELECT * FROM usuarios WHERE legajo LIKE ?");
-            pstm.setString(1, textBuscarUsuario.getText() + "%");
+            pstm = con.prepareStatement("SELECT * FROM usuarios INNER JOIN empleados ON usuarios.idEmpleadoFK = empleados.idempleados WHERE estadoEmpleado = ? AND empleados.legajo LIKE ? ORDER BY legajo ASC");
+            pstm.setString(1, "Vigente");
+            pstm.setString(2, textBuscarUsuario.getText() + "%");
             rs = pstm.executeQuery();
 
             while (rs.next()){
-                listaBuscar.add(new LeerUsuario(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getInt("dni"), rs.getString("telefono"), rs.getString("nombreUsuario"), rs.getString("contrasenia"), rs.getString("rol"), rs.getString("email"), rs.getInt("idusuarios")));
+                listaBuscar.add(new LeerUsuario(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getInt("dni"), rs.getString("telefono"), rs.getString("nombreUsuario"), rs.getString("contrasenia"), rs.getInt("idusuarios")));
             }
         } catch (SQLException ex) {
             System.err.println("Error: " + ex.getMessage());
@@ -184,11 +172,43 @@ public class LeerUsuario {
         String dato = cbTiposFiltrosUsuarios.getSelectionModel().getSelectedItem().toLowerCase();
 
         try {
-            pstm = con.prepareStatement("SELECT * FROM usuarios ORDER BY " + dato + " ASC");
+            pstm = con.prepareStatement("SELECT * FROM usuarios INNER JOIN empleados ON usuarios.idEmpleadoFK = empleados.idempleados WHERE estadoEmpleado = ? ORDER BY " + dato + " ASC");
+            pstm.setString(1, "Vigente");
             rs = pstm.executeQuery();
 
             while (rs.next()){
-                listaFiltro.add(new LeerUsuario(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getInt("dni"), rs.getString("telefono"), rs.getString("nombreUsuario"), rs.getString("contrasenia"), rs.getString("rol"), rs.getString("email"), rs.getInt("idusuarios")));
+                listaFiltro.add(new LeerUsuario(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getInt("dni"), rs.getString("telefono"), rs.getString("nombreUsuario"), rs.getString("contrasenia"), rs.getInt("idusuarios")));
+            }
+        } catch (SQLException ex) {
+            System.err.println("Error: " + ex.getMessage());
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pstm != null) pstm.close();
+                if (con != null) con.close();
+            } catch (Exception ex){
+                System.err.println("Error: " + ex.getMessage());
+            }
+        }
+        return listaFiltro;
+    }
+
+    //------------------------------------------- Filtro Usuario (Búsqueda) -----------------------------------------------
+    public static ObservableList<LeerUsuario> filtroUsuarioBusqueda(ComboBox<String> cbTiposFiltrosUsuarios, TextField textBuscarUsuario){
+        Connection con = Conexion.leerConexion();
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+        ObservableList<LeerUsuario> listaFiltro = FXCollections.observableArrayList();
+        String dato = cbTiposFiltrosUsuarios.getSelectionModel().getSelectedItem().toLowerCase();
+
+        try {
+            pstm = con.prepareStatement("SELECT * FROM usuarios INNER JOIN empleados ON usuarios.idEmpleadoFK = empleados.idempleados WHERE estadoEmpleado = ? AND empleados.legajo LIKE ? ORDER BY " + dato + " ASC");
+            pstm.setString(1, "Vigente");
+            pstm.setString(2, textBuscarUsuario.getText() + "%");
+            rs = pstm.executeQuery();
+
+            while (rs.next()){
+                listaFiltro.add(new LeerUsuario(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getInt("dni"), rs.getString("telefono"), rs.getString("nombreUsuario"), rs.getString("contrasenia"), rs.getInt("idusuarios")));
             }
         } catch (SQLException ex) {
             System.err.println("Error: " + ex.getMessage());

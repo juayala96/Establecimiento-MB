@@ -9,109 +9,146 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="749.0" prefWidth="1536.0" style="-fx-background-color: #90EE90;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.secadero.controlador.ControladorPrincipal">
+<AnchorPane prefHeight="749.0" prefWidth="1536.0" style="-fx-background-color: #7dc8cc;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.secadero.controlador.ControladorPrincipal">
    <children>
-      <ImageView fitHeight="800.0" fitWidth="1422.0" layoutX="58.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../imagenes/YERBA.jpg" />
-         </image>
-      </ImageView>
-      <Button fx:id="btnUsuarios" layoutX="255.0" layoutY="375.0" mnemonicParsing="false" onAction="#Usuarios" prefHeight="74.0" prefWidth="295.0" text="Usuarios">
+      <Button fx:id="btnUsuarios" graphicTextGap="6.0" layoutX="204.0" layoutY="375.0" mnemonicParsing="false" onAction="#Usuarios" prefHeight="74.0" prefWidth="336.0" text="Usuarios" textFill="#110043">
          <font>
-            <Font size="24.0" />
+            <Font name="System Bold" size="26.0" />
          </font>
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
+         <graphic>
+            <ImageView fitHeight="40.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../imagenes/iconos/Usuarios.png" />
+               </image>
+            </ImageView>
+         </graphic>
       </Button>
-      <Button fx:id="btnEmpleados" layoutX="623.0" layoutY="375.0" mnemonicParsing="false" onAction="#Empleados" prefHeight="74.0" prefWidth="295.0" text="Empleados">
+      <Button fx:id="btnEmpleados" graphicTextGap="5.0" layoutX="604.0" layoutY="375.0" mnemonicParsing="false" onAction="#Empleados" prefHeight="74.0" prefWidth="336.0" text="Empleados" textFill="#110043">
          <font>
-            <Font size="24.0" />
+            <Font name="System Bold" size="26.0" />
          </font>
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
+         <graphic>
+            <ImageView fitHeight="40.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../imagenes/iconos/Empleados.png" />
+               </image>
+            </ImageView>
+         </graphic>
       </Button>
-      <Button fx:id="btnInformes" layoutX="256.0" layoutY="525.0" mnemonicParsing="false" onAction="#Informes" prefHeight="74.0" prefWidth="295.0" text="Informe Presentismo">
+      <Button fx:id="btnInformes" alignment="CENTER" layoutX="204.0" layoutY="539.0" mnemonicParsing="false" onAction="#Informes" prefHeight="74.0" prefWidth="336.0" text="Informe Presentismo" textFill="#110043">
          <font>
-            <Font size="24.0" />
+            <Font name="System Bold" size="26.0" />
          </font>
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
+         <graphic>
+            <ImageView fitHeight="40.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../imagenes/iconos/Informe.png" />
+               </image>
+            </ImageView>
+         </graphic>
       </Button>
-      <Button fx:id="btnPreRecibo" layoutX="624.0" layoutY="525.0" mnemonicParsing="false" onAction="#PreRecibo" prefHeight="74.0" prefWidth="295.0" text="Pre-Recibo">
+      <Button fx:id="btnPreRecibo" alignment="CENTER" graphicTextGap="8.0" layoutX="604.0" layoutY="539.0" mnemonicParsing="false" onAction="#PreRecibo" prefHeight="74.0" prefWidth="336.0" text="Pre-Recibo" textFill="#110043">
          <font>
-            <Font size="24.0" />
+            <Font name="System Bold" size="26.0" />
          </font>
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
+         <graphic>
+            <ImageView fitHeight="40.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../imagenes/iconos/Recibo.png" />
+               </image>
+            </ImageView>
+         </graphic>
       </Button>
-      <Button fx:id="btnCerrarSesion" layoutX="990.0" layoutY="525.0" mnemonicParsing="false" onAction="#CerrarSesion" prefHeight="74.0" prefWidth="295.0" text="Cerrar Sesión" textFill="#8c0909">
+      <Button fx:id="btnCerrarSesion" graphicTextGap="5.0" layoutX="1003.0" layoutY="539.0" mnemonicParsing="false" onAction="#CerrarSesion" prefHeight="74.0" prefWidth="336.0" text="Cerrar Sesión" textFill="#8c0909">
          <font>
-            <Font size="24.0" />
+            <Font name="System Bold" size="26.0" />
          </font>
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
+         <graphic>
+            <ImageView fitHeight="40.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../imagenes/iconos/Cerrar.png" />
+               </image>
+            </ImageView>
+         </graphic>
       </Button>
-      <Label layoutX="42.0" layoutY="-1.0" prefHeight="243.0" prefWidth="1430.0" style="-fx-background-color: white;" />
-      <Label alignment="CENTER" layoutX="723.0" layoutY="272.0" prefHeight="66.0" prefWidth="90.0" text="Menú" textFill="WHITE">
+      <Label layoutX="42.0" layoutY="-1.0" prefHeight="243.0" prefWidth="1430.0" style="-fx-background-color: #fff8f8;" />
+      <Label alignment="CENTER" layoutX="722.0" layoutY="272.0" prefHeight="66.0" prefWidth="99.0" text="Menú" textFill="#080808">
          <font>
-            <Font name="Candara Bold" size="36.0" />
+            <Font name="Candara Bold Italic" size="40.0" />
          </font>
       </Label>
-      <Label layoutX="42.0" layoutY="237.0" prefHeight="536.0" prefWidth="30.0" style="-fx-background-color: white;" />
-      <Label layoutX="1463.0" prefHeight="769.0" prefWidth="30.0" style="-fx-background-color: white;" />
-      <Label layoutX="43.0" layoutY="43.0" prefHeight="30.0" prefWidth="1430.0" style="-fx-background-color: white;" />
-      <Button fx:id="btnCronograma" layoutX="989.0" layoutY="375.0" mnemonicParsing="false" onAction="#Cronograma" prefHeight="74.0" prefWidth="295.0" text="Cronograma">
+      <Label layoutX="42.0" layoutY="237.0" prefHeight="536.0" prefWidth="30.0" style="-fx-background-color: #fff8f8;" />
+      <Label layoutX="1463.0" prefHeight="769.0" prefWidth="30.0" style="-fx-background-color: #fff8f8;" />
+      <Label layoutX="43.0" layoutY="43.0" prefHeight="30.0" prefWidth="1430.0" style="-fx-background-color: #fff8f8;" />
+      <Button fx:id="btnCronograma" graphicTextGap="5.0" layoutX="1002.0" layoutY="375.0" mnemonicParsing="false" onAction="#Cronograma" prefHeight="74.0" prefWidth="336.0" text="Cronograma" textFill="#110043">
          <font>
-            <Font size="24.0" />
+            <Font name="System Bold" size="26.0" />
          </font>
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
+         <graphic>
+            <ImageView fitHeight="45.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../imagenes/iconos/Cronograma.png" />
+               </image>
+            </ImageView>
+         </graphic>
       </Button>
-      <Label layoutX="42.0" layoutY="743.0" prefHeight="58.0" prefWidth="1451.0" style="-fx-background-color: white;" />
-      <Label layoutX="41.0" layoutY="774.0" prefHeight="30.0" prefWidth="1458.0" style="-fx-background-color: #90EE90;" />
-      <Label layoutX="38.0" prefHeight="30.0" prefWidth="1458.0" style="-fx-background-color: #90EE90;" />
-      <Label alignment="CENTER" layoutX="769.0" layoutY="171.0" prefHeight="64.0" prefWidth="90.0" text="CUIT:">
+      <Label layoutX="42.0" layoutY="743.0" prefHeight="58.0" prefWidth="1451.0" style="-fx-background-color: #fff8f8;" />
+      <Label layoutX="41.0" layoutY="774.0" prefHeight="30.0" prefWidth="1458.0" style="-fx-background-color: #7dc8cc;" />
+      <Label layoutX="38.0" prefHeight="30.0" prefWidth="1458.0" style="-fx-background-color: #7dc8cc;" />
+      <Label alignment="CENTER" layoutX="769.0" layoutY="171.0" prefHeight="64.0" prefWidth="90.0" text="CUIT:" textFill="#080808">
          <font>
             <Font name="Dubai Bold" size="36.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="764.0" layoutY="43.0" prefHeight="64.0" prefWidth="154.0" text="Dirección:">
+      <Label alignment="CENTER" layoutX="764.0" layoutY="43.0" prefHeight="64.0" prefWidth="154.0" text="Dirección:" textFill="#080808">
          <font>
             <Font name="Dubai Bold" size="36.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="764.0" layoutY="107.0" prefHeight="64.0" prefWidth="154.0" text="Teléfono:">
+      <Label alignment="CENTER" layoutX="764.0" layoutY="107.0" prefHeight="64.0" prefWidth="154.0" text="Teléfono:" textFill="#080808">
          <font>
             <Font name="Dubai Bold" size="36.0" />
          </font>
       </Label>
-      <Label layoutX="941.0" layoutY="52.0" prefHeight="46.0" prefWidth="486.0" text="Lote 8 Sección Xlll Los Helechos">
+      <Label layoutX="941.0" layoutY="52.0" prefHeight="46.0" prefWidth="486.0" text="Lote 8 Sección Xlll Los Helechos" textFill="#080808">
          <font>
             <Font name="Verdana" size="30.0" />
          </font>
       </Label>
-      <Label layoutX="941.0" layoutY="116.0" prefHeight="46.0" prefWidth="209.0" text="3755-338730">
+      <Label layoutX="941.0" layoutY="116.0" prefHeight="46.0" prefWidth="209.0" text="3755-338730" textFill="#080808">
          <font>
             <Font name="Verdana" size="30.0" />
          </font>
       </Label>
-      <Label layoutX="941.0" layoutY="180.0" prefHeight="46.0" prefWidth="222.0" text="20-6702964-5">
+      <Label layoutX="941.0" layoutY="180.0" prefHeight="46.0" prefWidth="222.0" text="20-6702964-5" textFill="#080808">
          <font>
             <Font name="Verdana" size="30.0" />
          </font>
       </Label>
-      <Label layoutX="255.0" layoutY="45.0" prefHeight="106.0" prefWidth="386.0" text="Bienvenido">
+      <Label layoutX="255.0" layoutY="45.0" prefHeight="106.0" prefWidth="386.0" text="Bienvenido" textFill="#080808">
          <font>
             <Font name="Candara Italic" size="85.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="256.0" layoutY="151.0" prefHeight="66.0" prefWidth="386.0" text="Establecimiento MB ">
+      <Label alignment="CENTER" layoutX="256.0" layoutY="151.0" prefHeight="66.0" prefWidth="386.0" text="Establecimiento MB " textFill="#080808">
          <font>
             <Font name="Candara Italic" size="36.0" />
          </font>

@@ -221,6 +221,8 @@ public class ControladorCronograma {
     private Label labNombreEmpleadoAgregadoCrear;
     @FXML
     private Label labApellidoEmpleadoAgregadoCrear;
+    @FXML
+    private TextField textBuscarLegajoEmpleadoCrear;
 
     ObservableList<LeerEmpleado> listTablaEmpleadosDisponible;
     int index = -1;
@@ -456,6 +458,13 @@ public class ControladorCronograma {
         ObservableList<LeerCronograma> listaBuscarCronograma;
         listaBuscarCronograma = LeerCronograma.buscarFechaCronograma(labIDEmpleadoLista, dpBuscarFecha);
         tablaCronograma.getItems().setAll(listaBuscarCronograma);
+    }
+
+    @FXML
+    private void btnBuscarEmpleadoCrear(){
+        ObservableList<LeerEmpleado> listBuscarEmpleado;
+        listBuscarEmpleado = LeerEmpleado.buscarEmpleadoDisponible(textBuscarLegajoEmpleadoCrear);
+        tabEmpleadosCrear.getItems().setAll(listBuscarEmpleado);
     }
 
     @FXML
