@@ -289,6 +289,27 @@ public class ControladorUsuarios {
     private void guardar() {
         ErrorCrear = "";
         TextField[] campos = {textNombreUsuarioCrear, textContraseniaCrear, textRepetirContraseniaCrear};
+        if(textNombreUsuarioCrear.getText().trim().isEmpty() || textNombreUsuarioCrear.getText() == null){
+            labErrorNombreUsuarioCrear.setText("Campo Obligatorio");
+        } else {
+            labErrorNombreUsuarioCrear.setText("");
+        }
+
+        if(textContraseniaCrear.getText().trim().isEmpty() || textContraseniaCrear.getText() == null){
+            labErrorContraseniaCrear.setText("Campo Obligatorio");
+        } else {
+            labErrorContraseniaCrear.setText("");
+        }
+
+        if(textRepetirContraseniaCrear.getText().trim().isEmpty() || textRepetirContraseniaCrear.getText() == null){
+            labErrorRepetirContraseniaCrear.setText("Campo Obligatorio");
+        } else {
+            labErrorRepetirContraseniaCrear.setText("");
+        }
+
+
+
+        /*
         if(labIDEmpleadoCrear.getText().trim().isEmpty() || labIDEmpleadoCrear.getText() == null){
             if(textNombreUsuarioCrear.getText().trim().isEmpty()){
                 if(textContraseniaCrear.getText().trim().isEmpty()){
@@ -321,6 +342,8 @@ public class ControladorUsuarios {
             alerta.setContentText("Para Crear debes de tomar un Empleado");
             alerta.showAndWait();
         }
+
+         */
     }
 
     @FXML
@@ -399,11 +422,11 @@ public class ControladorUsuarios {
     }
 
     //---------------------------------------- Comprobación de Campos -------------------------------------------
-    private boolean campoValidarcionCrear(TextField[] campos){
+    private boolean comprobarCamposCrear(TextField[] campos){
         boolean valido = true;
         for (int i = 0; i < campos.length; i++) {
             String valor = campos[i].getText();
-            if(valor == null || valor.trim().isEmpty()){
+            if(textNombreUsuarioCrear.getLength() > 5 || textContraseniaCrear.getLength() > 5 || textRepetirContraseniaCrear.getLength() > 5){
                 valido = false;
             }
         }
@@ -420,7 +443,6 @@ public class ControladorUsuarios {
         }
         return valido;
     }
-
 
     private boolean comprobarIDModificar(Label[] id){
         boolean valido = true;
