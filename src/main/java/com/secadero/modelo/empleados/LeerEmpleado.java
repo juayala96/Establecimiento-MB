@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import java.text.CompactNumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import java.sql.*;
@@ -685,41 +686,20 @@ public class LeerEmpleado {
         PreparedStatement pstm = null;
         ResultSet rs = null;
         ObservableList<LeerEmpleado> lista = FXCollections.observableArrayList();
-        int datoIDEmpleadoFK;
         int cont = 0;
 
         try {
-            String consulta = "SELECT idEmpleadoFK FROM usuarios INNER JOIN empleados ON usuarios.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ?";
+            String consulta = "SELECT * FROM empleados INNER JOIN area ON empleados.idAreaFK = area.idarea INNER JOIN puesto ON empleados.idPuestoFK = puesto.idpuesto WHERE empleados.estadoEmpleado = ? AND area.descripcion = ? AND empleados.estadoSistema != ? ORDER BY legajo ASC";
             pstm = con.prepareStatement(consulta);
             pstm.setString(1, "Vigente");
+            pstm.setString(2, "Administracion");
+            pstm.setString(3, "Permitido");
             rs = pstm.executeQuery();
-            while (rs.next()) {
-                datoIDEmpleadoFK = rs.getInt("idEmpleadoFK");
 
-                String consulta2 = "SELECT * FROM empleados INNER JOIN area ON empleados.idAreaFK = area.idarea INNER JOIN puesto ON empleados.idPuestoFK = puesto.idpuesto WHERE empleados.estadoEmpleado = ? AND area.descripcion = ? AND empleados.idempleados != ? ORDER BY legajo ASC";
-                pstm = con.prepareStatement(consulta2);
-                pstm.setString(1, "Vigente");
-                pstm.setString(2, "Administracion");
-                pstm.setInt(3, datoIDEmpleadoFK);
-                rs = pstm.executeQuery();
-
-                while (rs.next()){
-                    lista.add(new LeerEmpleado(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getInt("dni"), rs.getString("telefono"), Integer.parseInt(rs.getString("idempleados"))));
-                }
-                cont += 1;
+            while (rs.next()){
+                lista.add(new LeerEmpleado(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getInt("dni"), rs.getString("telefono"), Integer.parseInt(rs.getString("idempleados"))));
             }
 
-            if(cont == 0){
-                String consulta3 = "SELECT * FROM empleados INNER JOIN area ON empleados.idAreaFK = area.idarea INNER JOIN puesto ON empleados.idPuestoFK = puesto.idpuesto WHERE empleados.estadoEmpleado = ? AND area.descripcion = ? ORDER BY legajo ASC";
-                pstm = con.prepareStatement(consulta3);
-                pstm.setString(1, "Vigente");
-                pstm.setString(2, "Administracion");
-                rs = pstm.executeQuery();
-
-                while (rs.next()){
-                    lista.add(new LeerEmpleado(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getInt("dni"), rs.getString("telefono"), Integer.parseInt(rs.getString("idempleados"))));
-                }
-            }
         } catch (SQLException ex) {
             System.err.println("Error: " + ex.getMessage());
         } finally {
@@ -740,43 +720,20 @@ public class LeerEmpleado {
         PreparedStatement pstm = null;
         ResultSet rs = null;
         ObservableList<LeerEmpleado> listaBuscar = FXCollections.observableArrayList();
-        int datoIDEmpleadoFK;
-        int cont = 0;
 
         try {
-            String consulta = "SELECT idEmpleadoFK FROM usuarios INNER JOIN empleados ON usuarios.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ?";
+            String consulta = "SELECT * FROM empleados INNER JOIN area ON empleados.idAreaFK = area.idarea INNER JOIN puesto ON empleados.idPuestoFK = puesto.idpuesto WHERE empleados.estadoEmpleado = ? AND area.descripcion = ? AND empleados.estadoSistema != ? AND empleados.legajo LIKE ? ORDER BY legajo ASC";
             pstm = con.prepareStatement(consulta);
             pstm.setString(1, "Vigente");
+            pstm.setString(2, "Administracion");
+            pstm.setString(3, "Permitido");
+            pstm.setString(4, textBuscarLegajoEmpleadoCrear.getText() + "%");
             rs = pstm.executeQuery();
-            while (rs.next()) {
-                datoIDEmpleadoFK = rs.getInt("idEmpleadoFK");
 
-                String consulta2 = "SELECT * FROM empleados INNER JOIN area ON empleados.idAreaFK = area.idarea INNER JOIN puesto ON empleados.idPuestoFK = puesto.idpuesto WHERE empleados.estadoEmpleado = ? AND area.descripcion = ? AND empleados.idempleados != ? AND empleados.legajo LIKE ? ORDER BY legajo ASC";
-                pstm = con.prepareStatement(consulta2);
-                pstm.setString(1, "Vigente");
-                pstm.setString(2, "Administracion");
-                pstm.setInt(3, datoIDEmpleadoFK);
-                pstm.setString(4, textBuscarLegajoEmpleadoCrear.getText() + "%");
-                rs = pstm.executeQuery();
-
-                while (rs.next()){
-                    listaBuscar.add(new LeerEmpleado(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getInt("dni"), rs.getString("telefono"), Integer.parseInt(rs.getString("idempleados"))));
-                }
-                cont += 1;
+            while (rs.next()){
+                listaBuscar.add(new LeerEmpleado(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getInt("dni"), rs.getString("telefono"), Integer.parseInt(rs.getString("idempleados"))));
             }
 
-            if(cont == 0){
-                String consulta3 = "SELECT * FROM empleados INNER JOIN area ON empleados.idAreaFK = area.idarea INNER JOIN puesto ON empleados.idPuestoFK = puesto.idpuesto WHERE empleados.estadoEmpleado = ? AND area.descripcion = ? AND empleados.legajo LIKE ? ORDER BY legajo ASC";
-                pstm = con.prepareStatement(consulta3);
-                pstm.setString(1, "Vigente");
-                pstm.setString(2, "Administracion");
-                pstm.setString(3, textBuscarLegajoEmpleadoCrear.getText() + "%");
-                rs = pstm.executeQuery();
-
-                while (rs.next()){
-                    listaBuscar.add(new LeerEmpleado(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getInt("dni"), rs.getString("telefono"), Integer.parseInt(rs.getString("idempleados"))));
-                }
-            }
         } catch (SQLException ex) {
             System.err.println("Error: " + ex.getMessage());
         } finally {

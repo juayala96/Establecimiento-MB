@@ -39,6 +39,12 @@ public class CrearUsuario {
                 pstm.setInt(3, Integer.parseInt(labIDEmpleadoCrear.getText()));
                 pstm.executeUpdate();
 
+                String consulta3 = "UPDATE empleados SET estadoSistema = ? WHERE idempleados = ?";
+                pstm = con.prepareStatement(consulta3);
+                pstm.setString(1, "Permitido");
+                pstm.setInt(2, Integer.parseInt(labIDEmpleadoCrear.getText()));
+                pstm.executeUpdate();
+
                 Alert alerta = new Alert(Alert.AlertType.INFORMATION);
                 alerta.setTitle("Datos Guardados");
                 alerta.setContentText("Se a guardado los datos correctamente");

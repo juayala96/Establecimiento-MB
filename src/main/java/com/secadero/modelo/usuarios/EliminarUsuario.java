@@ -17,10 +17,27 @@ public class EliminarUsuario {
         Connection con = Conexion.leerConexion();
         PreparedStatement pstm = null;
         ResultSet rs = null;
+        int datoIDEmpleadoFK;
 
         try {
-            String consulta = "DELETE FROM usuarios WHERE idusuarios = ?";
+            String consulta = "SELECT idEmpleadoFK FROM usuarios INNER JOIN empleados ON usuarios.idEmpleadoFK = empleados.idempleados WHERE usuarios.idusuarios = ?";
             pstm = con.prepareStatement(consulta);
+            pstm.setInt(1, Integer.parseInt(labIDEliminar.getText()));
+            rs = pstm.executeQuery();
+
+            while (rs.next()) {
+                datoIDEmpleadoFK = rs.getInt("idEmpleadoFK");
+
+                String consult2 = "UPDATE empleados SET estadoSistema = ? WHERE idempleados = ?";
+                pstm = con.prepareStatement(consult2);
+                pstm.setString(1, " ");
+                pstm.setInt(2, datoIDEmpleadoFK);
+                pstm.executeUpdate();
+            }
+
+
+            String consulta3 = "DELETE FROM usuarios WHERE idusuarios = ?";
+            pstm = con.prepareStatement(consulta3);
             pstm.setInt(1, Integer.parseInt(labIDEliminar.getText()));
             pstm.executeUpdate();
 

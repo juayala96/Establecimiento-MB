@@ -379,87 +379,18 @@ public class ControladorEmpleados {
     //---------------------------------------------- Eventos Importantes ----------------------------------------
     @FXML
     private void guardar() throws SQLException, ParseException {
-        ErrorCrear = "";
-        TextField[] campos = {textNombreCrear, textApellidoCrear, textLegajoCrear, textTelefonoCrear, textDireccionCrear, textEmailCrear};
-        TextField[] campoLegajo = {textLegajoCrear};
-        TextField[] campoDNI = {textDNICrear};
-        TextField[] campoTelefono = {textTelefonoCrear};
-        labErroresCrear();
-        if(comprobarValoresCrear(campos)){
-            if(validarLetras(textNombreCrear.getText())) {
-                if (validarLetras(textApellidoCrear.getText())) {
-                    if (validarNumeros(textLegajoCrear.getText())) {
-                        if (comprobarValoresCrearLegajo(campoLegajo)) {
-                            if(validarNumeros(textDNICrear.getText())){
-                                if(comprobarValoresCrearDNI(campoDNI)){
-                                    if (validarNumerosTelefono(textTelefonoCrear.getText())) {
-                                        if(comprobarValoresCrearTelefono(campoTelefono)){
-                                            if (validarLetrasEmail(textEmailCrear.getText())) {
-                                                labErroresCrear();
 
-                                                CrearEmpleado empleadoCrear = new CrearEmpleado();
-                                                empleadoCrear.agregarEmpleado(textNombreCrear, textApellidoCrear, textLegajoCrear, textDNICrear, textTelefonoCrear, textDireccionCrear, textEmailCrear, cbGeneroCrear, cbEstadoCivilCrear, dpFechaNaciminetoCrear, cbGrupoSanguineoCrear, dpFechaIngresoCrear, cbAreaCrear, cbPuestoCrear, labLimpiarCamposCrear);
+        camposObligatoriosCrear();
+        CrearEmpleado empleadoCrear = new CrearEmpleado();
+        empleadoCrear.agregarEmpleado(textNombreCrear, textApellidoCrear, textLegajoCrear, textDNICrear, textTelefonoCrear, textDireccionCrear, textEmailCrear, cbGeneroCrear, cbEstadoCivilCrear, dpFechaNaciminetoCrear, cbGrupoSanguineoCrear, dpFechaIngresoCrear, cbAreaCrear, cbPuestoCrear, labLimpiarCamposCrear);
 
-                                                if(Objects.equals(labLimpiarCamposCrear.getText(), "OK")){
-                                                    labLimpiarCamposCrear.setText("");
-                                                    inicializarTabla();
-                                                    vaciarComboBox();
-                                                    inicializarComboBoxBD();
-                                                    regresarCLista();
-                                                    limpiarCamposCrear();
-                                                }
-                                            } else {
-                                                labErrorEmailCrear.setText("No se parece a un E-mail");
-                                                ErrorCrear = "Email";
-                                                labErroresCrear2(ErrorCrear);
-                                            }
-                                        }else {
-                                            labErrorTelefonoCrear.setText("Solo se permite hasta 10 Números");
-                                            ErrorCrear = "Telefono";
-                                            labErroresCrear2(ErrorCrear);
-                                        }
-
-                                    } else {
-                                        labErrorTelefonoCrear.setText("Solo se admiten Números");
-                                        ErrorCrear = "Telefono";
-                                        labErroresCrear2(ErrorCrear);
-                                    }
-                                } else {
-                                    labErrorDNICrear.setText("Solo se permite hasta 8 Números");
-                                    ErrorCrear = "DNI";
-                                    labErroresCrear2(ErrorCrear);
-                                }
-                            } else {
-                                labErrorDNICrear.setText("Solo se admiten Números");
-                                ErrorCrear = "DNI";
-                                labErroresCrear2(ErrorCrear);
-                            }
-
-                        } else {
-                            labErrorLegajoCrear.setText("Solo se permite hasta 8 Números");
-                            ErrorCrear = "Legajo";
-                            labErroresCrear2(ErrorCrear);
-                        }
-                    } else {
-                        labErrorLegajoCrear.setText("Solo se admiten Números");
-                        ErrorCrear = "Legajo";
-                        labErroresCrear2(ErrorCrear);
-                    }
-                } else {
-                    labErrorApellidoCrear.setText("Solo se admiten Letras");
-                    ErrorCrear = "Apellido";
-                    labErroresCrear2(ErrorCrear);
-                }
-            } else {
-                labErrorNombreCrear.setText("Solo se admiten Letras");
-                ErrorCrear = "Nombre";
-                labErroresCrear2(ErrorCrear);
-            }
-        } else {
-            Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("Error!");
-            alerta.setContentText("Debe de completar todos los campos y que NO sean cortos.");
-            alerta.showAndWait();
+        if(Objects.equals(labLimpiarCamposCrear.getText(), "OK")){
+            labLimpiarCamposCrear.setText("");
+            inicializarTabla();
+            vaciarComboBox();
+            inicializarComboBoxBD();
+            regresarCLista();
+            limpiarCamposCrear();
         }
     }
 
@@ -676,15 +607,42 @@ public class ControladorEmpleados {
     }
 
     //---------------------------------------- Comprobación de Campos -------------------------------------------
-    private boolean comprobarValoresCrear(TextField[] campos){
-        boolean valido = true;
-        for (int i = 0; i < campos.length; i++) {
-            String valor = campos[i].getText();
-            if(valor == null || valor.trim().isEmpty() || textNombreCrear.getLength() < 4|| textApellidoCrear.getLength() < 4|| textLegajoCrear.getLength() < 4 || textDNICrear.getLength() < 6 || textTelefonoCrear.getLength() < 9 || textDireccionCrear.getLength() < 4 || textEmailCrear.getLength() < 6){
-                valido = false;
-            }
+    private void camposObligatoriosCrear(){
+        if(textNombreCrear.getText().trim().isEmpty() || textNombreCrear.getText() == null){
+            labErrorNombreCrear.setText("Campo Obligatorio");
+        } else {
+            labErrorNombreCrear.setText("");
         }
-        return valido;
+        if(textApellidoCrear.getText().trim().isEmpty() || textApellidoCrear.getText() == null){
+            labErrorApellidoCrear.setText("Campo Obligatorio");
+        } else {
+            labErrorApellidoCrear.setText("");
+        }
+        if(textLegajoCrear.getText().trim().isEmpty() || textLegajoCrear.getText() == null){
+            labErrorLegajoCrear.setText("Campo Obligatorio");
+        } else {
+            labErrorLegajoCrear.setText("");
+        }
+        if(textDNICrear.getText().trim().isEmpty() || textDNICrear.getText() == null){
+            labErrorDNICrear.setText("Campo Obligatorio");
+        } else {
+            labErrorDNICrear.setText("");
+        }
+        if(textTelefonoCrear.getText().trim().isEmpty() || textTelefonoCrear.getText() == null){
+            labErrorTelefonoCrear.setText("Campo Obligatorio");
+        } else {
+            labErrorTelefonoCrear.setText("");
+        }
+        if(textDireccionCrear.getText().trim().isEmpty() || textDireccionCrear.getText() == null){
+            labErrorDireccionCrear.setText("Campo Obligatorio");
+        } else {
+            labErrorDireccionCrear.setText("");
+        }
+        if(textEmailCrear.getText().trim().isEmpty() || textEmailCrear.getText() == null){
+            labErrorEmailCrear.setText("Campo Obligatorio");
+        } else {
+            labErrorEmailCrear.setText("");
+        }
     }
 
     private boolean comprobarValoresModificar(TextField[] campos){

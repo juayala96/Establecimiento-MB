@@ -294,23 +294,24 @@ public class ControladorUsuarios {
             alerta.showAndWait();
         } else {
             camposObligatoriosCrear();
-            if(Objects.equals(textContraseniaCrear.getText(), textRepetirContraseniaCrear.getText())){
-                CrearUsuario usuariosCrear = new CrearUsuario();
-                usuariosCrear.agregarUsuario(textNombreUsuarioCrear, textContraseniaCrear, labIDEmpleadoCrear, labLimpiarCamposCrear);
+            if(Objects.equals(labErrorContraseniaCrear.getText(), "") && Objects.equals(labErrorRepetirContraseniaCrear.getText(), "")){
+                validacionCamposLongitudCrear();
+                if(Objects.equals(labErrorContraseniaCrear.getText(), "") && Objects.equals(labErrorRepetirContraseniaCrear.getText(), "")) {
+                    if (Objects.equals(textContraseniaCrear.getText(), textRepetirContraseniaCrear.getText())) {
+                        CrearUsuario usuariosCrear = new CrearUsuario();
+                        usuariosCrear.agregarUsuario(textNombreUsuarioCrear, textContraseniaCrear, labIDEmpleadoCrear, labLimpiarCamposCrear);
 
-                if(Objects.equals(labLimpiarCamposCrear.getText(), "OK")){
-                    labLimpiarCamposCrear.setText("");
-                    inicializarTabla();
-                    regresarCLista();
-                    limpiarCamposCrear();
-                    inicializarTablaEmpleado();
+                        if (Objects.equals(labLimpiarCamposCrear.getText(), "OK")) {
+                            labLimpiarCamposCrear.setText("");
+                            inicializarTabla();
+                            regresarCLista();
+                            limpiarCamposCrear();
+                            inicializarTablaEmpleado();
+                        }
+                    } else {
+                        labErrorRepetirContraseniaCrear.setText("La contraseña no coincide");
+                    }
                 }
-
-            } else if(textRepetirContraseniaCrear.getLength() == 0){
-                labErrorRepetirContraseniaCrear.setText("Campo Obligatorio");
-
-            } else if (!Objects.equals(textContraseniaCrear.getText(), textRepetirContraseniaCrear.getText())){
-                labErrorRepetirContraseniaCrear.setText("La contraseña no coincide");
             }
         }
     }
@@ -326,15 +327,17 @@ public class ControladorUsuarios {
         } else {
             camposObligatoriosModificar();
             if(Objects.equals(textContraseniaModificar.getText(), textRepetirContraseniaModificar.getText())){
-                ModificarUsuario usuariosModificar = new ModificarUsuario();
-                usuariosModificar.modificarUsuario(textNombreUsuarioModificar, textContraseniaModificar, labIDModificar, labInformacionModificarNombreUsuario, labLimpiarCamposModificar);
+                if(Objects.equals(labErrorContraseniaModificar.getText(), "") && Objects.equals(labErrorRepetirContraseniaModificar.getText(), "")){
+                    ModificarUsuario usuariosModificar = new ModificarUsuario();
+                    usuariosModificar.modificarUsuario(textNombreUsuarioModificar, textContraseniaModificar, labIDModificar, labInformacionModificarNombreUsuario, labLimpiarCamposModificar);
 
-                if(Objects.equals(labLimpiarCamposModificar.getText(), "OK")){
-                    labLimpiarCamposModificar.setText("");
-                    inicializarTabla();
-                    regresarCLista();
-                    limpiarCamposModificar();
-                    limpiarCamposEliminar();
+                    if(Objects.equals(labLimpiarCamposModificar.getText(), "OK")){
+                        labLimpiarCamposModificar.setText("");
+                        inicializarTabla();
+                        regresarCLista();
+                        limpiarCamposModificar();
+                        limpiarCamposEliminar();
+                    }
                 }
             } else if(textRepetirContraseniaModificar.getLength() == 0){
                 labErrorRepetirContraseniaModificar.setText("Campo Obligatorio");
@@ -425,18 +428,18 @@ public class ControladorUsuarios {
         } else {
             labErrorRepetirContraseniaCrear.setText("");
         }
+    }
 
-        if(textContraseniaCrear.getLength() >= 1 || textContraseniaCrear.getLength() >= 1){
-            if(textContraseniaCrear.getLength() < 5 || textContraseniaCrear.getText().trim().isEmpty()){
-                labErrorContraseniaCrear.setText("Usa más de 5 caracteres");
-            } else {
-                labErrorContraseniaCrear.setText("");
-            }
-            if(textRepetirContraseniaCrear.getLength() < 5 || textRepetirContraseniaCrear.getText().trim().isEmpty()){
-                labErrorRepetirContraseniaCrear.setText("Usa más de 5 caracteres");
-            } else {
-                labErrorRepetirContraseniaCrear.setText("");
-            }
+    private void validacionCamposLongitudCrear(){
+        if (textContraseniaCrear.getLength() < 6) {
+            labErrorContraseniaCrear.setText("Usa más de 6 caracteres");
+        } else {
+            labErrorContraseniaCrear.setText("");
+        }
+        if (textRepetirContraseniaCrear.getLength() < 6) {
+            labErrorRepetirContraseniaCrear.setText("Usa más de 6 caracteres");
+        } else {
+            labErrorRepetirContraseniaCrear.setText("");
         }
     }
 
