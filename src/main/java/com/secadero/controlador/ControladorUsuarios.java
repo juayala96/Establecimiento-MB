@@ -1,5 +1,6 @@
 package com.secadero.controlador;
 
+import com.secadero.modelo.empleados.CrearEmpleado;
 import com.secadero.modelo.empleados.LeerEmpleado;
 import com.secadero.modelo.usuarios.CrearUsuario;
 import com.secadero.modelo.usuarios.EliminarUsuario;
@@ -162,9 +163,6 @@ public class ControladorUsuarios {
     ObservableList<LeerEmpleado> listEmpleados;
     int index2 = -1;
 
-    String ErrorCrear = "";
-    String ErrorModificar = "";
-
     // -------------------------------------------- Inicialización ----------------------------------------------
     public void initialize(){
         String[] tipoFiltro = {"Nombre", "Apellido", "Legajo", "DNI"};
@@ -219,6 +217,7 @@ public class ControladorUsuarios {
         textContraseniaModificar.setText(colContrasenia.getCellData(index));
         textRepetirContraseniaModificar.setText(colContrasenia.getCellData(index));
         labIDModificar.setText(colID.getCellData(index).toString());
+        labInformacionModificarNombreUsuario.setText(colNombreUsuario.getCellData(index));
 
         labNombreEmpleadoEliminar.setText(colNombre.getCellData(index));
         labApellidoEmpleadoEliminar.setText(colApellido.getCellData(index));
@@ -240,6 +239,7 @@ public class ControladorUsuarios {
         labNombreEmpleadoCrear.setText(colNombreEmpleadoCrear.getCellData(index2));
         labApellidoEmpleadoCrear.setText(colApellidoEmpleadoCrear.getCellData(index2));
         labLegajoEmpleadoCrear.setText(colLegajoEmpleadoCrear.getCellData(index2).toString());
+        textNombreUsuarioCrear.setText(colLegajoEmpleadoCrear.getCellData(index2).toString());
     }
 
     // --------------------------------------------- Búsqueda y Filtros -----------------------------------------
@@ -249,7 +249,7 @@ public class ControladorUsuarios {
         listBuscar = LeerUsuario.buscarUsuario(textBuscarUsuario);
 
         if(textBuscarUsuario.getText().equals("")){
-            tablaUsuarios.getItems().setAll(listUsuarios);
+
         } else {
             tablaUsuarios.getItems().setAll(listBuscar);
         }
@@ -287,94 +287,87 @@ public class ControladorUsuarios {
     //---------------------------------------------- Eventos Importantes ----------------------------------------
     @FXML
     private void guardar() {
-        ErrorCrear = "";
-        TextField[] campos = {textNombreUsuarioCrear, textContraseniaCrear, textRepetirContraseniaCrear};
-        if(textNombreUsuarioCrear.getText().trim().isEmpty() || textNombreUsuarioCrear.getText() == null){
-            labErrorNombreUsuarioCrear.setText("Campo Obligatorio");
-        } else {
-            labErrorNombreUsuarioCrear.setText("");
-        }
-
-        if(textContraseniaCrear.getText().trim().isEmpty() || textContraseniaCrear.getText() == null){
-            labErrorContraseniaCrear.setText("Campo Obligatorio");
-        } else {
-            labErrorContraseniaCrear.setText("");
-        }
-
-        if(textRepetirContraseniaCrear.getText().trim().isEmpty() || textRepetirContraseniaCrear.getText() == null){
-            labErrorRepetirContraseniaCrear.setText("Campo Obligatorio");
-        } else {
-            labErrorRepetirContraseniaCrear.setText("");
-        }
-
-
-
-        /*
         if(labIDEmpleadoCrear.getText().trim().isEmpty() || labIDEmpleadoCrear.getText() == null){
-            if(textNombreUsuarioCrear.getText().trim().isEmpty()){
-                if(textContraseniaCrear.getText().trim().isEmpty()){
-                    if(textRepetirContraseniaCrear.getText().trim().isEmpty()){
-                        if(comprobarValoresModificar(campos)){
-
-                        }  else {
-                            labErrorNombreUsuarioCrear.setText("Debe de Ingresar mas de 6 Caracteres");
-                            labErrorContraseniaCrear.setText("Campo Obligatorio");
-                            labErrorRepetirContraseniaCrear.setText("Campo Obligatorio");
-                        }
-                    } else {
-                        labErrorRepetirContraseniaCrear.setText("Campo Obligatorio");
-                        ErrorCrear = "RepetirContrasenia";
-                        labErroresCrear2(ErrorCrear);
-                    }
-                } else {
-                    labErrorContraseniaCrear.setText("Campo Obligatorio");
-                    ErrorCrear = "Contrasenia";
-                    labErroresCrear2(ErrorCrear);
-                }
-            } else {
-                labErrorNombreUsuarioCrear.setText("Campo Obligatorio");
-                ErrorCrear = "Nombre_Usuario";
-                labErroresCrear2(ErrorCrear);
-            }
-        } else {
             Alert alerta = new Alert(Alert.AlertType.WARNING);
             alerta.setTitle("Advertencia!");
             alerta.setContentText("Para Crear debes de tomar un Empleado");
             alerta.showAndWait();
-        }
+        } else {
+            camposObligatoriosCrear();
+            if(Objects.equals(textContraseniaCrear.getText(), textRepetirContraseniaCrear.getText())){
+                CrearUsuario usuariosCrear = new CrearUsuario();
+                usuariosCrear.agregarUsuario(textNombreUsuarioCrear, textContraseniaCrear, labIDEmpleadoCrear, labLimpiarCamposCrear);
 
-         */
+                if(Objects.equals(labLimpiarCamposCrear.getText(), "OK")){
+                    labLimpiarCamposCrear.setText("");
+                    inicializarTabla();
+                    regresarCLista();
+                    limpiarCamposCrear();
+                    inicializarTablaEmpleado();
+                }
+
+            } else if(textRepetirContraseniaCrear.getLength() == 0){
+                labErrorRepetirContraseniaCrear.setText("Campo Obligatorio");
+
+            } else if (!Objects.equals(textContraseniaCrear.getText(), textRepetirContraseniaCrear.getText())){
+                labErrorRepetirContraseniaCrear.setText("La contraseña no coincide");
+            }
+        }
     }
 
     @FXML
     private void modificar() {
+        if(labIDModificar.getText().trim().isEmpty() || labIDModificar.getText() == null){
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setTitle("Advertencia!");
+            alerta.setContentText("Debe de seleccionar antes un Usuario para Modificarlo");
+            alerta.showAndWait();
 
+        } else {
+            camposObligatoriosModificar();
+            if(Objects.equals(textContraseniaModificar.getText(), textRepetirContraseniaModificar.getText())){
+                ModificarUsuario usuariosModificar = new ModificarUsuario();
+                usuariosModificar.modificarUsuario(textNombreUsuarioModificar, textContraseniaModificar, labIDModificar, labInformacionModificarNombreUsuario, labLimpiarCamposModificar);
+
+                if(Objects.equals(labLimpiarCamposModificar.getText(), "OK")){
+                    labLimpiarCamposModificar.setText("");
+                    inicializarTabla();
+                    regresarCLista();
+                    limpiarCamposModificar();
+                    limpiarCamposEliminar();
+                }
+            } else if(textRepetirContraseniaModificar.getLength() == 0){
+                labErrorRepetirContraseniaModificar.setText("Campo Obligatorio");
+
+            } else if (!Objects.equals(textContraseniaModificar.getText(), textRepetirContraseniaModificar.getText())){
+                labErrorRepetirContraseniaModificar.setText("La contraseña no coincide");
+            }
+        }
     }
 
     @FXML
     private void eliminar() {
-        Label[] id = {labIDEliminar};
-        if (comprobarIDEliminar(id)){
+        if (labIDEliminar.getText().trim().isEmpty() || labIDEliminar.getText() == null){
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setTitle("Error!");
+            alerta.setContentText("Debe de seleccionar antes un Usuario para Eliminarlo");
+            alerta.showAndWait();
+            btnRegresarELista.requestFocus();
+        } else{
             Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
             alerta.setTitle("Confirmar Eliminar");
             alerta.setContentText("¿Desea Eliminar el Usuario?");
             Optional<ButtonType> resultado = alerta.showAndWait();
             if (resultado.isPresent() && resultado.get() == ButtonType.OK){
 
-                //EliminarUsuario usuarioEliminar = new EliminarUsuario();
-                //usuarioEliminar.eliminarUsuario(labIDEliminar);
+                EliminarUsuario usuarioEliminar = new EliminarUsuario();
+                usuarioEliminar.eliminarUsuario(labIDEliminar);
                 inicializarTabla();
-
+                inicializarTablaEmpleado();
                 limpiarCamposEliminar();
                 limpiarCamposModificar();
                 regresarCLista();
             }
-        } else{
-            Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("Error!");
-            alerta.setContentText("Debe de seleccionar antes un Usuario para Eliminarlo");
-            alerta.showAndWait();
-            btnRegresarELista.requestFocus();
         }
     }
 
@@ -390,7 +383,6 @@ public class ControladorUsuarios {
     private void modificarUsuario() {
         SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasUsuarios.getSelectionModel();
         modeloSeleccion.select(tabModificarUsuario);
-        textNombreUsuarioModificar.requestFocus();
     }
 
     @FXML
@@ -422,48 +414,56 @@ public class ControladorUsuarios {
     }
 
     //---------------------------------------- Comprobación de Campos -------------------------------------------
-    private boolean comprobarCamposCrear(TextField[] campos){
-        boolean valido = true;
-        for (int i = 0; i < campos.length; i++) {
-            String valor = campos[i].getText();
-            if(textNombreUsuarioCrear.getLength() > 5 || textContraseniaCrear.getLength() > 5 || textRepetirContraseniaCrear.getLength() > 5){
-                valido = false;
+    private void camposObligatoriosCrear(){
+        if(textContraseniaCrear.getText().trim().isEmpty() || textContraseniaCrear.getText() == null){
+            labErrorContraseniaCrear.setText("Campo Obligatorio");
+        } else {
+            labErrorContraseniaCrear.setText("");
+        }
+        if(textRepetirContraseniaCrear.getText().trim().isEmpty() || textRepetirContraseniaCrear.getText() == null){
+            labErrorRepetirContraseniaCrear.setText("Campo Obligatorio");
+        } else {
+            labErrorRepetirContraseniaCrear.setText("");
+        }
+
+        if(textContraseniaCrear.getLength() >= 1 || textContraseniaCrear.getLength() >= 1){
+            if(textContraseniaCrear.getLength() < 5 || textContraseniaCrear.getText().trim().isEmpty()){
+                labErrorContraseniaCrear.setText("Usa más de 5 caracteres");
+            } else {
+                labErrorContraseniaCrear.setText("");
+            }
+            if(textRepetirContraseniaCrear.getLength() < 5 || textRepetirContraseniaCrear.getText().trim().isEmpty()){
+                labErrorRepetirContraseniaCrear.setText("Usa más de 5 caracteres");
+            } else {
+                labErrorRepetirContraseniaCrear.setText("");
             }
         }
-        return valido;
     }
 
-    private boolean comprobarValoresModificar(TextField[] campos){
-        boolean valido = true;
-        for (int i = 0; i < campos.length; i++) {
-            String valor = campos[i].getText();
-            if(valor == null || valor.trim().isEmpty()){
-                valido = false;
-            }
+    private void camposObligatoriosModificar(){
+        if(textContraseniaModificar.getText().trim().isEmpty() || textContraseniaModificar.getText() == null){
+            labErrorContraseniaModificar.setText("Campo Obligatorio");
+        } else {
+            labErrorContraseniaModificar.setText("");
         }
-        return valido;
-    }
+        if(textRepetirContraseniaModificar.getText().trim().isEmpty() || textRepetirContraseniaModificar.getText() == null){
+            labErrorRepetirContraseniaModificar.setText("Campo Obligatorio");
+        } else {
+            labErrorRepetirContraseniaModificar.setText("");
+        }
 
-    private boolean comprobarIDModificar(Label[] id){
-        boolean valido = true;
-        for (int i = 0; i < id.length; i++) {
-            String valor = id[i].getText();
-            if(valor == null || valor.trim().isEmpty()){
-                valido = false;
+        if(textContraseniaModificar.getLength() >= 1 || textContraseniaModificar.getLength() >= 1){
+            if(textContraseniaModificar.getLength() < 5 || textContraseniaModificar.getText().trim().isEmpty()){
+                labErrorContraseniaModificar.setText("Usa más de 5 caracteres");
+            } else {
+                labErrorContraseniaModificar.setText("");
+            }
+            if(textRepetirContraseniaModificar.getLength() < 5 || textRepetirContraseniaModificar.getText().trim().isEmpty()){
+                labErrorRepetirContraseniaModificar.setText("Usa más de 5 caracteres");
+            } else {
+                labErrorRepetirContraseniaModificar.setText("");
             }
         }
-        return valido;
-    }
-
-    private boolean comprobarIDEliminar(Label[] id){
-        boolean valido = true;
-        for (int i = 0; i < id.length; i++) {
-            String valor = id[i].getText();
-            if(valor == null || valor.trim().isEmpty()){
-                valido = false;
-            }
-        }
-        return valido;
     }
 
     //---------------------------------------- Validación de Caracteres ------------------------------------------
@@ -472,6 +472,7 @@ public class ControladorUsuarios {
     }
     //----------------------------------------- Limpiador de Campos ----------------------------------------------
     private void limpiarCamposCrear(){
+        labIDEmpleadoCrear.setText("");
         labNombreEmpleadoCrear.setText("");
         labApellidoEmpleadoCrear.setText("");
         labLegajoEmpleadoCrear.setText("");
@@ -507,38 +508,6 @@ public class ControladorUsuarios {
         labErrorNombreUsuarioCrear.setText("");
         labErrorContraseniaCrear.setText("");
         labErrorRepetirContraseniaCrear.setText("");
-    }
-
-    private void labErroresModificar(){
-        labErrorNombreUsuarioModificar.setText("");
-        labErrorContraseniaModificar.setText("");
-        labErrorRepetirContraseniaModificar.setText("");
-    }
-
-    private void labErroresCrear2(String ErrorCrear) {
-        if(Objects.equals(ErrorCrear, "Nombre_Usuario")){
-            labErrorContraseniaCrear.setText("");
-            labErrorRepetirContraseniaCrear.setText("");
-        } else if(Objects.equals(ErrorCrear, "Contrasenia")){
-            labErrorNombreUsuarioCrear.setText("");
-            labErrorRepetirContraseniaCrear.setText("");
-        } else if(Objects.equals(ErrorCrear, "RepetirContrasenia")){
-            labErrorNombreUsuarioCrear.setText("");
-            labErrorContraseniaCrear.setText("");
-        }
-    }
-
-    private void labErroresModificar2(String ErrorModificar) {
-        if(Objects.equals(ErrorModificar, "Nombre_Usuario")){
-            labErrorContraseniaModificar.setText("");
-            labErrorRepetirContraseniaModificar.setText("");
-        } else if(Objects.equals(ErrorModificar, "Contrasenia")){
-            labErrorNombreUsuarioModificar.setText("");
-            labErrorRepetirContraseniaModificar.setText("");
-        } else if(Objects.equals(ErrorModificar, "RepetirContrasenia")){
-            labErrorNombreUsuarioModificar.setText("");
-            labErrorContraseniaModificar.setText("");
-        }
     }
 
     // ---------------------------------- Cerrar Ventana -------------------------------------------

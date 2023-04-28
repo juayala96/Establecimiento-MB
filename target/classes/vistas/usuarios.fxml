@@ -222,7 +222,7 @@
                               <Font name="Consolas" size="14.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="textNombreUsuarioCrear" layoutX="908.0" layoutY="212.0" prefHeight="40.0" prefWidth="280.0">
+                        <TextField fx:id="textNombreUsuarioCrear" editable="false" layoutX="908.0" layoutY="212.0" prefHeight="40.0" prefWidth="280.0">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -319,6 +319,16 @@
                               <Font name="System Italic" size="20.0" />
                            </font>
                         </Label>
+                        <Label fx:id="labErrorNombreUsuarioCrear1" layoutX="908.0" layoutY="575.0" prefHeight="20.0" prefWidth="280.0" text="Usá 5 o más caracteres con" textFill="#2b2828">
+                           <font>
+                              <Font name="Consolas" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="labErrorNombreUsuarioCrear11" layoutX="908.0" layoutY="597.0" prefHeight="20.0" prefWidth="280.0" text="combinacion de letras y números." textFill="#2b2828">
+                           <font>
+                              <Font name="Consolas" size="14.0" />
+                           </font>
+                        </Label>
                      </children>
                   </AnchorPane>
                </content>
@@ -402,7 +412,7 @@
                               <Font name="Consolas" size="14.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="textNombreUsuarioModificar" layoutX="843.0" layoutY="201.0" prefHeight="40.0" prefWidth="280.0">
+                        <TextField fx:id="textNombreUsuarioModificar" editable="false" layoutX="843.0" layoutY="201.0" prefHeight="40.0" prefWidth="280.0">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -451,6 +461,16 @@
                         <Label fx:id="labLegajoEmpleadoModificar" layoutX="414.0" layoutY="460.0" prefHeight="40.0" prefWidth="190.0" textFill="#d101dc">
                            <font>
                               <Font name="System Bold" size="17.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="labErrorNombreUsuarioCrear12" layoutX="843.0" layoutY="544.0" prefHeight="20.0" prefWidth="280.0" text="Usá 5 o más caracteres con" textFill="#2b2828">
+                           <font>
+                              <Font name="Consolas" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="labErrorNombreUsuarioCrear111" layoutX="843.0" layoutY="566.0" prefHeight="20.0" prefWidth="280.0" text="combinacion de letras y números." textFill="#2b2828">
+                           <font>
+                              <Font name="Consolas" size="14.0" />
                            </font>
                         </Label>
                      </children>
