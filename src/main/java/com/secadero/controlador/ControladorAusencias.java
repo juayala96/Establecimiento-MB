@@ -154,6 +154,10 @@ public class ControladorAusencias {
     @FXML
     private Label labResultadoID;
     @FXML
+    private Label labErrorMotivoCrear;
+    @FXML
+    private Label labErrorMotivoModificar;
+    @FXML
     private TabPane panelPestaniasAusencias;
     @FXML
     private RadioButton rbCertificadoNoCrear;
@@ -394,75 +398,80 @@ public class ControladorAusencias {
     //---------------------------------------------- Eventos Importantes ----------------------------------------
     @FXML
     private void guardar() {
-        TextArea[] campoMotivo = {textMotivoCrear};
-        Label[] campoIDEmpleado = {labIDEmpleadoCrear};
-        if(comprobarIDCrearEmpleado(campoIDEmpleado)){
-            if(comprobarValoresCrear(campoMotivo)){
-                CrearAusencia ausenciaCrear = new CrearAusencia();
-                ausenciaCrear.agregarAusencia(labIDEmpleadoCrear, dpFechaCrear, textMotivoCrear, labJustificacionCrear, labCertificadoCrear, labLimpiarCamposCrear);
-
-                if(Objects.equals(labLimpiarCamposCrear.getText(), "OK")){
-                    labLimpiarCamposCrear.setText("");
-                    labIDAusenciaLista.setText("0");
-                    labIDEmpleadoLista.setText("0");
-                    inicializarTablaListaEmpleados();
-                    inicializarTablaAusencias();
-                    regresarCLista();
-                    limpiarCamposCrear();
-                    inicializarTablaEmpleado();
-                }
-            } else {
-                Alert alerta = new Alert(Alert.AlertType.WARNING);
-                alerta.setTitle("Error");
-                alerta.setContentText("Debes de completar el campo [Motivo] y que no sea corto");
-                alerta.showAndWait();
-            }
-        } else {
+        if(labIDEmpleadoCrear.getText().trim().isEmpty() || labIDEmpleadoCrear.getText() == null){
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("Error");
-            alerta.setContentText("Para guardar debes de tomar un empleado");
+            alerta.setTitle("Advertencia!");
+            alerta.setContentText("Para Guardar debes de tomar un Empleado antes");
             alerta.showAndWait();
+        } else {
+            camposObligatoriosCrear();
+            if(Objects.equals(labErrorMotivoCrear.getText(), "")){
+                validacionCamposCaracteresCrear();
+                if(Objects.equals(labErrorMotivoCrear.getText(), "")){
+                    validacionCamposLongitudCrear();
+                    if(Objects.equals(labErrorMotivoCrear.getText(), "")){
+                        CrearAusencia ausenciaCrear = new CrearAusencia();
+                        ausenciaCrear.agregarAusencia(labIDEmpleadoCrear, dpFechaCrear, textMotivoCrear, labJustificacionCrear, labCertificadoCrear, labLimpiarCamposCrear);
+
+                        if(Objects.equals(labLimpiarCamposCrear.getText(), "OK")){
+                            labLimpiarCamposCrear.setText("");
+                            labIDAusenciaLista.setText("0");
+                            labIDEmpleadoLista.setText("0");
+                            inicializarTablaListaEmpleados();
+                            inicializarTablaAusencias();
+                            regresarCLista();
+                            limpiarCamposCrear();
+                            inicializarTablaEmpleado();
+                        }
+                    }
+                }
+            }
         }
     }
 
     @FXML
     private void modificar() {
-        TextArea[] campoMotivo = {textMotivoModificar};
-        Label[] campoIDAusencia = {labIDAusenciaModificar};
-        if(comprobarIDModificarAusencia(campoIDAusencia)){
-            if(comprobarValoresModificar(campoMotivo)){
-                ModificarAusencia ausenciaModificar = new ModificarAusencia();
-                ausenciaModificar.modificarAusencia(labIDEmpleadoModificar, labIDAusenciaModificar, dpFechaModificar, dpFechaModificarDuplicada, textMotivoModificar, labJustificacionModificar, labCertificadoModificar, labLimpiarCamposModificar);
-
-                if(Objects.equals(labLimpiarCamposModificar.getText(), "OK")){
-                    labLimpiarCamposModificar.setText("");
-                    dpFechaModificarDuplicada.getEditor().setText("");
-                    labIDAusenciaLista.setText("0");
-                    labIDEmpleadoLista.setText("0");
-                    inicializarTablaListaEmpleados();
-                    inicializarTablaAusencias();
-                    limpiarCamposModificar();
-                    limpiarCamposEliminar();
-                    regresarCLista();
-                }
-            } else {
-                Alert alerta = new Alert(Alert.AlertType.WARNING);
-                alerta.setTitle("Error");
-                alerta.setContentText("Debes de completar el campo [Motivo] y que no sea corto");
-                alerta.showAndWait();
-            }
-        } else {
+        if(labIDAusenciaModificar.getText().trim().isEmpty() || labIDAusenciaModificar.getText() == null){
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("Error!");
+            alerta.setTitle("Advertencia!");
             alerta.setContentText("Debe de seleccionar antes una Ausencia de dicho empleado para Modificarlo");
             alerta.showAndWait();
+        } else {
+            camposObligatoriosModificar();
+            if(Objects.equals(labErrorMotivoModificar.getText(), "")){
+                validacionCamposCaracteresModificar();
+                if(Objects.equals(labErrorMotivoModificar.getText(), "")){
+                    validacionCamposLongitudModificar();
+                    if(Objects.equals(labErrorMotivoModificar.getText(), "")){
+                        ModificarAusencia ausenciaModificar = new ModificarAusencia();
+                        ausenciaModificar.modificarAusencia(labIDEmpleadoModificar, labIDAusenciaModificar, dpFechaModificar, dpFechaModificarDuplicada, textMotivoModificar, labJustificacionModificar, labCertificadoModificar, labLimpiarCamposModificar);
+
+                        if(Objects.equals(labLimpiarCamposModificar.getText(), "OK")){
+                            labLimpiarCamposModificar.setText("");
+                            dpFechaModificarDuplicada.getEditor().setText("");
+                            labIDAusenciaLista.setText("0");
+                            labIDEmpleadoLista.setText("0");
+                            inicializarTablaListaEmpleados();
+                            inicializarTablaAusencias();
+                            limpiarCamposModificar();
+                            limpiarCamposEliminar();
+                            regresarCLista();
+                        }
+                    }
+                }
+            }
         }
     }
 
     @FXML
     private void eliminar() {
-        Label[] id = {labIDAusenciaEliminar};
-        if (comprobarIDEliminarAusencia(id)){
+        if (labIDAusenciaEliminar.getText().trim().isEmpty() || labIDAusenciaEliminar.getText() == null){
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setTitle("Error!");
+            alerta.setContentText("Debe de seleccionar antes una Ausencia de dicho empleado para Eliminarlo");
+            alerta.showAndWait();
+            btnRegresarELista.requestFocus();
+        } else{
             Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
             alerta.setTitle("Confirmar Eliminar");
             alerta.setContentText("¿Desea Eliminar la Ausencia del Empleado?");
@@ -479,12 +488,6 @@ public class ControladorAusencias {
                 limpiarCamposModificar();
                 regresarELista();
             }
-        } else{
-            Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("Error!");
-            alerta.setContentText("Debe de seleccionar antes una Ausencia de dicho empleado para Eliminarlo");
-            alerta.showAndWait();
-            btnRegresarELista.requestFocus();
         }
     }
 
@@ -584,59 +587,68 @@ public class ControladorAusencias {
     }
 
     //---------------------------------------- Comprobación de Campos -------------------------------------------
-    private boolean comprobarValoresCrear(TextArea[] campos){
-        boolean valido = true;
-        for (int i = 0; i < campos.length; i++) {
-            String valor = campos[i].getText();
-            if(valor == null || textMotivoCrear.getLength() < 10){
-                valido = false;
-            }
+    private void camposObligatoriosCrear(){
+        if (textMotivoCrear.getText().trim().isEmpty() || textMotivoCrear.getText() == null) {
+            labErrorMotivoCrear.setText("Campo Obligatorio");
+        } else {
+            labErrorMotivoCrear.setText("");
         }
-        return valido;
     }
 
-    private boolean comprobarValoresModificar(TextArea[] campos){
-        boolean valido = true;
-        for (int i = 0; i < campos.length; i++) {
-            String valor = campos[i].getText();
-            if(valor == null || textMotivoModificar.getLength() < 10){
-                valido = false;
-            }
+    private void validacionCamposLongitudCrear(){
+        String motivo = textMotivoCrear.getText().trim();
+        motivo = motivo.replaceAll("\\s+", "");
+
+        if (motivo.length() < 10) {
+            labErrorMotivoCrear.setText("Usa 10 o más caracteres");
+        } else {
+            labErrorMotivoCrear.setText("");
         }
-        return valido;
     }
 
-    private boolean comprobarIDCrearEmpleado(Label[] id){
-        boolean valido = true;
-        for (int i = 0; i < id.length; i++) {
-            String valor = id[i].getText();
-            if(valor == null || valor.trim().isEmpty()){
-                valido = false;
-            }
+    private void validacionCamposCaracteresCrear() {
+        String motivo = textMotivoCrear.getText().trim();
+        motivo = motivo.replaceAll("\\s+", "");
+        if (validarLetras(motivo)) {
+            labErrorMotivoCrear.setText("");
+        } else {
+            labErrorMotivoCrear.setText("Solo se admiten Letras");
         }
-        return valido;
     }
 
-    private boolean comprobarIDModificarAusencia(Label[] id){
-        boolean valido = true;
-        for (int i = 0; i < id.length; i++) {
-            String valor = id[i].getText();
-            if(valor == null || valor.trim().isEmpty()){
-                valido = false;
-            }
+    private void camposObligatoriosModificar(){
+        if (textMotivoModificar.getText().trim().isEmpty() || textMotivoModificar.getText() == null) {
+            labErrorMotivoModificar.setText("Campo Obligatorio");
+        } else {
+            labErrorMotivoModificar.setText("");
         }
-        return valido;
     }
 
-    private boolean comprobarIDEliminarAusencia(Label[] id){
-        boolean valido = true;
-        for (int i = 0; i < id.length; i++) {
-            String valor = id[i].getText();
-            if(valor == null || valor.trim().isEmpty()){
-                valido = false;
-            }
+    private void validacionCamposLongitudModificar(){
+        String motivo = textMotivoModificar.getText().trim();
+        motivo = motivo.replaceAll("\\s+", "");
+
+        if (motivo.length() < 10) {
+            labErrorMotivoModificar.setText("Usa 10 o más caracteres");
+        } else {
+            labErrorMotivoModificar.setText("");
         }
-        return valido;
+    }
+
+    private void validacionCamposCaracteresModificar() {
+        String motivo = textMotivoModificar.getText().trim();
+        motivo = motivo.replaceAll("\\s+", "");
+
+        if (validarLetras(motivo)) {
+            labErrorMotivoModificar.setText("");
+        } else {
+            labErrorMotivoModificar.setText("Solo se admiten Letras");
+        }
+    }
+
+    //---------------------------------------- Validación de Caracteres ------------------------------------------
+    public static boolean validarLetras(String datos){
+        return datos.matches("[a-zA-Z]*");
     }
 
     //----------------------------------------- Limpiador de Campos ----------------------------------------------

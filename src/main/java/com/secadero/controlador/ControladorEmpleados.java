@@ -548,6 +548,95 @@ public class ControladorEmpleados {
         myEscena.close();
     }
 
+    //---------------------------------------- Validación de Caracteres ------------------------------------------
+    public static boolean validarNumeros(String datos){
+        return datos.matches("[0-9]*");
+    }
+    public static boolean validarNumerosTelefono(String datos){
+        return datos.matches("[0-9--]*");
+    }
+    public static boolean validarLetras(String datos){
+        return datos.matches("[a-zA-Z]*");
+    }
+
+    public static boolean validarLetrasEmail(String datos){
+        return datos.matches("^[_A-Za-z0-9-+]+(\\.[_A-Za-z0-9-]+)*@"
+                + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+    }
+
+    //----------------------------------------- Limpiador de Campos ----------------------------------------------
+    private void limpiarCamposCrear(){
+        textNombreCrear.setText("");
+        textApellidoCrear.setText("");
+        textLegajoCrear.setText("");
+        textDNICrear.setText("");
+        textTelefonoCrear.setText("");
+        textDireccionCrear.setText("");
+        textEmailCrear.setText("");
+        cbGeneroCrear.getSelectionModel().selectFirst();
+        cbEstadoCivilCrear.getSelectionModel().selectFirst();
+        cbGrupoSanguineoCrear.getSelectionModel().selectFirst();
+        cbAreaCrear.getSelectionModel().selectFirst();
+        cbPuestoCrear.getSelectionModel().selectFirst();
+        labLimpiarCamposCrear.setText("");
+        fechasInicializar();
+    }
+
+    private void limpiarCamposModificar(){
+        textNombreModificar.setText("");
+        textApellidoModificar.setText("");
+        textLegajoModificar.setText("");
+        textDNIModificar.setText("");
+        textTelefonoModificar.setText("");
+        textDireccionModificar.setText("");
+        textEmailModificar.setText("");
+        cbGeneroModificar.getSelectionModel().selectFirst();
+        cbEstadoCivilModificar.getSelectionModel().selectFirst();
+        cbGrupoSanguineoModificar.getSelectionModel().selectFirst();
+        cbAreaModificar.getSelectionModel().selectFirst();
+        cbPuestoModificar.getSelectionModel().selectFirst();
+        labIDModificar.setText("");
+        labLimpiarCamposModificar.setText("");
+        labInformacionModificarLegajo.setText("");
+        labInformacionModificarDNI.setText("");
+        fechasInicializar();
+    }
+
+    private void limpiarCamposEliminar(){
+        textNombreEliminar.setText("");
+        textApellidoEliminar.setText("");
+        textLegajoEliminar.setText("");
+        textDNIEliminar.setText("");
+        textTelefonoEliminar.setText("");
+        textDireccionEliminar.setText("");
+        textEmailEliminar.setText("");
+        cbGeneroEliminar.getSelectionModel().selectFirst();
+        cbEstadoCivilEliminar.getSelectionModel().selectFirst();
+        cbGrupoSanguineoEliminar.getSelectionModel().selectFirst();
+        cbAreaEliminar.getSelectionModel().selectFirst();
+        cbPuestoEliminar.getSelectionModel().selectFirst();
+        labIDEliminar.setText("");
+        fechasInicializar();
+    }
+
+    private void vaciarComboBox(){
+        cbGeneroCrear.getItems().clear();
+        cbEstadoCivilCrear.getItems().clear();
+        cbGrupoSanguineoCrear.getItems().clear();
+        cbAreaCrear.getItems().clear();
+        cbPuestoCrear.getItems().clear();
+        cbGeneroModificar.getItems().clear();
+        cbEstadoCivilModificar.getItems().clear();
+        cbGrupoSanguineoModificar.getItems().clear();
+        cbAreaModificar.getItems().clear();
+        cbPuestoModificar.getItems().clear();
+        cbGeneroEliminar.getItems().clear();
+        cbEstadoCivilEliminar.getItems().clear();
+        cbGrupoSanguineoEliminar.getItems().clear();
+        cbAreaEliminar.getItems().clear();
+        cbPuestoEliminar.getItems().clear();
+    }
+
     //---------------------------------------- Comprobación de Campos -------------------------------------------
     private void camposObligatoriosCrear(){
         if(textNombreCrear.getText().trim().isEmpty() || textNombreCrear.getText() == null){
@@ -641,32 +730,47 @@ public class ControladorEmpleados {
     }
 
     private void validacionCamposCaracteresCrear(){
-        if(validarLetras(textNombreCrear.getText())){
+        String nombre = textNombreCrear.getText().trim();
+        String apellido = textApellidoCrear.getText().trim();
+        String legajo = textLegajoCrear.getText().trim();
+        String dni = textDNICrear.getText().trim();
+        String telefono = textTelefonoCrear.getText().trim();
+        String direccion = textDireccionCrear.getText().trim();
+        String email = textEmailCrear.getText().trim();
+        nombre = nombre.replaceAll("\\s+", "");
+        apellido = apellido.replaceAll("\\s+", "");
+        legajo = legajo.replaceAll("\\s+", "");
+        dni = dni.replaceAll("\\s+", "");
+        telefono = telefono.replaceAll("\\s+", "");
+        direccion = direccion.replaceAll("\\s+", "");
+        email = email.replaceAll("\\s+", "");
+
+        if(validarLetras(nombre)){
             labErrorNombreCrear.setText("");
         } else {
             labErrorNombreCrear.setText("Solo se admiten Letras");
         }
-        if(validarLetras(textApellidoCrear.getText())){
+        if(validarLetras(apellido)){
             labErrorApellidoCrear.setText("");
         } else {
             labErrorApellidoCrear.setText("Solo se admiten Letras");
         }
-        if(validarNumeros(textLegajoCrear.getText())){
+        if(validarNumeros(legajo)){
             labErrorLegajoCrear.setText("");
         } else {
             labErrorLegajoCrear.setText("Solo se admiten Números");
         }
-        if(validarNumeros(textDNICrear.getText())){
+        if(validarNumeros(dni)){
             labErrorDNICrear.setText("");
         } else {
             labErrorDNICrear.setText("Solo se admiten Números");
         }
-        if(validarNumerosTelefono(textTelefonoCrear.getText())) {
+        if(validarNumerosTelefono(telefono)){
             labErrorTelefonoCrear.setText("");
         } else {
             labErrorTelefonoCrear.setText("Solo se admiten Números");
         }
-        if(validarLetrasEmail(textEmailCrear.getText())){
+        if(validarLetrasEmail(email)){
             labErrorEmailCrear.setText("");
         } else {
             labErrorEmailCrear.setText("No se parece a un E-mail");
@@ -765,125 +869,51 @@ public class ControladorEmpleados {
     }
 
     private void validacionCamposCaracteresModificar(){
-        if(validarLetras(textNombreModificar.getText())){
+        String nombre = textNombreModificar.getText().trim();
+        String apellido = textApellidoModificar.getText().trim();
+        String legajo = textLegajoModificar.getText().trim();
+        String dni = textDNIModificar.getText().trim();
+        String telefono = textTelefonoModificar.getText().trim();
+        String direccion = textDireccionModificar.getText().trim();
+        String email = textEmailModificar.getText().trim();
+        nombre = nombre.replaceAll("\\s+", "");
+        apellido = apellido.replaceAll("\\s+", "");
+        legajo = legajo.replaceAll("\\s+", "");
+        dni = dni.replaceAll("\\s+", "");
+        telefono = telefono.replaceAll("\\s+", "");
+        direccion = direccion.replaceAll("\\s+", "");
+        email = email.replaceAll("\\s+", "");
+
+        if(validarLetras(nombre)){
             labErrorNombreModificar.setText("");
         } else {
             labErrorNombreModificar.setText("Solo se admiten Letras");
         }
-        if(validarLetras(textApellidoModificar.getText())){
+        if(validarLetras(apellido)){
             labErrorApellidoModificar.setText("");
         } else {
             labErrorApellidoModificar.setText("Solo se admiten Letras");
         }
-        if(validarNumeros(textLegajoModificar.getText())){
+        if(validarNumeros(legajo)){
             labErrorLegajoModificar.setText("");
         } else {
             labErrorLegajoModificar.setText("Solo se admiten Números");
         }
-        if(validarNumeros(textDNIModificar.getText())){
+        if(validarNumeros(dni)){
             labErrorDNIModificar.setText("");
         } else {
             labErrorDNIModificar.setText("Solo se admiten Números");
         }
-        if(validarNumerosTelefono(textTelefonoModificar.getText())) {
+        if(validarNumerosTelefono(telefono)) {
             labErrorTelefonoModificar.setText("");
         } else {
             labErrorTelefonoModificar.setText("Solo se admiten Números");
         }
-        if(validarLetrasEmail(textEmailModificar.getText())){
+        if(validarLetrasEmail(email)){
             labErrorEmailModificar.setText("");
         } else {
             labErrorEmailModificar.setText("No se parece a un E-mail");
         }
-    }
-
-    //---------------------------------------- Validación de Caracteres ------------------------------------------
-    public static boolean validarNumeros(String datos){
-        return datos.matches("[0-9]*");
-    }
-    public static boolean validarNumerosTelefono(String datos){
-        return datos.matches("[0-9--]*");
-    }
-    public static boolean validarLetras(String datos){
-        return datos.matches("[a-zA-Z]*");
-    }
-
-    public static boolean validarLetrasEmail(String datos){
-        return datos.matches("^[_A-Za-z0-9-+]+(\\.[_A-Za-z0-9-]+)*@"
-                + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
-    }
-
-    //----------------------------------------- Limpiador de Campos ----------------------------------------------
-    private void limpiarCamposCrear(){
-        textNombreCrear.setText("");
-        textApellidoCrear.setText("");
-        textLegajoCrear.setText("");
-        textDNICrear.setText("");
-        textTelefonoCrear.setText("");
-        textDireccionCrear.setText("");
-        textEmailCrear.setText("");
-        cbGeneroCrear.getSelectionModel().selectFirst();
-        cbEstadoCivilCrear.getSelectionModel().selectFirst();
-        cbGrupoSanguineoCrear.getSelectionModel().selectFirst();
-        cbAreaCrear.getSelectionModel().selectFirst();
-        cbPuestoCrear.getSelectionModel().selectFirst();
-        labLimpiarCamposCrear.setText("");
-        fechasInicializar();
-    }
-
-    private void limpiarCamposModificar(){
-        textNombreModificar.setText("");
-        textApellidoModificar.setText("");
-        textLegajoModificar.setText("");
-        textDNIModificar.setText("");
-        textTelefonoModificar.setText("");
-        textDireccionModificar.setText("");
-        textEmailModificar.setText("");
-        cbGeneroModificar.getSelectionModel().selectFirst();
-        cbEstadoCivilModificar.getSelectionModel().selectFirst();
-        cbGrupoSanguineoModificar.getSelectionModel().selectFirst();
-        cbAreaModificar.getSelectionModel().selectFirst();
-        cbPuestoModificar.getSelectionModel().selectFirst();
-        labIDModificar.setText("");
-        labLimpiarCamposModificar.setText("");
-        labInformacionModificarLegajo.setText("");
-        labInformacionModificarDNI.setText("");
-        fechasInicializar();
-    }
-
-    private void limpiarCamposEliminar(){
-        textNombreEliminar.setText("");
-        textApellidoEliminar.setText("");
-        textLegajoEliminar.setText("");
-        textDNIEliminar.setText("");
-        textTelefonoEliminar.setText("");
-        textDireccionEliminar.setText("");
-        textEmailEliminar.setText("");
-        cbGeneroEliminar.getSelectionModel().selectFirst();
-        cbEstadoCivilEliminar.getSelectionModel().selectFirst();
-        cbGrupoSanguineoEliminar.getSelectionModel().selectFirst();
-        cbAreaEliminar.getSelectionModel().selectFirst();
-        cbPuestoEliminar.getSelectionModel().selectFirst();
-        labIDEliminar.setText("");
-        fechasInicializar();
-    }
-
-    private void vaciarComboBox(){
-        cbGeneroCrear.getItems().clear();
-        cbEstadoCivilCrear.getItems().clear();
-        cbGrupoSanguineoCrear.getItems().clear();
-        cbAreaCrear.getItems().clear();
-        cbPuestoCrear.getItems().clear();
-        cbGeneroModificar.getItems().clear();
-        cbEstadoCivilModificar.getItems().clear();
-        cbGrupoSanguineoModificar.getItems().clear();
-        cbAreaModificar.getItems().clear();
-        cbPuestoModificar.getItems().clear();
-        cbGeneroEliminar.getItems().clear();
-        cbEstadoCivilEliminar.getItems().clear();
-        cbGrupoSanguineoEliminar.getItems().clear();
-        cbAreaEliminar.getItems().clear();
-        cbPuestoEliminar.getItems().clear();
     }
 
     // ---------------------------------------- Fechas Actuales Inicializadas ----------------------------------------

@@ -512,13 +512,6 @@ public class ControladorUsuarios {
         labIDEliminar.setText("");
     }
 
-    // ----------------------------------------------- Labels de Errores ----------------------------------------
-    private void labErroresCrear(){
-        labErrorNombreUsuarioCrear.setText("");
-        labErrorContraseniaCrear.setText("");
-        labErrorRepetirContraseniaCrear.setText("");
-    }
-
     // ---------------------------------- Cerrar Ventana -------------------------------------------
     public void closeWindowsPrincipalUsuario() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/vistas/principal.fxml"));

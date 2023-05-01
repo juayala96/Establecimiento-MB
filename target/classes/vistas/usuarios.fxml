@@ -319,7 +319,7 @@
                               <Font name="System Italic" size="20.0" />
                            </font>
                         </Label>
-                        <Label fx:id="labErrorNombreUsuarioCrear1" layoutX="908.0" layoutY="575.0" prefHeight="20.0" prefWidth="280.0" text="Usá 5 o más caracteres con" textFill="#2b2828">
+                        <Label fx:id="labErrorNombreUsuarioCrear1" layoutX="908.0" layoutY="575.0" prefHeight="20.0" prefWidth="280.0" text="Usá 6 o más caracteres con" textFill="#2b2828">
                            <font>
                               <Font name="Consolas" size="14.0" />
                            </font>
@@ -463,7 +463,7 @@
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
-                        <Label fx:id="labErrorNombreUsuarioCrear12" layoutX="843.0" layoutY="544.0" prefHeight="20.0" prefWidth="280.0" text="Usá 5 o más caracteres con" textFill="#2b2828">
+                        <Label fx:id="labErrorNombreUsuarioCrear12" layoutX="843.0" layoutY="544.0" prefHeight="20.0" prefWidth="280.0" text="Usá 6 o más caracteres con" textFill="#2b2828">
                            <font>
                               <Font name="Consolas" size="14.0" />
                            </font>
