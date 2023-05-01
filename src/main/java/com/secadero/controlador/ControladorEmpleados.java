@@ -223,7 +223,6 @@ public class ControladorEmpleados {
     ObservableList<LeerEmpleado> listEmpleado;
     int index = -1;
 
-    String ErrorCrear = "";
     String ErrorModificar = "";
 
     // -------------------------------------------- Inicialización ----------------------------------------------
@@ -381,106 +380,49 @@ public class ControladorEmpleados {
     private void guardar() throws SQLException, ParseException {
 
         camposObligatoriosCrear();
-        CrearEmpleado empleadoCrear = new CrearEmpleado();
-        empleadoCrear.agregarEmpleado(textNombreCrear, textApellidoCrear, textLegajoCrear, textDNICrear, textTelefonoCrear, textDireccionCrear, textEmailCrear, cbGeneroCrear, cbEstadoCivilCrear, dpFechaNaciminetoCrear, cbGrupoSanguineoCrear, dpFechaIngresoCrear, cbAreaCrear, cbPuestoCrear, labLimpiarCamposCrear);
+        if(Objects.equals(labErrorNombreCrear.getText(), "") && Objects.equals(labErrorApellidoCrear.getText(), "") && Objects.equals(labErrorLegajoCrear.getText(), "") && Objects.equals(labErrorDNICrear.getText(), "") && Objects.equals(labErrorTelefonoCrear.getText(), "") && Objects.equals(labErrorDireccionCrear.getText(), "") && Objects.equals(labErrorEmailCrear.getText(), "")){
+            validacionCamposCaracteresCrear();
+            if(Objects.equals(labErrorNombreCrear.getText(), "") && Objects.equals(labErrorApellidoCrear.getText(), "") && Objects.equals(labErrorLegajoCrear.getText(), "") && Objects.equals(labErrorDNICrear.getText(), "") && Objects.equals(labErrorTelefonoCrear.getText(), "") && Objects.equals(labErrorDireccionCrear.getText(), "") && Objects.equals(labErrorEmailCrear.getText(), "")){
+                validacionCamposLongitudCrear();
+                if(Objects.equals(labErrorNombreCrear.getText(), "") && Objects.equals(labErrorApellidoCrear.getText(), "") && Objects.equals(labErrorLegajoCrear.getText(), "") && Objects.equals(labErrorDNICrear.getText(), "") && Objects.equals(labErrorTelefonoCrear.getText(), "") && Objects.equals(labErrorDireccionCrear.getText(), "") && Objects.equals(labErrorEmailCrear.getText(), "")){
+                    CrearEmpleado empleadoCrear = new CrearEmpleado();
+                    empleadoCrear.agregarEmpleado(textNombreCrear, textApellidoCrear, textLegajoCrear, textDNICrear, textTelefonoCrear, textDireccionCrear, textEmailCrear, cbGeneroCrear, cbEstadoCivilCrear, dpFechaNaciminetoCrear, cbGrupoSanguineoCrear, dpFechaIngresoCrear, cbAreaCrear, cbPuestoCrear, labLimpiarCamposCrear);
 
-        if(Objects.equals(labLimpiarCamposCrear.getText(), "OK")){
-            labLimpiarCamposCrear.setText("");
-            inicializarTabla();
-            vaciarComboBox();
-            inicializarComboBoxBD();
-            regresarCLista();
-            limpiarCamposCrear();
+                    if(Objects.equals(labLimpiarCamposCrear.getText(), "OK")){
+                        labLimpiarCamposCrear.setText("");
+                        inicializarTabla();
+                        vaciarComboBox();
+                        inicializarComboBoxBD();
+                        regresarCLista();
+                        limpiarCamposCrear();
+                    }
+                }
+            }
         }
     }
 
     @FXML
     private void modificar() throws SQLException, ParseException {
-        ErrorModificar = "";
-        TextField[] campos = {textNombreModificar, textApellidoModificar, textLegajoModificar, textTelefonoModificar, textDireccionModificar, textEmailModificar};
-        TextField[] campoLegajo = {textLegajoModificar};
-        TextField[] campoDNI= {textDNIModificar};
-        TextField[] campoTelefono= {textTelefonoModificar};
-        Label[] id = {labIDModificar};
-        labErroresModificar();
+        if(!labIDModificar.getText().equals("")) {
+            camposObligatoriosModificar();
+            if (Objects.equals(labErrorNombreModificar.getText(), "") && Objects.equals(labErrorApellidoModificar.getText(), "") && Objects.equals(labErrorLegajoModificar.getText(), "") && Objects.equals(labErrorDNIModificar.getText(), "") && Objects.equals(labErrorTelefonoModificar.getText(), "") && Objects.equals(labErrorDireccionModificar.getText(), "") && Objects.equals(labErrorEmailModificar.getText(), "")) {
+                validacionCamposCaracteresModificar();
+                if (Objects.equals(labErrorNombreModificar.getText(), "") && Objects.equals(labErrorApellidoModificar.getText(), "") && Objects.equals(labErrorLegajoModificar.getText(), "") && Objects.equals(labErrorDNIModificar.getText(), "") && Objects.equals(labErrorTelefonoModificar.getText(), "") && Objects.equals(labErrorDireccionModificar.getText(), "") && Objects.equals(labErrorEmailModificar.getText(), "")) {
+                    validacionCamposLongitudModificar();
+                    if (Objects.equals(labErrorNombreModificar.getText(), "") && Objects.equals(labErrorApellidoModificar.getText(), "") && Objects.equals(labErrorLegajoModificar.getText(), "") && Objects.equals(labErrorDNIModificar.getText(), "") && Objects.equals(labErrorTelefonoModificar.getText(), "") && Objects.equals(labErrorDireccionModificar.getText(), "") && Objects.equals(labErrorEmailModificar.getText(), "")) {
+                        ModificarEmpleado empleadoModificar = new ModificarEmpleado();
+                        empleadoModificar.modificarEmpleado(textNombreModificar, textApellidoModificar, textLegajoModificar, textDNIModificar, textTelefonoModificar, textDireccionModificar, textEmailModificar, cbGeneroModificar, cbEstadoCivilModificar, dpFechaNaciminetoModificar, cbGrupoSanguineoModificar, dpFechaIngresoModificar, cbAreaModificar, cbPuestoModificar, labLimpiarCamposModificar, labInformacionModificarLegajo, labInformacionModificarDNI, labIDModificar);
 
-        if(comprobarIDModificar(id)){
-            if(comprobarValoresModificar(campos)) {
-                if (validarLetras(textNombreModificar.getText())) {
-                    if (validarLetras(textApellidoModificar.getText())) {
-                        if (validarNumeros(textLegajoModificar.getText())) {
-                            if (comprobarValoresModificarLegajo(campoLegajo)) {
-                                if(validarNumeros(textDNIModificar.getText())) {
-                                    if (comprobarValoresModificarDNI(campoDNI)) {
-                                        if (validarNumerosTelefono(textTelefonoModificar.getText())) {
-                                            if(comprobarValoresModificarTelefono(campoTelefono)){
-                                                if (validarLetrasEmail(textEmailModificar.getText())) {
-                                                    labErroresModificar();
-
-                                                    ModificarEmpleado empleadoModificar = new ModificarEmpleado();
-                                                    empleadoModificar.modificarEmpleado(textNombreModificar, textApellidoModificar, textLegajoModificar, textDNIModificar, textTelefonoModificar, textDireccionModificar, textEmailModificar, cbGeneroModificar, cbEstadoCivilModificar, dpFechaNaciminetoModificar, cbGrupoSanguineoModificar, dpFechaIngresoModificar, cbAreaModificar, cbPuestoModificar, labLimpiarCamposModificar, labInformacionModificarLegajo, labInformacionModificarDNI, labIDModificar);
-
-                                                    if(Objects.equals(labLimpiarCamposModificar.getText(), "OK")){
-                                                        inicializarTabla();
-                                                        vaciarComboBox();
-                                                        inicializarComboBoxBD();
-                                                        regresarCLista();
-                                                        limpiarCamposModificar();
-                                                        limpiarCamposEliminar();
-                                                    }
-
-                                                } else {
-                                                    labErrorEmailModificar.setText("No se parece a un E-mail");
-                                                    ErrorModificar = "Email";
-                                                    labErroresModificar2(ErrorModificar);
-                                                }
-                                            } else {
-                                                labErrorTelefonoModificar.setText("Solo se permite hasta 10 Números");
-                                                ErrorModificar = "Telefono";
-                                                labErroresModificar2(ErrorModificar);
-                                            }
-                                        }  else {
-                                            labErrorTelefonoModificar.setText("Solo se admiten Números");
-                                            ErrorModificar = "Telefono";
-                                            labErroresModificar2(ErrorModificar);
-                                        }
-                                    } else {
-                                        labErrorDNIModificar.setText("Solo se permite hasta 8 Números");
-                                        ErrorModificar = "DNI";
-                                        labErroresModificar2(ErrorModificar);
-                                    }
-                                } else {
-                                    labErrorDNIModificar.setText("Solo se admiten Números");
-                                    ErrorModificar = "DNI";
-                                    labErroresModificar2(ErrorModificar);
-                                }
-
-                            } else {
-                                labErrorLegajoModificar.setText("Solo se permite hasta 10 Números");
-                                ErrorModificar = "Legajo";
-                                labErroresModificar2(ErrorModificar);
-                            }
-
-                        } else {
-                            labErrorLegajoModificar.setText("Solo se admiten Números");
-                            ErrorModificar = "Legajo";
-                            labErroresModificar2(ErrorModificar);
+                        if(Objects.equals(labLimpiarCamposModificar.getText(), "OK")){
+                            inicializarTabla();
+                            vaciarComboBox();
+                            inicializarComboBoxBD();
+                            regresarCLista();
+                            limpiarCamposModificar();
+                            limpiarCamposEliminar();
                         }
-                    } else {
-                        labErrorApellidoModificar.setText("Solo se admiten Letras");
-                        ErrorModificar = "Apellido";
-                        labErroresModificar2(ErrorModificar);
                     }
-                } else {
-                    labErrorNombreModificar.setText("Solo se admiten Letras");
-                    ErrorModificar = "Nombre";
-                    labErroresModificar2(ErrorModificar);
                 }
-            }  else {
-                Alert alerta = new Alert(Alert.AlertType.WARNING);
-                alerta.setTitle("Error!");
-                alerta.setContentText("Debe de completar todos los campos y que NO sean cortos.");
-                alerta.showAndWait();
             }
         } else {
             Alert alerta = new Alert(Alert.AlertType.WARNING);
@@ -493,7 +435,7 @@ public class ControladorEmpleados {
     @FXML
     private void eliminar() {
         Label[] id = {labIDEliminar};
-        if (comprobarIDEliminar(id)){
+        if (!labIDEliminar.getText().equals("")){
             Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
             alerta.setTitle("Confirmar Eliminar");
             alerta.setContentText("¿Desea Eliminar el Empleado?");
@@ -645,103 +587,214 @@ public class ControladorEmpleados {
         }
     }
 
-    private boolean comprobarValoresModificar(TextField[] campos){
-        boolean valido = true;
-        for (int i = 0; i < campos.length; i++) {
-            String valor = campos[i].getText();
-            if(valor == null || valor.trim().isEmpty() || textNombreModificar.getLength() < 4|| textApellidoModificar.getLength() < 4|| textLegajoModificar.getLength() < 4|| textDNIModificar.getLength() < 6 || textTelefonoModificar.getLength() < 9 || textDireccionModificar.getLength() < 4 || textEmailModificar.getLength() < 6){
-                valido = false;
-            }
+    private void validacionCamposLongitudCrear(){
+        String nombre = textNombreCrear.getText().trim();
+        String apellido = textApellidoCrear.getText().trim();
+        String legajo = textLegajoCrear.getText().trim();
+        String dni = textDNICrear.getText().trim();
+        String telefono = textTelefonoCrear.getText().trim();
+        String direccion = textDireccionCrear.getText().trim();
+        String email = textEmailCrear.getText().trim();
+        nombre = nombre.replaceAll("\\s+", "");
+        apellido = apellido.replaceAll("\\s+", "");
+        legajo = legajo.replaceAll("\\s+", "");
+        dni = dni.replaceAll("\\s+", "");
+        telefono = telefono.replaceAll("\\s+", "");
+        direccion = direccion.replaceAll("\\s+", "");
+        email = email.replaceAll("\\s+", "");
+
+        if(nombre.length() < 4){
+            labErrorNombreCrear.setText("Usá 4 o más caracteres");
+        } else {
+            labErrorNombreCrear.setText("");
         }
-        return valido;
+        if(apellido.length() < 4){
+            labErrorApellidoCrear.setText("Usá 4 o más caracteres");
+        } else {
+            labErrorApellidoCrear.setText("");
+        }
+        if(legajo.length() < 2 || legajo.length() > 6){
+            labErrorLegajoCrear.setText("Usá 2 o hasta 6 números");
+        } else {
+            labErrorLegajoCrear.setText("");
+        }
+        if(dni.length() < 7 || dni.length() >= 9){
+            labErrorDNICrear.setText("Usá entre 7 u 8 números");
+        } else {
+            labErrorDNICrear.setText("");
+        }
+        if(telefono.length() < 10 || telefono.length() >= 12){
+            labErrorTelefonoCrear.setText("Usá entre 10 u 11 números");
+        } else {
+            labErrorTelefonoCrear.setText("");
+        }
+        if(direccion.length() < 6){
+            labErrorDireccionCrear.setText("Usá 6 o más caracteres");
+        } else {
+            labErrorDireccionCrear.setText("");
+        }
+        if(email.length() < 4){
+            labErrorEmailCrear.setText("Usá 6 o más caracteres");
+        } else {
+            labErrorEmailCrear.setText("");
+        }
     }
 
-    private boolean comprobarValoresCrearLegajo(TextField[] campoLegajo){
-        boolean valido = true;
-        for (int i = 0; i < campoLegajo.length; i++) {
-            String valor = campoLegajo[i].getText();
-            if(valor == null || valor.trim().isEmpty() || textLegajoCrear.getLength() > 8){
-                valido = false;
-            }
+    private void validacionCamposCaracteresCrear(){
+        if(validarLetras(textNombreCrear.getText())){
+            labErrorNombreCrear.setText("");
+        } else {
+            labErrorNombreCrear.setText("Solo se admiten Letras");
         }
-        return valido;
+        if(validarLetras(textApellidoCrear.getText())){
+            labErrorApellidoCrear.setText("");
+        } else {
+            labErrorApellidoCrear.setText("Solo se admiten Letras");
+        }
+        if(validarNumeros(textLegajoCrear.getText())){
+            labErrorLegajoCrear.setText("");
+        } else {
+            labErrorLegajoCrear.setText("Solo se admiten Números");
+        }
+        if(validarNumeros(textDNICrear.getText())){
+            labErrorDNICrear.setText("");
+        } else {
+            labErrorDNICrear.setText("Solo se admiten Números");
+        }
+        if(validarNumerosTelefono(textTelefonoCrear.getText())) {
+            labErrorTelefonoCrear.setText("");
+        } else {
+            labErrorTelefonoCrear.setText("Solo se admiten Números");
+        }
+        if(validarLetrasEmail(textEmailCrear.getText())){
+            labErrorEmailCrear.setText("");
+        } else {
+            labErrorEmailCrear.setText("No se parece a un E-mail");
+        }
     }
 
-    private boolean comprobarValoresModificarLegajo(TextField[] campoLegajo){
-        boolean valido = true;
-        for (int i = 0; i < campoLegajo.length; i++) {
-            String valor = campoLegajo[i].getText();
-            if(valor == null || valor.trim().isEmpty() || textLegajoModificar.getLength() > 8){
-                valido = false;
-            }
+    private void camposObligatoriosModificar(){
+        if(textNombreModificar.getText().trim().isEmpty() || textNombreModificar.getText() == null){
+            labErrorNombreModificar.setText("Campo Obligatorio");
+        } else {
+            labErrorNombreModificar.setText("");
         }
-        return valido;
+        if(textApellidoModificar.getText().trim().isEmpty() || textApellidoModificar.getText() == null){
+            labErrorApellidoModificar.setText("Campo Obligatorio");
+        } else {
+            labErrorApellidoModificar.setText("");
+        }
+        if(textLegajoModificar.getText().trim().isEmpty() || textLegajoModificar.getText() == null){
+            labErrorLegajoModificar.setText("Campo Obligatorio");
+        } else {
+            labErrorLegajoModificar.setText("");
+        }
+        if(textDNIModificar.getText().trim().isEmpty() || textDNIModificar.getText() == null){
+            labErrorDNIModificar.setText("Campo Obligatorio");
+        } else {
+            labErrorDNIModificar.setText("");
+        }
+        if(textTelefonoModificar.getText().trim().isEmpty() || textTelefonoModificar.getText() == null){
+            labErrorTelefonoModificar.setText("Campo Obligatorio");
+        } else {
+            labErrorTelefonoModificar.setText("");
+        }
+        if(textDireccionModificar.getText().trim().isEmpty() || textDireccionModificar.getText() == null){
+            labErrorDireccionModificar.setText("Campo Obligatorio");
+        } else {
+            labErrorDireccionModificar.setText("");
+        }
+        if(textEmailModificar.getText().trim().isEmpty() || textEmailModificar.getText() == null){
+            labErrorEmailModificar.setText("Campo Obligatorio");
+        } else {
+            labErrorEmailModificar.setText("");
+        }
     }
 
-    private boolean comprobarValoresCrearDNI(TextField[] campoDNI){
-        boolean valido = true;
-        for (int i = 0; i < campoDNI.length; i++) {
-            String valor = campoDNI[i].getText();
-            if(valor == null || valor.trim().isEmpty() || textDNICrear.getLength() > 8){
-                valido = false;
-            }
+    private void validacionCamposLongitudModificar(){
+        String nombre = textNombreModificar.getText().trim();
+        String apellido = textApellidoModificar.getText().trim();
+        String legajo = textLegajoModificar.getText().trim();
+        String dni = textDNIModificar.getText().trim();
+        String telefono = textTelefonoModificar.getText().trim();
+        String direccion = textDireccionModificar.getText().trim();
+        String email = textEmailModificar.getText().trim();
+        nombre = nombre.replaceAll("\\s+", "");
+        apellido = apellido.replaceAll("\\s+", "");
+        legajo = legajo.replaceAll("\\s+", "");
+        dni = dni.replaceAll("\\s+", "");
+        telefono = telefono.replaceAll("\\s+", "");
+        direccion = direccion.replaceAll("\\s+", "");
+        email = email.replaceAll("\\s+", "");
+
+        if(nombre.length() < 4){
+            labErrorNombreModificar.setText("Usá 4 o más caracteres");
+        } else {
+            labErrorNombreModificar.setText("");
         }
-        return valido;
+        if(apellido.length() < 4){
+            labErrorApellidoModificar.setText("Usá 4 o más caracteres");
+        } else {
+            labErrorApellidoModificar.setText("");
+        }
+        if(legajo.length() < 2 || legajo.length() > 6){
+            labErrorLegajoModificar.setText("Usá 2 o hasta 6 números");
+        } else {
+            labErrorLegajoModificar.setText("");
+        }
+        if(dni.length() < 7 || dni.length() >= 9){
+            labErrorDNIModificar.setText("Usá entre 7 u 8 números");
+        } else {
+            labErrorDNIModificar.setText("");
+        }
+        if(telefono.length() < 10 || telefono.length() >= 12){
+            labErrorTelefonoModificar.setText("Usá entre 10 u 11 números");
+        } else {
+            labErrorTelefonoModificar.setText("");
+        }
+        if(direccion.length() < 6){
+            labErrorDireccionModificar.setText("Usá 6 o más caracteres");
+        } else {
+            labErrorDireccionModificar.setText("");
+        }
+        if(email.length() < 4){
+            labErrorEmailModificar.setText("Usá 6 o más caracteres");
+        } else {
+            labErrorEmailModificar.setText("");
+        }
     }
 
-    private boolean comprobarValoresModificarDNI(TextField[] campoDNI){
-        boolean valido = true;
-        for (int i = 0; i < campoDNI.length; i++) {
-            String valor = campoDNI[i].getText();
-            if(valor == null || valor.trim().isEmpty() || textDNIModificar.getLength() > 8){
-                valido = false;
-            }
+    private void validacionCamposCaracteresModificar(){
+        if(validarLetras(textNombreModificar.getText())){
+            labErrorNombreModificar.setText("");
+        } else {
+            labErrorNombreModificar.setText("Solo se admiten Letras");
         }
-        return valido;
-    }
-
-    private boolean comprobarValoresCrearTelefono(TextField[] campoTelefono){
-        boolean valido = true;
-        for (int i = 0; i < campoTelefono.length; i++) {
-            String valor = campoTelefono[i].getText();
-            if(valor == null || valor.trim().isEmpty() || textTelefonoCrear.getLength() > 11){
-                valido = false;
-            }
+        if(validarLetras(textApellidoModificar.getText())){
+            labErrorApellidoModificar.setText("");
+        } else {
+            labErrorApellidoModificar.setText("Solo se admiten Letras");
         }
-        return valido;
-    }
-
-    private boolean comprobarValoresModificarTelefono(TextField[] campoTelefono){
-        boolean valido = true;
-        for (int i = 0; i < campoTelefono.length; i++) {
-            String valor = campoTelefono[i].getText();
-            if(valor == null || valor.trim().isEmpty() || textTelefonoModificar.getLength() > 11){
-                valido = false;
-            }
+        if(validarNumeros(textLegajoModificar.getText())){
+            labErrorLegajoModificar.setText("");
+        } else {
+            labErrorLegajoModificar.setText("Solo se admiten Números");
         }
-        return valido;
-    }
-
-    private boolean comprobarIDModificar(Label[] id){
-        boolean valido = true;
-        for (int i = 0; i < id.length; i++) {
-            String valor = id[i].getText();
-            if(valor == null || valor.trim().isEmpty()){
-                valido = false;
-            }
+        if(validarNumeros(textDNIModificar.getText())){
+            labErrorDNIModificar.setText("");
+        } else {
+            labErrorDNIModificar.setText("Solo se admiten Números");
         }
-        return valido;
-    }
-
-    private boolean comprobarIDEliminar(Label[] id){
-        boolean valido = true;
-        for (int i = 0; i < id.length; i++) {
-            String valor = id[i].getText();
-            if(valor == null || valor.trim().isEmpty()){
-                valido = false;
-            }
+        if(validarNumerosTelefono(textTelefonoModificar.getText())) {
+            labErrorTelefonoModificar.setText("");
+        } else {
+            labErrorTelefonoModificar.setText("Solo se admiten Números");
         }
-        return valido;
+        if(validarLetrasEmail(textEmailModificar.getText())){
+            labErrorEmailModificar.setText("");
+        } else {
+            labErrorEmailModificar.setText("No se parece a un E-mail");
+        }
     }
 
     //---------------------------------------- Validación de Caracteres ------------------------------------------
@@ -831,165 +884,6 @@ public class ControladorEmpleados {
         cbGrupoSanguineoEliminar.getItems().clear();
         cbAreaEliminar.getItems().clear();
         cbPuestoEliminar.getItems().clear();
-    }
-
-    // ----------------------------------------------- Labels de Errores ----------------------------------------
-    private void labErroresCrear() {
-        labErrorNombreCrear.setText("");
-        labErrorApellidoCrear.setText("");
-        labErrorLegajoCrear.setText("");
-        labErrorDNICrear.setText("");
-        labErrorTelefonoCrear.setText("");
-        labErrorDireccionCrear.setText("");
-        labErrorEmailCrear.setText("");
-        labErrorFechaNacimientoCrear.setText("");
-    }
-
-    private void labErroresModificar() {
-        labErrorNombreModificar.setText("");
-        labErrorApellidoModificar.setText("");
-        labErrorLegajoModificar.setText("");
-        labErrorDNIModificar.setText("");
-        labErrorTelefonoModificar.setText("");
-        labErrorDireccionModificar.setText("");
-        labErrorEmailModificar.setText("");
-        labErrorFechaNacimientoModificar.setText("");
-    }
-
-    private void labErroresCrear2(String ErrorCrear) {
-        if (Objects.equals(ErrorCrear, "Nombre")) {
-            labErrorApellidoCrear.setText("");
-            labErrorLegajoCrear.setText("");
-            labErrorDNICrear.setText("");
-            labErrorTelefonoCrear.setText("");
-            labErrorDireccionCrear.setText("");
-            labErrorEmailCrear.setText("");
-            labErrorFechaNacimientoCrear.setText("");
-        } else if (Objects.equals(ErrorCrear, "Apellido")) {
-            labErrorNombreCrear.setText("");
-            labErrorLegajoCrear.setText("");
-            labErrorDNICrear.setText("");
-            labErrorTelefonoCrear.setText("");
-            labErrorDireccionCrear.setText("");
-            labErrorEmailCrear.setText("");
-            labErrorFechaNacimientoCrear.setText("");
-        } else if (Objects.equals(ErrorCrear, "Legajo")) {
-            labErrorNombreCrear.setText("");
-            labErrorApellidoCrear.setText("");
-            labErrorDNICrear.setText("");
-            labErrorTelefonoCrear.setText("");
-            labErrorDireccionCrear.setText("");
-            labErrorEmailCrear.setText("");
-            labErrorFechaNacimientoCrear.setText("");
-        } else if (Objects.equals(ErrorCrear, "Telefono")) {
-            labErrorNombreCrear.setText("");
-            labErrorApellidoCrear.setText("");
-            labErrorLegajoCrear.setText("");
-            labErrorDNICrear.setText("");
-            labErrorDireccionCrear.setText("");
-            labErrorEmailCrear.setText("");
-            labErrorFechaNacimientoCrear.setText("");
-        } else if (Objects.equals(ErrorCrear, "Direccion")) {
-            labErrorNombreCrear.setText("");
-            labErrorApellidoCrear.setText("");
-            labErrorLegajoCrear.setText("");
-            labErrorDNICrear.setText("");
-            labErrorTelefonoCrear.setText("");
-            labErrorEmailCrear.setText("");
-            labErrorFechaNacimientoCrear.setText("");
-        } else if (Objects.equals(ErrorCrear, "Email")) {
-            labErrorNombreCrear.setText("");
-            labErrorApellidoCrear.setText("");
-            labErrorLegajoCrear.setText("");
-            labErrorDNICrear.setText("");
-            labErrorTelefonoCrear.setText("");
-            labErrorDireccionCrear.setText("");
-            labErrorFechaNacimientoCrear.setText("");
-        }else if (Objects.equals(ErrorCrear, "FechaNacimiento")) {
-            labErrorNombreCrear.setText("");
-            labErrorApellidoCrear.setText("");
-            labErrorLegajoCrear.setText("");
-            labErrorDNICrear.setText("");
-            labErrorTelefonoCrear.setText("");
-            labErrorDireccionCrear.setText("");
-            labErrorEmailCrear.setText("");
-        } else if (Objects.equals(ErrorCrear, "DNI")) {
-            labErrorNombreCrear.setText("");
-            labErrorApellidoCrear.setText("");
-            labErrorLegajoCrear.setText("");
-            labErrorTelefonoCrear.setText("");
-            labErrorDireccionCrear.setText("");
-            labErrorEmailCrear.setText("");
-            labErrorFechaNacimientoCrear.setText("");
-        }
-    }
-
-    private void labErroresModificar2(String ErrorModificar) {
-        if (Objects.equals(ErrorModificar, "Nombre")) {
-            labErrorApellidoModificar.setText("");
-            labErrorLegajoModificar.setText("");
-            labErrorDNIModificar.setText("");
-            labErrorTelefonoModificar.setText("");
-            labErrorDireccionModificar.setText("");
-            labErrorEmailModificar.setText("");
-            labErrorFechaNacimientoModificar.setText("");
-        } else if (Objects.equals(ErrorModificar, "Apellido")) {
-            labErrorNombreModificar.setText("");
-            labErrorLegajoModificar.setText("");
-            labErrorDNIModificar.setText("");
-            labErrorTelefonoModificar.setText("");
-            labErrorDireccionModificar.setText("");
-            labErrorEmailModificar.setText("");
-            labErrorFechaNacimientoModificar.setText("");
-        } else if (Objects.equals(ErrorModificar, "Legajo")) {
-            labErrorNombreModificar.setText("");
-            labErrorApellidoModificar.setText("");
-            labErrorDNIModificar.setText("");
-            labErrorTelefonoModificar.setText("");
-            labErrorDireccionModificar.setText("");
-            labErrorEmailModificar.setText("");
-            labErrorFechaNacimientoModificar.setText("");
-        } else if (Objects.equals(ErrorModificar, "Telefono")) {
-            labErrorNombreModificar.setText("");
-            labErrorApellidoModificar.setText("");
-            labErrorLegajoModificar.setText("");
-            labErrorDNIModificar.setText("");
-            labErrorDireccionModificar.setText("");
-            labErrorEmailModificar.setText("");
-            labErrorFechaNacimientoModificar.setText("");
-        } else if (Objects.equals(ErrorModificar, "Direccion")) {
-            labErrorNombreModificar.setText("");
-            labErrorApellidoModificar.setText("");
-            labErrorLegajoModificar.setText("");
-            labErrorDNIModificar.setText("");
-            labErrorTelefonoModificar.setText("");
-            labErrorEmailModificar.setText("");
-            labErrorFechaNacimientoModificar.setText("");
-        } else if (Objects.equals(ErrorModificar, "Email")) {
-            labErrorNombreModificar.setText("");
-            labErrorApellidoModificar.setText("");
-            labErrorLegajoModificar.setText("");
-            labErrorDNIModificar.setText("");
-            labErrorTelefonoModificar.setText("");
-            labErrorDireccionModificar.setText("");
-            labErrorFechaNacimientoModificar.setText("");
-        }else if (Objects.equals(ErrorModificar, "FechaNacimiento")) {
-            labErrorNombreModificar.setText("");
-            labErrorApellidoModificar.setText("");
-            labErrorLegajoModificar.setText("");
-            labErrorDNIModificar.setText("");
-            labErrorTelefonoModificar.setText("");
-            labErrorDireccionModificar.setText("");
-            labErrorEmailModificar.setText("");
-        } else if (Objects.equals(ErrorModificar, "DNI")) {
-            labErrorNombreModificar.setText("");
-            labErrorApellidoModificar.setText("");
-            labErrorLegajoModificar.setText("");
-            labErrorTelefonoModificar.setText("");
-            labErrorDireccionModificar.setText("");
-            labErrorEmailModificar.setText("");
-            labErrorFechaNacimientoModificar.setText("");
-        }
     }
 
     // ---------------------------------------- Fechas Actuales Inicializadas ----------------------------------------

@@ -59,6 +59,17 @@ public class CrearEmpleado {
 
         if(resultado.equals("YES")){
             if(resultado2.equals("YES")){
+                String apellido = textApellidoCrear.getText().trim();
+                String legajo = textLegajoCrear.getText().trim();
+                String dni = textDNICrear.getText().trim();
+                String telefono = textTelefonoCrear.getText().trim();
+                String email = textEmailCrear.getText().trim();
+                apellido = apellido.replaceAll("\\s+", "");
+                legajo = legajo.replaceAll("\\s+", "");
+                dni = dni.replaceAll("\\s+", "");
+                telefono = telefono.replaceAll("\\s+", "");
+                email = email.replaceAll("\\s+", "");
+
                 try {
                     String consulta1 = "SELECT idgenero FROM genero WHERE descripcion = ?";
                     pstm = con.prepareStatement(consulta1);
@@ -98,12 +109,12 @@ public class CrearEmpleado {
                                         String consulta6 = "INSERT INTO empleados(nombre, apellido, legajo, dni, telefono, direccion, email, idGeneroFK, idEstadoCivilFK, fechaNacimiento, idGrupoSanguineoFK, fechaIngreso, idAreaFK, idPuestoFK, estado, estadoEmpleado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                                         pstm = con.prepareStatement(consulta6);
                                         pstm.setString(1, textNombreCrear.getText());
-                                        pstm.setString(2, textApellidoCrear.getText());
-                                        pstm.setInt(3, Integer.parseInt(textLegajoCrear.getText()));
-                                        pstm.setInt(4, Integer.parseInt(textDNICrear.getText()));
-                                        pstm.setString(5, textTelefonoCrear.getText());
+                                        pstm.setString(2, apellido);
+                                        pstm.setInt(3, Integer.parseInt(legajo));
+                                        pstm.setInt(4, Integer.parseInt(dni));
+                                        pstm.setString(5, telefono);
                                         pstm.setString(6, textDireccionCrear.getText());
-                                        pstm.setString(7, textEmailCrear.getText());
+                                        pstm.setString(7, email);
                                         pstm.setInt(8, datoIdGeneroFK);
                                         pstm.setInt(9, datoIdEstadoCivilFK);
                                         pstm.setString(10, dpFechaNaciminetoCrear.getEditor().getText());

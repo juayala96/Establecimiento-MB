@@ -32,10 +32,15 @@ public class CrearUsuario {
             }
 
             if(respuesta.equals("YES")){
+                String nombreUsuario = textNombreUsuarioCrear.getText().trim();
+                String contrasenia = textContraseniaCrear.getText().trim();
+                nombreUsuario = nombreUsuario.replaceAll("\\s+", "");
+                contrasenia = contrasenia.replaceAll("\\s+", "");
+
                 String consulta2 = "INSERT INTO usuarios(nombreUsuario, contrasenia, idEmpleadoFK) VALUES (?, ?, ?)";
                 pstm = con.prepareStatement(consulta2);
-                pstm.setString(1, textNombreUsuarioCrear.getText());
-                pstm.setString(2, textContraseniaCrear.getText());
+                pstm.setString(1, nombreUsuario);
+                pstm.setString(2, contrasenia);
                 pstm.setInt(3, Integer.parseInt(labIDEmpleadoCrear.getText()));
                 pstm.executeUpdate();
 

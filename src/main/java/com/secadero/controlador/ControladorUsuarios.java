@@ -326,24 +326,24 @@ public class ControladorUsuarios {
 
         } else {
             camposObligatoriosModificar();
-            if(Objects.equals(textContraseniaModificar.getText(), textRepetirContraseniaModificar.getText())){
-                if(Objects.equals(labErrorContraseniaModificar.getText(), "") && Objects.equals(labErrorRepetirContraseniaModificar.getText(), "")){
-                    ModificarUsuario usuariosModificar = new ModificarUsuario();
-                    usuariosModificar.modificarUsuario(textNombreUsuarioModificar, textContraseniaModificar, labIDModificar, labInformacionModificarNombreUsuario, labLimpiarCamposModificar);
+            if(Objects.equals(labErrorContraseniaModificar.getText(), "") && Objects.equals(labErrorRepetirContraseniaModificar.getText(), "")){
+                validacionCamposLongitudModificar();
+                if(Objects.equals(labErrorContraseniaModificar.getText(), "") && Objects.equals(labErrorRepetirContraseniaModificar.getText(), "")) {
+                    if(Objects.equals(textContraseniaModificar.getText(), textRepetirContraseniaModificar.getText())){
+                        ModificarUsuario usuariosModificar = new ModificarUsuario();
+                        usuariosModificar.modificarUsuario(textNombreUsuarioModificar, textContraseniaModificar, labIDModificar, labInformacionModificarNombreUsuario, labLimpiarCamposModificar);
 
-                    if(Objects.equals(labLimpiarCamposModificar.getText(), "OK")){
-                        labLimpiarCamposModificar.setText("");
-                        inicializarTabla();
-                        regresarCLista();
-                        limpiarCamposModificar();
-                        limpiarCamposEliminar();
+                        if(Objects.equals(labLimpiarCamposModificar.getText(), "OK")){
+                            labLimpiarCamposModificar.setText("");
+                            inicializarTabla();
+                            regresarCLista();
+                            limpiarCamposModificar();
+                            limpiarCamposEliminar();
+                        }
+                    } else {
+                        labErrorRepetirContraseniaCrear.setText("La contraseña no coincide");
                     }
                 }
-            } else if(textRepetirContraseniaModificar.getLength() == 0){
-                labErrorRepetirContraseniaModificar.setText("Campo Obligatorio");
-
-            } else if (!Objects.equals(textContraseniaModificar.getText(), textRepetirContraseniaModificar.getText())){
-                labErrorRepetirContraseniaModificar.setText("La contraseña no coincide");
             }
         }
     }
@@ -431,13 +431,18 @@ public class ControladorUsuarios {
     }
 
     private void validacionCamposLongitudCrear(){
-        if (textContraseniaCrear.getLength() < 6) {
-            labErrorContraseniaCrear.setText("Usa más de 6 caracteres");
+        String contrasenia = textContraseniaCrear.getText().trim();
+        String repetirContrasenia = textRepetirContraseniaCrear.getText().trim();
+        contrasenia = contrasenia.replaceAll("\\s+", "");
+        repetirContrasenia = repetirContrasenia.replaceAll("\\s+", "");
+
+        if (contrasenia.length() < 6) {
+            labErrorContraseniaCrear.setText("Usa 6 o más caracteres");
         } else {
             labErrorContraseniaCrear.setText("");
         }
-        if (textRepetirContraseniaCrear.getLength() < 6) {
-            labErrorRepetirContraseniaCrear.setText("Usa más de 6 caracteres");
+        if (repetirContrasenia.length() < 6) {
+            labErrorRepetirContraseniaCrear.setText("Usa 6 o más caracteres");
         } else {
             labErrorRepetirContraseniaCrear.setText("");
         }
@@ -454,25 +459,26 @@ public class ControladorUsuarios {
         } else {
             labErrorRepetirContraseniaModificar.setText("");
         }
+    }
 
-        if(textContraseniaModificar.getLength() >= 1 || textContraseniaModificar.getLength() >= 1){
-            if(textContraseniaModificar.getLength() < 5 || textContraseniaModificar.getText().trim().isEmpty()){
-                labErrorContraseniaModificar.setText("Usa más de 5 caracteres");
-            } else {
-                labErrorContraseniaModificar.setText("");
-            }
-            if(textRepetirContraseniaModificar.getLength() < 5 || textRepetirContraseniaModificar.getText().trim().isEmpty()){
-                labErrorRepetirContraseniaModificar.setText("Usa más de 5 caracteres");
-            } else {
-                labErrorRepetirContraseniaModificar.setText("");
-            }
+    private void validacionCamposLongitudModificar(){
+        String contrasenia = textContraseniaModificar.getText().trim();
+        String repetirContrasenia = textRepetirContraseniaModificar.getText().trim();
+        contrasenia = contrasenia.replaceAll("\\s+", "");
+        repetirContrasenia = repetirContrasenia.replaceAll("\\s+", "");
+
+        if (contrasenia.length() < 6) {
+            labErrorContraseniaModificar.setText("Usa 6 o más caracteres");
+        } else {
+            labErrorContraseniaModificar.setText("");
+        }
+        if (repetirContrasenia.length() < 6) {
+            labErrorRepetirContraseniaModificar.setText("Usa 6 o más caracteres");
+        } else {
+            labErrorRepetirContraseniaModificar.setText("");
         }
     }
 
-    //---------------------------------------- Validación de Caracteres ------------------------------------------
-    public static boolean validarLetras(String datos){
-        return datos.matches("[a-zA-Z]*");
-    }
     //----------------------------------------- Limpiador de Campos ----------------------------------------------
     private void limpiarCamposCrear(){
         labIDEmpleadoCrear.setText("");

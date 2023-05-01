@@ -36,10 +36,15 @@ public class ModificarUsuario {
             }
 
             if(respuesta.equals("YES")){
+                String nombreUsuario = textNombreUsuarioModificar.getText().trim();
+                String contrasenia = textContraseniaModificar.getText().trim();
+                nombreUsuario = nombreUsuario.replaceAll("\\s+", "");
+                contrasenia = contrasenia.replaceAll("\\s+", "");
+
                 String consulta2 = "UPDATE usuarios SET nombreUsuario = ?,  contrasenia = ? WHERE idusuarios = ?";
                 pstm = con.prepareStatement(consulta2);
-                pstm.setString(1, textNombreUsuarioModificar.getText());
-                pstm.setString(2, textContraseniaModificar.getText());
+                pstm.setString(1, nombreUsuario);
+                pstm.setString(2, contrasenia);
                 pstm.setInt(3, Integer.parseInt(labIDModificar.getText()));
                 pstm.executeUpdate();
 
