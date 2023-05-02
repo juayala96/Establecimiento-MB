@@ -70,6 +70,18 @@ public class CrearEmpleado {
                 telefono = telefono.replaceAll("\\s+", "");
                 email = email.replaceAll("\\s+", "");
 
+                String fechaNacimiento = dpFechaNaciminetoCrear.getEditor().getText();
+                String fechaNacimientoAnio = fechaNacimiento.substring(6, 10);
+                String fechaNacimientoMes = fechaNacimiento.substring(3, 5);
+                String fechaNacimientoDia = fechaNacimiento.substring(0, 2);
+                String fechaNacimientoModificada = (fechaNacimientoAnio + "-" + fechaNacimientoMes + "-" + fechaNacimientoDia);
+
+                String fechaIngreso = dpFechaIngresoCrear.getEditor().getText();
+                String fechaIngresoAnio = fechaIngreso.substring(6, 10);
+                String fechaIngresoMes = fechaIngreso.substring(3, 5);
+                String fechaIngresoDia = fechaIngreso.substring(0, 2);
+                String fechaIngresoModificada = (fechaIngresoAnio + "-" + fechaIngresoMes + "-" + fechaIngresoDia);
+
                 try {
                     String consulta1 = "SELECT idgenero FROM genero WHERE descripcion = ?";
                     pstm = con.prepareStatement(consulta1);
@@ -117,9 +129,9 @@ public class CrearEmpleado {
                                         pstm.setString(7, email);
                                         pstm.setInt(8, datoIdGeneroFK);
                                         pstm.setInt(9, datoIdEstadoCivilFK);
-                                        pstm.setString(10, dpFechaNaciminetoCrear.getEditor().getText());
+                                        pstm.setString(10, fechaNacimientoModificada);
                                         pstm.setInt(11, datoIdGrupoSanguineoFK);
-                                        pstm.setString(12, dpFechaIngresoCrear.getEditor().getText());
+                                        pstm.setString(12, fechaIngresoModificada);
                                         pstm.setInt(13, datoIdAreaFK);
                                         pstm.setInt(14, datoIdPuestoFK);
                                         pstm.setString(15, "Disponible");
@@ -152,6 +164,7 @@ public class CrearEmpleado {
                         System.err.println("Error: " + ex.getMessage());
                     }
                 }
+
             } else {
                 labLimpiarCamposCrear.setText("");
                 Alert alerta = new Alert(Alert.AlertType.ERROR);

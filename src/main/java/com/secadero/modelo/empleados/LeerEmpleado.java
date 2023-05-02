@@ -23,14 +23,14 @@ public class LeerEmpleado {
     private int legajo;
     private int dni;
     private String telefono;
-    private Date fechaIngreso;
+    private String fechaIngreso;
     private String idAreaFK;
     private String idPuestoFK;
     private String email;
 
     public LeerEmpleado(){}
 
-    public LeerEmpleado(String nombre, String apellido, int legajo, int dni, String telefono, Date fechaIngreso, String idAreaFK, String idPuestoFK, int idempleados) {
+    public LeerEmpleado(String nombre, String apellido, int legajo, int dni, String telefono, String fechaIngreso, String idAreaFK, String idPuestoFK, int idempleados) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.legajo = legajo;
@@ -99,11 +99,11 @@ public class LeerEmpleado {
         this.telefono = telefono;
     }
 
-    public Date getFechaIngreso() {
+    public String getFechaIngreso() {
         return fechaIngreso;
     }
 
-    public void setFechaIngreso(Date fechaIngreso) {
+    public void setFechaIngreso(String fechaIngreso) {
         this.fechaIngreso = fechaIngreso;
     }
 
@@ -153,7 +153,13 @@ public class LeerEmpleado {
             rs = pstm.executeQuery();
 
             while (rs.next()){
-                lista.add(new LeerEmpleado(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getInt("dni"), rs.getString("telefono"), rs.getDate("fechaIngreso"), rs.getString("area.descripcion"), rs.getString("puesto.descripcion"), Integer.parseInt(rs.getString("idempleados"))));
+                String fechaIngreso = rs.getString("fechaIngreso");
+                String fechaIngresoAnio = fechaIngreso.substring(0, 4);
+                String fechaIngresoMes = fechaIngreso.substring(5, 7);
+                String fechaIngresoDia = fechaIngreso.substring(8, 10);
+                String fechaIngresoModificada = (fechaIngresoDia + "-" + fechaIngresoMes + "-" + fechaIngresoAnio);
+
+                lista.add(new LeerEmpleado(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getInt("dni"), rs.getString("telefono"), fechaIngresoModificada, rs.getString("area.descripcion"), rs.getString("puesto.descripcion"), Integer.parseInt(rs.getString("idempleados"))));
             }
         } catch (SQLException ex) {
             System.err.println("Error: " + ex.getMessage());
@@ -174,6 +180,7 @@ public class LeerEmpleado {
         Connection con = Conexion.leerConexion();
         PreparedStatement pstm = null;
         ResultSet rs = null;
+        SimpleDateFormat formatoLatino = new SimpleDateFormat("dd/MM/yyyy");
 
         try {
             pstm = con.prepareStatement("SELECT nombre, apellido, legajo, dni, telefono, direccion, email, genero.descripcion, estado_civil.descripcion, fechaNacimiento, grupo_sanguineo.descripcion, fechaIngreso, area.descripcion, puesto.descripcion FROM empleados INNER JOIN genero ON empleados.idGeneroFK = genero.idgenero INNER JOIN estado_civil ON empleados.idEstadoCivilFK = estado_civil.idestadoCivil INNER JOIN grupo_sanguineo ON empleados.idGrupoSanguineoFK = grupo_sanguineo.idgrupoSanguineo INNER JOIN area ON empleados.idAreaFK = area.idarea INNER JOIN puesto ON empleados.idPuestoFK = puesto.idpuesto WHERE idempleados = ?");
@@ -181,6 +188,17 @@ public class LeerEmpleado {
             rs = pstm.executeQuery();
 
             while (rs.next()){
+                String fechaNacimiento = rs.getString("fechaNacimiento");
+                String fechaNacimientoAnio = fechaNacimiento.substring(0, 4);
+                String fechaNacimientoMes = fechaNacimiento.substring(5, 7);
+                String fechaNacimientoDia = fechaNacimiento.substring(8, 10);
+                String fechaNacimientoModificada = (fechaNacimientoDia + "-" + fechaNacimientoMes + "-" + fechaNacimientoAnio);
+                String fechaIngreso = rs.getString("fechaIngreso");
+                String fechaIngresoAnio = fechaIngreso.substring(0, 4);
+                String fechaIngresoMes = fechaIngreso.substring(5, 7);
+                String fechaIngresoDia = fechaIngreso.substring(8, 10);
+                String fechaIngresoModificada = (fechaIngresoDia + "-" + fechaIngresoMes + "-" + fechaIngresoAnio);
+
                 textNombreModificar.setText(rs.getString("nombre"));
                 textApellidoModificar.setText(rs.getString("apellido"));
                 textLegajoModificar.setText(String.valueOf(rs.getInt("legajo")));
@@ -192,9 +210,9 @@ public class LeerEmpleado {
                 textEmailModificar.setText(rs.getString("email"));
                 cbGeneroModificar.getSelectionModel().select(rs.getString("genero.descripcion"));
                 cbEstadoCivilModificar.getSelectionModel().select(rs.getString("estado_civil.descripcion"));
-                dpFechaNaciminetoModificar.getEditor().setText(rs.getString("fechaNacimiento"));
+                dpFechaNaciminetoModificar.getEditor().setText(fechaNacimientoModificada);
                 cbGrupoSanguineoModificar.getSelectionModel().select(rs.getString("grupo_sanguineo.descripcion"));
-                dpFechaIngresoModificar.getEditor().setText(rs.getString("fechaIngreso"));
+                dpFechaIngresoModificar.getEditor().setText(fechaIngresoModificada);
                 cbAreaModificar.getSelectionModel().select(rs.getString("area.descripcion"));
                 cbPuestoModificar.getSelectionModel().select(rs.getString("puesto.descripcion"));
             }
@@ -223,6 +241,17 @@ public class LeerEmpleado {
             rs = pstm.executeQuery();
 
             while (rs.next()){
+                String fechaNacimiento = rs.getString("fechaNacimiento");
+                String fechaNacimientoAnio = fechaNacimiento.substring(0, 4);
+                String fechaNacimientoMes = fechaNacimiento.substring(5, 7);
+                String fechaNacimientoDia = fechaNacimiento.substring(8, 10);
+                String fechaNacimientoModificada = (fechaNacimientoDia + "-" + fechaNacimientoMes + "-" + fechaNacimientoAnio);
+                String fechaIngreso = rs.getString("fechaIngreso");
+                String fechaIngresoAnio = fechaIngreso.substring(0, 4);
+                String fechaIngresoMes = fechaIngreso.substring(5, 7);
+                String fechaIngresoDia = fechaIngreso.substring(8, 10);
+                String fechaIngresoModificada = (fechaIngresoDia + "-" + fechaIngresoMes + "-" + fechaIngresoAnio);
+
                 textNombreEliminar.setText(rs.getString("nombre"));
                 textApellidoEliminar.setText(rs.getString("apellido"));
                 textLegajoEliminar.setText(String.valueOf(rs.getInt("legajo")));
@@ -232,9 +261,9 @@ public class LeerEmpleado {
                 textEmailEliminar.setText(rs.getString("email"));
                 cbGeneroEliminar.getSelectionModel().select(rs.getString("genero.descripcion"));
                 cbEstadoCivilEliminar.getSelectionModel().select(rs.getString("estado_civil.descripcion"));
-                dpFechaNaciminetoEliminar.getEditor().setText(rs.getString("fechaNacimiento"));
+                dpFechaNaciminetoEliminar.getEditor().setText(fechaNacimientoModificada);
                 cbGrupoSanguineoEliminar.getSelectionModel().select(rs.getString("grupo_sanguineo.descripcion"));
-                dpFechaIngresoEliminar.getEditor().setText(rs.getString("fechaIngreso"));
+                dpFechaIngresoEliminar.getEditor().setText(fechaIngresoModificada);
                 cbAreaEliminar.getSelectionModel().select(rs.getString("area.descripcion"));
                 cbPuestoEliminar.getSelectionModel().select(rs.getString("puesto.descripcion"));
             }
@@ -265,7 +294,13 @@ public class LeerEmpleado {
             rs = pstm.executeQuery();
 
             while (rs.next()){
-                listaBuscar.add(new LeerEmpleado(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getInt("dni"), rs.getString("telefono"), rs.getDate("fechaIngreso"), rs.getString("area.descripcion"), rs.getString("puesto.descripcion"), Integer.parseInt(rs.getString("idempleados"))));
+                String fechaIngreso = rs.getString("fechaIngreso");
+                String fechaIngresoAnio = fechaIngreso.substring(0, 4);
+                String fechaIngresoMes = fechaIngreso.substring(5, 7);
+                String fechaIngresoDia = fechaIngreso.substring(8, 10);
+                String fechaIngresoModificada = (fechaIngresoDia + "-" + fechaIngresoMes + "-" + fechaIngresoAnio);
+
+                listaBuscar.add(new LeerEmpleado(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getInt("dni"), rs.getString("telefono"), fechaIngresoModificada, rs.getString("area.descripcion"), rs.getString("puesto.descripcion"), Integer.parseInt(rs.getString("idempleados"))));
             }
         } catch (SQLException ex) {
             System.err.println("Error: " + ex.getMessage());
@@ -299,7 +334,13 @@ public class LeerEmpleado {
             rs = pstm.executeQuery();
 
             while (rs.next()){
-                listaFiltro.add(new LeerEmpleado(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getInt("dni"), rs.getString("telefono"), rs.getDate("fechaIngreso"), rs.getString("area.descripcion"), rs.getString("puesto.descripcion"), Integer.parseInt(rs.getString("idempleados"))));
+                String fechaIngreso = rs.getString("fechaIngreso");
+                String fechaIngresoAnio = fechaIngreso.substring(0, 4);
+                String fechaIngresoMes = fechaIngreso.substring(5, 7);
+                String fechaIngresoDia = fechaIngreso.substring(8, 10);
+                String fechaIngresoModificada = (fechaIngresoDia + "-" + fechaIngresoMes + "-" + fechaIngresoAnio);
+
+                listaFiltro.add(new LeerEmpleado(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getInt("dni"), rs.getString("telefono"), fechaIngresoModificada, rs.getString("area.descripcion"), rs.getString("puesto.descripcion"), Integer.parseInt(rs.getString("idempleados"))));
             }
         } catch (SQLException ex) {
             System.err.println("Error: " + ex.getMessage());
@@ -334,7 +375,13 @@ public class LeerEmpleado {
             rs = pstm.executeQuery();
 
             while (rs.next()){
-                listaFiltro.add(new LeerEmpleado(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getInt("dni"), rs.getString("telefono"), rs.getDate("fechaIngreso"), rs.getString("area.descripcion"), rs.getString("puesto.descripcion"), Integer.parseInt(rs.getString("idempleados"))));
+                String fechaIngreso = rs.getString("fechaIngreso");
+                String fechaIngresoAnio = fechaIngreso.substring(0, 4);
+                String fechaIngresoMes = fechaIngreso.substring(5, 7);
+                String fechaIngresoDia = fechaIngreso.substring(8, 10);
+                String fechaIngresoModificada = (fechaIngresoDia + "-" + fechaIngresoMes + "-" + fechaIngresoAnio);
+
+                listaFiltro.add(new LeerEmpleado(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getInt("dni"), rs.getString("telefono"), fechaIngresoModificada, rs.getString("area.descripcion"), rs.getString("puesto.descripcion"), Integer.parseInt(rs.getString("idempleados"))));
             }
         } catch (SQLException ex) {
             System.err.println("Error: " + ex.getMessage());

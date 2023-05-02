@@ -248,9 +248,7 @@ public class ControladorUsuarios {
         ObservableList<LeerUsuario> listBuscar;
         listBuscar = LeerUsuario.buscarUsuario(textBuscarUsuario);
 
-        if(textBuscarUsuario.getText().equals("")){
-
-        } else {
+        if(!textBuscarUsuario.getText().equals("")){
             tablaUsuarios.getItems().setAll(listBuscar);
         }
     }

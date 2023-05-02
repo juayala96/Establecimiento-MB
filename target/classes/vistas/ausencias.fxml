@@ -352,6 +352,11 @@
                               <Font name="System Italic" size="24.0" />
                            </font>
                         </Label>
+                        <Label fx:id="labErrorMotivoCrear" layoutX="989.0" layoutY="396.0" prefHeight="20.0" prefWidth="300.0" textFill="#bc0f0f">
+                           <font>
+                              <Font name="Consolas" size="14.0" />
+                           </font>
+                        </Label>
                      </children>
                   </AnchorPane>
                </content>
@@ -487,6 +492,11 @@
                         <Label layoutX="786.0" layoutY="276.0" prefHeight="35.0" prefWidth="77.0" text="Motivo:" textFill="#080808">
                            <font>
                               <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="labErrorMotivoModificar" layoutX="862.0" layoutY="431.0" prefHeight="20.0" prefWidth="300.0" textFill="#bc0f0f">
+                           <font>
+                              <Font name="Consolas" size="14.0" />
                            </font>
                         </Label>
                      </children>

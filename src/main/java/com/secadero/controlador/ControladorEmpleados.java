@@ -219,11 +219,8 @@ public class ControladorEmpleados {
     @FXML
     private TextField textDNIEliminar;
 
-
     ObservableList<LeerEmpleado> listEmpleado;
     int index = -1;
-
-    String ErrorModificar = "";
 
     // -------------------------------------------- Inicialización ----------------------------------------------
     public void initialize() {
@@ -346,9 +343,7 @@ public class ControladorEmpleados {
         ObservableList<LeerEmpleado> listBuscar;
         listBuscar = LeerEmpleado.buscarEmpleado(textBuscarEmpleado);
 
-        if(textBuscarEmpleado.getText().equals("")){
-            tablaEmpleados.getItems().setAll(listEmpleado);
-        } else {
+        if(!textBuscarEmpleado.getText().equals("")){
             tablaEmpleados.getItems().setAll(listBuscar);
         }
     }
@@ -922,7 +917,7 @@ public class ControladorEmpleados {
         dpFechaNaciminetoCrear.setConverter(new StringConverter<LocalDate>() {
             @Override
             public String toString(LocalDate localDate) {
-                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyy");
                 return dtf.format(localDate);
             }
 
@@ -936,7 +931,7 @@ public class ControladorEmpleados {
         dpFechaNaciminetoModificar.setConverter(new StringConverter<LocalDate>() {
             @Override
             public String toString(LocalDate localDate) {
-                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                 return dtf.format(localDate);
             }
 
@@ -950,7 +945,7 @@ public class ControladorEmpleados {
         dpFechaNaciminetoEliminar.setConverter(new StringConverter<LocalDate>() {
             @Override
             public String toString(LocalDate localDate) {
-                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                 return dtf.format(localDate);
             }
 
@@ -964,7 +959,7 @@ public class ControladorEmpleados {
         dpFechaIngresoCrear.setConverter(new StringConverter<LocalDate>() {
             @Override
             public String toString(LocalDate localDate) {
-                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                 return dtf.format(localDate);
             }
 
@@ -978,7 +973,7 @@ public class ControladorEmpleados {
         dpFechaIngresoModificar.setConverter(new StringConverter<LocalDate>() {
             @Override
             public String toString(LocalDate localDate) {
-                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                 return dtf.format(localDate);
             }
 
@@ -992,7 +987,7 @@ public class ControladorEmpleados {
         dpFechaIngresoEliminar.setConverter(new StringConverter<LocalDate>() {
             @Override
             public String toString(LocalDate localDate) {
-                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                 return dtf.format(localDate);
             }
 
