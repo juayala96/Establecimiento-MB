@@ -12,6 +12,7 @@ import java.text.CompactNumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import java.sql.*;
@@ -615,8 +616,6 @@ public class LeerEmpleado {
         Connection con = Conexion.leerConexion();
         PreparedStatement pstm = null;
         ResultSet rs = null;
-        ResultSet rs2 = null;
-        String IDEmpleadoGeneral;
         String IDEmpleado;
 
         try {
@@ -629,17 +628,22 @@ public class LeerEmpleado {
         }
 
         SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
-        Date fechaActualPais = new Date();
-        String fecha_Actual = (formatoFecha.format(fechaActualPais));
+        // Obtener la fecha actual
+        Calendar calendar = Calendar.getInstance();
+        // Sumar un día a la fecha actual
+        calendar.add(Calendar.DATE, 1);
+        Date fecha = calendar.getTime();
+        String fecha_Actual_Mas1 = (formatoFecha.format(fecha));
+        System.out.println(fecha_Actual_Mas1);
 
         try {
             pstm = con.prepareStatement("SELECT idempleados, fecha_Inicio, fecha_Fin FROM licencias INNER JOIN tipo_licencias ON licencias.idTipoLicenciaFK = tipo_licencias.idTipoLicencia INNER JOIN empleado_licencia ON licencias.idLicencias = empleado_licencia.idLicenciaFK INNER JOIN empleados ON empleado_licencia.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND licencias.estadoLicencia = ? AND (((licencias.fecha_Inicio <= ?) AND (licencias.fecha_Fin >= ?)) OR ((licencias.fecha_Inicio >= ?) AND (licencias.fecha_Fin <= ?)))");
             pstm.setString(1, "Vigente");
             pstm.setString(2, "Vigente");
-            pstm.setDate(3, java.sql.Date.valueOf(fecha_Actual));
-            pstm.setDate(4, java.sql.Date.valueOf(fecha_Actual));
-            pstm.setDate(5, java.sql.Date.valueOf(fecha_Actual));
-            pstm.setDate(6, java.sql.Date.valueOf(fecha_Actual));
+            pstm.setDate(3, java.sql.Date.valueOf(fecha_Actual_Mas1));
+            pstm.setDate(4, java.sql.Date.valueOf(fecha_Actual_Mas1));
+            pstm.setDate(5, java.sql.Date.valueOf(fecha_Actual_Mas1));
+            pstm.setDate(6, java.sql.Date.valueOf(fecha_Actual_Mas1));
             rs = pstm.executeQuery();
 
             while (rs.next()){

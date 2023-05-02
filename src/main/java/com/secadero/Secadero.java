@@ -23,4 +23,5 @@ public class Secadero extends Application {
         primaryStage.setTitle("Gestión Secadero");
         primaryStage.show();
     }
+
 }
