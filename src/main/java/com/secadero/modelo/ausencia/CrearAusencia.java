@@ -20,15 +20,21 @@ public class CrearAusencia {
         String dato;
         String resultado = "YES";
 
+        String fecha = dpFechaCrear.getEditor().getText();
+        String fechaAnio = fecha.substring(6, 10);
+        String fechaMes = fecha.substring(3, 5);
+        String fechaDia = fecha.substring(0, 2);
+        String fechaModificada = (fechaAnio + "-" + fechaMes + "-" + fechaDia);
+
         try {
             String consulta1 = "SELECT idEmpleadoFK, fecha FROM ausencias WHERE idEmpleadoFK = ? AND fecha = ?";
             pstm = con.prepareStatement(consulta1);
             pstm.setString(1, labIDEmpleadoCrear.getText());
-            pstm.setString(2, dpFechaCrear.getEditor().getText());
+            pstm.setString(2, fechaModificada);
             rs = pstm.executeQuery();
             while (rs.next()){
                 dato = String.valueOf(rs.getDate("fecha"));
-                if(Objects.equals(dpFechaCrear.getEditor().getText(), dato)){
+                if(Objects.equals(fechaModificada, dato)){
                     resultado = "NO";
                 }
             }
@@ -40,7 +46,7 @@ public class CrearAusencia {
             try {
                 String consulta = "INSERT INTO ausencias(fecha, motivo, justificado, certificado, idEmpleadoFK) VALUES (?, ?, ?, ?, ?)";
                 pstm = con.prepareStatement(consulta);
-                pstm.setString(1, dpFechaCrear.getEditor().getText());
+                pstm.setString(1, fechaModificada);
                 pstm.setString(2, textMotivoCrear.getText());
                 pstm.setString(3, labJustificacionCrear.getText());
                 pstm.setString(4, labCertificadoCrear.getText());

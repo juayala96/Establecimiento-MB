@@ -20,15 +20,27 @@ public class ModificarAusencia {
         String dato;
         String resultado = "YES";
 
+        String fecha = dpFechaModificar.getEditor().getText();
+        String fechaAnio = fecha.substring(6, 10);
+        String fechaMes = fecha.substring(3, 5);
+        String fechaDia = fecha.substring(0, 2);
+        String fechaModificada = (fechaAnio + "-" + fechaMes + "-" + fechaDia);
+
+        String fecha2 = dpFechaModificarDuplicada.getEditor().getText();
+        String fechaAnio2 = fecha2.substring(6, 10);
+        String fechaMes2 = fecha2.substring(3, 5);
+        String fechaDia2 = fecha2.substring(0, 2);
+        String fechaModificadaDuplicada = (fechaAnio2 + "-" + fechaMes2 + "-" + fechaDia2);
+
         try {
             String consulta1 = "SELECT idEmpleadoFK, fecha FROM ausencias WHERE idEmpleadoFK = ? AND fecha = ?";
             pstm = con.prepareStatement(consulta1);
             pstm.setString(1, labIDEmpleadoModificar.getText());
-            pstm.setString(2, dpFechaModificar.getEditor().getText());
+            pstm.setString(2, fechaModificada);
             rs = pstm.executeQuery();
             while (rs.next()) {
                 dato = String.valueOf(rs.getDate("fecha"));
-                if (Objects.equals(dpFechaModificarDuplicada.getEditor().getText(), dato)) {
+                if (Objects.equals(fechaModificadaDuplicada, dato)) {
                     resultado = "YES";
                 } else {
                     resultado = "NO";
@@ -42,7 +54,7 @@ public class ModificarAusencia {
             try {
                 String consulta = "UPDATE ausencias SET fecha = ?, motivo = ?, justificado = ?, certificado = ? WHERE idausencias = ?";
                 pstm = con.prepareStatement(consulta);
-                pstm.setString(1, dpFechaModificar.getEditor().getText());
+                pstm.setString(1, fechaModificada);
                 pstm.setString(2, textMotivoModificar.getText());
                 pstm.setString(3, labJustificacionModificar.getText());
                 pstm.setString(4, labCertificadoModificar.getText());

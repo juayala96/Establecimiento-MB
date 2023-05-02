@@ -68,7 +68,7 @@ public class ControladorAusencias {
     @FXML
     private TableColumn<LeerEmpleado, Integer> colDNIEmpleadoCrear;
     @FXML
-    private TableColumn<LeerAusencia, Date> colFecha;
+    private TableColumn<LeerAusencia, String> colFecha;
     @FXML
     private TableColumn<LeerAusencia, Integer> colIDAusencia;
     @FXML
@@ -219,7 +219,7 @@ public class ControladorAusencias {
 
     // -------------------------------------------- Inicialización ----------------------------------------------
     public void initialize() {
-        String[] tipoFiltro = {"Nombre", "Legajo", "DNI", "Fecha"};
+        String[] tipoFiltro = {"Nombre", "Legajo", "DNI", "Justificado", "Certificado"};
         cbTiposFiltrosAusencias.getItems().addAll(tipoFiltro);
         cbTiposFiltrosAusencias.getSelectionModel().selectFirst();
         inicializarTablaListaEmpleados();
@@ -246,7 +246,7 @@ public class ControladorAusencias {
 
     // ----------------------------------------- Tabla de Ausencias ---------------------------------------------
     public void inicializarTablaAusencias(){
-        colFecha.setCellValueFactory(new PropertyValueFactory<LeerAusencia, Date>("fecha"));
+        colFecha.setCellValueFactory(new PropertyValueFactory<LeerAusencia, String>("fecha"));
         colMotivo.setCellValueFactory(new PropertyValueFactory<LeerAusencia, String>("motivo"));
         colJustificado.setCellValueFactory(new PropertyValueFactory<LeerAusencia, String>("justificado"));
         colCertificado.setCellValueFactory(new PropertyValueFactory<LeerAusencia, String>("certificado"));
@@ -365,7 +365,7 @@ public class ControladorAusencias {
     @FXML
     private void filtroAusencia() {
         String dato = cbTiposFiltrosAusencias.getSelectionModel().getSelectedItem().toLowerCase();
-        if(dato.equals("fecha")){
+        if(dato.equals("justificado") || dato.equals("certificado")){
             ObservableList<LeerAusencia> listFiltros;
             listFiltros = LeerAusencia.filtroAusencia(cbTiposFiltrosAusencias, labIDEmpleadoLista);
             tablaAusencias.getItems().setAll(listFiltros);
@@ -713,7 +713,7 @@ public class ControladorAusencias {
         dpBuscarFecha.setConverter(new StringConverter<LocalDate>() {
             @Override
             public String toString(LocalDate localDate) {
-                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                 return dtf.format(localDate);
             }
 
@@ -727,7 +727,7 @@ public class ControladorAusencias {
         dpFechaCrear.setConverter(new StringConverter<LocalDate>() {
             @Override
             public String toString(LocalDate localDate) {
-                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                 return dtf.format(localDate);
             }
 
@@ -741,7 +741,7 @@ public class ControladorAusencias {
         dpFechaModificar.setConverter(new StringConverter<LocalDate>() {
             @Override
             public String toString(LocalDate localDate) {
-                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                 return dtf.format(localDate);
             }
 
@@ -755,7 +755,7 @@ public class ControladorAusencias {
         dpFechaEliminar.setConverter(new StringConverter<LocalDate>() {
             @Override
             public String toString(LocalDate localDate) {
-                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                 return dtf.format(localDate);
             }
 
