@@ -103,15 +103,24 @@ public class ControladorInformes {
     //------------------------------------------ Evento Importante ----------------------------------------------
     @FXML
     private void generar() throws ParseException {
+        String fechaInicioClave = dpFechaDesde.getEditor().getText();
+        String fechaAnio = fechaInicioClave.substring(6, 10);
+        String fechaMes = fechaInicioClave.substring(3, 5);
+        String fechaDia = fechaInicioClave.substring(0, 2);
+        String fechaModificadaInicio = (fechaAnio + "-" + fechaMes + "-" + fechaDia);
+        String fechaFinClave = dpFechaHasta.getEditor().getText();
+        String fechaAnio2 = fechaFinClave.substring(6, 10);
+        String fechaMes2 = fechaFinClave.substring(3, 5);
+        String fechaDia2 = fechaFinClave.substring(0, 2);
+        String fechaModificadaFin = (fechaAnio2 + "-" + fechaMes2 + "-" + fechaDia2);
+
         SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
         // ------------------------- Fecha Inicio -------------------------------
-        String fechaI = dpFechaDesde.getEditor().getText();
+        String fechaI = fechaModificadaInicio;
         Date fechaInicio = formatoFecha.parse(fechaI);
-
         // --------------------------- Fecha Fin --------------------------------
-        String fechaF = dpFechaHasta.getEditor().getText();
+        String fechaF = fechaModificadaFin;
         Date fechaFin = formatoFecha.parse(fechaF);
-
         // --------------------- Diferencia entre Fechas ------------------------
         long Diferencias = fechaInicio.getTime() - fechaFin.getTime();
         long Cant_Dias = Diferencias / (1000 * 60 * 60 * 24);
@@ -131,7 +140,7 @@ public class ControladorInformes {
             } else {
                 Alert alerta = new Alert(Alert.AlertType.ERROR);
                 alerta.setTitle("Error de Fechas!");
-                alerta.setContentText("La Fecha de Inicio debe de ser Antes de la Fecha de Fin");
+                alerta.setContentText("La Fecha Desde debe de ser Antes de la Fecha Hasta");
                 alerta.showAndWait();
             }
         }
@@ -157,7 +166,7 @@ public class ControladorInformes {
         dpFechaDesde.setConverter(new StringConverter<LocalDate>() {
             @Override
             public String toString(LocalDate localDate) {
-                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                 return dtf.format(localDate);
             }
 
@@ -171,7 +180,7 @@ public class ControladorInformes {
         dpFechaHasta.setConverter(new StringConverter<LocalDate>() {
             @Override
             public String toString(LocalDate localDate) {
-                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                 return dtf.format(localDate);
             }
 
