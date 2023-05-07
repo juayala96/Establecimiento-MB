@@ -634,7 +634,6 @@ public class LeerEmpleado {
         calendar.add(Calendar.DATE, 1);
         Date fecha = calendar.getTime();
         String fecha_Actual_Mas1 = (formatoFecha.format(fecha));
-        System.out.println(fecha_Actual_Mas1);
 
         try {
             pstm = con.prepareStatement("SELECT idempleados, fecha_Inicio, fecha_Fin FROM licencias INNER JOIN tipo_licencias ON licencias.idTipoLicenciaFK = tipo_licencias.idTipoLicencia INNER JOIN empleado_licencia ON licencias.idLicencias = empleado_licencia.idLicenciaFK INNER JOIN empleados ON empleado_licencia.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND licencias.estadoLicencia = ? AND (((licencias.fecha_Inicio <= ?) AND (licencias.fecha_Fin >= ?)) OR ((licencias.fecha_Inicio >= ?) AND (licencias.fecha_Fin <= ?)))");

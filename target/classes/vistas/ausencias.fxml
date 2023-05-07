@@ -57,10 +57,13 @@
                         </Button>
                         <ComboBox fx:id="cbTiposFiltrosAusencias" layoutX="1301.0" layoutY="108.0" prefHeight="46.0" prefWidth="199.0" style="-fx-font-size: 16;">
                            <cursor>
-                              <Cursor fx:constant="DISAPPEAR" />
+                              <Cursor fx:constant="HAND" />
                            </cursor>
                         </ComboBox>
-                        <DatePicker fx:id="dpBuscarFecha" editable="false" layoutX="1114.0" layoutY="195.0" prefHeight="46.0" prefWidth="178.0" style="-fx-font-size: 16;" />
+                        <DatePicker fx:id="dpBuscarFecha" editable="false" layoutX="1114.0" layoutY="195.0" prefHeight="46.0" prefWidth="178.0" style="-fx-font-size: 18;">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></DatePicker>
                         <Label layoutX="548.0" layoutY="41.0" prefHeight="66.0" prefWidth="295.0" text="Ausencias" textFill="#080808">
                            <font>
                               <Font name="Georgia Bold" size="56.0" />
@@ -73,7 +76,7 @@
                         </Label>
                         <TextField fx:id="textBuscarLegajoEmpleado" layoutX="481.0" layoutY="195.0" prefHeight="46.0" prefWidth="177.0">
                            <font>
-                              <Font size="16.0" />
+                              <Font size="18.0" />
                            </font>
                         </TextField>
                         <TableView fx:id="tablaAusencias" layoutX="703.0" layoutY="265.0" onMouseClicked="#getAusencia" prefHeight="467.0" prefWidth="590.0">
@@ -85,7 +88,7 @@
                               <TableColumn fx:id="colIDAusencia" prefWidth="140.0" style="-fx-font-size: 14;" text="IDAusencia" />
                            </columns>
                            <cursor>
-                              <Cursor fx:constant="DISAPPEAR" />
+                              <Cursor fx:constant="HAND" />
                            </cursor>
                         </TableView>
                         <Button fx:id="btnBuscarAusencia" layoutX="932.0" layoutY="195.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnBuscarAusencia" prefHeight="46.0" prefWidth="175.0" text="Buscar Ausencia:" textFill="#022c7b">
@@ -178,7 +181,7 @@
                               <TableColumn fx:id="colIDEmpleado" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="IDEmpleado" />
                            </columns>
                            <cursor>
-                              <Cursor fx:constant="DISAPPEAR" />
+                              <Cursor fx:constant="HAND" />
                            </cursor>
                         </TableView>
                         <Label layoutX="53.0" layoutY="194.0" prefHeight="45.0" prefWidth="223.0" text="Lista de Empleados: " textFill="#450606">
@@ -249,7 +252,10 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <DatePicker fx:id="dpFechaCrear" editable="false" layoutX="991.0" layoutY="151.0" prefHeight="40.0" prefWidth="178.0" style="-fx-font-size: 18;" />
+                        <DatePicker fx:id="dpFechaCrear" editable="false" layoutX="991.0" layoutY="151.0" prefHeight="40.0" prefWidth="178.0" style="-fx-font-size: 18;">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></DatePicker>
                         <TextArea fx:id="textMotivoCrear" layoutX="990.0" layoutY="241.0" prefHeight="155.0" prefWidth="300.0" wrapText="true">
                            <font>
                               <Font size="16.0" />
@@ -277,6 +283,9 @@
                               <TableColumn fx:id="colTelefonoEmpleadoCrear" prefWidth="145.60003662109375" text="Telefono" />
                               <TableColumn fx:id="colIDEmpleadoCrear" prefWidth="63.199951171875" text="ID" />
                            </columns>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </TableView>
                         <Label layoutX="156.0" layoutY="495.0" prefHeight="35.0" prefWidth="80.0" text="Nombre:" textFill="#080808">
                            <font>
@@ -344,7 +353,7 @@
                         </Button>
                         <TextField fx:id="textBuscarLegajoEmpleadoCrear" layoutX="592.0" layoutY="150.0" prefHeight="44.0" prefWidth="174.0">
                            <font>
-                              <Font size="16.0" />
+                              <Font size="18.0" />
                            </font>
                         </TextField>
                         <Label layoutX="156.0" layoutY="149.0" prefHeight="46.0" prefWidth="210.0" text="Lista de Empleados: " textFill="#450606">
@@ -424,7 +433,10 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <DatePicker fx:id="dpFechaModificar" editable="false" layoutX="862.0" layoutY="189.0" prefHeight="40.0" prefWidth="178.0" style="-fx-font-size: 18;" />
+                        <DatePicker fx:id="dpFechaModificar" editable="false" layoutX="862.0" layoutY="189.0" prefHeight="40.0" prefWidth="178.0" style="-fx-font-size: 18;">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></DatePicker>
                         <TextArea fx:id="textMotivoModificar" layoutX="862.0" layoutY="276.0" prefHeight="155.0" prefWidth="300.0" wrapText="true">
                            <font>
                               <Font size="16.0" />
@@ -509,7 +521,7 @@
                      <children>
                         <Label fx:id="labIDAusenciaEliminar" layoutX="422.0" layoutY="93.0" prefHeight="18.0" prefWidth="26.0" />
                         <Label fx:id="labIDEmpleadoEliminar" layoutX="396.0" layoutY="93.0" prefHeight="18.0" prefWidth="26.0" />
-                        <ImageView fitHeight="1168.0" fitWidth="1536.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="1168.0" fitWidth="1536.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../imagenes/verde_agua.jpg" />
                            </image>
@@ -560,13 +572,13 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <DatePicker fx:id="dpFechaEliminar" disable="true" editable="false" layoutX="862.0" layoutY="189.0" opacity="0.99" prefHeight="40.0" prefWidth="178.0" style="-fx-font-size: 18;" />
+                        <DatePicker fx:id="dpFechaEliminar" editable="false" layoutX="862.0" layoutY="189.0" opacity="0.88" prefHeight="40.0" prefWidth="178.0" style="-fx-font-size: 18;" />
                         <TextArea fx:id="textMotivoEliminar" editable="false" layoutX="862.0" layoutY="276.0" opacity="0.9" prefHeight="155.0" prefWidth="300.0" wrapText="true">
                            <font>
                               <Font size="16.0" />
                            </font>
                            <cursor>
-                              <Cursor fx:constant="DISAPPEAR" />
+                              <Cursor fx:constant="DEFAULT" />
                            </cursor>
                         </TextArea>
                         <Label layoutX="304.0" layoutY="191.0" prefHeight="35.0" prefWidth="80.0" text="Nombre:" textFill="#080808">
@@ -602,14 +614,14 @@
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="861.0" layoutY="471.0" opacity="0.9" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: white;" />
-                        <Label fx:id="labJustificadoEliminar" layoutX="871.0" layoutY="471.0" prefHeight="40.0" prefWidth="63.0" textFill="#1200ff">
+                        <Label layoutX="861.0" layoutY="471.0" opacity="0.9" prefHeight="40.0" prefWidth="72.0" style="-fx-background-color: white;" />
+                        <Label fx:id="labJustificadoEliminar" layoutX="871.0" layoutY="471.0" opacity="0.9" prefHeight="40.0" prefWidth="55.0" textFill="#1200ff">
                            <font>
                               <Font name="System Bold Italic" size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="861.0" layoutY="545.0" opacity="0.9" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: white;" />
-                        <Label fx:id="labCertificadoEliminar" layoutX="871.0" layoutY="545.0" prefHeight="40.0" prefWidth="63.0" textFill="#1200ff">
+                        <Label layoutX="861.0" layoutY="545.0" opacity="0.9" prefHeight="40.0" prefWidth="72.0" style="-fx-background-color: white;" />
+                        <Label fx:id="labCertificadoEliminar" layoutX="871.0" layoutY="545.0" opacity="0.9" prefHeight="40.0" prefWidth="55.0" textFill="#1200ff">
                            <font>
                               <Font name="System Bold Italic" size="18.0" />
                            </font>
@@ -618,6 +630,11 @@
                            <font>
                               <Font size="20.0" />
                            </font>
+                        </Label>
+                        <Label layoutX="860.0" layoutY="186.0" prefHeight="46.0" prefWidth="184.0">
+                           <cursor>
+                              <Cursor fx:constant="DISAPPEAR" />
+                           </cursor>
                         </Label>
                      </children>
                   </AnchorPane>

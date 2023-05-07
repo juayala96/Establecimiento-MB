@@ -309,14 +309,14 @@ public class ControladorAusencias {
             return;
         }
 
-        dpFechaModificar.getEditor().setText(colFecha.getCellData(index2).toString());
-        dpFechaModificarDuplicada.getEditor().setText(colFecha.getCellData(index2).toString());
+        dpFechaModificar.getEditor().setText(colFecha.getCellData(index2));
+        dpFechaModificarDuplicada.getEditor().setText(colFecha.getCellData(index2));
         textMotivoModificar.setText(colMotivo.getCellData(index2));
         labSeleccionJustificacion.setText(colJustificado.getCellData(index2));
         labSeleccionCertificado.setText(colCertificado.getCellData(index2));
         labIDAusenciaModificar.setText(colIDAusencia.getCellData(index2).toString());
 
-        dpFechaEliminar.getEditor().setText(colFecha.getCellData(index2).toString());
+        dpFechaEliminar.getEditor().setText(colFecha.getCellData(index2));
         textMotivoEliminar.setText(colMotivo.getCellData(index2));
         labJustificadoEliminar.setText(colJustificado.getCellData(index2));
         labCertificadoEliminar.setText(colCertificado.getCellData(index2));
@@ -325,6 +325,9 @@ public class ControladorAusencias {
         comprobacionRadioBotomSeleccionC();
 
         labIDAusenciaLista.setText(colIDAusencia.getCellData(index2).toString());
+
+        String fecha = colFecha.getCellData(index2);
+        dpFechaModificar.setValue(LocalDate.of(Integer.parseInt(fecha.substring(6, 10)), Integer.parseInt(fecha.substring(3, 5)), Integer.parseInt(fecha.substring(0, 2))));
     }
 
     @FXML
@@ -704,7 +707,7 @@ public class ControladorAusencias {
         textMotivoEliminar.setText("");
         labJustificadoEliminar.setText("");
         labCertificadoEliminar.setText("");
-        fechasInicializar();
+        fechasInicializarMyE();
     }
 
     // ---------------------------------------- Fechas Actuales Inicializadas ----------------------------------------
@@ -765,6 +768,37 @@ public class ControladorAusencias {
             }
         });
     }
+
+    public void fechasInicializarMyE() {
+        dpFechaModificar.setValue(LocalDate.now());
+        dpFechaModificar.setConverter(new StringConverter<LocalDate>() {
+            @Override
+            public String toString(LocalDate localDate) {
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                return dtf.format(localDate);
+            }
+
+            @Override
+            public LocalDate fromString(String s) {
+                return null;
+            }
+        });
+
+        dpFechaEliminar.setValue(LocalDate.now());
+        dpFechaEliminar.setConverter(new StringConverter<LocalDate>() {
+            @Override
+            public String toString(LocalDate localDate) {
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                return dtf.format(localDate);
+            }
+
+            @Override
+            public LocalDate fromString(String s) {
+                return null;
+            }
+        });
+    }
+
 
     // ---------------------------------- Cerrar Ventana -------------------------------------------
     public void closeWindowsPrincipalAusencia() throws IOException {

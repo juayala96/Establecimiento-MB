@@ -151,7 +151,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <DatePicker fx:id="dpBuscarFecha" editable="false" layoutX="1124.0" layoutY="195.0" prefHeight="46.0" prefWidth="178.0" style="-fx-font-size: 16;" />
+                        <DatePicker fx:id="dpBuscarFecha" editable="false" layoutX="1124.0" layoutY="195.0" prefHeight="46.0" prefWidth="178.0" style="-fx-font-size: 18;" />
                         <Label layoutX="1124.0" layoutY="168.0" prefHeight="27.0" prefWidth="106.0" text="Fecha:" textFill="#080808">
                            <font>
                               <Font size="18.0" />
@@ -159,7 +159,7 @@
                         </Label>
                         <TextField fx:id="textBuscarLegajoEmpleado" layoutX="487.0" layoutY="196.0" prefHeight="46.0" prefWidth="177.0">
                            <font>
-                              <Font size="16.0" />
+                              <Font size="18.0" />
                            </font>
                         </TextField>
                         <Label layoutX="525.0" layoutY="15.0" prefHeight="66.0" prefWidth="367.0" text="Cronograma" textFill="#080808">
@@ -410,7 +410,7 @@
                         </Button>
                         <TextField fx:id="textBuscarLegajoEmpleadoCrear" layoutX="461.0" layoutY="150.0" prefHeight="44.0" prefWidth="150.0">
                            <font>
-                              <Font size="16.0" />
+                              <Font size="17.0" />
                            </font>
                         </TextField>
                         <Label layoutX="105.0" layoutY="147.0" prefHeight="27.0" prefWidth="186.0" text="Lista de los Empleados" textFill="#030d7e">

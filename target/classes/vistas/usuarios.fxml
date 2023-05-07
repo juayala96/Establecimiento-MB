@@ -44,12 +44,12 @@
                               <TableColumn fx:id="colID" prefWidth="150.0" style="-fx-font-size: 14;" text="ID" />
                            </columns>
                            <cursor>
-                              <Cursor fx:constant="DISAPPEAR" />
+                              <Cursor fx:constant="HAND" />
                            </cursor>
                         </TableView>
                         <TextField fx:id="textBuscarUsuario" layoutX="456.0" layoutY="146.0" prefHeight="46.0" prefWidth="200.0">
                            <font>
-                              <Font size="16.0" />
+                              <Font size="18.0" />
                            </font>
                         </TextField>
                         <Label layoutX="456.0" layoutY="118.0" prefHeight="12.0" prefWidth="67.0" text="Legajo:" textFill="#080808">
@@ -75,7 +75,7 @@
                         </Button>
                         <ComboBox fx:id="cbTiposFiltrosUsuarios" layoutX="845.0" layoutY="146.0" prefHeight="46.0" prefWidth="200.0" style="-fx-font-size: 16;">
                            <cursor>
-                              <Cursor fx:constant="DISAPPEAR" />
+                              <Cursor fx:constant="HAND" />
                            </cursor></ComboBox>
                         <Button fx:id="btnCrearUsuario" alignment="TOP_LEFT" graphicTextGap="6.0" layoutX="1329.0" layoutY="214.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#crearUsuario" prefHeight="46.0" prefWidth="166.0" text="Crear" textFill="#080808">
                            <font>
@@ -257,6 +257,9 @@
                               <TableColumn fx:id="colTelefonoEmpleadoCrear" prefWidth="145.60003662109375" text="Telefono" />
                               <TableColumn fx:id="colIDEmpleadoCrear" prefWidth="63.199951171875" text="ID" />
                            </columns>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </TableView>
                         <Label layoutX="139.0" layoutY="497.0" prefHeight="35.0" prefWidth="80.0" text="Nombre:" textFill="#080808">
                            <font>
@@ -306,7 +309,7 @@
                         </Button>
                         <TextField fx:id="textBuscarLegajoEmpleadoCrear" layoutX="575.0" layoutY="152.0" prefHeight="44.0" prefWidth="174.0">
                            <font>
-                              <Font size="16.0" />
+                              <Font size="18.0" />
                            </font>
                         </TextField>
                         <Label layoutX="139.0" layoutY="134.0" prefHeight="46.0" prefWidth="210.0" text="Lista de Empleados de" textFill="#450606">
@@ -317,16 +320,6 @@
                         <Label layoutX="139.0" layoutY="168.0" prefHeight="46.0" prefWidth="210.0" text="Area: Administración" textFill="#450606">
                            <font>
                               <Font name="System Italic" size="20.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="labErrorNombreUsuarioCrear1" layoutX="908.0" layoutY="575.0" prefHeight="20.0" prefWidth="280.0" text="Usá 6 o más caracteres con" textFill="#2b2828">
-                           <font>
-                              <Font name="Consolas" size="14.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="labErrorNombreUsuarioCrear11" layoutX="908.0" layoutY="597.0" prefHeight="20.0" prefWidth="280.0" text="combinacion de letras y números." textFill="#2b2828">
-                           <font>
-                              <Font name="Consolas" size="14.0" />
                            </font>
                         </Label>
                      </children>
@@ -461,16 +454,6 @@
                         <Label fx:id="labLegajoEmpleadoModificar" layoutX="414.0" layoutY="460.0" prefHeight="40.0" prefWidth="190.0" textFill="#d101dc">
                            <font>
                               <Font name="System Bold" size="17.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="labErrorNombreUsuarioCrear12" layoutX="843.0" layoutY="544.0" prefHeight="20.0" prefWidth="280.0" text="Usá 6 o más caracteres con" textFill="#2b2828">
-                           <font>
-                              <Font name="Consolas" size="14.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="labErrorNombreUsuarioCrear111" layoutX="843.0" layoutY="566.0" prefHeight="20.0" prefWidth="280.0" text="combinacion de letras y números." textFill="#2b2828">
-                           <font>
-                              <Font name="Consolas" size="14.0" />
                            </font>
                         </Label>
                      </children>

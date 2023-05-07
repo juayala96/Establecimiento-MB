@@ -39,18 +39,28 @@ public class EliminarLicencia {
         int cont = 0;
 
         try {
+            String fechaInicioClave = dpFechaInicioEliminar.getEditor().getText();
+            String fechaAnio = fechaInicioClave.substring(6, 10);
+            String fechaMes = fechaInicioClave.substring(3, 5);
+            String fechaDia = fechaInicioClave.substring(0, 2);
+            String fechaModificadaInicio = (fechaAnio + "-" + fechaMes + "-" + fechaDia);
+            String fechaFinClave = dpFechaFinEliminar.getEditor().getText();
+            String fechaAnio2 = fechaFinClave.substring(6, 10);
+            String fechaMes2 = fechaFinClave.substring(3, 5);
+            String fechaDia2 = fechaFinClave.substring(0, 2);
+            String fechaModificadaFin = (fechaAnio2 + "-" + fechaMes2 + "-" + fechaDia2);
+
             SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
 
-            String fechaI = dpFechaInicioEliminar.getEditor().getText();
+            String fechaI = fechaModificadaInicio;
             Date fechaInicio = formatoFecha.parse(fechaI);
-
-            String fechaF = dpFechaFinEliminar.getEditor().getText();
+            String fechaF = fechaModificadaFin;
             Date fechaFin = formatoFecha.parse(fechaF);
 
             long Diferencias = fechaInicio.getTime() - fechaFin.getTime();
             long Cant_Dias = Diferencias / (1000 * 60 * 60 * 24);
 
-            String extraerAnio = dpFechaInicioEliminar.getEditor().getText();
+            String extraerAnio = fechaModificadaInicio;
             int exAnio = Integer.parseInt(extraerAnio.substring(0, 4));
 
             String consulta = "SELECT idTipoLicencia FROM tipo_licencias WHERE descripcion = ?";
@@ -60,7 +70,7 @@ public class EliminarLicencia {
             while (rs.next()) {
 
                 datoIdTipoLicenciaFK = Integer.parseInt(rs.getString("idTipoLicencia"));
-                String consulta2 = "SELECT MIN(dias_disponibles) AS dias FROM licencias INNER JOIN empleado_licencia ON licencias.idLicencias = empleado_licencia.idLicenciaFK INNER JOIN empleados ON empleado_licencia.idEmpleadoFK = empleados.idempleados INNER JOIN tipo_licencias ON tipo_licencias.idTipoLicencia = licencias.idTipoLicenciaFK WHERE idEmpleadoFK = ? AND licencias.idTipoLicenciaFK = ? AND YEAR(fecha_Inicio) = ?";
+                String consulta2 = "SELECT MIN(dias_disponibles) AS dias_disponibles, empleados.idempleados FROM licencias INNER JOIN empleado_licencia ON licencias.idLicencias = empleado_licencia.idLicenciaFK INNER JOIN empleados ON empleado_licencia.idEmpleadoFK = empleados.idempleados INNER JOIN tipo_licencias ON tipo_licencias.idTipoLicencia = licencias.idTipoLicenciaFK WHERE idEmpleadoFK = ? AND licencias.idTipoLicenciaFK = ? AND YEAR(fecha_Inicio) = ?";
                 pstm = con.prepareStatement(consulta2);
                 pstm.setString(1, labIDEmpleadoEliminar.getText());
                 pstm.setInt(2, datoIdTipoLicenciaFK);
@@ -68,17 +78,21 @@ public class EliminarLicencia {
                 rs = pstm.executeQuery();
 
                 while (rs.next()) {
-                    dato2 = rs.getInt("dias");
-                    if (cbTipoLicenciaEliminar.getSelectionModel().getSelectedItem().equals("Vacaciones")) {
-                        diasVacaciones = (int) ((dato2 + ((-Cant_Dias) + 1)));
-                    } else if (cbTipoLicenciaEliminar.getSelectionModel().getSelectedItem().equals("Enfermedad")) {
-                        diasEnfermedad = (int) ((dato2 + ((-Cant_Dias) + 1)));
-                    } else if (cbTipoLicenciaEliminar.getSelectionModel().getSelectedItem().equals("Accidente")) {
-                        diasAccidente = (int) ((dato2 + ((-Cant_Dias) + 1)));
-                    } else if (cbTipoLicenciaEliminar.getSelectionModel().getSelectedItem().equals("Matrimonio")) {
-                        diasMatrimonio = (int) ((dato2 + ((-Cant_Dias) + 1)));
-                    } else {
-                        diasMuerteFamiliar = (int) ((dato2 + ((-Cant_Dias) + 1)));
+                    int datoDiaDisponible = rs.getInt("dias_disponibles");
+                    int datoIDEmpleado = rs.getInt("idempleados");
+
+                    if (datoIDEmpleado == Integer.parseInt(labIDEmpleadoEliminar.getText())) {
+                        if (cbTipoLicenciaEliminar.getSelectionModel().getSelectedItem().equals("Vacaciones")) {
+                            diasVacaciones = (int) ((datoDiaDisponible + ((-Cant_Dias) + 1)));
+                        } else if (cbTipoLicenciaEliminar.getSelectionModel().getSelectedItem().equals("Enfermedad")) {
+                            diasEnfermedad = (int) ((datoDiaDisponible + ((-Cant_Dias) + 1)));
+                        } else if (cbTipoLicenciaEliminar.getSelectionModel().getSelectedItem().equals("Accidente")) {
+                            diasAccidente = (int) ((datoDiaDisponible + ((-Cant_Dias) + 1)));
+                        } else if (cbTipoLicenciaEliminar.getSelectionModel().getSelectedItem().equals("Matrimonio")) {
+                            diasMatrimonio = (int) ((datoDiaDisponible + ((-Cant_Dias) + 1)));
+                        } else {
+                            diasMuerteFamiliar = (int) ((datoDiaDisponible + ((-Cant_Dias) + 1)));
+                        }
                     }
                     cont += 1;
                 }
@@ -98,7 +112,7 @@ public class EliminarLicencia {
                 }
 
                 try {
-                    String consulta3 = "UPDATE licencias INNER JOIN empleado_licencia ON licencias.idLicencias = empleado_licencia.idLicenciaFK INNER JOIN empleados ON empleado_licencia.idEmpleadoFK = empleados.idempleados SET dias_disponibles = ? WHERE empleado_licencia.idEmpleadoFK = ? AND estadoLicencia = ? AND idTipoLicenciaFK = ? AND YEAR(fecha_Inicio) = ?";
+                    String consulta3 = "UPDATE licencias INNER JOIN empleado_licencia ON licencias.idLicencias = empleado_licencia.idLicenciaFK INNER JOIN empleados ON empleado_licencia.idEmpleadoFK = empleados.idempleados SET dias_disponibles = ? WHERE empleado_licencia.idEmpleadoFK = ? AND idTipoLicenciaFK = ? AND YEAR(fecha_Inicio) = ?";
                     pstm = con.prepareStatement(consulta3);
                     if (cbTipoLicenciaEliminar.getSelectionModel().getSelectedItem().equals("Vacaciones")) {
                         pstm.setInt(1, diasVacaciones);
@@ -112,19 +126,19 @@ public class EliminarLicencia {
                         pstm.setInt(1, diasMuerteFamiliar);
                     }
                     pstm.setInt(2, Integer.parseInt(labIDEmpleadoEliminar.getText()));
-                    pstm.setString(3, "Vigente");
-                    pstm.setInt(4, datoIdTipoLicenciaFK);
-                    pstm.setInt(5, exAnio);
+                    pstm.setInt(3, datoIdTipoLicenciaFK);
+                    pstm.setInt(4, exAnio);
                     pstm.executeUpdate();
 
-                    String consulta4 = "UPDATE licencias INNER JOIN empleado_licencia ON licencias.idLicencias = empleado_licencia.idLicenciaFK INNER JOIN empleados ON empleado_licencia.idEmpleadoFK = empleados.idempleados SET estadoLicencia = ? WHERE empleado_licencia.idEmpleadoFK = ? AND estadoLicencia = ? AND idTipoLicenciaFK = ? AND licencias.idLicencias = ? AND YEAR(fecha_Inicio) = ?";
+                    String consulta4 = "DELETE FROM empleado_licencia WHERE idEmpleadoFK = ? AND idLicenciaFK = ?";
                     pstm = con.prepareStatement(consulta4);
-                    pstm.setString(1, "Eliminado");
-                    pstm.setInt(2, Integer.parseInt(labIDEmpleadoEliminar.getText()));
-                    pstm.setString(3, "Vigente");
-                    pstm.setInt(4, datoIdTipoLicenciaFK);
-                    pstm.setInt(5, Integer.parseInt(labIDLicenciaEliminar.getText()));
-                    pstm.setInt(6, exAnio);
+                    pstm.setInt(1, Integer.parseInt(labIDEmpleadoEliminar.getText()));
+                    pstm.setInt(2, Integer.parseInt(labIDLicenciaEliminar.getText()));
+                    pstm.executeUpdate();
+
+                    String consulta5 = "DELETE FROM licencias WHERE idLicencias = ?";
+                    pstm = con.prepareStatement(consulta5);
+                    pstm.setInt(1, Integer.parseInt(labIDLicenciaEliminar.getText()));
                     pstm.executeUpdate();
 
                 } catch (Exception e1) {

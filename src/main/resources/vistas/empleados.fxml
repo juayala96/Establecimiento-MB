@@ -46,12 +46,12 @@
                               <TableColumn fx:id="colID" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="ID" />
                            </columns>
                            <cursor>
-                              <Cursor fx:constant="DISAPPEAR" />
+                              <Cursor fx:constant="HAND" />
                            </cursor>
                         </TableView>
                         <TextField fx:id="textBuscarEmpleado" layoutX="465.0" layoutY="143.0" prefHeight="46.0" prefWidth="200.0">
                            <font>
-                              <Font size="16.0" />
+                              <Font size="18.0" />
                            </font>
                         </TextField>
                         <Label layoutX="465.0" layoutY="115.0" prefHeight="12.0" prefWidth="67.0" text="Legajo:" textFill="#080808">
@@ -77,7 +77,7 @@
                         </Button>
                         <ComboBox fx:id="cbTiposfiltrosEmpleados" layoutX="844.0" layoutY="142.0" prefHeight="46.0" prefWidth="200.0" style="-fx-font-size: 16;">
                            <cursor>
-                              <Cursor fx:constant="DISAPPEAR" />
+                              <Cursor fx:constant="HAND" />
                            </cursor>
                         </ComboBox>
                         <Button fx:id="btnLicenciasEmpleado" alignment="TOP_LEFT" graphicTextGap="8.0" layoutX="1328.0" layoutY="581.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#licenciasEmpleado" prefHeight="46.0" prefWidth="166.0" text="Licencias" textFill="#080808">
@@ -301,12 +301,30 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="cbEstadoCivilCrear" layoutX="596.0" layoutY="453.0" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;" />
-                        <ComboBox fx:id="cbGeneroCrear" layoutX="596.0" layoutY="555.0" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;" />
-                        <ComboBox fx:id="cbAreaCrear" layoutX="1050.0" layoutY="353.0" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;" />
-                        <ComboBox fx:id="cbPuestoCrear" layoutX="1050.0" layoutY="453.0" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;" />
-                        <DatePicker fx:id="dpFechaNaciminetoCrear" editable="false" layoutX="1049.0" layoutY="150.0" prefHeight="40.0" prefWidth="170.0" style="-fx-font-size: 16;" />
-                        <DatePicker fx:id="dpFechaIngresoCrear" editable="false" layoutX="1049.0" layoutY="254.0" prefHeight="40.0" prefWidth="170.0" style="-fx-font-size: 16;" />
+                        <ComboBox fx:id="cbEstadoCivilCrear" layoutX="596.0" layoutY="453.0" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></ComboBox>
+                        <ComboBox fx:id="cbGeneroCrear" layoutX="596.0" layoutY="555.0" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></ComboBox>
+                        <ComboBox fx:id="cbAreaCrear" layoutX="1050.0" layoutY="353.0" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></ComboBox>
+                        <ComboBox fx:id="cbPuestoCrear" layoutX="1050.0" layoutY="453.0" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></ComboBox>
+                        <DatePicker fx:id="dpFechaNaciminetoCrear" editable="false" layoutX="1049.0" layoutY="150.0" prefHeight="40.0" prefWidth="170.0" style="-fx-font-size: 16;">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></DatePicker>
+                        <DatePicker fx:id="dpFechaIngresoCrear" editable="false" layoutX="1049.0" layoutY="254.0" prefHeight="40.0" prefWidth="170.0" style="-fx-font-size: 16;">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></DatePicker>
                         <Label fx:id="labErrorNombreCrear" layoutX="145.0" layoutY="190.0" prefHeight="21.0" prefWidth="330.0" textFill="#bc0f0f">
                            <font>
                               <Font name="Consolas" size="14.0" />
@@ -337,7 +355,10 @@
                               <Font name="Consolas" size="14.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="cbGrupoSanguineoCrear" layoutX="596.0" layoutY="353.0" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;" />
+                        <ComboBox fx:id="cbGrupoSanguineoCrear" layoutX="596.0" layoutY="353.0" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></ComboBox>
                         <TextField fx:id="textEmailCrear" layoutX="595.0" layoutY="254.0" prefHeight="40.0" prefWidth="330.0">
                            <font>
                               <Font size="18.0" />
@@ -501,12 +522,30 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="cbEstadoCivilModificar" layoutX="596.0" layoutY="453.0" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;" />
-                        <ComboBox fx:id="cbGeneroModificar" layoutX="596.0" layoutY="555.0" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;" />
-                        <ComboBox fx:id="cbAreaModificar" layoutX="1050.0" layoutY="353.0" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;" />
-                        <ComboBox fx:id="cbPuestoModificar" layoutX="1050.0" layoutY="453.0" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;" />
-                        <DatePicker fx:id="dpFechaNaciminetoModificar" editable="false" layoutX="1049.0" layoutY="150.0" prefHeight="40.0" prefWidth="170.0" style="-fx-font-size: 16;" />
-                        <DatePicker fx:id="dpFechaIngresoModificar" editable="false" layoutX="1049.0" layoutY="254.0" prefHeight="40.0" prefWidth="170.0" style="-fx-font-size: 16;" />
+                        <ComboBox fx:id="cbEstadoCivilModificar" layoutX="596.0" layoutY="453.0" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></ComboBox>
+                        <ComboBox fx:id="cbGeneroModificar" layoutX="596.0" layoutY="555.0" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></ComboBox>
+                        <ComboBox fx:id="cbAreaModificar" layoutX="1050.0" layoutY="353.0" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></ComboBox>
+                        <ComboBox fx:id="cbPuestoModificar" layoutX="1050.0" layoutY="453.0" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></ComboBox>
+                        <DatePicker fx:id="dpFechaNaciminetoModificar" editable="false" layoutX="1049.0" layoutY="150.0" prefHeight="40.0" prefWidth="170.0" style="-fx-font-size: 16;">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></DatePicker>
+                        <DatePicker fx:id="dpFechaIngresoModificar" editable="false" layoutX="1049.0" layoutY="254.0" prefHeight="40.0" prefWidth="170.0" style="-fx-font-size: 16;">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></DatePicker>
                         <Label fx:id="labErrorNombreModificar" layoutX="145.0" layoutY="190.0" prefHeight="21.0" prefWidth="330.0" textFill="#bc0f0f">
                            <font>
                               <Font name="Consolas" size="14.0" />
@@ -537,7 +576,10 @@
                               <Font name="Consolas" size="14.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="cbGrupoSanguineoModificar" layoutX="596.0" layoutY="353.0" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;" />
+                        <ComboBox fx:id="cbGrupoSanguineoModificar" layoutX="596.0" layoutY="353.0" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></ComboBox>
                         <TextField fx:id="textEmailModificar" layoutX="595.0" layoutY="254.0" prefHeight="40.0" prefWidth="330.0">
                            <font>
                               <Font size="18.0" />
@@ -698,13 +740,13 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="cbEstadoCivilEliminar" disable="true" layoutX="596.0" layoutY="453.0" opacity="0.99" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;" />
-                        <ComboBox fx:id="cbGeneroEliminar" disable="true" layoutX="596.0" layoutY="555.0" opacity="0.99" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;" />
-                        <ComboBox fx:id="cbAreaEliminar" disable="true" layoutX="1050.0" layoutY="353.0" opacity="0.99" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;" />
-                        <ComboBox fx:id="cbPuestoEliminar" disable="true" layoutX="1050.0" layoutY="453.0" opacity="0.99" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;" />
-                        <DatePicker fx:id="dpFechaNaciminetoEliminar" disable="true" editable="false" layoutX="1049.0" layoutY="150.0" opacity="0.99" prefHeight="40.0" prefWidth="170.0" style="-fx-font-size: 16;" />
-                        <DatePicker fx:id="dpFechaIngresoEliminar" disable="true" editable="false" layoutX="1049.0" layoutY="254.0" opacity="0.99" prefHeight="40.0" prefWidth="170.0" style="-fx-font-size: 16;" />
-                        <ComboBox fx:id="cbGrupoSanguineoEliminar" disable="true" layoutX="596.0" layoutY="353.0" opacity="0.99" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;" />
+                        <ComboBox fx:id="cbEstadoCivilEliminar" layoutX="596.0" layoutY="453.0" opacity="0.88" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;" />
+                        <ComboBox fx:id="cbGeneroEliminar" layoutX="596.0" layoutY="555.0" opacity="0.88" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;" />
+                        <ComboBox fx:id="cbAreaEliminar" layoutX="1050.0" layoutY="353.0" opacity="0.88" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;" />
+                        <ComboBox fx:id="cbPuestoEliminar" layoutX="1050.0" layoutY="453.0" opacity="0.88" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;" />
+                        <DatePicker fx:id="dpFechaNaciminetoEliminar" editable="false" layoutX="1049.0" layoutY="150.0" opacity="0.88" prefHeight="40.0" prefWidth="170.0" style="-fx-font-size: 16;" />
+                        <DatePicker fx:id="dpFechaIngresoEliminar" editable="false" layoutX="1049.0" layoutY="254.0" opacity="0.88" prefHeight="40.0" prefWidth="170.0" style="-fx-font-size: 16;" />
+                        <ComboBox fx:id="cbGrupoSanguineoEliminar" layoutX="596.0" layoutY="353.0" opacity="0.88" prefHeight="40.0" prefWidth="250.0" style="-fx-font-size: 18;" />
                         <TextField fx:id="textEmailEliminar" editable="false" layoutX="595.0" layoutY="254.0" opacity="0.9" prefHeight="40.0" prefWidth="330.0">
                            <font>
                               <Font size="18.0" />
@@ -733,6 +775,13 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
+                        <Label layoutX="592.0" layoutY="349.0" prefHeight="48.0" prefWidth="257.0" />
+                        <Label layoutX="592.0" layoutY="449.0" prefHeight="48.0" prefWidth="257.0" />
+                        <Label layoutX="592.0" layoutY="551.0" prefHeight="48.0" prefWidth="257.0" />
+                        <Label layoutX="1046.0" layoutY="349.0" prefHeight="48.0" prefWidth="257.0" />
+                        <Label layoutX="1046.0" layoutY="449.0" prefHeight="48.0" prefWidth="257.0" />
+                        <Label layoutX="1046.0" layoutY="146.0" prefHeight="48.0" prefWidth="178.0" />
+                        <Label layoutX="1046.0" layoutY="250.0" prefHeight="48.0" prefWidth="178.0" />
                      </children>
                   </AnchorPane>
                </content>

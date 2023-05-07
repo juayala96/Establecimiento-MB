@@ -263,6 +263,11 @@ public class ControladorEmpleados {
         labIDEliminar.setText(colID.getCellData(index).toString());
         LeerEmpleado empleadoSeleccion = new LeerEmpleado();
         empleadoSeleccion.listaEmpleadoSeleccionadoE(textNombreEliminar, textApellidoEliminar, textLegajoEliminar, textDNIEliminar, textTelefonoEliminar, textDireccionEliminar, textEmailEliminar, cbGeneroEliminar, cbEstadoCivilEliminar, dpFechaNaciminetoEliminar, cbGrupoSanguineoEliminar, dpFechaIngresoEliminar, cbAreaEliminar, cbPuestoEliminar, labIDEliminar);
+
+        String fechaNacimientoM = dpFechaNaciminetoModificar.getEditor().getText();
+        dpFechaNaciminetoModificar.setValue(LocalDate.of(Integer.parseInt(fechaNacimientoM.substring(6, 10)), Integer.parseInt(fechaNacimientoM.substring(3, 5)), Integer.parseInt(fechaNacimientoM.substring(0, 2))));
+        String fechaIngresoM = dpFechaIngresoModificar.getEditor().getText();
+        dpFechaIngresoModificar.setValue(LocalDate.of(Integer.parseInt(fechaIngresoM.substring(6, 10)), Integer.parseInt(fechaIngresoM.substring(3, 5)), Integer.parseInt(fechaIngresoM.substring(0, 2))));
     }
 
     public void inicializarComboBoxBD() {

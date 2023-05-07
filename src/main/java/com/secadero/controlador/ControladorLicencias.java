@@ -1,7 +1,5 @@
 package com.secadero.controlador;
 
-import com.secadero.modelo.ausencia.EliminarAusencia;
-import com.secadero.modelo.ausencia.LeerAusencia;
 import com.secadero.modelo.empleados.LeerEmpleado;
 import com.secadero.modelo.licencias.CrearLicencia;
 import com.secadero.modelo.licencias.EliminarLicencia;
@@ -25,6 +23,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
 import java.util.Optional;
@@ -73,9 +72,9 @@ public class ControladorLicencias {
     @FXML
     private TableColumn<LeerEmpleado, Integer> colDNIEmpleadoCrear;
     @FXML
-    private TableColumn<LeerLicencia, Date> colFechaFin;
+    private TableColumn<LeerLicencia, String> colFechaFin;
     @FXML
-    private TableColumn<LeerLicencia, Date> colFechaInicio;
+    private TableColumn<LeerLicencia, String> colFechaInicio;
     @FXML
     private TableColumn<LeerEmpleado, Integer> colIDEmpleado;
     @FXML
@@ -96,6 +95,8 @@ public class ControladorLicencias {
     private TableColumn<LeerEmpleado, String> colTelefonoEmpleadoCrear;
     @FXML
     private TableColumn<LeerLicencia, String> colTipoLicencia;
+    @FXML
+    private TableColumn<LeerLicencia, String> colDescripcion;
     @FXML
     private DatePicker dpBuscarFechaInicio;
     @FXML
@@ -159,6 +160,24 @@ public class ControladorLicencias {
     @FXML
     private Label labResultadoID;
     @FXML
+    private Label labErrorDescripcionCrear;
+    @FXML
+    private Label labErrorDescripcionModificar;
+    @FXML
+    private Label labDescripcionCrear1;
+    @FXML
+    private Label labDescripcionCrear2;
+    @FXML
+    private Label labDescripcionModificar1;
+    @FXML
+    private Label labDescripcionModificar2;
+    @FXML
+    private Label labDescripcionEliminar1;
+    @FXML
+    private Label labDescripcionEliminar2;
+    @FXML
+    private Label labErrorDescripcionEliminar;
+    @FXML
     private TabPane panelPestaniasLicencias;
     @FXML
     private Tab tabEliminarLicencia;
@@ -178,6 +197,12 @@ public class ControladorLicencias {
     private TextField textBuscarLegajoEmpleado;
     @FXML
     private TextField textBuscarLegajoEmpleadoCrear;
+    @FXML
+    private TextField textDescripcionLicenciaCrear;
+    @FXML
+    private TextField textDescripcionLicenciaModificar;
+    @FXML
+    private TextField textDescripcionLicenciaEliminar;
 
     ObservableList<LeerEmpleado> listTablaEmpleados;
     int index = -1;
@@ -199,6 +224,18 @@ public class ControladorLicencias {
         fechasInicializar();
         cbTipoLicenciaCrear.getSelectionModel().getSelectedItem();
         cbTipoLicenciaCrear.getSelectionModel().selectedItemProperty().addListener(this::cambioDeItem);
+        textDescripcionLicenciaCrear.setDisable(true);
+        textDescripcionLicenciaCrear.setVisible(false);
+        labDescripcionCrear1.setVisible(false);
+        labDescripcionCrear2.setVisible(false);
+        textDescripcionLicenciaModificar.setDisable(true);
+        textDescripcionLicenciaModificar.setVisible(false);
+        labDescripcionModificar1.setVisible(false);
+        labDescripcionModificar2.setVisible(false);
+        textDescripcionLicenciaEliminar.setDisable(true);
+        textDescripcionLicenciaEliminar.setVisible(false);
+        labDescripcionEliminar1.setVisible(false);
+        labDescripcionEliminar2.setVisible(false);
     }
 
     // ----------------------------------------- Tabla de Empleados ---------------------------------------------
@@ -216,13 +253,14 @@ public class ControladorLicencias {
 
     // ----------------------------------------- Tabla de Licencias ---------------------------------------------
     public void inicializarTablaLicencias(){
-        colFechaInicio.setCellValueFactory(new PropertyValueFactory<LeerLicencia, Date>("fecha_Inicio"));
-        colFechaFin.setCellValueFactory(new PropertyValueFactory<LeerLicencia, Date>("fecha_Fin"));
+        colFechaInicio.setCellValueFactory(new PropertyValueFactory<LeerLicencia, String>("fecha_Inicio"));
+        colFechaFin.setCellValueFactory(new PropertyValueFactory<LeerLicencia, String>("fecha_Fin"));
         colTipoLicencia.setCellValueFactory(new PropertyValueFactory<LeerLicencia, String>("descripcion"));
         colIDLicencia.setCellValueFactory(new PropertyValueFactory<LeerLicencia, Integer>("idLicencias"));
+        colDescripcion.setCellValueFactory(new PropertyValueFactory<LeerLicencia, String>("descripcionLicencia"));
 
         listLicencia = LeerLicencia.listaLicencia(labIDEmpleadoLista);
-        tablaLicencia.getColumns().setAll(colFechaInicio, colFechaFin, colTipoLicencia, colIDLicencia);
+        tablaLicencia.getColumns().setAll(colFechaInicio, colFechaFin, colTipoLicencia, colIDLicencia, colDescripcion);
         tablaLicencia.getItems().setAll(listLicencia);
     }
 
@@ -281,20 +319,29 @@ public class ControladorLicencias {
         }
 
         labIDLicenciaModificar.setText(colIDLicencia.getCellData(index2).toString());
-        dpFechaInicioModificar.getEditor().setText(colFechaInicio.getCellData(index2).toString());
-        dpFechaFinModificar.getEditor().setText(colFechaFin.getCellData(index2).toString());
+        dpFechaInicioModificar.getEditor().setText(colFechaInicio.getCellData(index2));
+        dpFechaFinModificar.getEditor().setText(colFechaFin.getCellData(index2));
         cbTipoLicenciaModificar.getSelectionModel().select(colTipoLicencia.getCellData(index2));
-        dpFechaModificarDuplicadaInicio.getEditor().setText(colFechaInicio.getCellData(index2).toString());
-        dpFechaModificarDuplicadaFin.getEditor().setText(colFechaFin.getCellData(index2).toString());
+        dpFechaModificarDuplicadaInicio.getEditor().setText(colFechaInicio.getCellData(index2));
+        dpFechaModificarDuplicadaFin.getEditor().setText(colFechaFin.getCellData(index2));
+        textDescripcionLicenciaModificar.setText(colDescripcion.getCellData(index2));
         comboBoxModificar();
 
         labIDLicenciaEliminar.setText(colIDLicencia.getCellData(index2).toString());
-        dpFechaInicioEliminar.getEditor().setText(colFechaInicio.getCellData(index2).toString());
-        dpFechaFinEliminar.getEditor().setText(colFechaFin.getCellData(index2).toString());
+        dpFechaInicioEliminar.getEditor().setText(colFechaInicio.getCellData(index2));
+        dpFechaFinEliminar.getEditor().setText(colFechaFin.getCellData(index2));
         cbTipoLicenciaEliminar.getSelectionModel().select(colTipoLicencia.getCellData(index2));
+        textDescripcionLicenciaEliminar.setText(colDescripcion.getCellData(index2));
         comboBoxEliminar();
 
         labIDLicenciaLista.setText(colIDLicencia.getCellData(index2).toString());
+
+        String fechaInicioM = colFechaInicio.getCellData(index2);
+        dpFechaInicioModificar.setValue(LocalDate.of(Integer.parseInt(fechaInicioM.substring(6, 10)), Integer.parseInt(fechaInicioM.substring(3, 5)), Integer.parseInt(fechaInicioM.substring(0, 2))));
+        String fechaFinM = colFechaFin.getCellData(index2);
+        dpFechaFinModificar.setValue(LocalDate.of(Integer.parseInt(fechaFinM.substring(6, 10)), Integer.parseInt(fechaFinM.substring(3, 5)), Integer.parseInt(fechaFinM.substring(0, 2))));
+
+        textTipoLicenciaDetalleEliminar(cbTipoLicenciaEliminar.getSelectionModel().getSelectedItem());
     }
 
     @FXML
@@ -339,17 +386,20 @@ public class ControladorLicencias {
     public void cambioDeItem(ObservableValue<? extends String> observable, String valorAntiguo, String valorActual){
         LeerLicencia licenciaLeer = new LeerLicencia();
         String dato = licenciaLeer.comboBoxTipoLicencia(valorActual, labIDEmpleadoCrear, dpFechaInicioCrear);
+        textTipoLicenciaDetalleCrear(valorActual);
 
         labDiasDisponiblesCrear.setText(dato);
+        labErrorDescripcionCrear.setText("");
     }
 
     public void cambioDeItem2(ObservableValue<? extends String> observable, String valorAntiguo, String valorActual){
         LeerLicencia licenciaLeer = new LeerLicencia();
         String dato = licenciaLeer.comboBoxTipoLicencia(valorActual, labIDEmpleadoModificar, dpFechaInicioModificar);
+        textTipoLicenciaDetalleModificar(valorActual);
 
         labDiasDisponiblesModificar.setText(dato);
+        labErrorDescripcionModificar.setText("");
     }
-
 
     public void inicializarComboBoxBD() {
         // --------------------- Tipo de Licencia -----------------------
@@ -426,61 +476,122 @@ public class ControladorLicencias {
     //---------------------------------------------- Eventos Importantes ----------------------------------------
     @FXML
     private void guardar() throws ParseException, SQLException {
-        Label[] campoIDEmpleado = {labIDEmpleadoCrear};
-        if(comprobarIDCrearEmpleado(campoIDEmpleado)){
-            CrearLicencia licenciaCrear = new CrearLicencia();
-            licenciaCrear.agregarLicencia(labIDEmpleadoCrear, labDiasDisponiblesCrear, dpFechaInicioCrear, dpFechaFinCrear, cbTipoLicenciaCrear, labLimpiarCamposCrear);
-
-            if(Objects.equals(labLimpiarCamposCrear.getText(), "OK")){
-                labLimpiarCamposCrear.setText("");
-                labIDLicenciaLista.setText("0");
-                labIDEmpleadoLista.setText("0");
-                inicializarTablaEmpleado();
-                inicializarTablaLicencias();
-                regresarCLista();
-                limpiarCamposCrear();
-            }
-        } else {
+        if(labIDEmpleadoCrear.getText().trim().isEmpty() || labIDEmpleadoCrear.getText() == null){
             Alert alerta = new Alert(Alert.AlertType.WARNING);
             alerta.setTitle("Error");
             alerta.setContentText("Para guardar debes de tomar un empleado");
             alerta.showAndWait();
+        } else {
+            String selectedItem = cbTipoLicenciaCrear.getSelectionModel().getSelectedItem();
+            if(selectedItem.equals("Enfermedad") || selectedItem.equals("Accidente")){
+                camposObligatoriosCrear();
+                if(Objects.equals(labErrorDescripcionCrear.getText(), "")) {
+                    validacionCamposCaracteresCrear();
+                    if (Objects.equals(labErrorDescripcionCrear.getText(), "")) {
+                        validacionCamposLongitudCrear();
+                        if (Objects.equals(labErrorDescripcionCrear.getText(), "")) {
+                            CrearLicencia licenciaCrear = new CrearLicencia();
+                            licenciaCrear.agregarLicencia(labIDEmpleadoCrear, labDiasDisponiblesCrear, dpFechaInicioCrear, dpFechaFinCrear, cbTipoLicenciaCrear, textDescripcionLicenciaCrear, labLimpiarCamposCrear);
+
+                            if(Objects.equals(labLimpiarCamposCrear.getText(), "OK")){
+                                labLimpiarCamposCrear.setText("");
+                                labIDLicenciaLista.setText("0");
+                                labIDEmpleadoLista.setText("0");
+                                inicializarTablaEmpleado();
+                                inicializarTablaLicencias();
+                                regresarCLista();
+                                limpiarCamposCrear();
+                            }
+                        }
+                    }
+                }
+            } else if(selectedItem.equals("Vacaciones") || selectedItem.equals("Matrimonio") || selectedItem.equals("Muerte Familiar")){
+                CrearLicencia licenciaCrear = new CrearLicencia();
+                licenciaCrear.agregarLicencia(labIDEmpleadoCrear, labDiasDisponiblesCrear, dpFechaInicioCrear, dpFechaFinCrear, cbTipoLicenciaCrear, textDescripcionLicenciaCrear, labLimpiarCamposCrear);
+
+                if(Objects.equals(labLimpiarCamposCrear.getText(), "OK")){
+                    labLimpiarCamposCrear.setText("");
+                    labIDLicenciaLista.setText("0");
+                    labIDEmpleadoLista.setText("0");
+                    inicializarTablaEmpleado();
+                    inicializarTablaLicencias();
+                    regresarCLista();
+                    limpiarCamposCrear();
+                }
+            }
         }
     }
 
     @FXML
     private void modificar() throws SQLException, ParseException {
-        Label[] campoIDEmpleado = {labIDLicenciaModificar};
-        if(comprobarIDModificarLicencia(campoIDEmpleado)){
-            ModificarLicencia licenciaModificar = new ModificarLicencia();
-            licenciaModificar.modificarLicencia(labIDEmpleadoModificar, labIDLicenciaModificar, labDiasDisponiblesModificar, dpFechaModificarDuplicadaInicio, dpFechaModificarDuplicadaFin, dpFechaInicioModificar, dpFechaFinModificar, cbTipoLicenciaModificar, labLimpiarCamposModificar);
-
-            if(Objects.equals(labLimpiarCamposModificar.getText(), "OK")){
-                labLimpiarCamposModificar.setText("");
-                labIDLicenciaLista.setText("0");
-                labIDEmpleadoLista.setText("0");
-                inicializarTablaEmpleado();
-                inicializarTablaLicencias();
-                regresarCLista();
-                limpiarCamposModificar();
-                limpiarCamposEliminar();
-            }
-
-        } else {
+        if(labIDLicenciaModificar.getText().trim().isEmpty() || labIDLicenciaModificar.getText() == null){
             Alert alerta = new Alert(Alert.AlertType.WARNING);
             alerta.setTitle("Error");
             alerta.setContentText("Para Modificar debes de tomar una Licencia del empleado");
             alerta.showAndWait();
+
+        } else {
+            String selectedItem = cbTipoLicenciaModificar.getSelectionModel().getSelectedItem();
+            if(selectedItem.equals("Enfermedad") || selectedItem.equals("Accidente")) {
+                camposObligatoriosModificar();
+                if (Objects.equals(labErrorDescripcionModificar.getText(), "")) {
+                    validacionCamposCaracteresModificar();
+                    if (Objects.equals(labErrorDescripcionModificar.getText(), "")) {
+                        validacionCamposLongitudModificar();
+                        if (Objects.equals(labErrorDescripcionModificar.getText(), "")) {
+                            ModificarLicencia licenciaModificar = new ModificarLicencia();
+                            licenciaModificar.modificarLicencia(labIDEmpleadoModificar, labIDLicenciaModificar, labDiasDisponiblesModificar, dpFechaModificarDuplicadaInicio, dpFechaModificarDuplicadaFin, dpFechaInicioModificar, dpFechaFinModificar, cbTipoLicenciaModificar, textDescripcionLicenciaModificar, labLimpiarCamposModificar);
+
+                            if(Objects.equals(labLimpiarCamposModificar.getText(), "OK")){
+                                labLimpiarCamposModificar.setText("");
+                                labIDLicenciaLista.setText("0");
+                                labIDEmpleadoLista.setText("0");
+                                inicializarTablaEmpleado();
+                                inicializarTablaLicencias();
+                                regresarCLista();
+                                limpiarCamposModificar();
+                                limpiarCamposEliminar();
+                            }
+                        }
+                    }
+                }
+            } else if(selectedItem.equals("Vacaciones") || selectedItem.equals("Matrimonio") || selectedItem.equals("Muerte Familiar")){
+                ModificarLicencia licenciaModificar = new ModificarLicencia();
+                licenciaModificar.modificarLicencia(labIDEmpleadoModificar, labIDLicenciaModificar, labDiasDisponiblesModificar, dpFechaModificarDuplicadaInicio, dpFechaModificarDuplicadaFin, dpFechaInicioModificar, dpFechaFinModificar, cbTipoLicenciaModificar, textDescripcionLicenciaModificar, labLimpiarCamposModificar);
+
+                if(Objects.equals(labLimpiarCamposModificar.getText(), "OK")){
+                    labLimpiarCamposModificar.setText("");
+                    labIDLicenciaLista.setText("0");
+                    labIDEmpleadoLista.setText("0");
+                    inicializarTablaEmpleado();
+                    inicializarTablaLicencias();
+                    regresarCLista();
+                    limpiarCamposModificar();
+                    limpiarCamposEliminar();
+                }
+            }
         }
     }
 
     @FXML
     private void eliminar() throws ParseException {
-        Label[] id = {labIDLicenciaEliminar};
+        String fechaInicioClave = dpFechaInicioEliminar.getEditor().getText();
+        String fechaAnio = fechaInicioClave.substring(6, 10);
+        String fechaMes = fechaInicioClave.substring(3, 5);
+        String fechaDia = fechaInicioClave.substring(0, 2);
+        String fechaModificadaInicio = (fechaAnio + "-" + fechaMes + "-" + fechaDia);
+        String fechaFinClave = dpFechaFinEliminar.getEditor().getText();
+        String fechaAnio2 = fechaFinClave.substring(6, 10);
+        String fechaMes2 = fechaFinClave.substring(3, 5);
+        String fechaDia2 = fechaFinClave.substring(0, 2);
+        String fechaModificadaFin = (fechaAnio2 + "-" + fechaMes2 + "-" + fechaDia2);
+
         SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
-        String fechaI = dpFechaInicioEliminar.getEditor().getText();
+        // ------------------------- Fecha Inicio -------------------------------
+        String fechaI = fechaModificadaInicio;
         Date fechaInicio = formatoFecha.parse(fechaI);
-        String fechaF = dpFechaFinEliminar.getEditor().getText();
+        // --------------------------- Fecha Fin --------------------------------
+        String fechaF = fechaModificadaFin;
         Date fechaFin = formatoFecha.parse(fechaF);
 
         Date fechaActualPais = new Date();
@@ -491,7 +602,13 @@ public class ControladorLicencias {
         long DiferenciasFin= fechaActual.getTime() - fechaFin.getTime();
         long Cant_DiasFin= DiferenciasFin/ (1000 * 60 * 60 * 24);
 
-        if (comprobarIDEliminarLicencia(id)){
+        if (labIDLicenciaEliminar.getText().trim().isEmpty() || labIDLicenciaEliminar.getText() == null){
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setTitle("Error!");
+            alerta.setContentText("Debe de seleccionar antes una Licencia de dicho empleado para Eliminarlo");
+            alerta.showAndWait();
+            btnRegresarELista.requestFocus();
+        } else{
             if((-Cant_DiasInicio) >= 0 && (-Cant_DiasFin) >= 0){
                 Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
                 alerta.setTitle("Confirmar Eliminar");
@@ -516,12 +633,6 @@ public class ControladorLicencias {
                 alerta.showAndWait();
 
             }
-        } else{
-            Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("Error!");
-            alerta.setContentText("Debe de seleccionar antes una Licencia de dicho empleado para Eliminarlo");
-            alerta.showAndWait();
-            btnRegresarELista.requestFocus();
         }
     }
 
@@ -569,37 +680,67 @@ public class ControladorLicencias {
     }
 
     //---------------------------------------- Comprobación de Campos -------------------------------------------
-    private boolean comprobarIDCrearEmpleado(Label[] id){
-        boolean valido = true;
-        for (int i = 0; i < id.length; i++) {
-            String valor = id[i].getText();
-            if(valor == null || valor.trim().isEmpty()){
-                valido = false;
-            }
+    private void camposObligatoriosCrear(){
+        if (textDescripcionLicenciaCrear.getText().trim().isEmpty() || textDescripcionLicenciaCrear.getText() == null) {
+            labErrorDescripcionCrear.setText("Campo Obligatorio");
+        } else {
+            labErrorDescripcionCrear.setText("");
         }
-        return valido;
     }
 
-    private boolean comprobarIDModificarLicencia(Label[] id){
-        boolean valido = true;
-        for (int i = 0; i < id.length; i++) {
-            String valor = id[i].getText();
-            if(valor == null || valor.trim().isEmpty()){
-                valido = false;
-            }
+    private void validacionCamposLongitudCrear(){
+        String motivo = textDescripcionLicenciaCrear.getText().trim();
+        motivo = motivo.replaceAll("\\s+", "");
+
+        if (motivo.length() < 8) {
+            labErrorDescripcionCrear.setText("Usa 8 o más caracteres");
+        } else {
+            labErrorDescripcionCrear.setText("");
         }
-        return valido;
     }
 
-    private boolean comprobarIDEliminarLicencia(Label[] id){
-        boolean valido = true;
-        for (int i = 0; i < id.length; i++) {
-            String valor = id[i].getText();
-            if(valor == null || valor.trim().isEmpty()){
-                valido = false;
-            }
+    private void validacionCamposCaracteresCrear() {
+        String motivo = textDescripcionLicenciaCrear.getText().trim();
+        motivo = motivo.replaceAll("\\s+", "");
+        if (validarLetras(motivo)) {
+            labErrorDescripcionCrear.setText("");
+        } else {
+            labErrorDescripcionCrear.setText("Solo se admiten Letras");
         }
-        return valido;
+    }
+
+    private void camposObligatoriosModificar(){
+        if (textDescripcionLicenciaModificar.getText().trim().isEmpty() || textDescripcionLicenciaModificar.getText() == null) {
+            labErrorDescripcionModificar.setText("Campo Obligatorio");
+        } else {
+            labErrorDescripcionModificar.setText("");
+        }
+    }
+
+    private void validacionCamposLongitudModificar(){
+        String motivo = textDescripcionLicenciaModificar.getText().trim();
+        motivo = motivo.replaceAll("\\s+", "");
+
+        if (motivo.length() < 8) {
+            labErrorDescripcionModificar.setText("Usa 8 o más caracteres");
+        } else {
+            labErrorDescripcionModificar.setText("");
+        }
+    }
+
+    private void validacionCamposCaracteresModificar() {
+        String motivo = textDescripcionLicenciaModificar.getText().trim();
+        motivo = motivo.replaceAll("\\s+", "");
+        if (validarLetras(motivo)) {
+            labErrorDescripcionModificar.setText("");
+        } else {
+            labErrorDescripcionModificar.setText("Solo se admiten Letras");
+        }
+    }
+
+    //---------------------------------------- Validación de Caracteres ------------------------------------------
+    public static boolean validarLetras(String datos){
+        return datos.matches("[a-zA-Z]*");
     }
 
     //----------------------------------------- Limpiador de Campos ----------------------------------------------
@@ -609,6 +750,7 @@ public class ControladorLicencias {
         labApellidoEmpleadoCrear.setText("");
         labLegajoEmpleadoCrear.setText("");
         cbTipoLicenciaCrear.getSelectionModel().selectFirst();
+        textDescripcionLicenciaCrear.setText("");
         labLimpiarCamposCrear.setText("");
         labDiasDisponiblesCrear.setText("");
         fechasInicializar();
@@ -622,6 +764,7 @@ public class ControladorLicencias {
         labLegajoEmpleadoModificar.setText("");
         labLimpiarCamposModificar.setText("");
         cbTipoLicenciaModificar.getSelectionModel().selectFirst();
+        textDescripcionLicenciaModificar.setText("");
         labDiasDisponiblesModificar.setText("");
         dpFechaModificarDuplicadaInicio.getEditor().setText("");
         dpFechaModificarDuplicadaFin.getEditor().setText("");
@@ -635,6 +778,7 @@ public class ControladorLicencias {
         labApellidoEmpleadoEliminar.setText("");
         labLegajoEmpleadoEliminar.setText("");
         cbTipoLicenciaEliminar.getSelectionModel().selectFirst();
+        textDescripcionLicenciaEliminar.setText("");
         labDiasDisponiblesEliminar.setText("");
         fechasInicializar();
     }
@@ -649,16 +793,73 @@ public class ControladorLicencias {
         labIDLicenciaEliminar.setText("");
         cbTipoLicenciaEliminar.getSelectionModel().selectFirst();
         labDiasDisponiblesEliminar.setText("");
-        fechasInicializar();
+        fechasInicializarMyE();
+    }
+
+    // --------------------------------- Combo Box (Habilitar o Desactivar Text Filed) -------------------------------
+    private void textTipoLicenciaDetalleCrear(String item){
+        if(item.equals("Vacaciones") || item.equals("Matrimonio") || item.equals("Muerte Familiar")){
+            textDescripcionLicenciaCrear.setDisable(true);
+            textDescripcionLicenciaCrear.setVisible(false);
+            labDescripcionCrear1.setVisible(false);
+            labDescripcionCrear2.setVisible(false);
+            textDescripcionLicenciaCrear.setText("");
+        }
+        if(item.equals("Enfermedad") || item.equals("Accidente")){
+            textDescripcionLicenciaCrear.setDisable(false);
+            textDescripcionLicenciaCrear.setVisible(true);
+            labDescripcionCrear1.setVisible(true);
+            labDescripcionCrear2.setVisible(true);
+        }
+    }
+
+    private void textTipoLicenciaDetalleModificar(String item){
+        if(item.equals("Vacaciones") || item.equals("Matrimonio") || item.equals("Muerte Familiar")){
+            textDescripcionLicenciaModificar.setDisable(true);
+            textDescripcionLicenciaModificar.setVisible(false);
+            labDescripcionModificar1.setVisible(false);
+            labDescripcionModificar2.setVisible(false);
+            textDescripcionLicenciaModificar.setText("");
+        }
+        if(item.equals("Enfermedad") || item.equals("Accidente")){
+            textDescripcionLicenciaModificar.setDisable(false);
+            textDescripcionLicenciaModificar.setVisible(true);
+            labDescripcionModificar1.setVisible(true);
+            labDescripcionModificar2.setVisible(true);
+        }
+    }
+
+    private void textTipoLicenciaDetalleEliminar(String item){
+        if(item.equals("Vacaciones") || item.equals("Matrimonio") || item.equals("Muerte Familiar")){
+            textDescripcionLicenciaEliminar.setDisable(true);
+            textDescripcionLicenciaEliminar.setVisible(false);
+            labDescripcionEliminar1.setVisible(false);
+            labDescripcionEliminar2.setVisible(false);
+            textDescripcionLicenciaEliminar.setText("");
+        }
+        if(item.equals("Enfermedad") || item.equals("Accidente")){
+            textDescripcionLicenciaEliminar.setDisable(false);
+            textDescripcionLicenciaEliminar.setVisible(true);
+            labDescripcionEliminar1.setVisible(true);
+            labDescripcionEliminar2.setVisible(true);
+        }
     }
 
     // ---------------------------------------- Fechas Actuales Inicializadas ----------------------------------------
     public void fechasInicializar() {
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+        // Obtener la fecha actual
+        Calendar calendar = Calendar.getInstance();
+        // Sumar un día a la fecha actual
+        calendar.add(Calendar.DATE, 1);
+        Date fecha = calendar.getTime();
+        String fecha_Actual_Mas1 = (formatoFecha.format(fecha));
+
         dpBuscarFechaInicio.setValue(LocalDate.now());
         dpBuscarFechaInicio.setConverter(new StringConverter<LocalDate>() {
             @Override
             public String toString(LocalDate localDate) {
-                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                 return dtf.format(localDate);
             }
 
@@ -668,11 +869,11 @@ public class ControladorLicencias {
             }
         });
 
-        dpFechaInicioCrear.setValue(LocalDate.now());
+        dpFechaInicioCrear.setValue(LocalDate.of(Integer.parseInt(fecha_Actual_Mas1.substring(0, 4)), Integer.parseInt(fecha_Actual_Mas1.substring(5, 7)), Integer.parseInt(fecha_Actual_Mas1.substring(8, 10))));
         dpFechaInicioCrear.setConverter(new StringConverter<LocalDate>() {
             @Override
             public String toString(LocalDate localDate) {
-                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                 return dtf.format(localDate);
             }
 
@@ -682,11 +883,11 @@ public class ControladorLicencias {
             }
         });
 
-        dpFechaFinCrear.setValue(LocalDate.now());
+        dpFechaFinCrear.setValue(LocalDate.of(Integer.parseInt(fecha_Actual_Mas1.substring(0, 4)), Integer.parseInt(fecha_Actual_Mas1.substring(5, 7)), Integer.parseInt(fecha_Actual_Mas1.substring(8, 10))));
         dpFechaFinCrear.setConverter(new StringConverter<LocalDate>() {
             @Override
             public String toString(LocalDate localDate) {
-                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                 return dtf.format(localDate);
             }
 
@@ -696,11 +897,11 @@ public class ControladorLicencias {
             }
         });
 
-        dpFechaInicioModificar.setValue(LocalDate.now());
+        dpFechaInicioModificar.setValue(LocalDate.of(Integer.parseInt(fecha_Actual_Mas1.substring(0, 4)), Integer.parseInt(fecha_Actual_Mas1.substring(5, 7)), Integer.parseInt(fecha_Actual_Mas1.substring(8, 10))));
         dpFechaInicioModificar.setConverter(new StringConverter<LocalDate>() {
             @Override
             public String toString(LocalDate localDate) {
-                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                 return dtf.format(localDate);
             }
 
@@ -710,11 +911,11 @@ public class ControladorLicencias {
             }
         });
 
-        dpFechaFinModificar.setValue(LocalDate.now());
+        dpFechaFinModificar.setValue(LocalDate.of(Integer.parseInt(fecha_Actual_Mas1.substring(0, 4)), Integer.parseInt(fecha_Actual_Mas1.substring(5, 7)), Integer.parseInt(fecha_Actual_Mas1.substring(8, 10))));
         dpFechaFinModificar.setConverter(new StringConverter<LocalDate>() {
             @Override
             public String toString(LocalDate localDate) {
-                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                 return dtf.format(localDate);
             }
 
@@ -724,11 +925,11 @@ public class ControladorLicencias {
             }
         });
 
-        dpFechaInicioEliminar.setValue(LocalDate.now());
+        dpFechaInicioEliminar.setValue(LocalDate.of(Integer.parseInt(fecha_Actual_Mas1.substring(0, 4)), Integer.parseInt(fecha_Actual_Mas1.substring(5, 7)), Integer.parseInt(fecha_Actual_Mas1.substring(8, 10))));
         dpFechaInicioEliminar.setConverter(new StringConverter<LocalDate>() {
             @Override
             public String toString(LocalDate localDate) {
-                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                 return dtf.format(localDate);
             }
 
@@ -738,11 +939,76 @@ public class ControladorLicencias {
             }
         });
 
-        dpFechaFinEliminar.setValue(LocalDate.now());
+        dpFechaFinEliminar.setValue(LocalDate.of(Integer.parseInt(fecha_Actual_Mas1.substring(0, 4)), Integer.parseInt(fecha_Actual_Mas1.substring(5, 7)), Integer.parseInt(fecha_Actual_Mas1.substring(8, 10))));
         dpFechaFinEliminar.setConverter(new StringConverter<LocalDate>() {
             @Override
             public String toString(LocalDate localDate) {
-                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                return dtf.format(localDate);
+            }
+
+            @Override
+            public LocalDate fromString(String s) {
+                return null;
+            }
+        });
+    }
+
+    public void fechasInicializarMyE() {
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+        // Obtener la fecha actual
+        Calendar calendar = Calendar.getInstance();
+        // Sumar un día a la fecha actual
+        calendar.add(Calendar.DATE, 1);
+        Date fecha = calendar.getTime();
+        String fecha_Actual_Mas1 = (formatoFecha.format(fecha));
+        dpFechaInicioModificar.setValue(LocalDate.of(Integer.parseInt(fecha_Actual_Mas1.substring(0, 4)), Integer.parseInt(fecha_Actual_Mas1.substring(5, 7)), Integer.parseInt(fecha_Actual_Mas1.substring(8, 10))));
+        dpFechaInicioModificar.setConverter(new StringConverter<LocalDate>() {
+            @Override
+            public String toString(LocalDate localDate) {
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                return dtf.format(localDate);
+            }
+
+            @Override
+            public LocalDate fromString(String s) {
+                return null;
+            }
+        });
+
+        dpFechaFinModificar.setValue(LocalDate.of(Integer.parseInt(fecha_Actual_Mas1.substring(0, 4)), Integer.parseInt(fecha_Actual_Mas1.substring(5, 7)), Integer.parseInt(fecha_Actual_Mas1.substring(8, 10))));
+        dpFechaFinModificar.setConverter(new StringConverter<LocalDate>() {
+            @Override
+            public String toString(LocalDate localDate) {
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                return dtf.format(localDate);
+            }
+
+            @Override
+            public LocalDate fromString(String s) {
+                return null;
+            }
+        });
+
+        dpFechaInicioEliminar.setValue(LocalDate.of(Integer.parseInt(fecha_Actual_Mas1.substring(0, 4)), Integer.parseInt(fecha_Actual_Mas1.substring(5, 7)), Integer.parseInt(fecha_Actual_Mas1.substring(8, 10))));
+        dpFechaInicioEliminar.setConverter(new StringConverter<LocalDate>() {
+            @Override
+            public String toString(LocalDate localDate) {
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                return dtf.format(localDate);
+            }
+
+            @Override
+            public LocalDate fromString(String s) {
+                return null;
+            }
+        });
+
+        dpFechaFinEliminar.setValue(LocalDate.of(Integer.parseInt(fecha_Actual_Mas1.substring(0, 4)), Integer.parseInt(fecha_Actual_Mas1.substring(5, 7)), Integer.parseInt(fecha_Actual_Mas1.substring(8, 10))));
+        dpFechaFinEliminar.setConverter(new StringConverter<LocalDate>() {
+            @Override
+            public String toString(LocalDate localDate) {
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                 return dtf.format(localDate);
             }
 
