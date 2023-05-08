@@ -251,12 +251,12 @@ public class Informe extends Component {
             try {
                 var doc = new Document();
                 // Nombre del Archivo
-                PdfWriter.getInstance(doc, new FileOutputStream("Informe_" + nombre + "_" + apellido + "_" + labLegajoEmpleado.getText() + "_" + fechaModificadaInicio + "_" + fechaModificadaFin + ".pdf"));
+                PdfWriter.getInstance(doc, new FileOutputStream("Informe_" + nombre + "_" + apellido + "_" + labLegajoEmpleado.getText() + "_" + dpFechaDesde.getEditor().getText() + "_" + dpFechaHasta.getEditor().getText() + ".pdf"));
                 doc.open();
 
                 var paragraph = new Paragraph("------------------------ INFORME DE PRESENTISMO DE " + nombre.toUpperCase() + " " + apellido.toUpperCase() + " ------------------------");
                 var saltoLinea = new Paragraph(" ");
-                var fechas = new Paragraph("Fechas Desde: " + fechaModificadaInicio + "                                                                  Fecha Hasta: " + fechaModificadaFin);
+                var fechas = new Paragraph("Fechas Desde: " + dpFechaDesde.getEditor().getText() + "                                                                  Fecha Hasta: " + dpFechaHasta.getEditor().getText());
                 PdfPTable tableTitulo = new PdfPTable(1);
                 tableTitulo.addCell("DATOS PERSONALES");
 

@@ -455,9 +455,11 @@ public class ControladorCronograma {
 
     @FXML
     private void btnBuscarCronograma() {
-        ObservableList<LeerCronograma> listaBuscarCronograma;
-        listaBuscarCronograma = LeerCronograma.buscarFechaCronograma(labIDEmpleadoLista, dpBuscarFecha);
-        tablaCronograma.getItems().setAll(listaBuscarCronograma);
+        if(!labIDEmpleadoLista.getText().equals("")){
+            ObservableList<LeerCronograma> listaBuscarCronograma;
+            listaBuscarCronograma = LeerCronograma.buscarFechaCronograma(labIDEmpleadoLista, dpBuscarFecha);
+            tablaCronograma.getItems().setAll(listaBuscarCronograma);
+        }
     }
 
     @FXML
@@ -814,7 +816,7 @@ public class ControladorCronograma {
         dpBuscarFecha.setConverter(new StringConverter<LocalDate>() {
             @Override
             public String toString(LocalDate localDate) {
-                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                 return dtf.format(localDate);
             }
 

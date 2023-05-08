@@ -135,11 +135,10 @@ public class LeerCronograma {
         String hora_salida;
 
         try {
-            pstm = con.prepareStatement("SELECT fecha, turno, horario_entrada, horario_salida, idCronograma FROM cronograma INNER JOIN empleado_cronograma ON cronograma.idCronograma = empleado_cronograma.idCronogramaFK INNER JOIN empleados ON empleado_cronograma.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND empleados.estado = ? AND cronograma.estadoCronograma = ? AND empleado_cronograma.idEmpleadoFK = ? ORDER BY fecha DESC");
+            pstm = con.prepareStatement("SELECT fecha, turno, horario_entrada, horario_salida, idCronograma FROM cronograma INNER JOIN empleado_cronograma ON cronograma.idCronograma = empleado_cronograma.idCronogramaFK INNER JOIN empleados ON empleado_cronograma.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND empleados.estado = ? AND empleado_cronograma.idEmpleadoFK = ? ORDER BY fecha DESC");
             pstm.setString(1, "Vigente");
             pstm.setString(2, "Disponible");
-            pstm.setString(3, "Vigente");
-            pstm.setInt(4, Integer.parseInt(labIDEmpleadoLista.getText()));
+            pstm.setInt(3, Integer.parseInt(labIDEmpleadoLista.getText()));
             rs = pstm.executeQuery();
 
             while (rs.next()){
@@ -170,11 +169,10 @@ public class LeerCronograma {
         int cont = 0;
 
         try {
-            pstm = con.prepareStatement("SELECT idCronograma FROM cronograma INNER JOIN empleado_cronograma ON cronograma.idCronograma = empleado_cronograma.idCronogramaFK INNER JOIN empleados ON empleados.idempleados = empleado_cronograma.idEmpleadoFK WHERE empleados.estadoEmpleado = ? AND cronograma.estadoCronograma = ? AND empleado_cronograma.idEmpleadoFK = ? AND cronograma.idCronograma = ?");
+            pstm = con.prepareStatement("SELECT idCronograma FROM cronograma INNER JOIN empleado_cronograma ON cronograma.idCronograma = empleado_cronograma.idCronogramaFK INNER JOIN empleados ON empleados.idempleados = empleado_cronograma.idEmpleadoFK WHERE empleados.estadoEmpleado = ? AND empleado_cronograma.idEmpleadoFK = ? AND cronograma.idCronograma = ?");
             pstm.setString(1, "Vigente");
-            pstm.setString(2, "Vigente");
-            pstm.setInt(3, Integer.parseInt(labIDEmpleadoLista.getText()));
-            pstm.setInt(4, Integer.parseInt(labIDCronogramaLista.getText()));
+            pstm.setInt(2, Integer.parseInt(labIDEmpleadoLista.getText()));
+            pstm.setInt(3, Integer.parseInt(labIDCronogramaLista.getText()));
             rs = pstm.executeQuery();
 
             while (rs.next()){
@@ -208,11 +206,17 @@ public class LeerCronograma {
         String hora_salida;
 
         try {
+            String fecha = dpBuscarFecha.getEditor().getText();
+            String fechaAnio = fecha.substring(6, 10);
+            String fechaMes = fecha.substring(3, 5);
+            String fechaDia = fecha.substring(0, 2);
+            String fechaModificada = (fechaAnio + "-" + fechaMes + "-" + fechaDia);
+
             pstm = con.prepareStatement("SELECT fecha, turno, horario_entrada, horario_salida, idCronograma FROM cronograma INNER JOIN empleado_cronograma ON cronograma.idCronograma = empleado_cronograma.idCronogramaFK INNER JOIN empleados ON empleado_cronograma.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND empleados.estado = ? AND empleado_cronograma.idEmpleadoFK = ? AND cronograma.fecha = ?");
             pstm.setString(1, "Vigente");
             pstm.setString(2, "Disponible");
             pstm.setInt(3, Integer.parseInt(labIDEmpleadoLista.getText()));
-            pstm.setDate(4, java.sql.Date.valueOf(dpBuscarFecha.getEditor().getText()));
+            pstm.setDate(4, java.sql.Date.valueOf(fechaModificada));
             rs = pstm.executeQuery();
 
             while (rs.next()) {
@@ -300,7 +304,7 @@ public class LeerCronograma {
         return lista;
     }
 
-    //-------------------------------------------Leer Cronograma Calendario --------------------------------------------------
+    //-------------------------------------- Leer Cronograma Calendario -------------------------------------------------
     public static ObservableList<LeerCronograma> listaEmpleadoCalendario(DatePicker dpFechaCalendario) {
         Connection con = Conexion.leerConexion();
         PreparedStatement pstm = null;
@@ -340,10 +344,9 @@ public class LeerCronograma {
         ObservableList<LeerCronograma> lista = FXCollections.observableArrayList();
 
         try {
-            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, dni, fecha, turno, horario_entrada, horario_salida, idempleados, idCronograma FROM cronograma INNER JOIN empleado_cronograma ON cronograma.idCronograma = empleado_cronograma.idCronogramaFK INNER JOIN empleados ON empleados.idempleados = empleado_cronograma.idEmpleadoFK WHERE empleados.estadoEmpleado = ? AND cronograma.estadoCronograma = ? AND cronograma.fecha = ?");
+            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, dni, fecha, turno, horario_entrada, horario_salida, idempleados, idCronograma FROM cronograma INNER JOIN empleado_cronograma ON cronograma.idCronograma = empleado_cronograma.idCronogramaFK INNER JOIN empleados ON empleados.idempleados = empleado_cronograma.idEmpleadoFK WHERE empleados.estadoEmpleado = ? AND cronograma.fecha = ?");
             pstm.setString(1, "Vigente");
-            pstm.setString(2, "Vigente");
-            pstm.setString(3, dpFechaCalendario.getEditor().getText());
+            pstm.setString(2, dpFechaCalendario.getEditor().getText());
             rs = pstm.executeQuery();
 
             while (rs.next()){
@@ -372,11 +375,10 @@ public class LeerCronograma {
         ObservableList<LeerCronograma> lista = FXCollections.observableArrayList();
 
         try {
-            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, dni, fecha, turno, horario_entrada, horario_salida, idempleados, idCronograma FROM cronograma INNER JOIN empleado_cronograma ON cronograma.idCronograma = empleado_cronograma.idCronogramaFK INNER JOIN empleados ON empleados.idempleados = empleado_cronograma.idEmpleadoFK WHERE empleados.estadoEmpleado = ? AND cronograma.estadoCronograma = ? AND cronograma.fecha = ? AND empleados.legajo LIKE ?");
+            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, dni, fecha, turno, horario_entrada, horario_salida, idempleados, idCronograma FROM cronograma INNER JOIN empleado_cronograma ON cronograma.idCronograma = empleado_cronograma.idCronogramaFK INNER JOIN empleados ON empleados.idempleados = empleado_cronograma.idEmpleadoFK WHERE empleados.estadoEmpleado = ? AND cronograma.fecha = ? AND empleados.legajo LIKE ?");
             pstm.setString(1, "Vigente");
-            pstm.setString(2, "Vigente");
-            pstm.setString(3, dpFechaCalendario.getEditor().getText());
-            pstm.setString(4, textBuscarLegajoEmpleadoCalendario.getText()  + "%");
+            pstm.setString(2, dpFechaCalendario.getEditor().getText());
+            pstm.setString(3, textBuscarLegajoEmpleadoCalendario.getText()  + "%");
             rs = pstm.executeQuery();
 
             while (rs.next()){
