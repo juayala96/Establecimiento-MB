@@ -3,10 +3,7 @@ package com.secadero.modelo.empleados;
 import com.secadero.conexion.Conexion;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.text.CompactNumberFormat;
 import java.text.ParseException;
@@ -458,7 +455,7 @@ public class LeerEmpleado {
         return listaBuscar;
     }
 
-    //---------------------------------------- Buscar Empleado General (Crear) ---------------------------------------------
+    //--------------------------------------- Buscar Empleado General (Crear) ---------------------------------------------
     public static ObservableList<LeerEmpleado> buscarEmpleadoGeneralCrear(TextField textBuscarLegajoEmpleadoCrear){
         Connection con = Conexion.leerConexion();
         PreparedStatement pstm = null;
@@ -519,7 +516,7 @@ public class LeerEmpleado {
     }
 
     ///////////////////////////////////////////////// CRONOGRAMA ///////////////////////////////////////////////////
-    //------------------------------------------- Leer Empleado Disponibles en Cronograma ---------------------------------
+    //------------------------------------- Leer Empleado Disponibles en Cronograma ---------------------------------
     public static ObservableList<LeerEmpleado> listaEmpleadoDisponible(){
         Connection con = Conexion.leerConexion();
         PreparedStatement pstm = null;
@@ -783,6 +780,100 @@ public class LeerEmpleado {
                 listaBuscar.add(new LeerEmpleado(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getInt("dni"), rs.getString("telefono"), Integer.parseInt(rs.getString("idempleados"))));
             }
 
+        } catch (SQLException ex) {
+            System.err.println("Error: " + ex.getMessage());
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pstm != null) pstm.close();
+                if (con != null) con.close();
+            } catch (Exception ex){
+                System.err.println("Error: " + ex.getMessage());
+            }
+        }
+        return listaBuscar;
+    }
+
+    /////////////////////////////////////////////////CONSULTAS///////////////////////////////////////////////////////
+    public static ObservableList<LeerEmpleado> listaEmpleadoConsulta(ListView<String> listEmpleadosAgregados){
+        Connection con = Conexion.leerConexion();
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+        ObservableList<LeerEmpleado> lista = FXCollections.observableArrayList();
+
+        try {
+            for (int i = 0; i < listEmpleadosAgregados.getItems().size(); i++) {
+                String consulta = "SELECT nombre, apellido, legajo, dni, idempleados FROM empleados WHERE legajo = ? ORDER BY legajo ASC";
+                pstm = con.prepareStatement(consulta);
+                pstm.setString(1, listEmpleadosAgregados.getItems().get(i));
+                rs = pstm.executeQuery();
+
+                while (rs.next()){
+                    lista.add(new LeerEmpleado(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getInt("dni"), Integer.parseInt(rs.getString("idempleados"))));
+                }
+            }
+        } catch (SQLException ex) {
+            System.err.println("Error: " + ex.getMessage());
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pstm != null) pstm.close();
+                if (con != null) con.close();
+            } catch (Exception ex){
+                System.err.println("Error: " + ex.getMessage());
+            }
+        }
+        return lista;
+    }
+
+    public static ObservableList<LeerEmpleado> listaEmpleadoConsultaModificar(Label labIDEmpleadoModificar){
+        Connection con = Conexion.leerConexion();
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+        ObservableList<LeerEmpleado> lista = FXCollections.observableArrayList();
+
+        try {
+            String consulta = "SELECT nombre, apellido, legajo, dni, idempleados FROM empleados WHERE idempleados = ? ORDER BY legajo ASC";
+            pstm = con.prepareStatement(consulta);
+            pstm.setString(1, labIDEmpleadoModificar.getText());
+            rs = pstm.executeQuery();
+
+            while (rs.next()){
+                lista.add(new LeerEmpleado(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getInt("dni"), Integer.parseInt(rs.getString("idempleados"))));
+            }
+        } catch (SQLException ex) {
+            System.err.println("Error: " + ex.getMessage());
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pstm != null) pstm.close();
+                if (con != null) con.close();
+            } catch (Exception ex){
+                System.err.println("Error: " + ex.getMessage());
+            }
+        }
+        return lista;
+    }
+
+    //----------------------------------------- Buscar Empleado (Consulta Licencia) ---------------------------------
+    public static ObservableList<LeerEmpleado> buscarEmpleadoConsultaCrear(ListView<String> listEmpleadosAgregados, TextField textBuscarLegajoEmpleadoConsulta){
+        Connection con = Conexion.leerConexion();
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+        ObservableList<LeerEmpleado> listaBuscar = FXCollections.observableArrayList();
+
+        try {
+            for (int i = 0; i < listEmpleadosAgregados.getItems().size(); i++) {
+                String consulta = "SELECT nombre, apellido, legajo, dni, idempleados FROM empleados WHERE legajo = ? AND legajo LIKE ? ORDER BY legajo ASC";
+                pstm = con.prepareStatement(consulta);
+                pstm.setString(1, listEmpleadosAgregados.getItems().get(i));
+                pstm.setString(2, textBuscarLegajoEmpleadoConsulta.getText() + "%");
+                rs = pstm.executeQuery();
+
+                while (rs.next()){
+                    listaBuscar.add(new LeerEmpleado(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getInt("dni"), Integer.parseInt(rs.getString("idempleados"))));
+                }
+            }
         } catch (SQLException ex) {
             System.err.println("Error: " + ex.getMessage());
         } finally {

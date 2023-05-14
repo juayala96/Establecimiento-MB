@@ -19,12 +19,15 @@ public class EliminarCronograma {
         ResultSet rs = null;
 
         try {
-            String consulta = "UPDATE cronograma INNER JOIN empleado_cronograma ON cronograma.idCronograma = empleado_cronograma.idCronogramaFK INNER JOIN empleados ON empleado_cronograma.idEmpleadoFK = empleados.idempleados SET estadoCronograma = ? WHERE cronograma.idCronograma = ? AND empleado_cronograma.idEmpleadoFK = ? AND empleados.estadoEmpleado = ?";
+            String consulta = "DELETE FROM empleado_cronograma WHERE idEmpleadoFK = ? AND idCronogramaFK = ?";
             pstm = con.prepareStatement(consulta);
-            pstm.setString(1, "Eliminado");
+            pstm.setInt(1, Integer.parseInt(labIDEmpleadoEliminar.getText()));
             pstm.setInt(2, Integer.parseInt(labIDCronogramaEliminar.getText()));
-            pstm.setInt(3, Integer.parseInt(labIDEmpleadoEliminar.getText()));
-            pstm.setString(4, "Vigente");
+            pstm.executeUpdate();
+
+            String consulta2 = "DELETE FROM cronograma WHERE idCronograma = ?";
+            pstm = con.prepareStatement(consulta2);
+            pstm.setInt(1, Integer.parseInt(labIDCronogramaEliminar.getText()));
             pstm.executeUpdate();
 
             Alert alerta = new Alert(Alert.AlertType.INFORMATION);

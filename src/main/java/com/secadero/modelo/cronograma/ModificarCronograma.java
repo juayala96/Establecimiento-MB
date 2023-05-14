@@ -4,6 +4,8 @@ import com.secadero.conexion.Conexion;
 import javafx.scene.control.*;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class ModificarCronograma {
@@ -15,55 +17,76 @@ public class ModificarCronograma {
         PreparedStatement pstm = null;
         ResultSet rs = null;
         String resultado = "YES";
+        String resultado2 = "YES";
+        String datoFechaInicio;
+        String datoFechaFin;
         String dato;
-        int cont = 0;
+
+        String fecha = dpFechaModificar.getEditor().getText();
+        String fechaAnio = fecha.substring(6, 10);
+        String fechaMes = fecha.substring(3, 5);
+        String fechaDia = fecha.substring(0, 2);
+        String fechaModificada = (fechaAnio + "-" + fechaMes + "-" + fechaDia);
+
+        String fecha2 = dpFechaModificarDuplicada.getEditor().getText();
+        String fechaAnio2 = fecha2.substring(6, 10);
+        String fechaMes2 = fecha2.substring(3, 5);
+        String fechaDia2 = fecha2.substring(0, 2);
+        String fechaModificadaDuplicada = (fechaAnio2 + "-" + fechaMes2 + "-" + fechaDia2);
 
         try {
-            pstm = con.prepareStatement("SELECT idempleados, fecha_Inicio, fecha_Fin FROM licencias INNER JOIN tipo_licencias ON licencias.idTipoLicenciaFK = tipo_licencias.idTipoLicencia INNER JOIN empleado_licencia ON licencias.idLicencias = empleado_licencia.idLicenciaFK INNER JOIN empleados ON empleado_licencia.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND licencias.estadoLicencia = ? AND (((licencias.fecha_Inicio <= ?) AND (licencias.fecha_Fin >= ?)) OR ((licencias.fecha_Inicio >= ?) AND (licencias.fecha_Fin <= ?)))");
-            pstm.setString(1, "Vigente");
-            pstm.setString(2, "Vigente");
-            pstm.setDate(3, java.sql.Date.valueOf(dpFechaModificar.getEditor().getText()));
-            pstm.setDate(4, java.sql.Date.valueOf(dpFechaModificar.getEditor().getText()));
-            pstm.setDate(5, java.sql.Date.valueOf(dpFechaModificar.getEditor().getText()));
-            pstm.setDate(6, java.sql.Date.valueOf(dpFechaModificar.getEditor().getText()));
+            String consulta2 =  "SELECT fecha_Inicio, fecha_Fin FROM licencias INNER JOIN tipo_licencias ON licencias.idTipoLicenciaFK = tipo_licencias.idTipoLicencia INNER JOIN empleado_licencia ON licencias.idLicencias = empleado_licencia.idLicenciaFK INNER JOIN empleados ON empleado_licencia.idEmpleadoFK = empleados.idempleados WHERE empleados.idempleados = ?";
+            pstm = con.prepareStatement(consulta2);
+            pstm.setString(1, labIDEmpleadoModificar.getText());
             rs = pstm.executeQuery();
 
             while (rs.next()){
-                cont += 1;
-            }
+                datoFechaInicio = rs.getString("fecha_Inicio");
+                datoFechaFin = rs.getString("fecha_Fin");
 
+                // Establecer la fecha inicial y final
+                LocalDate fechaInicial = LocalDate.parse(datoFechaInicio, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                LocalDate fechaFinal = LocalDate.parse(datoFechaFin, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+                // Iterar sobre las fechas y mostrarlas
+                LocalDate resultadoFecha = fechaInicial;
+                while (!resultadoFecha.isAfter(fechaFinal)) {
+                    if (fechaModificada.equals(String.valueOf(resultadoFecha))) {
+                        resultado2 = "NO";
+                    }
+                    resultadoFecha = resultadoFecha.plusDays(1);
+                }
+            }
         } catch (Exception e1) {
             System.err.println("Error: " + e1.getMessage());
         }
 
         try {
-            String consulta = "SELECT fecha FROM empleados INNER JOIN empleado_cronograma ON empleados.idempleados = empleado_cronograma.idEmpleadoFK INNER JOIN cronograma ON cronograma.idCronograma = empleado_cronograma.idCronogramaFK WHERE empleados.estadoEmpleado = ? AND cronograma.estadoCronograma = ? AND empleados.idempleados = ? AND cronograma.fecha = ?";
+            String consulta = "SELECT fecha FROM empleados INNER JOIN empleado_cronograma ON empleados.idempleados = empleado_cronograma.idEmpleadoFK INNER JOIN cronograma ON cronograma.idCronograma = empleado_cronograma.idCronogramaFK WHERE empleados.estadoEmpleado = ? AND empleados.idempleados = ? AND cronograma.fecha = ?";
             pstm = con.prepareStatement(consulta);
             pstm.setString(1, "Vigente");
-            pstm.setString(2, "Vigente");
-            pstm.setString(3, labIDEmpleadoModificar.getText());
-            pstm.setString(4, dpFechaModificar.getEditor().getText());
+            pstm.setString(2, labIDEmpleadoModificar.getText());
+            pstm.setString(3, fechaModificada);
             rs = pstm.executeQuery();
             while (rs.next()) {
                 dato = String.valueOf(rs.getDate("fecha"));
-                if (Objects.equals(dpFechaModificarDuplicada.getEditor().getText(), dato)) {
+                if (Objects.equals(fechaModificadaDuplicada, dato)) {
                     resultado = "YES";
                 } else {
                     resultado = "NO";
                 }
             }
-
         } catch (Exception e1) {
             System.err.println("Error: " + e1.getMessage());
         }
 
         if(resultado.equals("YES")){
-            if(cont == 0){
+            if(resultado2.equals("YES")){
                 try {
                     String consulta2 = "UPDATE cronograma INNER JOIN empleado_cronograma ON cronograma.idCronograma = empleado_cronograma.idCronogramaFK INNER JOIN empleados ON empleado_cronograma.idEmpleadoFK = empleados.idempleados SET fecha = ?, turno = ?, horario_entrada = ?, horario_salida = ? WHERE cronograma.idCronograma = ? AND empleado_cronograma.idEmpleadoFK = ? AND empleados.estadoEmpleado = ?";
 
                     pstm = con.prepareStatement(consulta2);
-                    pstm.setString(1, dpFechaModificar.getEditor().getText());
+                    pstm.setString(1, fechaModificada);
                     pstm.setString(2, cbTurnoModificar.getSelectionModel().getSelectedItem());
                     pstm.setString(3, textHoraEntradaModificar.getText());
                     pstm.setString(4, textHoraSalidaModificar.getText());
@@ -98,7 +121,7 @@ public class ModificarCronograma {
             } else {
                 Alert alerta = new Alert(Alert.AlertType.ERROR);
                 alerta.setTitle("Error de Fecha Asignada!");
-                alerta.setContentText("El empleado tiene licencia en esta Fecha Ingresada");
+                alerta.setContentText("El empleado se encuentra con licencia en esta Fecha Asignada");
                 alerta.showAndWait();
             }
         } else {

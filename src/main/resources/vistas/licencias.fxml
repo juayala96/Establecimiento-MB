@@ -610,7 +610,10 @@
                         <TextField fx:id="textDescripcionLicenciaEliminar" editable="false" layoutX="880.0" layoutY="487.0" opacity="0.9" prefHeight="40.0" prefWidth="249.0">
                            <font>
                               <Font size="17.0" />
-                           </font></TextField>
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="DISAPPEAR" />
+                           </cursor></TextField>
                         <Label fx:id="labDescripcionEliminar1" layoutX="739.0" layoutY="477.0" prefHeight="30.0" prefWidth="135.0" text="Descripción de" textFill="#080808">
                            <font>
                               <Font size="20.0" />

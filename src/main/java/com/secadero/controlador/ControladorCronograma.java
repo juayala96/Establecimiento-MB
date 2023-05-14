@@ -1,13 +1,10 @@
 package com.secadero.controlador;
 
-import com.secadero.modelo.ausencia.LeerAusencia;
 import com.secadero.modelo.cronograma.CrearCronograma;
 import com.secadero.modelo.cronograma.EliminarCronograma;
 import com.secadero.modelo.cronograma.LeerCronograma;
 import com.secadero.modelo.cronograma.ModificarCronograma;
 import com.secadero.modelo.empleados.LeerEmpleado;
-import com.secadero.modelo.licencias.CrearLicencia;
-import com.secadero.modelo.licencias.EliminarLicencia;
 import com.secadero.modelo.licencias.LeerLicencia;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
@@ -21,7 +18,6 @@ import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
 import java.io.IOException;
-import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -84,7 +80,7 @@ public class ControladorCronograma {
     @FXML
     private TableColumn<LeerEmpleado, Integer> colDNIEmpleadoCrear;
     @FXML
-    private TableColumn<LeerCronograma, Date> colFecha;
+    private TableColumn<LeerCronograma, String> colFecha;
     @FXML
     private TableColumn<LeerCronograma, String> colHoraEntrada;
     @FXML
@@ -118,7 +114,7 @@ public class ControladorCronograma {
     @FXML
     private TableColumn<LeerCronograma, Integer> colDNICalendario;
     @FXML
-    private TableColumn<LeerCronograma, Date> colFechaCalendario;
+    private TableColumn<LeerCronograma, String> colFechaCalendario;
     @FXML
     private TableColumn<LeerCronograma, String> colTurnoCalendario;
     @FXML
@@ -222,6 +218,44 @@ public class ControladorCronograma {
     @FXML
     private Label labApellidoEmpleadoAgregadoCrear;
     @FXML
+    private Tab tabConsultaLicencia;
+    @FXML
+    private TableView<LeerEmpleado> tablaListaEmpleadosConsulta;
+    @FXML
+    private TableColumn<LeerEmpleado, String> colNombreConsulta;
+    @FXML
+    private TableColumn<LeerEmpleado, String> colApellidoConsulta;
+    @FXML
+    private TableColumn<LeerEmpleado, Integer> colLegajoConsulta;
+    @FXML
+    private TableColumn<LeerEmpleado, Integer> colDNIConsulta;
+    @FXML
+    private TableColumn<LeerEmpleado, Integer> colIDEmpleadoConsulta;
+    @FXML
+    private TextField textBuscarLegajoEmpleadoConsulta;
+    @FXML
+    private Button btnBuscarEmpleadoConsulta;
+    @FXML
+    private TableView<LeerLicencia> tablaLicenciaConsulta;
+    @FXML
+    private TableColumn<LeerLicencia, String> colFechaInicio;
+    @FXML
+    private TableColumn<LeerLicencia, String> colFechaFin;
+    @FXML
+    private TableColumn<LeerLicencia, String> colTipoLicencia;
+    @FXML
+    private TableColumn<LeerLicencia, Integer> colIDLicencia;
+    @FXML
+    private DatePicker dpBuscarFechaInicioConsulta;
+    @FXML
+    private Label labIDEmpleadoConsulta;
+    @FXML
+    private Label labInfoLegajoConsulta;
+    @FXML
+    private Button btnBuscarLicenciaFechaConsulta;
+    @FXML
+    private Button btnRegresarCLMenu;
+    @FXML
     private TextField textBuscarLegajoEmpleadoCrear;
 
     ObservableList<LeerEmpleado> listTablaEmpleadosDisponible;
@@ -234,13 +268,18 @@ public class ControladorCronograma {
     int index3 = -1;
     int index4 = -1;
 
+    ObservableList<LeerEmpleado> listEmpleadoConsulta;
+    ObservableList<LeerLicencia> listLicencia;
+    int index5 = -1;
+
     ObservableList<LeerCronograma> listEmpleadoCalendario;
+    String regresarConsultaLicencia = "0";
 
     // -------------------------------------------- Inicialización ----------------------------------------------
     public void initialize() throws ParseException {
         String[] tipoFiltro = {"Nombre", "Legajo", "DNI", "Fecha", "Turno"};
         String[] tipoTurnos = {"Dia", "Noche"};
-        dpFechaModificarDuplicada.getEditor().setText("2000-01-01");
+        dpFechaModificarDuplicada.getEditor().setText("01-01-2000");
         comboBoxCrear();
         comboBoxModificar();
         comboBoxEliminar();
@@ -254,9 +293,11 @@ public class ControladorCronograma {
         cbTurnoEliminar.getSelectionModel().selectFirst();
         fechasInicializar();
         fechaCalendario();
+        fechaConsultaLicencia();
         relojEmpleadoDisponible();
         inicializarTablaListaEmpleadosDisponible();
         inicializarTablaEmpleado();
+        labIDEmpleadoConsulta.setText("0");
     }
 
     // ----------------------------------------- Tabla de Empleados ---------------------------------------------
@@ -274,7 +315,7 @@ public class ControladorCronograma {
 
     // ----------------------------------------- Tabla de Cronograma ---------------------------------------------
     public void inicializarTablaCronograma(){
-        colFecha.setCellValueFactory(new PropertyValueFactory<LeerCronograma, Date>("fecha"));
+        colFecha.setCellValueFactory(new PropertyValueFactory<LeerCronograma, String>("fecha"));
         colTurno.setCellValueFactory(new PropertyValueFactory<LeerCronograma, String>("turno"));
         colHoraEntrada.setCellValueFactory(new PropertyValueFactory<LeerCronograma, String>("horario_entrada"));
         colHoraSalida.setCellValueFactory(new PropertyValueFactory<LeerCronograma, String>("horario_salida"));
@@ -298,14 +339,49 @@ public class ControladorCronograma {
         tabEmpleadosCrear.getItems().setAll(listEmpleado);
     }
 
+    // --------------------------------- Tabla de Empleados (Consulta Licencia) -----------------------------------------
+    public void inicializarTablaEmpleadoConsultaCrear(){
+        colNombreConsulta.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, String>("nombre"));
+        colApellidoConsulta.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, String>("apellido"));
+        colLegajoConsulta.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, Integer>("legajo"));
+        colDNIConsulta.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, Integer>("dni"));
+        colIDEmpleadoConsulta.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, Integer>("idempleados"));
+
+        listEmpleadoConsulta = LeerEmpleado.listaEmpleadoConsulta(listEmpleadosAgregados);
+        tablaListaEmpleadosConsulta.getColumns().setAll(colNombreConsulta, colApellidoConsulta, colLegajoConsulta, colDNIConsulta, colIDEmpleadoConsulta);
+        tablaListaEmpleadosConsulta.getItems().setAll(listEmpleadoConsulta);
+    }
+
+    public void inicializarTablaEmpleadoConsultaModificar(){
+        colNombreConsulta.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, String>("nombre"));
+        colApellidoConsulta.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, String>("apellido"));
+        colLegajoConsulta.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, Integer>("legajo"));
+        colDNIConsulta.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, Integer>("dni"));
+        colIDEmpleadoConsulta.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, Integer>("idempleados"));
+
+        listEmpleadoConsulta = LeerEmpleado.listaEmpleadoConsultaModificar(labIDEmpleadoModificar);
+        tablaListaEmpleadosConsulta.getColumns().setAll(colNombreConsulta, colApellidoConsulta, colLegajoConsulta, colDNIConsulta, colIDEmpleadoConsulta);
+        tablaListaEmpleadosConsulta.getItems().setAll(listEmpleadoConsulta);
+    }
+
+    // --------------------------------- Tabla de Licencia (Consulta Licencia) -----------------------------------------
+    public void inicializarTablaLicenciaConsulta(){
+        colFechaInicio.setCellValueFactory(new PropertyValueFactory<LeerLicencia, String>("fecha_Inicio"));
+        colFechaFin.setCellValueFactory(new PropertyValueFactory<LeerLicencia, String>("fecha_Fin"));
+        colTipoLicencia.setCellValueFactory(new PropertyValueFactory<LeerLicencia, String>("descripcion"));
+
+        listLicencia = LeerLicencia.listaLicencia(labIDEmpleadoConsulta);
+        tablaLicenciaConsulta.getColumns().setAll(colFechaInicio, colFechaFin, colTipoLicencia, colIDLicencia);
+        tablaLicenciaConsulta.getItems().setAll(listLicencia);
+    }
+
     // ------------------------------------ Tabla de Empleados Calendario ---------------------------------------------
     public void inicializarTablaEmpleadoCalendario(){
-
         colNombreCalendario.setCellValueFactory(new PropertyValueFactory<LeerCronograma, String>("nombre"));
         colApellidoCalendario.setCellValueFactory(new PropertyValueFactory<LeerCronograma, String>("apellido"));
         colLegajoCalendario.setCellValueFactory(new PropertyValueFactory<LeerCronograma, Integer>("legajo"));
         colDNICalendario.setCellValueFactory(new PropertyValueFactory<LeerCronograma, Integer>("dni"));
-        colFechaCalendario.setCellValueFactory(new PropertyValueFactory<LeerCronograma, Date>("fecha"));
+        colFechaCalendario.setCellValueFactory(new PropertyValueFactory<LeerCronograma, String>("fecha"));
         colTurnoCalendario.setCellValueFactory(new PropertyValueFactory<LeerCronograma, String>("turno"));
         colHoraEntradaCalendario.setCellValueFactory(new PropertyValueFactory<LeerCronograma, String>("horario_entrada"));
         colHoraSalidaCalendario.setCellValueFactory(new PropertyValueFactory<LeerCronograma, String>("horario_salida"));
@@ -365,6 +441,9 @@ public class ControladorCronograma {
         textHoraEntradaEliminar.setText(colHoraEntrada.getCellData(index2));
         textHoraSalidaModificar.setText(colHoraSalida.getCellData(index2));
         textHoraSalidaEliminar.setText(colHoraSalida.getCellData(index2));
+
+        String fechaM = colFecha.getCellData(index2);
+        dpFechaModificar.setValue(LocalDate.of(Integer.parseInt(fechaM.substring(6, 10)), Integer.parseInt(fechaM.substring(3, 5)), Integer.parseInt(fechaM.substring(0, 2))));
     }
 
     @FXML
@@ -390,6 +469,17 @@ public class ControladorCronograma {
         String legajo = listEmpleadosAgregados.getItems().get(index4);
         LeerEmpleado dato = new LeerEmpleado();
         dato.listaEmpleadoAgregado(labNombreEmpleadoAgregadoCrear, labApellidoEmpleadoAgregadoCrear, legajo);
+    }
+
+    @FXML
+    private void getListaEmpleadosConsulta(){
+        index5 = tablaListaEmpleadosConsulta.getSelectionModel().getSelectedIndex();
+        if (index5 <= -1){
+
+            return;
+        }
+        labIDEmpleadoConsulta.setText(colIDEmpleadoConsulta.getCellData(index5).toString());
+        inicializarTablaLicenciaConsulta();
     }
 
     // ------------------------ Combo Boxes actualiza las Horas Automáticamente por Turno ------------------------
@@ -450,6 +540,8 @@ public class ControladorCronograma {
             alerta.showAndWait();
         } else {
             tablaListaEmpleados.getItems().setAll(listBuscarEmpleado);
+            labIDEmpleadoLista.setText("0");
+            inicializarTablaCronograma();
         }
     }
 
@@ -493,6 +585,44 @@ public class ControladorCronograma {
         inicializarTablaCronograma();
         limpiarCamposModificar();
         limpiarCamposEliminar();
+    }
+
+    @FXML
+    private void actualizarTablaConsulta(){
+        labIDEmpleadoConsulta.setText("0");
+        textBuscarLegajoEmpleadoConsulta.setText("");
+        fechaConsultaLicencia();
+        inicializarTablaLicenciaConsulta();
+        if(regresarConsultaLicencia.equals("0")){
+            inicializarTablaEmpleadoConsultaCrear();
+        } else if(regresarConsultaLicencia.equals("1")){
+            inicializarTablaEmpleadoConsultaModificar();
+        }
+    }
+
+    @FXML
+    private void btnBuscarEmpleadoConsulta(){
+        if(!textBuscarLegajoEmpleadoConsulta.getText().equals("")){
+            if(regresarConsultaLicencia.equals("0")){
+                ObservableList<LeerEmpleado> listBuscarEmpleadoConsultaCrear;
+                listBuscarEmpleadoConsultaCrear = LeerEmpleado.buscarEmpleadoConsultaCrear(listEmpleadosAgregados, textBuscarLegajoEmpleadoConsulta);
+                tablaListaEmpleadosConsulta.getItems().setAll(listBuscarEmpleadoConsultaCrear);
+                labIDEmpleadoConsulta.setText("0");
+                inicializarTablaLicenciaConsulta();
+            }
+        } else {
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setTitle("Error!");
+            alerta.setContentText("Debe de completar el Legajo para Buscar");
+            alerta.showAndWait();
+        }
+    }
+
+    @FXML
+    private void btnBuscarLicenciaConsulta(){
+        ObservableList<LeerLicencia> listaBuscarLicencia;
+        listaBuscarLicencia = LeerLicencia.buscarLicenciaFechaInicio(labIDEmpleadoConsulta, dpBuscarFechaInicioConsulta);
+        tablaLicenciaConsulta.getItems().setAll(listaBuscarLicencia);
     }
 
     @FXML
@@ -551,19 +681,21 @@ public class ControladorCronograma {
     }
 
     //---------------------------------------------- Eventos Importantes ----------------------------------------
-
     @FXML
     private void guardar() throws ParseException {
         SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
-        String fechaI = dpFechaCrear.getEditor().getText();
-        Date fecha = formatoFecha.parse(fechaI);
+        String fecha = dpFechaCrear.getEditor().getText();
+        String fechaAnio = fecha.substring(6, 10);
+        String fechaMes = fecha.substring(3, 5);
+        String fechaDia = fecha.substring(0, 2);
+        String fechaModificada = (fechaAnio + "-" + fechaMes + "-" + fechaDia);
+        Date fechaModificadaDate = java.sql.Date.valueOf(fechaModificada);
 
         Date fechaActualPais = new Date();
         String Fecha_Actual = (formatoFecha.format(fechaActualPais));
         Date fechaActual = formatoFecha.parse(Fecha_Actual);
-        long Diferencias2 = fechaActual.getTime() - fecha.getTime();
+        long Diferencias2 = fechaActual.getTime() - fechaModificadaDate.getTime();
         long Cant_Dias2 = Diferencias2 / (1000 * 60 * 60 * 24);
-
 
         if(listEmpleadosAgregados.getItems().size() != 0){
             if((-Cant_Dias2) > 0){
@@ -598,22 +730,30 @@ public class ControladorCronograma {
     @FXML
     private void modificar() throws ParseException {
         SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
-        String fechaI = dpFechaModificar.getEditor().getText();
-        Date fecha = formatoFecha.parse(fechaI);
+        String fecha = dpFechaModificar.getEditor().getText();
+        String fechaAnio = fecha.substring(6, 10);
+        String fechaMes = fecha.substring(3, 5);
+        String fechaDia = fecha.substring(0, 2);
+        String fechaModificada = (fechaAnio + "-" + fechaMes + "-" + fechaDia);
+        Date fechaModificadaDate = java.sql.Date.valueOf(fechaModificada);
 
-        String fechaD = dpFechaModificarDuplicada.getEditor().getText();
-        Date fechaDuplicado = formatoFecha.parse(fechaD);
+        String fecha2 = dpFechaModificarDuplicada.getEditor().getText();
+        String fechaAnio2 = fecha2.substring(6, 10);
+        String fechaMes2 = fecha2.substring(3, 5);
+        String fechaDia2 = fecha2.substring(0, 2);
+        String fechaModificada2 = (fechaAnio2 + "-" + fechaMes2 + "-" + fechaDia2);
+        Date fechaModificadaDateDuplicada = java.sql.Date.valueOf(fechaModificada2);
 
         Date fechaActualPais = new Date();
         String Fecha_Actual = (formatoFecha.format(fechaActualPais));
         Date fechaActual = formatoFecha.parse(Fecha_Actual);
-        long Diferencias2 = fechaActual.getTime() - fecha.getTime();
+        long Diferencias2 = fechaActual.getTime() - fechaModificadaDate.getTime();
         long Cant_Dias2 = Diferencias2 / (1000 * 60 * 60 * 24);
 
-        long Diferencias = fechaActual.getTime() - fechaDuplicado.getTime();
+        long Diferencias = fechaActual.getTime() - fechaModificadaDateDuplicada.getTime();
         long Cant_Dias = Diferencias / (1000 * 60 * 60 * 24);
 
-        if(labIDCronogramaModificar.getText() != ""){
+        if(!Objects.equals(labIDCronogramaModificar.getText(), "")){
             if((-Cant_Dias) >= 0){
                 if((-Cant_Dias2) >= 0){
                     ModificarCronograma cronogramaModificar = new ModificarCronograma();
@@ -633,7 +773,7 @@ public class ControladorCronograma {
                 } else {
                     Alert alerta = new Alert(Alert.AlertType.ERROR);
                     alerta.setTitle("Error de Fecha!");
-                    alerta.setContentText("La Fecha Ingresada solo se permite Modificar entre la Fecha Actual o Superior");
+                    alerta.setContentText("La Fecha Ingresada solo se permite Modificar desde la Fecha Actual o Superior");
                     alerta.showAndWait();
                 }
             } else {
@@ -654,16 +794,20 @@ public class ControladorCronograma {
     @FXML
     private void eliminar() throws ParseException {
         SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
-        String fechaI = dpFechaEliminar.getEditor().getText();
-        Date fecha = formatoFecha.parse(fechaI);
+        String fecha = dpFechaEliminar.getEditor().getText();
+        String fechaAnio = fecha.substring(6, 10);
+        String fechaMes = fecha.substring(3, 5);
+        String fechaDia = fecha.substring(0, 2);
+        String fechaModificada = (fechaAnio + "-" + fechaMes + "-" + fechaDia);
+        Date fechaModificadaDate = java.sql.Date.valueOf(fechaModificada);
 
         Date fechaActualPais = new Date();
         String Fecha_Actual = (formatoFecha.format(fechaActualPais));
         Date fechaActual = formatoFecha.parse(Fecha_Actual);
-        long Diferencias2 = fechaActual.getTime() - fecha.getTime();
+        long Diferencias2 = fechaActual.getTime() - fechaModificadaDate.getTime();
         long Cant_Dias2 = Diferencias2 / (1000 * 60 * 60 * 24);
 
-        if (labIDCronogramaEliminar.getText() != ""){
+        if (!Objects.equals(labIDCronogramaEliminar.getText(), "")){
             if((-Cant_Dias2) >= 0){
                 Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
                 alerta.setTitle("Confirmar Eliminar");
@@ -753,6 +897,57 @@ public class ControladorCronograma {
     }
 
     @FXML
+    private void consultaLicenciaCrear(){
+        if(listEmpleadosAgregados.getItems().size() != 0){
+            SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasCronograma.getSelectionModel();
+            modeloSeleccion.select(tabConsultaLicencia);
+            inicializarTablaEmpleadoConsultaCrear();
+            labInfoLegajoConsulta.setVisible(true);
+            btnBuscarEmpleadoConsulta.setVisible(true);
+            textBuscarLegajoEmpleadoConsulta.setVisible(true);
+        } else {
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setTitle("Advertencia");
+            alerta.setContentText("Para Consultar la Licencia debe de haber 1 o más empleados agregados");
+            alerta.showAndWait();
+        }
+        regresarConsultaLicencia = "0";
+        labIDEmpleadoConsulta.setText("0");
+        inicializarTablaLicenciaConsulta();
+    }
+
+    @FXML
+    private void consultaLicenciaModificar(){
+        if(!labIDEmpleadoModificar.getText().equals("")){
+            SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasCronograma.getSelectionModel();
+            modeloSeleccion.select(tabConsultaLicencia);
+            inicializarTablaEmpleadoConsultaModificar();
+            labInfoLegajoConsulta.setVisible(false);
+            btnBuscarEmpleadoConsulta.setVisible(false);
+            textBuscarLegajoEmpleadoConsulta.setVisible(false);
+        } else {
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setTitle("Advertencia!");
+            alerta.setContentText("Debe de seleccionar un Empleado antes para Consultar la Licencia");
+            alerta.showAndWait();
+        }
+        regresarConsultaLicencia = "1";
+        labIDEmpleadoConsulta.setText("0");
+        inicializarTablaLicenciaConsulta();
+    }
+
+    @FXML
+    private void regresarCLMenu(){
+        if(Objects.equals(regresarConsultaLicencia, "0")){
+            SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasCronograma.getSelectionModel();
+            modeloSeleccion.select(tabCrearCronograma);
+        } else if(Objects.equals(regresarConsultaLicencia, "1")){
+            SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasCronograma.getSelectionModel();
+            modeloSeleccion.select(tabModificarCronograma);
+        }
+    }
+
+    @FXML
     private void volverPrincipal() throws IOException {
         closeWindowsPrincipalCronograma();
     }
@@ -782,7 +977,7 @@ public class ControladorCronograma {
         labApellidoEmpleadoModificar.setText("");
         labLegajoEmpleadoModificar.setText("");
         labLimpiarCamposModificar.setText("");
-        dpFechaModificarDuplicada.getEditor().setText("2000-01-01");
+        dpFechaModificarDuplicada.getEditor().setText("01-01-2000");
         cbTurnoModificar.getSelectionModel().selectFirst();
         comboBoxModificar();
         fechasInicializar();
@@ -807,11 +1002,19 @@ public class ControladorCronograma {
         labIDCronogramaEliminar.setText("");
         cbTurnoEliminar.getSelectionModel().selectFirst();
         comboBoxEliminar();
-        fechasInicializar();
+        fechasInicializarMyE();
     }
 
     // ---------------------------------------- Fechas Actuales Inicializadas ----------------------------------------
     public void fechasInicializar() {
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+        // Obtener la fecha actual
+        Calendar calendar = Calendar.getInstance();
+        // Sumar un día a la fecha actual
+        calendar.add(Calendar.DATE, 1);
+        Date fechaActual = calendar.getTime();
+        String fecha_Actual_Mas1 = (formatoFecha.format(fechaActual));
+
         dpBuscarFecha.setValue(LocalDate.now());
         dpBuscarFecha.setConverter(new StringConverter<LocalDate>() {
             @Override
@@ -826,11 +1029,11 @@ public class ControladorCronograma {
             }
         });
 
-        dpFechaCrear.setValue(LocalDate.now());
+        dpFechaCrear.setValue(LocalDate.of(Integer.parseInt(fecha_Actual_Mas1.substring(0, 4)), Integer.parseInt(fecha_Actual_Mas1.substring(5, 7)), Integer.parseInt(fecha_Actual_Mas1.substring(8, 10))));
         dpFechaCrear.setConverter(new StringConverter<LocalDate>() {
             @Override
             public String toString(LocalDate localDate) {
-                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                 return dtf.format(localDate);
             }
 
@@ -840,11 +1043,11 @@ public class ControladorCronograma {
             }
         });
 
-        dpFechaModificar.setValue(LocalDate.now());
+        dpFechaModificar.setValue(LocalDate.of(Integer.parseInt(fecha_Actual_Mas1.substring(0, 4)), Integer.parseInt(fecha_Actual_Mas1.substring(5, 7)), Integer.parseInt(fecha_Actual_Mas1.substring(8, 10))));
         dpFechaModificar.setConverter(new StringConverter<LocalDate>() {
             @Override
             public String toString(LocalDate localDate) {
-                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                 return dtf.format(localDate);
             }
 
@@ -854,11 +1057,49 @@ public class ControladorCronograma {
             }
         });
 
-        dpFechaEliminar.setValue(LocalDate.now());
+        dpFechaEliminar.setValue(LocalDate.of(Integer.parseInt(fecha_Actual_Mas1.substring(0, 4)), Integer.parseInt(fecha_Actual_Mas1.substring(5, 7)), Integer.parseInt(fecha_Actual_Mas1.substring(8, 10))));
         dpFechaEliminar.setConverter(new StringConverter<LocalDate>() {
             @Override
             public String toString(LocalDate localDate) {
-                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                return dtf.format(localDate);
+            }
+
+            @Override
+            public LocalDate fromString(String s) {
+                return null;
+            }
+        });
+    }
+
+    private void fechasInicializarMyE(){
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+        // Obtener la fecha actual
+        Calendar calendar = Calendar.getInstance();
+        // Sumar un día a la fecha actual
+        calendar.add(Calendar.DATE, 1);
+        Date fechaActual = calendar.getTime();
+        String fecha_Actual_Mas1 = (formatoFecha.format(fechaActual));
+
+        dpFechaModificar.setValue(LocalDate.of(Integer.parseInt(fecha_Actual_Mas1.substring(0, 4)), Integer.parseInt(fecha_Actual_Mas1.substring(5, 7)), Integer.parseInt(fecha_Actual_Mas1.substring(8, 10))));
+        dpFechaModificar.setConverter(new StringConverter<LocalDate>() {
+            @Override
+            public String toString(LocalDate localDate) {
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                return dtf.format(localDate);
+            }
+
+            @Override
+            public LocalDate fromString(String s) {
+                return null;
+            }
+        });
+
+        dpFechaEliminar.setValue(LocalDate.of(Integer.parseInt(fecha_Actual_Mas1.substring(0, 4)), Integer.parseInt(fecha_Actual_Mas1.substring(5, 7)), Integer.parseInt(fecha_Actual_Mas1.substring(8, 10))));
+        dpFechaEliminar.setConverter(new StringConverter<LocalDate>() {
+            @Override
+            public String toString(LocalDate localDate) {
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                 return dtf.format(localDate);
             }
 
@@ -874,7 +1115,23 @@ public class ControladorCronograma {
         dpFechaCalendario.setConverter(new StringConverter<LocalDate>() {
             @Override
             public String toString(LocalDate localDate) {
-                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                return dtf.format(localDate);
+            }
+
+            @Override
+            public LocalDate fromString(String s) {
+                return null;
+            }
+        });
+    }
+
+    public void fechaConsultaLicencia(){
+        dpBuscarFechaInicioConsulta.setValue(LocalDate.now());
+        dpBuscarFechaInicioConsulta.setConverter(new StringConverter<LocalDate>() {
+            @Override
+            public String toString(LocalDate localDate) {
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                 return dtf.format(localDate);
             }
 

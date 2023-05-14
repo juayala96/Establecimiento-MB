@@ -16,7 +16,7 @@ public class LeerCronograma {
     private int dni;
     private int idempleados;
 
-    private Date fecha;
+    private String fecha;
     private String turno;
     private String horario_entrada;
     private String horario_salida;
@@ -24,7 +24,7 @@ public class LeerCronograma {
 
     public LeerCronograma(){}
 
-    public LeerCronograma(Date fecha, String turno, String horario_entrada, String horario_salida, int idCronograma) {
+    public LeerCronograma(String fecha, String turno, String horario_entrada, String horario_salida, int idCronograma) {
         this.fecha = fecha;
         this.turno = turno;
         this.horario_entrada = horario_entrada;
@@ -32,7 +32,7 @@ public class LeerCronograma {
         this.idCronograma = idCronograma;
     }
 
-    public LeerCronograma(String nombre, String apellido, int legajo, int dni, Date fecha, String turno, String horario_entrada, String horario_salida, int idempleados, int idCronograma) {
+    public LeerCronograma(String nombre, String apellido, int legajo, int dni, String fecha, String turno, String horario_entrada, String horario_salida, int idempleados, int idCronograma) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.legajo = legajo;
@@ -45,11 +45,11 @@ public class LeerCronograma {
         this.idCronograma = idCronograma;
     }
 
-    public Date getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 
@@ -145,7 +145,12 @@ public class LeerCronograma {
                 hora_entrada = String.valueOf(rs.getTime("horario_entrada")).substring(0, 5);
                 hora_salida = String.valueOf(rs.getTime("horario_salida")).substring(0, 5);
 
-                lista.add(new LeerCronograma(rs.getDate("fecha"), rs.getString("turno"), hora_entrada, hora_salida, rs.getInt("idCronograma")));
+                String fechaClave = rs.getString("fecha");
+                String fechaAnio = fechaClave.substring(0, 4);
+                String fechaMes = fechaClave.substring(5, 7);
+                String fechaDia = fechaClave.substring(8, 10);
+                String fechaModificada = (fechaDia + "-" + fechaMes + "-" + fechaAnio);
+                lista.add(new LeerCronograma(fechaModificada, rs.getString("turno"), hora_entrada, hora_salida, rs.getInt("idCronograma")));
             }
         } catch (SQLException ex) {
             System.err.println("Error: " + ex.getMessage());
@@ -223,7 +228,12 @@ public class LeerCronograma {
                 hora_entrada = String.valueOf(rs.getTime("horario_entrada")).substring(0, 5);
                 hora_salida = String.valueOf(rs.getTime("horario_salida")).substring(0, 5);
 
-                lista.add(new LeerCronograma(rs.getDate("fecha"), rs.getString("turno"), hora_entrada, hora_salida, rs.getInt("idCronograma")));
+                String fechaClave = rs.getString("fecha");
+                String fechaAnio2 = fechaClave.substring(0, 4);
+                String fechaMes2 = fechaClave.substring(5, 7);
+                String fechaDia2 = fechaClave.substring(8, 10);
+                String fechaModificada2 = (fechaDia2 + "-" + fechaMes2 + "-" + fechaAnio2);
+                lista.add(new LeerCronograma(fechaModificada2, rs.getString("turno"), hora_entrada, hora_salida, rs.getInt("idCronograma")));
             }
         } catch (SQLException ex) {
             System.err.println("Error: " + ex.getMessage());
@@ -261,7 +271,12 @@ public class LeerCronograma {
                     hora_entrada = String.valueOf(rs.getTime("horario_entrada")).substring(0, 5);
                     hora_salida = String.valueOf(rs.getTime("horario_salida")).substring(0, 5);
 
-                    lista.add(new LeerCronograma(rs.getDate("fecha"), rs.getString("turno"), hora_entrada, hora_salida, rs.getInt("idCronograma")));
+                    String fechaClave = rs.getString("fecha");
+                    String fechaAnio = fechaClave.substring(0, 4);
+                    String fechaMes = fechaClave.substring(5, 7);
+                    String fechaDia = fechaClave.substring(8, 10);
+                    String fechaModificada = (fechaDia + "-" + fechaMes + "-" + fechaAnio);
+                    lista.add(new LeerCronograma(fechaModificada, rs.getString("turno"), hora_entrada, hora_salida, rs.getInt("idCronograma")));
                 }
             } catch (SQLException ex) {
                 System.err.println("Error: " + ex.getMessage());
@@ -286,7 +301,12 @@ public class LeerCronograma {
                     hora_entrada = String.valueOf(rs.getTime("horario_entrada")).substring(0, 5);
                     hora_salida = String.valueOf(rs.getTime("horario_salida")).substring(0, 5);
 
-                    lista.add(new LeerCronograma(rs.getDate("fecha"), rs.getString("turno"), hora_entrada, hora_salida, rs.getInt("idCronograma")));
+                    String fechaClave = rs.getString("fecha");
+                    String fechaAnio = fechaClave.substring(0, 4);
+                    String fechaMes = fechaClave.substring(5, 7);
+                    String fechaDia = fechaClave.substring(8, 10);
+                    String fechaModificada = (fechaDia + "-" + fechaMes + "-" + fechaAnio);
+                    lista.add(new LeerCronograma(fechaModificada, rs.getString("turno"), hora_entrada, hora_salida, rs.getInt("idCronograma")));
                 }
             } catch (SQLException ex) {
                 System.err.println("Error: " + ex.getMessage());
@@ -312,14 +332,23 @@ public class LeerCronograma {
         ObservableList<LeerCronograma> lista = FXCollections.observableArrayList();
 
         try {
-            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, dni, fecha, turno, horario_entrada, horario_salida, idempleados, idCronograma FROM cronograma INNER JOIN empleado_cronograma ON cronograma.idCronograma = empleado_cronograma.idCronogramaFK INNER JOIN empleados ON empleados.idempleados = empleado_cronograma.idEmpleadoFK WHERE empleados.estadoEmpleado = ? AND cronograma.estadoCronograma = ? AND cronograma.fecha = ?");
+            String fecha = dpFechaCalendario.getEditor().getText();
+            String fechaAnio2 = fecha.substring(6, 10);
+            String fechaMes2 = fecha.substring(3, 5);
+            String fechaDia2 = fecha.substring(0, 2);
+            String fechaModificada2 = (fechaAnio2 + "-" + fechaMes2 + "-" + fechaDia2);
+            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, dni, fecha, turno, horario_entrada, horario_salida, idempleados, idCronograma FROM cronograma INNER JOIN empleado_cronograma ON cronograma.idCronograma = empleado_cronograma.idCronogramaFK INNER JOIN empleados ON empleados.idempleados = empleado_cronograma.idEmpleadoFK WHERE empleados.estadoEmpleado = ? AND cronograma.fecha = ?");
             pstm.setString(1, "Vigente");
-            pstm.setString(2, "Vigente");
-            pstm.setString(3, dpFechaCalendario.getEditor().getText());
+            pstm.setString(2, fechaModificada2);
             rs = pstm.executeQuery();
 
             while (rs.next()){
-                lista.add(new LeerCronograma(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getInt("dni"), rs.getDate("fecha"), rs.getString("turno"), rs.getString("horario_entrada"), rs.getString("horario_salida"), rs.getInt("idempleados"), rs.getInt("idCronograma")));
+                String fechaClave = rs.getString("fecha");
+                String fechaAnio = fechaClave.substring(0, 4);
+                String fechaMes = fechaClave.substring(5, 7);
+                String fechaDia = fechaClave.substring(8, 10);
+                String fechaModificada = (fechaDia + "-" + fechaMes + "-" + fechaAnio);
+                lista.add(new LeerCronograma(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getInt("dni"), fechaModificada, rs.getString("turno"), rs.getString("horario_entrada"), rs.getString("horario_salida"), rs.getInt("idempleados"), rs.getInt("idCronograma")));
             }
 
         } catch (SQLException ex) {
@@ -344,13 +373,23 @@ public class LeerCronograma {
         ObservableList<LeerCronograma> lista = FXCollections.observableArrayList();
 
         try {
+            String fecha2 = dpFechaCalendario.getEditor().getText();
+            String fechaAnio2 = fecha2.substring(6, 10);
+            String fechaMes2 = fecha2.substring(3, 5);
+            String fechaDia2 = fecha2.substring(0, 2);
+            String fechaModificada2 = (fechaAnio2 + "-" + fechaMes2 + "-" + fechaDia2);
             pstm = con.prepareStatement("SELECT nombre, apellido, legajo, dni, fecha, turno, horario_entrada, horario_salida, idempleados, idCronograma FROM cronograma INNER JOIN empleado_cronograma ON cronograma.idCronograma = empleado_cronograma.idCronogramaFK INNER JOIN empleados ON empleados.idempleados = empleado_cronograma.idEmpleadoFK WHERE empleados.estadoEmpleado = ? AND cronograma.fecha = ?");
             pstm.setString(1, "Vigente");
-            pstm.setString(2, dpFechaCalendario.getEditor().getText());
+            pstm.setString(2, fechaModificada2);
             rs = pstm.executeQuery();
 
             while (rs.next()){
-                lista.add(new LeerCronograma(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getInt("dni"), rs.getDate("fecha"), rs.getString("turno"), rs.getString("horario_entrada"), rs.getString("horario_salida"), rs.getInt("idempleados"), rs.getInt("idCronograma")));
+                String fechaClave = rs.getString("fecha");
+                String fechaAnio = fechaClave.substring(0, 4);
+                String fechaMes = fechaClave.substring(5, 7);
+                String fechaDia = fechaClave.substring(8, 10);
+                String fechaModificada = (fechaDia + "-" + fechaMes + "-" + fechaAnio);
+                lista.add(new LeerCronograma(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getInt("dni"), fechaModificada, rs.getString("turno"), rs.getString("horario_entrada"), rs.getString("horario_salida"), rs.getInt("idempleados"), rs.getInt("idCronograma")));
             }
 
         } catch (SQLException ex) {
@@ -375,14 +414,25 @@ public class LeerCronograma {
         ObservableList<LeerCronograma> lista = FXCollections.observableArrayList();
 
         try {
+            String fechaBuscar = dpFechaCalendario.getEditor().getText();
+            String fechaAnio = fechaBuscar.substring(6, 10);
+            String fechaMes = fechaBuscar.substring(3, 5);
+            String fechaDia = fechaBuscar.substring(0, 2);
+            String fechaBusqueda = (fechaAnio + "-" + fechaMes + "-" + fechaDia);
+
             pstm = con.prepareStatement("SELECT nombre, apellido, legajo, dni, fecha, turno, horario_entrada, horario_salida, idempleados, idCronograma FROM cronograma INNER JOIN empleado_cronograma ON cronograma.idCronograma = empleado_cronograma.idCronogramaFK INNER JOIN empleados ON empleados.idempleados = empleado_cronograma.idEmpleadoFK WHERE empleados.estadoEmpleado = ? AND cronograma.fecha = ? AND empleados.legajo LIKE ?");
             pstm.setString(1, "Vigente");
-            pstm.setString(2, dpFechaCalendario.getEditor().getText());
+            pstm.setString(2, fechaBusqueda);
             pstm.setString(3, textBuscarLegajoEmpleadoCalendario.getText()  + "%");
             rs = pstm.executeQuery();
 
             while (rs.next()){
-                lista.add(new LeerCronograma(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getInt("dni"), rs.getDate("fecha"), rs.getString("turno"), rs.getString("horario_entrada"), rs.getString("horario_salida"), rs.getInt("idempleados"), rs.getInt("idCronograma")));
+                String fechaClave = rs.getString("fecha");
+                String fechaAnio2 = fechaClave.substring(0, 4);
+                String fechaMes2 = fechaClave.substring(5, 7);
+                String fechaDia2 = fechaClave.substring(8, 10);
+                String fechaModificada2 = (fechaDia2 + "-" + fechaMes2 + "-" + fechaAnio2);
+                lista.add(new LeerCronograma(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getInt("dni"), fechaModificada2, rs.getString("turno"), rs.getString("horario_entrada"), rs.getString("horario_salida"), rs.getInt("idempleados"), rs.getInt("idCronograma")));
             }
 
         } catch (SQLException ex) {
