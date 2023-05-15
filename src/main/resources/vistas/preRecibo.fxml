@@ -82,12 +82,12 @@
             <Font name="System Bold" size="17.0" />
          </font>
       </Label>
-      <Label layoutX="737.0" layoutY="142.0" prefHeight="27.0" prefWidth="64.0" text="Legajo:" textFill="#080808">
+      <Label layoutX="571.0" layoutY="140.0" prefHeight="27.0" prefWidth="64.0" text="Legajo:" textFill="#080808">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Button fx:id="btnBuscarEmpleado" layoutX="569.0" layoutY="171.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#buscarEmpleado" prefHeight="42.0" prefWidth="154.0" text="Buscar Empleado:" textFill="#022c7b">
+      <Button fx:id="btnBuscarEmpleado" layoutX="754.0" layoutY="170.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#buscarEmpleado" prefHeight="42.0" prefWidth="154.0" text="Buscar Empleado" textFill="#022c7b">
          <font>
             <Font name="System Bold Italic" size="16.0" />
          </font>
@@ -95,7 +95,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <TextField fx:id="textBuscarLegajoEmpleado" layoutX="736.0" layoutY="170.0" prefHeight="44.0" prefWidth="174.0">
+      <TextField fx:id="textBuscarLegajoEmpleado" layoutX="571.0" layoutY="169.0" prefHeight="44.0" prefWidth="174.0">
          <font>
             <Font size="18.0" />
          </font>

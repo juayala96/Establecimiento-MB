@@ -49,17 +49,17 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </TableView>
-                        <TextField fx:id="textBuscarEmpleado" layoutX="465.0" layoutY="143.0" prefHeight="46.0" prefWidth="200.0">
+                        <TextField fx:id="textBuscarEmpleado" layoutX="303.0" layoutY="143.0" prefHeight="46.0" prefWidth="200.0">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </TextField>
-                        <Label layoutX="465.0" layoutY="115.0" prefHeight="12.0" prefWidth="67.0" text="Legajo:" textFill="#080808">
+                        <Label layoutX="303.0" layoutY="115.0" prefHeight="12.0" prefWidth="67.0" text="Legajo:" textFill="#080808">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Button fx:id="btnBuscarEmpleado" layoutX="303.0" layoutY="142.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnBuscar" prefHeight="46.0" prefWidth="155.0" text="Buscar Empleado:" textFill="#022c7b">
+                        <Button fx:id="btnBuscarEmpleado" layoutX="509.0" layoutY="142.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnBuscar" prefHeight="46.0" prefWidth="155.0" text="Buscar Empleado" textFill="#022c7b">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>
@@ -67,7 +67,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button fx:id="btnFiltroUsuarios" layoutX="751.0" layoutY="142.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#filtroEmpleado" prefHeight="46.0" prefWidth="86.0" text="Filtros:" textFill="#e4461a">
+                        <Button fx:id="btnFiltroUsuarios" layoutX="981.0" layoutY="142.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#filtroEmpleado" prefHeight="46.0" prefWidth="90.0" text="Aceptar" textFill="#022c7b">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>
@@ -75,7 +75,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <ComboBox fx:id="cbTiposfiltrosEmpleados" layoutX="844.0" layoutY="142.0" prefHeight="46.0" prefWidth="200.0" style="-fx-font-size: 16;">
+                        <ComboBox fx:id="cbTiposfiltrosEmpleados" layoutX="774.0" layoutY="142.0" prefHeight="46.0" prefWidth="200.0" style="-fx-font-size: 16;">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -179,6 +179,11 @@
                               </ImageView>
                            </graphic>
                         </Button>
+                        <Label layoutX="774.0" layoutY="115.0" prefHeight="27.0" prefWidth="106.0" text="Ordenar por:" textFill="#080808">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
                      </children>
                   </AnchorPane>
                </content>

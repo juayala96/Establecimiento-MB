@@ -339,7 +339,7 @@ public class ControladorUsuarios {
                             limpiarCamposEliminar();
                         }
                     } else {
-                        labErrorRepetirContraseniaCrear.setText("La contraseña no coincide");
+                        labErrorRepetirContraseniaModificar.setText("La contraseña no coincide");
                     }
                 }
             }
