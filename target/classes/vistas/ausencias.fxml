@@ -80,6 +80,9 @@
                            </font>
                         </TextField>
                         <TableView fx:id="tablaAusencias" layoutX="703.0" layoutY="265.0" onMouseClicked="#getAusencia" prefHeight="467.0" prefWidth="590.0">
+                           <placeholder>
+                              <Label text="El empleado no tiene ausencias registradas"/>
+                           </placeholder>
                            <columns>
                               <TableColumn fx:id="colFecha" prefWidth="140.0" style="-fx-font-size: 14;" text="Fecha" />
                               <TableColumn fx:id="colMotivo" prefWidth="170.0" style="-fx-font-size: 14;" text="Motivo" />
