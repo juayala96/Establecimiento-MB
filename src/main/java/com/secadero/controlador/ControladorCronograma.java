@@ -908,7 +908,7 @@ public class ControladorCronograma {
         } else {
             Alert alerta = new Alert(Alert.AlertType.WARNING);
             alerta.setTitle("Advertencia");
-            alerta.setContentText("Para Consultar la Licencia debe de haber 1 o más empleados agregados");
+            alerta.setContentText("Para Consultar la Licencia debe de haber uno o más empleados agregados");
             alerta.showAndWait();
         }
         regresarConsultaLicencia = "0";

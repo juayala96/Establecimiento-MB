@@ -664,6 +664,9 @@
                            <font>
                               <Font size="18.0" />
                            </font>
+                           <cursor>
+                              <Cursor fx:constant="DISAPPEAR" />
+                           </cursor>
                         </TextField>
                         <Label layoutX="145.0" layoutY="221.0" prefHeight="24.0" prefWidth="72.0" text="Apellido:" textFill="#080808">
                            <font>
@@ -674,6 +677,9 @@
                            <font>
                               <Font size="18.0" />
                            </font>
+                           <cursor>
+                              <Cursor fx:constant="DISAPPEAR" />
+                           </cursor>
                         </TextField>
                         <Label layoutX="144.0" layoutY="327.0" prefHeight="18.0" prefWidth="58.0" text="Legajo:" textFill="#080808">
                            <font>
@@ -684,6 +690,9 @@
                            <font>
                               <Font size="18.0" />
                            </font>
+                           <cursor>
+                              <Cursor fx:constant="DISAPPEAR" />
+                           </cursor>
                         </TextField>
                         <Label layoutX="145.0" layoutY="527.0" prefHeight="27.0" prefWidth="76.0" text="Teléfono:" textFill="#080808">
                            <font>
@@ -694,6 +703,9 @@
                            <font>
                               <Font size="18.0" />
                            </font>
+                           <cursor>
+                              <Cursor fx:constant="DISAPPEAR" />
+                           </cursor>
                         </TextField>
                         <Label layoutX="596.0" layoutY="425.0" prefHeight="27.0" prefWidth="98.0" text="Estado Civil:" textFill="#080808">
                            <font>
@@ -734,6 +746,9 @@
                            <font>
                               <Font size="18.0" />
                            </font>
+                           <cursor>
+                              <Cursor fx:constant="DISAPPEAR" />
+                           </cursor>
                         </TextField>
                         <Label layoutX="1049.0" layoutY="226.0" prefHeight="27.0" prefWidth="142.0" text="Fecha de Ingreso:" textFill="#080808">
                            <font>
@@ -751,6 +766,9 @@
                            <font>
                               <Font size="18.0" />
                            </font>
+                           <cursor>
+                              <Cursor fx:constant="DISAPPEAR" />
+                           </cursor>
                         </TextField>
                         <Label layoutX="595.0" layoutY="226.0" prefHeight="26.0" prefWidth="82.0" text="Email:" textFill="#080808">
                            <font>
@@ -766,6 +784,9 @@
                            <font>
                               <Font size="18.0" />
                            </font>
+                           <cursor>
+                              <Cursor fx:constant="DISAPPEAR" />
+                           </cursor>
                         </TextField>
                         <Button fx:id="btnRegresarELista" layoutX="393.0" layoutY="667.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#regresarELista" prefHeight="46.0" prefWidth="166.0" text="Regresar" textFill="#382929">
                            <font>

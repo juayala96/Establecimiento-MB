@@ -448,4 +448,91 @@ public class LeerCronograma {
         }
         return lista;
     }
+
+    //--------------------------------------- Leer Cronograma (Licencia) --------------------------------------------------
+    public static ObservableList<LeerCronograma> listaCronogramaConsulta(Label labIDEmpleadoConsulta){
+        Connection con = Conexion.leerConexion();
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+        ObservableList<LeerCronograma> lista = FXCollections.observableArrayList();
+        String hora_entrada;
+        String hora_salida;
+
+        try {
+            pstm = con.prepareStatement("SELECT fecha, turno, horario_entrada, horario_salida, idCronograma FROM cronograma INNER JOIN empleado_cronograma ON cronograma.idCronograma = empleado_cronograma.idCronogramaFK INNER JOIN empleados ON empleado_cronograma.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND empleado_cronograma.idEmpleadoFK = ? ORDER BY fecha DESC");
+            pstm.setString(1, "Vigente");
+            pstm.setInt(2, Integer.parseInt(labIDEmpleadoConsulta.getText()));
+            rs = pstm.executeQuery();
+
+            while (rs.next()){
+                hora_entrada = String.valueOf(rs.getTime("horario_entrada")).substring(0, 5);
+                hora_salida = String.valueOf(rs.getTime("horario_salida")).substring(0, 5);
+
+                String fechaClave = rs.getString("fecha");
+                String fechaAnio = fechaClave.substring(0, 4);
+                String fechaMes = fechaClave.substring(5, 7);
+                String fechaDia = fechaClave.substring(8, 10);
+                String fechaModificada = (fechaDia + "-" + fechaMes + "-" + fechaAnio);
+                lista.add(new LeerCronograma(fechaModificada, rs.getString("turno"), hora_entrada, hora_salida, rs.getInt("idCronograma")));
+            }
+        } catch (SQLException ex) {
+            System.err.println("Error: " + ex.getMessage());
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pstm != null) pstm.close();
+                if (con != null) con.close();
+            } catch (Exception ex){
+                System.err.println("Error: " + ex.getMessage());
+            }
+        }
+        return lista;
+    }
+
+    //------------------------------------------- Buscar Cronograma --------------------------------------------------
+    public static ObservableList<LeerCronograma> buscarFechaCronogramaConsulta(Label labIDEmpleadoConsulta, DatePicker dpBuscarFecha) {
+        Connection con = Conexion.leerConexion();
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+        ObservableList<LeerCronograma> lista = FXCollections.observableArrayList();
+        String hora_entrada;
+        String hora_salida;
+
+        try {
+            String fecha = dpBuscarFecha.getEditor().getText();
+            String fechaAnio = fecha.substring(6, 10);
+            String fechaMes = fecha.substring(3, 5);
+            String fechaDia = fecha.substring(0, 2);
+            String fechaModificada = (fechaAnio + "-" + fechaMes + "-" + fechaDia);
+
+            pstm = con.prepareStatement("SELECT fecha, turno, horario_entrada, horario_salida, idCronograma FROM cronograma INNER JOIN empleado_cronograma ON cronograma.idCronograma = empleado_cronograma.idCronogramaFK INNER JOIN empleados ON empleado_cronograma.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND empleado_cronograma.idEmpleadoFK = ? AND cronograma.fecha = ?");
+            pstm.setString(1, "Vigente");
+            pstm.setInt(2, Integer.parseInt(labIDEmpleadoConsulta.getText()));
+            pstm.setDate(3, java.sql.Date.valueOf(fechaModificada));
+            rs = pstm.executeQuery();
+
+            while (rs.next()) {
+                hora_entrada = String.valueOf(rs.getTime("horario_entrada")).substring(0, 5);
+                hora_salida = String.valueOf(rs.getTime("horario_salida")).substring(0, 5);
+
+                String fechaClave = rs.getString("fecha");
+                String fechaAnio2 = fechaClave.substring(0, 4);
+                String fechaMes2 = fechaClave.substring(5, 7);
+                String fechaDia2 = fechaClave.substring(8, 10);
+                String fechaModificada2 = (fechaDia2 + "-" + fechaMes2 + "-" + fechaAnio2);
+                lista.add(new LeerCronograma(fechaModificada2, rs.getString("turno"), hora_entrada, hora_salida, rs.getInt("idCronograma")));
+            }
+        } catch (SQLException ex) {
+            System.err.println("Error: " + ex.getMessage());
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pstm != null) pstm.close();
+                if (con != null) con.close();
+            } catch (Exception ex) {
+                System.err.println("Error: " + ex.getMessage());
+            }
+        }
+        return lista;
+    }
 }

@@ -511,7 +511,7 @@
                               <Font size="18.0" />
                            </font>
                            <cursor>
-                              <Cursor fx:constant="TEXT" />
+                              <Cursor fx:constant="DISAPPEAR" />
                            </cursor>
                         </TextField>
                         <TextField fx:id="textNombreUsuarioEliminar" editable="false" layoutX="843.0" layoutY="201.0" opacity="0.9" prefHeight="40.0" prefWidth="280.0">
@@ -519,7 +519,7 @@
                               <Font size="18.0" />
                            </font>
                            <cursor>
-                              <Cursor fx:constant="TEXT" />
+                              <Cursor fx:constant="DISAPPEAR" />
                            </cursor>
                         </TextField>
                         <Label layoutX="843.0" layoutY="170.0" prefHeight="30.0" prefWidth="183.0" text="Nombre de Usuario:" textFill="#080808">

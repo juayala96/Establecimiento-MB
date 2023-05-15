@@ -358,6 +358,14 @@
                               <Font name="Consolas" size="14.0" />
                            </font>
                         </Label>
+                        <Button fx:id="btnConsultaCronogramaCrear" layoutX="685.0" layoutY="651.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#consultaCronogramaCrear" prefHeight="46.0" prefWidth="197.0" text="Consulta Cronograma" textFill="#015117">
+                           <font>
+                              <Font name="System Bold" size="17.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
                      </children>
                   </AnchorPane>
                </content>
@@ -386,7 +394,7 @@
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
-                        <Label layoutX="534.0" layoutY="74.0" prefHeight="56.0" prefWidth="467.0" text="Modificar Licencia" textFill="#080808">
+                        <Label layoutX="522.0" layoutY="74.0" prefHeight="56.0" prefWidth="467.0" text="Modificar Licencia" textFill="#080808">
                            <font>
                               <Font name="Georgia Bold" size="48.0" />
                            </font>
@@ -499,6 +507,14 @@
                               <Cursor fx:constant="DISAPPEAR" />
                            </cursor>
                         </Label>
+                        <Button fx:id="btnConsultaCronogramaModificar" layoutX="669.0" layoutY="668.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#consultaCronogramaModificar" prefHeight="46.0" prefWidth="197.0" text="Consulta Cronograma" textFill="#015117">
+                           <font>
+                              <Font name="System Bold" size="17.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
                      </children>
                   </AnchorPane>
                </content>
@@ -638,6 +654,124 @@
                            <cursor>
                               <Cursor fx:constant="DISAPPEAR" />
                            </cursor>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab fx:id="tabConsultaCronograma" text="Consulta Cronograma">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label fx:id="labIDEmpleadoConsulta" layoutX="401.0" layoutY="93.0" prefHeight="18.0" prefWidth="26.0" />
+                        <ImageView fitHeight="1168.0" fitWidth="1536.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imagenes/verde_agua.jpg" />
+                           </image>
+                        </ImageView>
+                        <Label layoutY="-4.0" prefHeight="44.0" prefWidth="1536.0" text="__________________________________________________________________________________________________________________________________________________________" textFill="#080808">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label layoutY="715.0" prefHeight="35.0" prefWidth="1536.0" text="__________________________________________________________________________________________________________________________________________________________" textFill="#080808">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="323.0" layoutY="234.0" prefHeight="35.0" prefWidth="80.0" text="Nombre:" textFill="#080808">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="325.0" layoutY="334.0" prefHeight="35.0" prefWidth="79.0" text="Apellido:" textFill="#080808">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="341.0" layoutY="439.0" prefHeight="30.0" prefWidth="68.0" text="Legajo:" textFill="#080808">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="414.0" layoutY="334.0" opacity="0.9" prefHeight="40.0" prefWidth="220.0" style="-fx-background-color: white;" />
+                        <Label fx:id="labApellidoEmpleadoConsulta" layoutX="424.0" layoutY="334.0" prefHeight="40.0" prefWidth="210.0" textFill="#1200ff">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="414.0" layoutY="232.0" opacity="0.9" prefHeight="40.0" prefWidth="220.0" style="-fx-background-color: white;" />
+                        <Label fx:id="labNombreEmpleadoConsulta" layoutX="424.0" layoutY="232.0" prefHeight="40.0" prefWidth="210.0" textFill="#1200ff">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="413.0" layoutY="434.0" opacity="0.9" prefHeight="40.0" prefWidth="175.0" style="-fx-background-color: white;" />
+                        <Label fx:id="labLegajoEmpleadoConsulta" layoutX="424.0" layoutY="434.0" prefHeight="40.0" prefWidth="165.0" textFill="#d101dc">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <TableView fx:id="tablaCronograma" layoutX="784.0" layoutY="232.0" prefHeight="433.0" prefWidth="606.0">
+                           <columns>
+                              <TableColumn fx:id="colFecha" prefWidth="153.0" style="-fx-font-size: 14;" text="Fecha" />
+                              <TableColumn fx:id="colTurno" prefWidth="150.0" style="-fx-font-size: 14;" text="Turno" />
+                              <TableColumn fx:id="colHoraEntrada" prefWidth="150.0" style="-fx-font-size: 14;" text="Hora de Entrada" />
+                              <TableColumn fx:id="colHoraSalida" prefWidth="150.0" style="-fx-font-size: 14;" text="Hora de Salida" />
+                              <TableColumn fx:id="colIDCronograma" prefWidth="140.0" style="-fx-font-size: 14;" text="IDCronograma" />
+                           </columns>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </TableView>
+                        <Button fx:id="btnActualizarConsulta" layoutX="1237.0" layoutY="79.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#actualizarTablaConsulta" prefHeight="46.0" prefWidth="150.0" text="Actualizar Lista" textFill="#6b027a">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <font>
+                              <Font name="System Bold Italic" size="16.0" />
+                           </font>
+                        </Button>
+                        <DatePicker fx:id="dpBuscarFecha" editable="false" layoutX="1210.0" layoutY="168.0" prefHeight="46.0" prefWidth="178.0" style="-fx-font-size: 18;">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </DatePicker>
+                        <Label layoutX="1210.0" layoutY="141.0" prefHeight="27.0" prefWidth="106.0" text="Fecha:" textFill="#080808">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="784.0" layoutY="168.0" prefHeight="46.0" prefWidth="229.0" text="Lista de Cronograma: " textFill="#450606">
+                           <font>
+                              <Font name="System Italic" size="24.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="btnBuscarCronogramaFecha" layoutX="1028.0" layoutY="168.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnBuscarCronograma" prefHeight="46.0" prefWidth="175.0" text="Buscar Cronograma:" textFill="#022c7b">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="btnRegresarCCMenu" layoutX="651.0" layoutY="686.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#regresarCCMenu" prefHeight="46.0" prefWidth="266.0" text="Regresar" textFill="#382929">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Label layoutX="450.0" layoutY="68.0" prefHeight="66.0" prefWidth="636.0" text="Consulta Cronograma" textFill="#080808">
+                           <font>
+                              <Font name="Georgia Bold" size="56.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="413.0" layoutY="168.0" prefHeight="46.0" prefWidth="110.0" text="Empleado:" textFill="#450606">
+                           <font>
+                              <Font name="System Italic" size="24.0" />
+                           </font>
                         </Label>
                      </children>
                   </AnchorPane>

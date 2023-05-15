@@ -42,6 +42,7 @@ public class CrearLicencia {
         int datoIDLicenciaFK;
         String datoFechaInicioMax;
         String datoFechaFinMax;
+        String resultado3 = "YES";
 
         String fechaInicioClave = dpFechaInicioCrear.getEditor().getText();
         String fechaAnio = fechaInicioClave.substring(6, 10);
@@ -186,6 +187,7 @@ public class CrearLicencia {
                                 }
                                 resultadoFecha = resultadoFecha.plusDays(1);
                             }
+
                         }
                     } catch (Exception e1) {
                         System.err.println("Error: " + e1.getMessage());
@@ -208,143 +210,174 @@ public class CrearLicencia {
                         System.err.println("Error: " + e1.getMessage());
                     }
 
+                    try {
+                        String consultaFechaCronograma = "SELECT fecha FROM cronograma INNER JOIN empleado_cronograma ON cronograma.idCronograma = empleado_cronograma.idCronogramaFK INNER JOIN empleados ON empleados.idempleados = empleado_cronograma.idEmpleadoFK WHERE empleados.idempleados = ?";
+                        pstm = con.prepareStatement(consultaFechaCronograma);
+                        pstm.setString(1, labIDEmpleadoCrear.getText());
+                        rs = pstm.executeQuery();
+                        while (rs.next()) {
+                            String fechaCalendario = rs.getString("fecha");
+                            // Establecer la fecha inicial y final
+                            LocalDate fechaInicial = LocalDate.parse(fechaModificadaInicio, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                            LocalDate fechaFinal = LocalDate.parse(fechaModificadaFin, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+                            // Iterar sobre las fechas y mostrarlas
+                            LocalDate resultadoFecha = fechaInicial;
+                            while (!resultadoFecha.isAfter(fechaFinal)) {
+                                if (fechaCalendario.equals(String.valueOf(resultadoFecha))) {
+                                    resultado3 = "NO";
+                                }
+                                resultadoFecha = resultadoFecha.plusDays(1);
+                            }
+                        }
+                    } catch (Exception e1) {
+                        System.err.println("Error: " + e1.getMessage());
+                    }
+
                     if (resultado2.equals("YES")) {
-                        String extraerAnio = fechaModificadaInicio;
-                        int exAnio = Integer.parseInt(extraerAnio.substring(0, 4));
-                        try {
-                            // -------------------------------------- Creación -------------------------------------
-                            String consulta4 = "SELECT idTipoLicencia FROM tipo_licencias WHERE descripcion = ?";
-                            pstm = con.prepareStatement(consulta4);
-                            pstm.setString(1, cbTipoLicenciaCrear.getSelectionModel().getSelectedItem());
-                            rs = pstm.executeQuery();
-                            while (rs.next()) {
-                                datoIdTipoLicenciaFK = Integer.parseInt(rs.getString("idTipoLicencia"));
-
-                                String consulta5 = "SELECT idempleados FROM licencias INNER JOIN empleado_licencia ON licencias.idLicencias = empleado_licencia.idLicenciaFK INNER JOIN empleados ON empleado_licencia.idEmpleadoFK = empleados.idempleados INNER JOIN tipo_licencias ON tipo_licencias.idTipoLicencia = licencias.idTipoLicenciaFK WHERE idEmpleadoFK = ? AND estadoEmpleado = ? AND idTipoLicenciaFK = ? AND YEAR(fecha_Inicio) = ?";
-                                pstm = con.prepareStatement(consulta5);
-                                pstm.setInt(1, Integer.parseInt(labIDEmpleadoCrear.getText()));
-                                pstm.setString(2, "Vigente");
-                                pstm.setInt(3, datoIdTipoLicenciaFK);
-                                pstm.setInt(4, exAnio);
-                                rs = pstm.executeQuery();
-
-                                while (rs.next()) {
-                                    try {
-                                        String consultaDiasDisponibles = "UPDATE licencias INNER JOIN empleado_licencia ON licencias.idLicencias = empleado_licencia.idLicenciaFK INNER JOIN empleados ON empleado_licencia.idEmpleadoFK = empleados.idempleados SET dias_disponibles = ? WHERE estadoEmpleado = ? AND empleado_licencia.idEmpleadoFK = ? AND idTipoLicenciaFK = ? AND YEAR(fecha_Inicio) = ?";
-
-                                        pstm = con.prepareStatement(consultaDiasDisponibles);
-                                        if (cbTipoLicenciaCrear.getSelectionModel().getSelectedItem().equals("Vacaciones")) {
-                                            pstm.setInt(1, diasVacaciones);
-                                        } else if (cbTipoLicenciaCrear.getSelectionModel().getSelectedItem().equals("Enfermedad")) {
-                                            pstm.setInt(1, diasEnfermedad);
-                                        } else if (cbTipoLicenciaCrear.getSelectionModel().getSelectedItem().equals("Accidente")) {
-                                            pstm.setInt(1, diasAccidente);
-                                        } else if (cbTipoLicenciaCrear.getSelectionModel().getSelectedItem().equals("Matrimonio")) {
-                                            pstm.setInt(1, diasMatrimonio);
-                                        } else {
-                                            pstm.setInt(1, diasMuerteFamiliar);
-                                        }
-                                        pstm.setString(2, "Vigente");
-                                        pstm.setInt(3, Integer.parseInt(labIDEmpleadoCrear.getText()));
-                                        pstm.setInt(4, datoIdTipoLicenciaFK);
-                                        pstm.setInt(5, exAnio);
-                                        pstm.executeUpdate();
-
-                                    } catch (Exception e1) {
-                                        System.err.println("Error: " + e1.getMessage());
-                                    }
-
-                                    String consulta6 = "INSERT INTO licencias(fecha_Inicio, fecha_Fin, dias_disponibles, descripcionLicencia, idTipoLicenciaFK) VALUES (?, ?, ?, ?, ?)";
-                                    pstm = con.prepareStatement(consulta6);
-                                    pstm.setDate(1, java.sql.Date.valueOf(fechaModificadaInicio));
-                                    pstm.setDate(2, java.sql.Date.valueOf(fechaModificadaFin));
-
-                                    if (cbTipoLicenciaCrear.getSelectionModel().getSelectedItem().equals("Vacaciones")) {
-                                        pstm.setInt(3, diasVacaciones);
-                                    } else if (cbTipoLicenciaCrear.getSelectionModel().getSelectedItem().equals("Enfermedad")) {
-                                        pstm.setInt(3, diasEnfermedad);
-                                    } else if (cbTipoLicenciaCrear.getSelectionModel().getSelectedItem().equals("Accidente")) {
-                                        pstm.setInt(3, diasAccidente);
-                                    } else if (cbTipoLicenciaCrear.getSelectionModel().getSelectedItem().equals("Matrimonio")) {
-                                        pstm.setInt(3, diasMatrimonio);
-                                    } else {
-                                        pstm.setInt(3, diasMuerteFamiliar);
-                                    }
-
-                                    pstm.setString(4, textDescripcionLicenciaCrear.getText());
-                                    pstm.setInt(5, datoIdTipoLicenciaFK);
-                                    pstm.executeUpdate();
-
-                                    String consulta7 = "SELECT MAX(idLicencias) AS idLicencias FROM licencias";
-                                    pstm = con.prepareStatement(consulta7);
-                                    rs = pstm.executeQuery();
-                                    while (rs.next()) {
-                                        datoIDLicenciaFK = rs.getInt("idLicencias");
-
-                                        String consulta8 = "INSERT INTO empleado_licencia(idEmpleadoFK, idLicenciaFK) VALUES (?, ?)";
-                                        pstm = con.prepareStatement(consulta8);
-                                        pstm.setInt(1, Integer.parseInt(labIDEmpleadoCrear.getText()));
-                                        pstm.setInt(2, datoIDLicenciaFK);
-                                        pstm.executeUpdate();
-
-                                    }
-
-                                    cont2 +=1;
-                                }
-
-                                if(cont2 == 0){
-                                    String consulta6 = "INSERT INTO licencias(fecha_Inicio, fecha_Fin, dias_disponibles, descripcionLicencia, idTipoLicenciaFK) VALUES (?, ?, ?, ?, ?)";
-                                    pstm = con.prepareStatement(consulta6);
-                                    pstm.setDate(1, java.sql.Date.valueOf(fechaModificadaInicio));
-                                    pstm.setDate(2, java.sql.Date.valueOf(fechaModificadaFin));
-
-                                    if (cbTipoLicenciaCrear.getSelectionModel().getSelectedItem().equals("Vacaciones")) {
-                                        pstm.setInt(3, diasVacaciones);
-                                    } else if (cbTipoLicenciaCrear.getSelectionModel().getSelectedItem().equals("Enfermedad")) {
-                                        pstm.setInt(3, diasEnfermedad);
-                                    } else if (cbTipoLicenciaCrear.getSelectionModel().getSelectedItem().equals("Accidente")) {
-                                        pstm.setInt(3, diasAccidente);
-                                    } else if (cbTipoLicenciaCrear.getSelectionModel().getSelectedItem().equals("Matrimonio")) {
-                                        pstm.setInt(3, diasMatrimonio);
-                                    } else {
-                                        pstm.setInt(3, diasMuerteFamiliar);
-                                    }
-
-                                    pstm.setString(4, textDescripcionLicenciaCrear.getText());
-                                    pstm.setInt(5, datoIdTipoLicenciaFK);
-                                    pstm.executeUpdate();
-
-                                    String consulta7 = "SELECT MAX(idLicencias) AS idLicencias FROM licencias";
-                                    pstm = con.prepareStatement(consulta7);
-                                    rs = pstm.executeQuery();
-                                    while (rs.next()) {
-                                        datoIDLicenciaFK = rs.getInt("idLicencias");
-
-                                        String consulta8 = "INSERT INTO empleado_licencia(idEmpleadoFK, idLicenciaFK) VALUES (?, ?)";
-                                        pstm = con.prepareStatement(consulta8);
-                                        pstm.setInt(1, Integer.parseInt(labIDEmpleadoCrear.getText()));
-                                        pstm.setInt(2, datoIDLicenciaFK);
-                                        pstm.executeUpdate();
-
-                                    }
-                                }
-                            }
-                            labLimpiarCamposCrear.setText("OK");
-                            Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-                            alerta.setTitle("Datos Guardados");
-                            alerta.setContentText("Se a Guardado los Datos.");
-                            alerta.showAndWait();
-
-                        } catch (SQLException ex) {
-                            System.err.println("Error: " + ex.getMessage());
-                        } finally {
+                        if(resultado3.equals("YES")){
+                            String extraerAnio = fechaModificadaInicio;
+                            int exAnio = Integer.parseInt(extraerAnio.substring(0, 4));
                             try {
-                                if (rs != null) rs.close();
-                                if (pstm != null) pstm.close();
-                                if (con != null) con.close();
-                            } catch (Exception ex) {
+                                // -------------------------------------- Creación -------------------------------------
+                                String consulta4 = "SELECT idTipoLicencia FROM tipo_licencias WHERE descripcion = ?";
+                                pstm = con.prepareStatement(consulta4);
+                                pstm.setString(1, cbTipoLicenciaCrear.getSelectionModel().getSelectedItem());
+                                rs = pstm.executeQuery();
+                                while (rs.next()) {
+                                    datoIdTipoLicenciaFK = Integer.parseInt(rs.getString("idTipoLicencia"));
+
+                                    String consulta5 = "SELECT idempleados FROM licencias INNER JOIN empleado_licencia ON licencias.idLicencias = empleado_licencia.idLicenciaFK INNER JOIN empleados ON empleado_licencia.idEmpleadoFK = empleados.idempleados INNER JOIN tipo_licencias ON tipo_licencias.idTipoLicencia = licencias.idTipoLicenciaFK WHERE idEmpleadoFK = ? AND estadoEmpleado = ? AND idTipoLicenciaFK = ? AND YEAR(fecha_Inicio) = ?";
+                                    pstm = con.prepareStatement(consulta5);
+                                    pstm.setInt(1, Integer.parseInt(labIDEmpleadoCrear.getText()));
+                                    pstm.setString(2, "Vigente");
+                                    pstm.setInt(3, datoIdTipoLicenciaFK);
+                                    pstm.setInt(4, exAnio);
+                                    rs = pstm.executeQuery();
+
+                                    while (rs.next()) {
+                                        try {
+                                            String consultaDiasDisponibles = "UPDATE licencias INNER JOIN empleado_licencia ON licencias.idLicencias = empleado_licencia.idLicenciaFK INNER JOIN empleados ON empleado_licencia.idEmpleadoFK = empleados.idempleados SET dias_disponibles = ? WHERE estadoEmpleado = ? AND empleado_licencia.idEmpleadoFK = ? AND idTipoLicenciaFK = ? AND YEAR(fecha_Inicio) = ?";
+
+                                            pstm = con.prepareStatement(consultaDiasDisponibles);
+                                            if (cbTipoLicenciaCrear.getSelectionModel().getSelectedItem().equals("Vacaciones")) {
+                                                pstm.setInt(1, diasVacaciones);
+                                            } else if (cbTipoLicenciaCrear.getSelectionModel().getSelectedItem().equals("Enfermedad")) {
+                                                pstm.setInt(1, diasEnfermedad);
+                                            } else if (cbTipoLicenciaCrear.getSelectionModel().getSelectedItem().equals("Accidente")) {
+                                                pstm.setInt(1, diasAccidente);
+                                            } else if (cbTipoLicenciaCrear.getSelectionModel().getSelectedItem().equals("Matrimonio")) {
+                                                pstm.setInt(1, diasMatrimonio);
+                                            } else {
+                                                pstm.setInt(1, diasMuerteFamiliar);
+                                            }
+                                            pstm.setString(2, "Vigente");
+                                            pstm.setInt(3, Integer.parseInt(labIDEmpleadoCrear.getText()));
+                                            pstm.setInt(4, datoIdTipoLicenciaFK);
+                                            pstm.setInt(5, exAnio);
+                                            pstm.executeUpdate();
+
+                                        } catch (Exception e1) {
+                                            System.err.println("Error: " + e1.getMessage());
+                                        }
+
+                                        String consulta6 = "INSERT INTO licencias(fecha_Inicio, fecha_Fin, dias_disponibles, descripcionLicencia, idTipoLicenciaFK) VALUES (?, ?, ?, ?, ?)";
+                                        pstm = con.prepareStatement(consulta6);
+                                        pstm.setDate(1, java.sql.Date.valueOf(fechaModificadaInicio));
+                                        pstm.setDate(2, java.sql.Date.valueOf(fechaModificadaFin));
+
+                                        if (cbTipoLicenciaCrear.getSelectionModel().getSelectedItem().equals("Vacaciones")) {
+                                            pstm.setInt(3, diasVacaciones);
+                                        } else if (cbTipoLicenciaCrear.getSelectionModel().getSelectedItem().equals("Enfermedad")) {
+                                            pstm.setInt(3, diasEnfermedad);
+                                        } else if (cbTipoLicenciaCrear.getSelectionModel().getSelectedItem().equals("Accidente")) {
+                                            pstm.setInt(3, diasAccidente);
+                                        } else if (cbTipoLicenciaCrear.getSelectionModel().getSelectedItem().equals("Matrimonio")) {
+                                            pstm.setInt(3, diasMatrimonio);
+                                        } else {
+                                            pstm.setInt(3, diasMuerteFamiliar);
+                                        }
+
+                                        pstm.setString(4, textDescripcionLicenciaCrear.getText());
+                                        pstm.setInt(5, datoIdTipoLicenciaFK);
+                                        pstm.executeUpdate();
+
+                                        String consulta7 = "SELECT MAX(idLicencias) AS idLicencias FROM licencias";
+                                        pstm = con.prepareStatement(consulta7);
+                                        rs = pstm.executeQuery();
+                                        while (rs.next()) {
+                                            datoIDLicenciaFK = rs.getInt("idLicencias");
+
+                                            String consulta8 = "INSERT INTO empleado_licencia(idEmpleadoFK, idLicenciaFK) VALUES (?, ?)";
+                                            pstm = con.prepareStatement(consulta8);
+                                            pstm.setInt(1, Integer.parseInt(labIDEmpleadoCrear.getText()));
+                                            pstm.setInt(2, datoIDLicenciaFK);
+                                            pstm.executeUpdate();
+
+                                        }
+
+                                        cont2 +=1;
+                                    }
+
+                                    if(cont2 == 0){
+                                        String consulta6 = "INSERT INTO licencias(fecha_Inicio, fecha_Fin, dias_disponibles, descripcionLicencia, idTipoLicenciaFK) VALUES (?, ?, ?, ?, ?)";
+                                        pstm = con.prepareStatement(consulta6);
+                                        pstm.setDate(1, java.sql.Date.valueOf(fechaModificadaInicio));
+                                        pstm.setDate(2, java.sql.Date.valueOf(fechaModificadaFin));
+
+                                        if (cbTipoLicenciaCrear.getSelectionModel().getSelectedItem().equals("Vacaciones")) {
+                                            pstm.setInt(3, diasVacaciones);
+                                        } else if (cbTipoLicenciaCrear.getSelectionModel().getSelectedItem().equals("Enfermedad")) {
+                                            pstm.setInt(3, diasEnfermedad);
+                                        } else if (cbTipoLicenciaCrear.getSelectionModel().getSelectedItem().equals("Accidente")) {
+                                            pstm.setInt(3, diasAccidente);
+                                        } else if (cbTipoLicenciaCrear.getSelectionModel().getSelectedItem().equals("Matrimonio")) {
+                                            pstm.setInt(3, diasMatrimonio);
+                                        } else {
+                                            pstm.setInt(3, diasMuerteFamiliar);
+                                        }
+
+                                        pstm.setString(4, textDescripcionLicenciaCrear.getText());
+                                        pstm.setInt(5, datoIdTipoLicenciaFK);
+                                        pstm.executeUpdate();
+
+                                        String consulta7 = "SELECT MAX(idLicencias) AS idLicencias FROM licencias";
+                                        pstm = con.prepareStatement(consulta7);
+                                        rs = pstm.executeQuery();
+                                        while (rs.next()) {
+                                            datoIDLicenciaFK = rs.getInt("idLicencias");
+
+                                            String consulta8 = "INSERT INTO empleado_licencia(idEmpleadoFK, idLicenciaFK) VALUES (?, ?)";
+                                            pstm = con.prepareStatement(consulta8);
+                                            pstm.setInt(1, Integer.parseInt(labIDEmpleadoCrear.getText()));
+                                            pstm.setInt(2, datoIDLicenciaFK);
+                                            pstm.executeUpdate();
+
+                                        }
+                                    }
+                                }
+                                labLimpiarCamposCrear.setText("OK");
+                                Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+                                alerta.setTitle("Datos Guardados");
+                                alerta.setContentText("Se a Guardado los Datos.");
+                                alerta.showAndWait();
+
+                            } catch (SQLException ex) {
                                 System.err.println("Error: " + ex.getMessage());
+                            } finally {
+                                try {
+                                    if (rs != null) rs.close();
+                                    if (pstm != null) pstm.close();
+                                    if (con != null) con.close();
+                                } catch (Exception ex) {
+                                    System.err.println("Error: " + ex.getMessage());
+                                }
                             }
+                        } else {
+                            Alert alerta = new Alert(Alert.AlertType.ERROR);
+                            alerta.setTitle("Error de Licencia!");
+                            alerta.setContentText("La Fecha de Inicio y Fin que a Propuesto entre medio "+ "\n" +"se encuentra con Turno." + "\n" + "Para mas detalle ingrese a (Consulta Cronograma)");
+                            alerta.showAndWait();
                         }
                     } else {
                         Alert alerta = new Alert(Alert.AlertType.ERROR);

@@ -1,5 +1,6 @@
 package com.secadero.controlador;
 
+import com.secadero.modelo.cronograma.LeerCronograma;
 import com.secadero.modelo.empleados.LeerEmpleado;
 import com.secadero.modelo.licencias.CrearLicencia;
 import com.secadero.modelo.licencias.EliminarLicencia;
@@ -202,6 +203,34 @@ public class ControladorLicencias {
     @FXML
     private TextField textDescripcionLicenciaModificar;
     @FXML
+    private Button btnConsultaCronogramaCrear;
+    @FXML
+    private Button btnConsultaCronogramaModificar;
+    @FXML
+    private Tab tabConsultaCronograma;
+    @FXML
+    private TableView<LeerCronograma> tablaCronograma;
+    @FXML
+    private TableColumn<LeerCronograma, String> colFecha;
+    @FXML
+    private TableColumn<LeerCronograma, String> colTurno;
+    @FXML
+    private TableColumn<LeerCronograma, String> colHoraEntrada;
+    @FXML
+    private TableColumn<LeerCronograma, String> colHoraSalida;
+    @FXML
+    private TableColumn<LeerCronograma, Integer> colIDCronograma;
+    @FXML
+    private Label labNombreEmpleadoConsulta;
+    @FXML
+    private Label labApellidoEmpleadoConsulta;
+    @FXML
+    private Label labLegajoEmpleadoConsulta;
+    @FXML
+    private Label labIDEmpleadoConsulta;
+    @FXML
+    private DatePicker dpBuscarFecha;
+    @FXML
     private TextField textDescripcionLicenciaEliminar;
 
     ObservableList<LeerEmpleado> listTablaEmpleados;
@@ -213,6 +242,9 @@ public class ControladorLicencias {
     ObservableList<LeerEmpleado> listEmpleadoLicencia;
     int index3 = -1;
 
+    ObservableList<LeerCronograma> listCronograma;
+    String regresarConsultaCronograma = "0";
+
     // -------------------------------------------- Inicialización ----------------------------------------------
     public void initialize() {
         String[] tipoFiltro = {"Nombre", "Legajo", "DNI", "Fecha_Inicio", "Fecha_Fin", "Tipo_Licencia"};
@@ -222,6 +254,7 @@ public class ControladorLicencias {
         inicializarTablaEmpleado();
         inicializarComboBoxBD();
         fechasInicializar();
+        fechaConsultaCronograma();
         cbTipoLicenciaCrear.getSelectionModel().getSelectedItem();
         cbTipoLicenciaCrear.getSelectionModel().selectedItemProperty().addListener(this::cambioDeItem);
         textDescripcionLicenciaCrear.setDisable(true);
@@ -262,6 +295,19 @@ public class ControladorLicencias {
         listLicencia = LeerLicencia.listaLicencia(labIDEmpleadoLista);
         tablaLicencia.getColumns().setAll(colFechaInicio, colFechaFin, colTipoLicencia, colIDLicencia, colDescripcion);
         tablaLicencia.getItems().setAll(listLicencia);
+    }
+
+    // ----------------------------------------- Tabla de Cronograma ---------------------------------------------
+    public void inicializarTablaCronograma(){
+        colFecha.setCellValueFactory(new PropertyValueFactory<LeerCronograma, String>("fecha"));
+        colTurno.setCellValueFactory(new PropertyValueFactory<LeerCronograma, String>("turno"));
+        colHoraEntrada.setCellValueFactory(new PropertyValueFactory<LeerCronograma, String>("horario_entrada"));
+        colHoraSalida.setCellValueFactory(new PropertyValueFactory<LeerCronograma, String>("horario_salida"));
+        colIDCronograma.setCellValueFactory(new PropertyValueFactory<LeerCronograma, Integer>("idCronograma"));
+
+        listCronograma = LeerCronograma.listaCronogramaConsulta(labIDEmpleadoConsulta);
+        tablaCronograma.getColumns().setAll(colFecha, colTurno, colHoraEntrada, colHoraSalida, colIDCronograma);
+        tablaCronograma.getItems().setAll(listCronograma);
     }
 
     // -------------------------------------- Tabla de Empleados Crear ------------------------------------------
@@ -473,6 +519,19 @@ public class ControladorLicencias {
         limpiarCamposEliminar();
     }
 
+    @FXML
+    private void btnBuscarCronograma(){
+        ObservableList<LeerCronograma> listaBuscarCronograma;
+        listaBuscarCronograma = LeerCronograma.buscarFechaCronogramaConsulta(labIDEmpleadoConsulta, dpBuscarFecha);
+        tablaCronograma.getItems().setAll(listaBuscarCronograma);
+    }
+
+    @FXML
+    private void actualizarTablaConsulta(){
+        inicializarTablaCronograma();
+        fechaConsultaCronograma();
+    }
+
     //---------------------------------------------- Eventos Importantes ----------------------------------------
     @FXML
     private void guardar() throws ParseException, SQLException {
@@ -672,6 +731,57 @@ public class ControladorLicencias {
     @FXML
     private void regresarELista() {
         regresarCLista();
+    }
+
+    @FXML
+    private void consultaCronogramaCrear(){
+        if(!labIDEmpleadoCrear.getText().equals("")){
+            SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasLicencias.getSelectionModel();
+            modeloSeleccion.select(tabConsultaCronograma);
+            String ID = labIDEmpleadoCrear.getText();
+            labIDEmpleadoConsulta.setText(ID);
+            labNombreEmpleadoConsulta.setText(labNombreEmpleadoCrear.getText());
+            labApellidoEmpleadoConsulta.setText(labApellidoEmpleadoCrear.getText());
+            labLegajoEmpleadoConsulta.setText(labLegajoEmpleadoCrear.getText());
+            inicializarTablaCronograma();
+        } else {
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setTitle("Advertencia");
+            alerta.setContentText("Debe de seleccionar un Empleado antes para Consultar el Cronograma");
+            alerta.showAndWait();
+        }
+        regresarConsultaCronograma = "0";
+    }
+
+    @FXML
+    private void consultaCronogramaModificar(){
+        if(!labIDEmpleadoModificar.getText().equals("")){
+            SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasLicencias.getSelectionModel();
+            modeloSeleccion.select(tabConsultaCronograma);
+            String ID = labIDEmpleadoModificar.getText();
+            labIDEmpleadoConsulta.setText(ID);
+            labNombreEmpleadoConsulta.setText(labNombreEmpleadoModificar.getText());
+            labApellidoEmpleadoConsulta.setText(labApellidoEmpleadoModificar.getText());
+            labLegajoEmpleadoConsulta.setText(labLegajoEmpleadoModificar.getText());
+            inicializarTablaCronograma();
+        } else {
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setTitle("Advertencia");
+            alerta.setContentText("Debe de seleccionar un Empleado antes para Consultar el Cronograma");
+            alerta.showAndWait();
+        }
+        regresarConsultaCronograma = "1";
+    }
+
+    @FXML
+    private void regresarCCMenu(){
+        if(Objects.equals(regresarConsultaCronograma, "0")){
+            SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasLicencias.getSelectionModel();
+            modeloSeleccion.select(tabRegistrarLicencia);
+        } else if(Objects.equals(regresarConsultaCronograma, "1")){
+            SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasLicencias.getSelectionModel();
+            modeloSeleccion.select(tabModificarLicencia);
+        }
     }
 
     @FXML
@@ -1006,6 +1116,22 @@ public class ControladorLicencias {
 
         dpFechaFinEliminar.setValue(LocalDate.of(Integer.parseInt(fecha_Actual_Mas1.substring(0, 4)), Integer.parseInt(fecha_Actual_Mas1.substring(5, 7)), Integer.parseInt(fecha_Actual_Mas1.substring(8, 10))));
         dpFechaFinEliminar.setConverter(new StringConverter<LocalDate>() {
+            @Override
+            public String toString(LocalDate localDate) {
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                return dtf.format(localDate);
+            }
+
+            @Override
+            public LocalDate fromString(String s) {
+                return null;
+            }
+        });
+    }
+
+    public void fechaConsultaCronograma(){
+        dpBuscarFecha.setValue(LocalDate.now());
+        dpBuscarFecha.setConverter(new StringConverter<LocalDate>() {
             @Override
             public String toString(LocalDate localDate) {
                 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
