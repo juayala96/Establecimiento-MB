@@ -58,7 +58,7 @@ public class Entrada {
     }
 
     //--------------------------------------------- Crear Entrada ---------------------------------------------------
-    public void entradaEmpleado(Label labInformacion, TextField textCodigo) throws ParseException {
+    public void entradaEmpleado(Label labInformacion, TextField textCodigo, TextField textDNI) throws ParseException {
         Connection con = Conexion.leerConexion();
         PreparedStatement pstm = null;
         ResultSet rs = null;
@@ -72,29 +72,29 @@ public class Entrada {
         String hora_Actual = horaActualPais.toString().substring(0,5);
 
         try {
-            String consulta1 = "SELECT idempleados FROM empleados WHERE legajo = ?";
-            pstm = con.prepareStatement(consulta1);
-            pstm.setString(1, textCodigo.getText());
+            String consulta3 = "SELECT idempleados FROM empleados WHERE legajo = ? AND dni = ?";
+            pstm = con.prepareStatement(consulta3);
+            pstm.setInt(1, Integer.parseInt(textCodigo.getText()));
+            pstm.setInt(2, Integer.parseInt(textDNI.getText()));
             rs = pstm.executeQuery();
 
             while (rs.next()){
                 idEmpleadosFK = rs.getInt("idempleados");
-
-                String consulta2 = "INSERT INTO entrada(hora, fecha, idEmpleadoFK) VALUES (?, ?, ?)";
-                pstm = con.prepareStatement(consulta2);
+                String consulta4 = "INSERT INTO entrada(hora, fecha, idEmpleadoFK) VALUES (?, ?, ?)";
+                pstm = con.prepareStatement(consulta4);
                 pstm.setString(1, hora_Actual);
                 pstm.setDate(2, java.sql.Date.valueOf(fecha_Actual));
                 pstm.setInt(3, idEmpleadosFK);
                 pstm.executeUpdate();
                 cont += 1;
             }
+
             if(cont == 0){
                 labInformacion.setText("");
                 Alert alerta = new Alert(Alert.AlertType.ERROR);
                 alerta.setTitle("Error!");
-                alerta.setContentText("El código ingresado no es Valido");
+                alerta.setContentText("El código o el DNI ingresado no es Válido");
                 alerta.showAndWait();
-                textCodigo.setText("");
                 textCodigo.requestFocus();
             } else{
                 labInformacion.setText("OK");

@@ -1,7 +1,6 @@
 package com.secadero.controlador;
 
 import com.secadero.modelo.empleados.LeerEmpleado;
-import com.secadero.modelo.informePresentismo.Informe;
 import com.secadero.modelo.preRecibo.PreRecibo;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -101,15 +100,24 @@ public class ControladorPreRecibo {
     //------------------------------------------ Evento Importante ----------------------------------------------
     @FXML
     private void generar() throws ParseException {
+        String fechaInicioClave = dpFechaDesde.getEditor().getText();
+        String fechaAnio = fechaInicioClave.substring(6, 10);
+        String fechaMes = fechaInicioClave.substring(3, 5);
+        String fechaDia = fechaInicioClave.substring(0, 2);
+        String fechaModificadaInicio = (fechaAnio + "-" + fechaMes + "-" + fechaDia);
+        String fechaFinClave = dpFechaHasta.getEditor().getText();
+        String fechaAnio2 = fechaFinClave.substring(6, 10);
+        String fechaMes2 = fechaFinClave.substring(3, 5);
+        String fechaDia2 = fechaFinClave.substring(0, 2);
+        String fechaModificadaFin = (fechaAnio2 + "-" + fechaMes2 + "-" + fechaDia2);
+
         SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
         // ------------------------- Fecha Inicio -------------------------------
-        String fechaI = dpFechaDesde.getEditor().getText();
+        String fechaI = fechaModificadaInicio;
         Date fechaInicio = formatoFecha.parse(fechaI);
-
         // --------------------------- Fecha Fin --------------------------------
-        String fechaF = dpFechaHasta.getEditor().getText();
+        String fechaF = fechaModificadaFin;
         Date fechaFin = formatoFecha.parse(fechaF);
-
         // --------------------- Diferencia entre Fechas ------------------------
         long Diferencias = fechaInicio.getTime() - fechaFin.getTime();
         long Cant_Dias = Diferencias / (1000 * 60 * 60 * 24);
@@ -123,6 +131,9 @@ public class ControladorPreRecibo {
             if((-Cant_Dias) >= 0){
                 PreRecibo preReciboD = new PreRecibo();
                 preReciboD.preRecibo(labLegajoEmpleado, dpFechaDesde, dpFechaHasta);
+                inicializarTablaListaEmpleados();
+                fechasInicializar();
+                limpiarCampos();
             } else {
                 Alert alerta = new Alert(Alert.AlertType.ERROR);
                 alerta.setTitle("Error de Fechas!");
@@ -140,6 +151,7 @@ public class ControladorPreRecibo {
 
     //----------------------------------------- Limpiador de Campos ----------------------------------------------
     private void limpiarCampos(){
+        textBuscarLegajoEmpleado.setText("");
         labNombreEmpleado.setText("");
         labApellidoEmpleado.setText("");
         labLegajoEmpleado.setText("");
@@ -152,7 +164,7 @@ public class ControladorPreRecibo {
         dpFechaDesde.setConverter(new StringConverter<LocalDate>() {
             @Override
             public String toString(LocalDate localDate) {
-                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                 return dtf.format(localDate);
             }
 
@@ -166,7 +178,7 @@ public class ControladorPreRecibo {
         dpFechaHasta.setConverter(new StringConverter<LocalDate>() {
             @Override
             public String toString(LocalDate localDate) {
-                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                 return dtf.format(localDate);
             }
 

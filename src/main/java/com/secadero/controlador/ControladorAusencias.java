@@ -656,6 +656,7 @@ public class ControladorAusencias {
 
     //----------------------------------------- Limpiador de Campos ----------------------------------------------
     private void limpiarCamposCrear(){
+        textBuscarLegajoEmpleadoCrear.setText("");
         labIDEmpleadoCrear.setText("");
         labNombreEmpleadoCrear.setText("");
         labApellidoEmpleadoCrear.setText("");
@@ -670,6 +671,7 @@ public class ControladorAusencias {
     }
 
     private void limpiarCamposModificar(){
+        textBuscarLegajoEmpleado.setText("");
         labIDEmpleadoModificar.setText("");
         labNombreEmpleadoModificar.setText("");
         labApellidoEmpleadoModificar.setText("");
@@ -685,6 +687,7 @@ public class ControladorAusencias {
     }
 
     private void limpiarCamposEliminar(){
+        textBuscarLegajoEmpleado.setText("");
         labIDEmpleadoEliminar.setText("");
         labNombreEmpleadoEliminar.setText("");
         labApellidoEmpleadoEliminar.setText("");

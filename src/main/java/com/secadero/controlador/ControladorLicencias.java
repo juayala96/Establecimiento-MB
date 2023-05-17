@@ -855,6 +855,7 @@ public class ControladorLicencias {
 
     //----------------------------------------- Limpiador de Campos ----------------------------------------------
     private void limpiarCamposCrear(){
+        textBuscarLegajoEmpleadoCrear.setText("");
         labIDEmpleadoCrear.setText("");
         labNombreEmpleadoCrear.setText("");
         labApellidoEmpleadoCrear.setText("");
@@ -867,6 +868,7 @@ public class ControladorLicencias {
     }
 
     private void limpiarCamposModificar(){
+        textBuscarLegajoEmpleado.setText("");
         labIDLicenciaModificar.setText("");
         labIDEmpleadoModificar.setText("");
         labNombreEmpleadoModificar.setText("");
@@ -882,6 +884,7 @@ public class ControladorLicencias {
     }
 
     private void limpiarCamposEliminar(){
+        textBuscarLegajoEmpleado.setText("");
         labIDLicenciaEliminar.setText("");
         labIDEmpleadoEliminar.setText("");
         labNombreEmpleadoEliminar.setText("");

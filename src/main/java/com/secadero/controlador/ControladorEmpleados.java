@@ -583,6 +583,7 @@ public class ControladorEmpleados {
     }
 
     private void limpiarCamposModificar(){
+        textBuscarEmpleado.setText("");
         textNombreModificar.setText("");
         textApellidoModificar.setText("");
         textLegajoModificar.setText("");
@@ -603,6 +604,7 @@ public class ControladorEmpleados {
     }
 
     private void limpiarCamposEliminar(){
+        textBuscarEmpleado.setText("");
         textNombreEliminar.setText("");
         textApellidoEliminar.setText("");
         textLegajoEliminar.setText("");

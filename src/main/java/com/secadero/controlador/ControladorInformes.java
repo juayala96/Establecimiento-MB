@@ -154,6 +154,7 @@ public class ControladorInformes {
 
     //----------------------------------------- Limpiador de Campos ----------------------------------------------
     private void limpiarCampos(){
+        textBuscarLegajoEmpleado.setText("");
         labNombreEmpleado.setText("");
         labApellidoEmpleado.setText("");
         labLegajoEmpleado.setText("");

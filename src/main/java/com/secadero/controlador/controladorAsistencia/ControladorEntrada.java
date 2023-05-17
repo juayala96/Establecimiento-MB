@@ -28,6 +28,8 @@ public class ControladorEntrada {
     @FXML
     private Label labErrorCodigo;
     @FXML
+    private Label labErrorDNI;
+    @FXML
     private Label labInformacion;
     @FXML
     private Tab tabRegistroEntradaCodigo;
@@ -37,29 +39,28 @@ public class ControladorEntrada {
     private TabPane panelRegistroEntrada;
     @FXML
     private TextField textCodigo;
+    @FXML
+    private TextField textDNI;
 
     @FXML
     void aceptar() throws IOException, ParseException {
-        if(!textCodigo.getText().equals("")){
-            if(validarNumeros(textCodigo.getText())){
-                labErrorCodigo.setText("");
-                Entrada codigoEntrada = new Entrada();
-                codigoEntrada.entradaEmpleado(labInformacion, textCodigo);
+        camposObligatorios();
+        if(Objects.equals(labErrorCodigo.getText(), "") && Objects.equals(labErrorDNI.getText(), "")){
+            validarCampos();
+            if(Objects.equals(labErrorCodigo.getText(), "") && Objects.equals(labErrorDNI.getText(), "")){
+                validacionCamposLongitud();
+                if(Objects.equals(labErrorCodigo.getText(), "") && Objects.equals(labErrorDNI.getText(), "")){
+                    Entrada codigoEntrada = new Entrada();
+                    codigoEntrada.entradaEmpleado(labInformacion, textCodigo, textDNI);
 
-                if(Objects.equals(labInformacion.getText(), "OK")){
-                    textCodigo.setText("");
-                    labInformacion.setText("");
-                    closeWindowsPrincipal();
+                    if(Objects.equals(labInformacion.getText(), "OK")){
+                        textCodigo.setText("");
+                        textDNI.setText("");
+                        labInformacion.setText("");
+                        closeWindowsPrincipal();
+                    }
                 }
-
-            } else {
-                labErrorCodigo.setText("Solo se permite Números");
             }
-        } else {
-            Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("Error!");
-            alerta.setContentText("Debe de completar el campo");
-            alerta.showAndWait();
         }
     }
 
@@ -88,6 +89,51 @@ public class ControladorEntrada {
     //---------------------------------------- Validación de Caracteres ------------------------------------------
     public static boolean validarNumeros(String datos){
         return datos.matches("[0-9]*");
+    }
+
+    //---------------------------------------- Comprobación de Campos -------------------------------------------
+    private void camposObligatorios(){
+        if(textCodigo.getText().trim().isEmpty() || textCodigo.getText() == null){
+            labErrorCodigo.setText("Campo Obligatorio");
+        } else {
+            labErrorCodigo.setText("");
+        }
+        if(textDNI.getText().trim().isEmpty() || textDNI.getText() == null){
+            labErrorDNI.setText("Campo Obligatorio");
+        } else {
+            labErrorDNI.setText("");
+        }
+    }
+
+    private void validarCampos(){
+        if(validarNumeros(textCodigo.getText())){
+            labErrorCodigo.setText("");
+        } else {
+            labErrorCodigo.setText("Solo se admiten Números");
+        }
+        if(validarNumeros(textDNI.getText())){
+            labErrorDNI.setText("");
+        } else {
+            labErrorDNI.setText("Solo se admiten Números");
+        }
+    }
+
+    private void validacionCamposLongitud() {
+        String codigo = textCodigo.getText().trim();
+        String dni = textDNI.getText().trim();
+        codigo = codigo.replaceAll("\\s+", "");
+        dni = dni.replaceAll("\\s+", "");
+
+        if (codigo.length() > 6) {
+            labErrorCodigo.setText("Está permitido hasta 6 números");
+        } else {
+            labErrorCodigo.setText("");
+        }
+        if (dni.length() >= 9) {
+            labErrorDNI.setText("Está permitido hasta 8 números");
+        } else {
+            labErrorDNI.setText("");
+        }
     }
 
     // ---------------------------------- Cerrar Ventana -------------------------------------------

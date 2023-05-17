@@ -905,6 +905,7 @@ public class ControladorCronograma {
             labInfoLegajoConsulta.setVisible(true);
             btnBuscarEmpleadoConsulta.setVisible(true);
             textBuscarLegajoEmpleadoConsulta.setVisible(true);
+            textBuscarLegajoEmpleadoConsulta.setText("");
         } else {
             Alert alerta = new Alert(Alert.AlertType.WARNING);
             alerta.setTitle("Advertencia");
@@ -954,6 +955,7 @@ public class ControladorCronograma {
 
     //----------------------------------------- Limpiador de Campos ----------------------------------------------
     private void limpiarCamposCrear(){
+        textBuscarLegajoEmpleadoCrear.setText("");
         labIDEmpleadoCrear.setText("");
         labNombreEmpleadoCrear.setText("");
         labApellidoEmpleadoCrear.setText("");
@@ -971,6 +973,7 @@ public class ControladorCronograma {
     }
 
     private void limpiarCamposModificar(){
+        textBuscarLegajoEmpleado.setText("");
         labIDCronogramaModificar.setText("");
         labIDEmpleadoModificar.setText("");
         labNombreEmpleadoModificar.setText("");
@@ -984,6 +987,7 @@ public class ControladorCronograma {
     }
 
     private void limpiarCamposEliminar(){
+        textBuscarLegajoEmpleado.setText("");
         labIDCronogramaEliminar.setText("");
         labIDEmpleadoEliminar.setText("");
         labNombreEmpleadoEliminar.setText("");
