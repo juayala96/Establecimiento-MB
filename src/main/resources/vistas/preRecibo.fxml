@@ -49,35 +49,35 @@
             <TableColumn fx:id="colIDEmpleado" prefWidth="63.199951171875" text="ID" />
          </columns>
       </TableView>
-      <Label layoutX="309.0" layoutY="549.0" prefHeight="35.0" prefWidth="80.0" text="Nombre:" textFill="#080808">
+      <Label layoutX="308.0" layoutY="569.0" prefHeight="35.0" prefWidth="80.0" text="Nombre:" textFill="#080808">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label layoutX="309.0" layoutY="620.0" prefHeight="35.0" prefWidth="79.0" text="Apellido:" textFill="#080808">
+      <Label layoutX="308.0" layoutY="640.0" prefHeight="35.0" prefWidth="79.0" text="Apellido:" textFill="#080808">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label layoutX="683.0" layoutY="551.0" prefHeight="30.0" prefWidth="70.0" text="Legajo:" textFill="#080808">
+      <Label layoutX="682.0" layoutY="571.0" prefHeight="30.0" prefWidth="70.0" text="Legajo:" textFill="#080808">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label layoutX="395.0" layoutY="547.0" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: white;" />
-      <Label layoutX="395.0" layoutY="618.0" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: white;" />
-      <Label layoutX="754.0" layoutY="547.0" prefHeight="40.0" prefWidth="154.0" style="-fx-background-color: white;" />
-      <Label fx:id="labLegajoEmpleado" layoutX="764.0" layoutY="547.0" prefHeight="40.0" prefWidth="146.0" textAlignment="CENTER" textFill="#d101dc">
+      <Label layoutX="394.0" layoutY="567.0" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: white;" />
+      <Label layoutX="394.0" layoutY="638.0" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: white;" />
+      <Label layoutX="753.0" layoutY="567.0" prefHeight="40.0" prefWidth="154.0" style="-fx-background-color: white;" />
+      <Label fx:id="labLegajoEmpleado" layoutX="763.0" layoutY="567.0" prefHeight="40.0" prefWidth="146.0" textAlignment="CENTER" textFill="#d101dc">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>
       </Label>
-      <Label fx:id="labNombreEmpleado" layoutX="399.0" layoutY="547.0" prefHeight="40.0" prefWidth="174.0" textFill="#1200ff">
+      <Label fx:id="labNombreEmpleado" layoutX="398.0" layoutY="567.0" prefHeight="40.0" prefWidth="174.0" textFill="#1200ff">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>
       </Label>
-      <Label fx:id="labApellidoEmpleado" layoutX="399.0" layoutY="618.0" prefHeight="40.0" prefWidth="174.0" textFill="#1200ff">
+      <Label fx:id="labApellidoEmpleado" layoutX="398.0" layoutY="638.0" prefHeight="40.0" prefWidth="174.0" textFill="#1200ff">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>
@@ -100,7 +100,7 @@
             <Font size="18.0" />
          </font>
       </TextField>
-      <Label layoutX="307.0" layoutY="168.0" prefHeight="46.0" prefWidth="210.0" text="Lista de Empleados: " textFill="#450606">
+      <Label layoutX="307.0" layoutY="168.0" prefHeight="46.0" prefWidth="210.0" text="Lista de Empleados " textFill="#450606">
          <font>
             <Font name="System Italic" size="24.0" />
          </font>
@@ -120,5 +120,10 @@
             </ImageView>
          </graphic>
       </Button>
+      <Label layoutX="308.0" layoutY="526.0" prefHeight="25.0" prefWidth="98.0" text="Descripción" textFill="#080808">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

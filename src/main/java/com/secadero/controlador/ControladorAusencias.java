@@ -186,6 +186,8 @@ public class ControladorAusencias {
     @FXML
     private Tab tabRegistrarAusencia;
     @FXML
+    private Tab tabConsultaAsistencia;
+    @FXML
     private TableView<LeerEmpleado> tablaListaEmpleados;
     @FXML
     private TableView<LeerAusencia> tablaAusencias;
@@ -569,6 +571,12 @@ public class ControladorAusencias {
     }
 
     @FXML
+    private void consultaAsistencia() {
+        SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasAusencias.getSelectionModel();
+        modeloSeleccion.select(tabConsultaAsistencia);
+    }
+
+    @FXML
     private void regresarCLista() {
         SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasAusencias.getSelectionModel();
         modeloSeleccion.select(tabListaAusencias);
@@ -581,6 +589,11 @@ public class ControladorAusencias {
 
     @FXML
     private void regresarELista() {
+        regresarCLista();
+    }
+
+    @FXML
+    private void regresarCCLista() {
         regresarCLista();
     }
 

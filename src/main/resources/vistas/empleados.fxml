@@ -108,7 +108,7 @@
                                  </image></ImageView>
                            </graphic>
                         </Button>
-                        <Label layoutX="71.0" layoutY="144.0" prefHeight="45.0" prefWidth="223.0" text="Lista de Empleados: " textFill="#450606">
+                        <Label layoutX="71.0" layoutY="144.0" prefHeight="45.0" prefWidth="223.0" text="Lista de Empleados " textFill="#450606">
                            <font>
                               <Font name="System Italic" size="24.0" />
                            </font>
@@ -182,6 +182,11 @@
                         <Label layoutX="774.0" layoutY="115.0" prefHeight="27.0" prefWidth="106.0" text="Ordenar por:" textFill="#080808">
                            <font>
                               <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="71.0" layoutY="725.0" prefHeight="25.0" prefWidth="98.0" text="Descripción" textFill="#080808">
+                           <font>
+                              <Font size="16.0" />
                            </font>
                         </Label>
                      </children>

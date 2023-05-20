@@ -47,17 +47,17 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </TableView>
-                        <TextField fx:id="textBuscarUsuario" layoutX="456.0" layoutY="146.0" prefHeight="46.0" prefWidth="200.0">
+                        <TextField fx:id="textBuscarUsuario" layoutX="294.0" layoutY="146.0" prefHeight="46.0" prefWidth="200.0">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </TextField>
-                        <Label layoutX="456.0" layoutY="118.0" prefHeight="12.0" prefWidth="67.0" text="Legajo:" textFill="#080808">
+                        <Label layoutX="294.0" layoutY="118.0" prefHeight="12.0" prefWidth="67.0" text="Legajo:" textFill="#080808">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Button fx:id="btnBuscarUsuario" layoutX="294.0" layoutY="146.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnBuscar" prefHeight="46.0" prefWidth="155.0" text="Buscar Usuario:" textFill="#022c7b">
+                        <Button fx:id="btnBuscarUsuario" layoutX="501.0" layoutY="146.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnBuscar" prefHeight="46.0" prefWidth="155.0" text="Buscar Usuario" textFill="#022c7b">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>
@@ -65,7 +65,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button fx:id="btnFiltroUsuarios" layoutX="751.0" layoutY="146.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#filtroUsuarios" prefHeight="46.0" prefWidth="86.0" text="Filtros:" textFill="#e4461a">
+                        <Button fx:id="btnFiltroUsuarios" layoutX="998.0" layoutY="146.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#filtroUsuarios" prefHeight="46.0" prefWidth="90.0" text="Aceptar" textFill="#022c7b">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>
@@ -73,7 +73,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <ComboBox fx:id="cbTiposFiltrosUsuarios" layoutX="845.0" layoutY="146.0" prefHeight="46.0" prefWidth="200.0" style="-fx-font-size: 16;">
+                        <ComboBox fx:id="cbTiposFiltrosUsuarios" layoutX="791.0" layoutY="146.0" prefHeight="46.0" prefWidth="200.0" style="-fx-font-size: 16;">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor></ComboBox>
@@ -120,7 +120,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Label layoutX="71.0" layoutY="145.0" prefHeight="45.0" prefWidth="223.0" text="Lista de Usuarios: " textFill="#450606">
+                        <Label layoutX="71.0" layoutY="145.0" prefHeight="45.0" prefWidth="223.0" text="Lista de Usuarios" textFill="#450606">
                            <font>
                               <Font name="System Italic" size="24.0" />
                            </font>
@@ -148,6 +148,16 @@
                               </ImageView>
                            </graphic>
                         </Button>
+                        <Label layoutX="791.0" layoutY="118.0" prefHeight="27.0" prefWidth="110.0" text="Ordenar por:" textFill="#080808">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="71.0" layoutY="707.0" prefHeight="25.0" prefWidth="98.0" text="Descripción" textFill="#080808">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
                      </children>
                   </AnchorPane>
                </content>
@@ -261,45 +271,45 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </TableView>
-                        <Label layoutX="139.0" layoutY="497.0" prefHeight="35.0" prefWidth="80.0" text="Nombre:" textFill="#080808">
+                        <Label layoutX="139.0" layoutY="519.0" prefHeight="35.0" prefWidth="80.0" text="Nombre:" textFill="#080808">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <Label layoutX="139.0" layoutY="567.0" prefHeight="35.0" prefWidth="79.0" text="Apellido:" textFill="#080808">
+                        <Label layoutX="139.0" layoutY="589.0" prefHeight="35.0" prefWidth="79.0" text="Apellido:" textFill="#080808">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <Label layoutX="524.0" layoutY="500.0" prefHeight="30.0" prefWidth="70.0" text="Legajo:" textFill="#080808">
+                        <Label layoutX="524.0" layoutY="522.0" prefHeight="30.0" prefWidth="70.0" text="Legajo:" textFill="#080808">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <Label layoutX="223.0" layoutY="567.0" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: white;" />
-                        <Label layoutX="224.0" layoutY="495.0" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: white;" />
-                        <Label layoutX="595.0" layoutY="496.0" prefHeight="40.0" prefWidth="154.0" style="-fx-background-color: white;" />
-                        <Label fx:id="labNombreEmpleadoCrear" layoutX="233.0" layoutY="495.0" prefHeight="40.0" prefWidth="171.0" textFill="#1200ff">
+                        <Label layoutX="223.0" layoutY="589.0" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: white;" />
+                        <Label layoutX="224.0" layoutY="517.0" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: white;" />
+                        <Label layoutX="595.0" layoutY="518.0" prefHeight="40.0" prefWidth="154.0" style="-fx-background-color: white;" />
+                        <Label fx:id="labNombreEmpleadoCrear" layoutX="233.0" layoutY="517.0" prefHeight="40.0" prefWidth="171.0" textFill="#1200ff">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <Label fx:id="labApellidoEmpleadoCrear" layoutX="233.0" layoutY="567.0" prefHeight="40.0" prefWidth="171.0" textFill="#1200ff">
+                        <Label fx:id="labApellidoEmpleadoCrear" layoutX="233.0" layoutY="589.0" prefHeight="40.0" prefWidth="171.0" textFill="#1200ff">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <Label fx:id="labLegajoEmpleadoCrear" layoutX="604.0" layoutY="496.0" prefHeight="40.0" prefWidth="146.0" textFill="#d101dc">
+                        <Label fx:id="labLegajoEmpleadoCrear" layoutX="604.0" layoutY="518.0" prefHeight="40.0" prefWidth="146.0" textFill="#d101dc">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="575.0" layoutY="125.0" prefHeight="12.0" prefWidth="67.0" text="Legajo:" textFill="#080808">
+                        <Label layoutX="413.0" layoutY="125.0" prefHeight="12.0" prefWidth="67.0" text="Legajo:" textFill="#080808">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Button fx:id="btnBuscarEmpleadoCrear" layoutX="414.0" layoutY="153.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnBuscarEmpleadoCrear" prefHeight="42.0" prefWidth="154.0" text="Buscar Empleado:" textFill="#022c7b">
+                        <Button fx:id="btnBuscarEmpleadoCrear" layoutX="595.0" layoutY="153.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnBuscarEmpleadoCrear" prefHeight="42.0" prefWidth="154.0" text="Buscar Empleado" textFill="#022c7b">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>
@@ -307,7 +317,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <TextField fx:id="textBuscarLegajoEmpleadoCrear" layoutX="575.0" layoutY="152.0" prefHeight="44.0" prefWidth="174.0">
+                        <TextField fx:id="textBuscarLegajoEmpleadoCrear" layoutX="413.0" layoutY="152.0" prefHeight="44.0" prefWidth="174.0">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -320,6 +330,11 @@
                         <Label layoutX="139.0" layoutY="168.0" prefHeight="46.0" prefWidth="210.0" text="Area: Administración" textFill="#450606">
                            <font>
                               <Font name="System Italic" size="20.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="140.0" layoutY="470.0" prefHeight="25.0" prefWidth="98.0" text="Descripción" textFill="#080808">
+                           <font>
+                              <Font size="16.0" />
                            </font>
                         </Label>
                      </children>
