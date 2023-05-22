@@ -153,9 +153,9 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="71.0" layoutY="707.0" prefHeight="25.0" prefWidth="98.0" text="Descripción" textFill="#080808">
+                        <Label layoutX="71.0" layoutY="707.0" prefHeight="25.0" prefWidth="913.0" text="Modificar o eliminar: seleccione un usuario de la lista haciendo clic sobre este y luego ingrese presionando el botón Modificar o Eliminar, según corresponda. " textFill="#080808">
                            <font>
-                              <Font size="16.0" />
+                              <Font size="13.0" />
                            </font>
                         </Label>
                      </children>
@@ -332,9 +332,9 @@
                               <Font name="System Italic" size="20.0" />
                            </font>
                         </Label>
-                        <Label layoutX="140.0" layoutY="470.0" prefHeight="25.0" prefWidth="98.0" text="Descripción" textFill="#080808">
+                        <Label layoutX="140.0" layoutY="470.0" prefHeight="25.0" prefWidth="470.0" text="Seleccione un empleado en la lista para poder generar su usuario." textFill="#080808">
                            <font>
-                              <Font size="16.0" />
+                              <Font size="13.0" />
                            </font>
                         </Label>
                      </children>

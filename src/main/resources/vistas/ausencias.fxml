@@ -205,14 +205,14 @@
                               <Font name="System Bold" size="16.0" />
                            </font>
                         </Button>
-                        <Label layoutX="53.0" layoutY="721.0" prefHeight="25.0" prefWidth="98.0" text="Descripción" textFill="#080808">
+                        <Label layoutX="53.0" layoutY="721.0" prefHeight="25.0" prefWidth="344.0" text="Haga clic sobre un empleado para visualizar sus ausencias. " textFill="#080808">
                            <font>
-                              <Font size="16.0" />
+                              <Font size="13.0" />
                            </font>
                         </Label>
-                        <Label layoutX="703.0" layoutY="721.0" prefHeight="25.0" prefWidth="98.0" text="Descripción" textFill="#080808">
+                        <Label layoutX="703.0" layoutY="721.0" prefHeight="28.0" prefWidth="592.0" text="Haga clic sobre la ausencia que desea modificar o eliminar, luego presione el botón correspondiente." textFill="#080808">
                            <font>
-                              <Font size="16.0" />
+                              <Font size="13.0" />
                            </font>
                         </Label>
                      </children>
@@ -392,9 +392,9 @@
                               <Font name="Consolas" size="14.0" />
                            </font>
                         </Label>
-                        <Label layoutX="157.0" layoutY="468.0" prefHeight="25.0" prefWidth="98.0" text="Descripción" textFill="#080808">
+                        <Label layoutX="157.0" layoutY="468.0" prefHeight="25.0" prefWidth="401.0" text="Seleccione un empleado de la lista para poder registrar su ausencia. " textFill="#080808">
                            <font>
-                              <Font size="16.0" />
+                              <Font size="13.0" />
                            </font>
                         </Label>
                      </children>

@@ -184,9 +184,9 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="71.0" layoutY="725.0" prefHeight="25.0" prefWidth="98.0" text="Descripción" textFill="#080808">
+                        <Label layoutX="71.0" layoutY="725.0" prefHeight="25.0" prefWidth="717.0" text="Haga clic sobre el empleado que desea modificar o eliminar, luego presione el botón correspondiente." textFill="#080808">
                            <font>
-                              <Font size="16.0" />
+                              <Font size="13.0" />
                            </font>
                         </Label>
                      </children>

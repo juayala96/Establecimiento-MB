@@ -213,14 +213,14 @@
                               <Font name="System Italic" size="24.0" />
                            </font>
                         </Label>
-                        <Label layoutX="59.0" layoutY="721.0" prefHeight="25.0" prefWidth="98.0" text="Descripción" textFill="#080808">
+                        <Label layoutX="59.0" layoutY="721.0" prefHeight="25.0" prefWidth="480.0" text="Haga clic sobre un empleado para visualizar sus turnos de trabajo. " textFill="#080808">
                            <font>
-                              <Font size="16.0" />
+                              <Font size="13.0" />
                            </font>
                         </Label>
-                        <Label layoutX="698.0" layoutY="721.0" prefHeight="25.0" prefWidth="98.0" text="Descripción" textFill="#080808">
+                        <Label layoutX="698.0" layoutY="721.0" prefHeight="25.0" prefWidth="587.0" text="Haga clic sobre el turno que desea modificar o eliminar, luego presione el botón correspondiente." textFill="#080808">
                            <font>
-                              <Font size="16.0" />
+                              <Font size="13.0" />
                            </font>
                         </Label>
                      </children>
@@ -451,9 +451,9 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Label layoutX="105.0" layoutY="465.0" prefHeight="25.0" prefWidth="98.0" text="Descripción" textFill="#080808">
+                        <Label layoutX="105.0" layoutY="465.0" prefHeight="25.0" prefWidth="503.0" text="Seleccione un empleado en la lista y luego presione el botón Agregar." textFill="#080808">
                            <font>
-                              <Font size="16.0" />
+                              <Font size="13.0" />
                            </font>
                         </Label>
                      </children>
@@ -820,14 +820,14 @@
                               <Font name="System Bold Italic" size="16.0" />
                            </font>
                         </Button>
-                        <Label layoutX="144.0" layoutY="656.0" prefHeight="25.0" prefWidth="98.0" text="Descripción" textFill="#080808">
+                        <Label layoutX="144.0" layoutY="656.0" prefHeight="25.0" prefWidth="336.0" text="Haga clic sobre un empleado para visualizar sus licencias." textFill="#080808">
                            <font>
-                              <Font size="16.0" />
+                              <Font size="13.0" />
                            </font>
                         </Label>
-                        <Label layoutX="792.0" layoutY="656.0" prefHeight="25.0" prefWidth="98.0" text="Descripción" textFill="#080808">
+                        <Label layoutX="792.0" layoutY="656.0" prefHeight="25.0" prefWidth="565.0" text="Si desea modificar una licencia, dirijase al módulo de Empleados desde el menú principal (Inicio).  " textFill="#080808">
                            <font>
-                              <Font size="16.0" />
+                              <Font size="13.0" />
                            </font>
                         </Label>
                      </children>

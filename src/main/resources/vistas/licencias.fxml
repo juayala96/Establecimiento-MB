@@ -191,14 +191,14 @@
                               <Font name="Georgia" size="28.0" />
                            </font>
                         </Label>
-                        <Label layoutX="65.0" layoutY="717.0" prefHeight="25.0" prefWidth="98.0" text="Descripción" textFill="#080808">
+                        <Label layoutX="65.0" layoutY="717.0" prefHeight="25.0" prefWidth="343.0" text="Haga clic sobre un empleado para visualizar sus licencias." textFill="#080808">
                            <font>
-                              <Font size="16.0" />
+                              <Font size="13.0" />
                            </font>
                         </Label>
-                        <Label layoutX="713.0" layoutY="715.0" prefHeight="25.0" prefWidth="98.0" text="Descripción" textFill="#080808">
+                        <Label layoutX="713.0" layoutY="717.0" prefHeight="25.0" prefWidth="579.0" text="Haga clic sobre la licencia que desea modificar o eliminar, luego presione el botón correspondiente." textFill="#080808">
                            <font>
-                              <Font size="16.0" />
+                              <Font size="13.0" />
                            </font>
                         </Label>
                      </children>
@@ -381,9 +381,9 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Label layoutX="157.0" layoutY="479.0" prefHeight="25.0" prefWidth="98.0" text="Descripción" textFill="#080808">
+                        <Label layoutX="157.0" layoutY="479.0" prefHeight="25.0" prefWidth="403.0" text="Seleccione un empleado de la lista para poder registrar su licencia. " textFill="#080808">
                            <font>
-                              <Font size="16.0" />
+                              <Font size="13.0" />
                            </font>
                         </Label>
                      </children>
