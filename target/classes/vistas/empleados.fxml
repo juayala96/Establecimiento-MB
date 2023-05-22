@@ -34,6 +34,9 @@
                            </font>
                         </Label>
                         <TableView fx:id="tablaEmpleados" layoutX="71.0" layoutY="214.0" onMouseClicked="#getSelecciono" prefHeight="511.0" prefWidth="1211.0">
+                           <placeholder>
+                              <Label text="Descripcion" />
+                           </placeholder>
                            <columns>
                               <TableColumn fx:id="colNombre" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Nombre" />
                               <TableColumn fx:id="colApellido" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Apellido" />

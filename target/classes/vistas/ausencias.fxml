@@ -177,7 +177,7 @@
                         </Button>
                         <TableView fx:id="tablaListaEmpleados" layoutX="53.0" layoutY="265.0" onMouseClicked="#getListaEmpleados" prefHeight="456.0" prefWidth="606.0">
                            <placeholder>
-                              <Label text=" " />
+                              <Label text="Descripcion" />
                            </placeholder>
                            <columns>
                               <TableColumn fx:id="colNombre" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Nombre" />
@@ -301,6 +301,9 @@
                            </font>
                         </RadioButton>
                         <TableView fx:id="tabEmpleadosCrear" layoutX="157.0" layoutY="210.0" onMouseClicked="#getEmpleadoCrear" prefHeight="258.0" prefWidth="610.0" style="-fx-background-color: #e4e4e4;">
+                           <placeholder>
+                              <Label text="Descripcion" />
+                           </placeholder>
                            <columns>
                               <TableColumn fx:id="colNombreEmpleadoCrear" prefWidth="110.39993286132812" text="Nombre" />
                               <TableColumn fx:id="colApellidoEmpleadoCrear" prefWidth="120.80006408691406" text="Apellido" />

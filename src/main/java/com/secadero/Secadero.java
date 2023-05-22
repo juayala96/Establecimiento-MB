@@ -9,7 +9,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class Secadero extends Application {
-
     public static void main(String[] args) {
         launch(args);
     }
