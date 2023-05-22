@@ -177,7 +177,7 @@
                         </Button>
                         <TableView fx:id="tablaListaEmpleados" layoutX="53.0" layoutY="265.0" onMouseClicked="#getListaEmpleados" prefHeight="456.0" prefWidth="606.0">
                            <placeholder>
-                              <Label text="Descripcion" />
+                              <Label text="No hay empleados registrados" />
                            </placeholder>
                            <columns>
                               <TableColumn fx:id="colNombre" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Nombre" />
@@ -302,7 +302,7 @@
                         </RadioButton>
                         <TableView fx:id="tabEmpleadosCrear" layoutX="157.0" layoutY="210.0" onMouseClicked="#getEmpleadoCrear" prefHeight="258.0" prefWidth="610.0" style="-fx-background-color: #e4e4e4;">
                            <placeholder>
-                              <Label text="Descripcion" />
+                              <Label text="No hay empleados registrados" />
                            </placeholder>
                            <columns>
                               <TableColumn fx:id="colNombreEmpleadoCrear" prefWidth="110.39993286132812" text="Nombre" />
@@ -714,7 +714,7 @@
                         </Label>
                         <TableView fx:id="tablaListaEmpleados1" layoutX="129.0" layoutY="202.0" prefHeight="456.0" prefWidth="606.0">
                            <placeholder>
-                              <Label text="Descripcion" />
+                              <Label text="No hay empleados presentes" />
                            </placeholder>
                            <columns>
                               <TableColumn fx:id="colNombre1" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Nombre" />
@@ -734,7 +734,7 @@
                         </Label>
                         <TableView fx:id="tablaListaEmpleados11" layoutX="801.0" layoutY="202.0" prefHeight="456.0" prefWidth="606.0">
                            <placeholder>
-                              <Label text="Descripcion" />
+                              <Label text="No hay empleados ausentes" />
                            </placeholder>
                            <columns>
                               <TableColumn fx:id="colNombre11" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Nombre" />

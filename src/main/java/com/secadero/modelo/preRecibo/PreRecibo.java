@@ -86,7 +86,9 @@ public class PreRecibo {
                 PdfPTable tableTitulo = new PdfPTable(1);
                 tableTitulo.addCell("DATOS PERSONALES");
 
+                float borderWidth = 4f; // Grosor en puntos
                 PdfPTable tableDatos = new PdfPTable(2);
+
                 tableDatos.addCell("Legajo:");
                 tableDatos.addCell("" + legajo);
                 tableDatos.addCell("Nombre:");
