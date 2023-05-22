@@ -392,7 +392,7 @@
                               <Font name="Consolas" size="14.0" />
                            </font>
                         </Label>
-                        <Label layoutX="157.0" layoutY="468.0" prefHeight="25.0" prefWidth="484.0" text="Seleccione un empleado de la lista para poder registrar su ausencia. " textFill="#080808">
+                        <Label layoutX="157.0" layoutY="468.0" prefHeight="25.0" prefWidth="401.0" text="Seleccione un empleado de la lista para poder registrar su ausencia. " textFill="#080808">
                            <font>
                               <Font size="13.0" />
                            </font>

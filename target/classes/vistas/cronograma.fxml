@@ -107,6 +107,9 @@
                            </graphic>
                         </Button>
                         <TableView fx:id="tablaCronograma" layoutX="698.0" layoutY="265.0" onMouseClicked="#getCronograma" prefHeight="456.0" prefWidth="606.0">
+                           <placeholder>
+                              <Label text="El empleado no tiene turnos asignados" />
+                           </placeholder>
                            <columns>
                               <TableColumn fx:id="colFecha" prefWidth="153.0" style="-fx-font-size: 14;" text="Fecha" />
                               <TableColumn fx:id="colTurno" prefWidth="150.0" style="-fx-font-size: 14;" text="Turno" />
@@ -825,7 +828,7 @@
                               <Font size="13.0" />
                            </font>
                         </Label>
-                        <Label layoutX="792.0" layoutY="656.0" prefHeight="25.0" prefWidth="565.0" text="Si desea modificar una licencia, dirijase al módulo de Licencias en el menú principal (Inicio). " textFill="#080808">
+                        <Label layoutX="792.0" layoutY="656.0" prefHeight="25.0" prefWidth="565.0" text="Si desea modificar una licencia, dirijase al módulo de Empleados desde el menú principal (Inicio).  " textFill="#080808">
                            <font>
                               <Font size="13.0" />
                            </font>

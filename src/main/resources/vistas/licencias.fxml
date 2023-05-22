@@ -59,6 +59,9 @@
                            </font>
                         </Label>
                         <TableView fx:id="tablaLicencia" layoutX="713.0" layoutY="264.0" onMouseClicked="#getLicencia" prefHeight="452.0" prefWidth="568.0">
+                           <placeholder>
+                              <Label text="El empleado no tiene licencias registradas" />
+                           </placeholder>
                            <columns>
                               <TableColumn fx:id="colFechaInicio" prefWidth="190.0" style="-fx-font-size: 14;" text="Fecha de Inicio" />
                               <TableColumn fx:id="colFechaFin" prefWidth="190.0" style="-fx-font-size: 14;" text="Fecha de Fin" />
