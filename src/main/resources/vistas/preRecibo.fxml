@@ -40,6 +40,9 @@
          </cursor>
       </Button>
       <TableView fx:id="tabEmpleados" layoutX="308.0" layoutY="232.0" onMouseClicked="#getListaEmpleados" prefHeight="294.0" prefWidth="601.0" style="-fx-background-color: #e4e4e4;">
+         <placeholder>
+            <Label text="Descripcion" />
+         </placeholder>
          <columns>
             <TableColumn fx:id="colNombre" prefWidth="120.0" text="Nombre" />
             <TableColumn fx:id="colApellido" prefWidth="120.0" text="Apellido" />

@@ -122,6 +122,9 @@
                            </cursor>
                         </TableView>
                         <TableView fx:id="tablaListaEmpleados" layoutX="59.0" layoutY="265.0" onMouseClicked="#getListaEmpleados" prefHeight="456.0" prefWidth="606.0">
+                           <placeholder>
+                              <Label text="Descripcion" />
+                           </placeholder>
                            <columns>
                               <TableColumn fx:id="colNombre" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Nombre" />
                               <TableColumn fx:id="colApellido" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Apellido" />
@@ -278,6 +281,9 @@
                            </font>
                         </Label>
                         <TableView fx:id="tabEmpleadosCrear" layoutX="107.0" layoutY="217.0" onMouseClicked="#getListaEmpleadosCrear" prefHeight="248.0" prefWidth="504.0" style="-fx-background-color: #e4e4e4;">
+                           <placeholder>
+                              <Label text="Descripcion" />
+                           </placeholder>
                            <columns>
                               <TableColumn fx:id="colNombreEmpleadoCrear" prefWidth="126.0" text="Nombre" />
                               <TableColumn fx:id="colApellidoEmpleadoCrear" prefWidth="126.0" text="Apellido" />
@@ -738,6 +744,9 @@
                            </font>
                         </Label>
                         <TableView fx:id="tablaLicenciaConsulta" layoutX="792.0" layoutY="210.0" prefHeight="446.0" prefWidth="568.0">
+                           <placeholder>
+                              <Label text="Descripcion" />
+                           </placeholder>
                            <columns>
                               <TableColumn fx:id="colFechaInicio" prefWidth="190.0" style="-fx-font-size: 14;" text="Fecha de Inicio" />
                               <TableColumn fx:id="colFechaFin" prefWidth="190.0" style="-fx-font-size: 14;" text="Fecha de Fin" />
@@ -781,6 +790,9 @@
                            </font>
                         </TextField>
                         <TableView fx:id="tablaListaEmpleadosConsulta" layoutX="144.0" layoutY="210.0" onMouseClicked="#getListaEmpleadosConsulta" prefHeight="446.0" prefWidth="606.0">
+                           <placeholder>
+                              <Label text="Descripcion" />
+                           </placeholder>
                            <columns>
                               <TableColumn fx:id="colNombreConsulta" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Nombre" />
                               <TableColumn fx:id="colApellidoConsulta" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Apellido" />
@@ -882,6 +894,9 @@
                            </font>
                         </Label>
                         <TableView fx:id="tablaListaEmpleadosCalendario" layoutX="163.0" layoutY="259.0" onMouseClicked="#getListaEmpleados" prefHeight="418.0" prefWidth="1210.0">
+                           <placeholder>
+                              <Label text="Descripcion" />
+                           </placeholder>
                            <columns>
                               <TableColumn fx:id="colNombreCalendario" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Nombre" />
                               <TableColumn fx:id="colApellidoCalendario" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Apellido" />
