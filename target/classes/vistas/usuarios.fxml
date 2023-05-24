@@ -34,7 +34,7 @@
                         </Label>
                         <TableView fx:id="tablaUsuarios" layoutX="71.0" layoutY="216.0" onMouseClicked="#getSelecciono" prefHeight="491.0" prefWidth="1214.0" style="-fx-background-color: #e4e4e4;">
                            <placeholder>
-                              <Label text="Descripcion" />
+                              <Label text="No hay usuarios registrados" />
                            </placeholder>
                            <columns>
                               <TableColumn fx:id="colNombre" prefWidth="173.0" style="-fx-font-size: 14;" text="Nombre" />
@@ -263,7 +263,7 @@
                         </Button>
                         <TableView fx:id="tabEmpleadosCrear" layoutX="140.0" layoutY="212.0" onMouseClicked="#getEmpleadoCrear" prefHeight="258.0" prefWidth="610.0" style="-fx-background-color: #e4e4e4;">
                            <placeholder>
-                              <Label text="Descripcion" />
+                              <Label text="No hay empleados disponibles para asignar un usuario" />
                            </placeholder>
                            <columns>
                               <TableColumn fx:id="colNombreEmpleadoCrear" prefWidth="110.39993286132812" text="Nombre" />

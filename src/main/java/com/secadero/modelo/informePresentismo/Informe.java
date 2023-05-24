@@ -205,8 +205,8 @@ public class Informe extends Component {
                 String consultaSalida2 = "SELECT fecha FROM salida INNER JOIN empleados ON empleados.idempleados = salida.idEmpleadoFK WHERE empleados.legajo = ? AND (fecha BETWEEN ? and ?)";
                 pstm = con.prepareStatement(consultaSalida2);
                 pstm.setInt(1, Integer.parseInt(labLegajoEmpleado.getText()));
-                pstm.setString(2, dpFechaDesde.getEditor().getText());
-                pstm.setString(3, dpFechaHasta.getEditor().getText());
+                pstm.setString(2, fechaModificadaInicio);
+                pstm.setString(3, fechaModificadaFin);
                 rs = pstm.executeQuery();
                 while (rs.next()) {
                     fechaSalida = rs.getString("fecha");
@@ -254,7 +254,8 @@ public class Informe extends Component {
                 PdfWriter.getInstance(doc, new FileOutputStream("Informe_" + nombre + "_" + apellido + "_" + labLegajoEmpleado.getText() + "_" + dpFechaDesde.getEditor().getText() + "_" + dpFechaHasta.getEditor().getText() + ".pdf"));
                 doc.open();
 
-                var paragraph = new Paragraph("------------------------ INFORME DE PRESENTISMO DE " + nombre.toUpperCase() + " " + apellido.toUpperCase() + " ------------------------");
+                Paragraph paragraph = new Paragraph("INFORME DE PRESENTISMO DE " + nombre.toUpperCase() + " " + apellido.toUpperCase());
+                paragraph.setAlignment(Paragraph.ALIGN_CENTER);
                 var saltoLinea = new Paragraph(" ");
                 var fechas = new Paragraph("Fechas Desde: " + dpFechaDesde.getEditor().getText() + "                                                                  Fecha Hasta: " + dpFechaHasta.getEditor().getText());
                 PdfPTable tableTitulo = new PdfPTable(1);

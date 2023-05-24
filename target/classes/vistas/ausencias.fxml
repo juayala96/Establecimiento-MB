@@ -177,7 +177,7 @@
                         </Button>
                         <TableView fx:id="tablaListaEmpleados" layoutX="53.0" layoutY="265.0" onMouseClicked="#getListaEmpleados" prefHeight="456.0" prefWidth="606.0">
                            <placeholder>
-                              <Label text="Descripcion" />
+                              <Label text="No hay empleados registrados" />
                            </placeholder>
                            <columns>
                               <TableColumn fx:id="colNombre" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Nombre" />
@@ -302,7 +302,7 @@
                         </RadioButton>
                         <TableView fx:id="tabEmpleadosCrear" layoutX="157.0" layoutY="210.0" onMouseClicked="#getEmpleadoCrear" prefHeight="258.0" prefWidth="610.0" style="-fx-background-color: #e4e4e4;">
                            <placeholder>
-                              <Label text="Descripcion" />
+                              <Label text="No hay empleados registrados" />
                            </placeholder>
                            <columns>
                               <TableColumn fx:id="colNombreEmpleadoCrear" prefWidth="110.39993286132812" text="Nombre" />
@@ -699,7 +699,7 @@
                               <Font name="Georgia Bold" size="48.0" />
                            </font>
                         </Label>
-                        <Button layoutX="990.0" layoutY="646.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="46.0" prefWidth="171.0" style="-fx-background-color: #010b56;" text="Aceptar" textFill="WHITE">
+                        <Button fx:id="btnRegresarCCLista" layoutX="685.0" layoutY="686.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#regresarCCLista" prefHeight="46.0" prefWidth="166.0" text="Regresar" textFill="#382929">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -707,17 +707,49 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button fx:id="btnRegresarCCLista" layoutX="394.0" layoutY="646.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#regresarCCLista" prefHeight="46.0" prefWidth="166.0" text="Regresar" textFill="#382929">
+                        <Label layoutX="379.0" layoutY="102.0" prefHeight="38.0" prefWidth="778.0" text="Visualización de la asistencia de los empleados en el día de hoy" textFill="#080808">
                            <font>
-                              <Font name="System Bold" size="18.0" />
+                              <Font name="Georgia" size="28.0" />
                            </font>
+                        </Label>
+                        <TableView fx:id="tablaListaEmpleados1" layoutX="129.0" layoutY="202.0" prefHeight="456.0" prefWidth="606.0">
+                           <placeholder>
+                              <Label text="No hay empleados presentes" />
+                           </placeholder>
+                           <columns>
+                              <TableColumn fx:id="colNombre1" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Nombre" />
+                              <TableColumn fx:id="colApellido1" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Apellido" />
+                              <TableColumn fx:id="colLegajo1" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Legajo" />
+                              <TableColumn fx:id="colDNI1" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="DNI" />
+                              <TableColumn fx:id="colIDEmpleado1" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="IDEmpleado" />
+                           </columns>
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
-                        </Button>
-                        <Label layoutX="682.0" layoutY="93.0" prefHeight="56.0" prefWidth="171.0" text="(Actual)" textFill="#080808">
+                        </TableView>
+                        <Label layoutX="129.0" layoutY="156.0" prefHeight="46.0" prefWidth="329.0" text="Tabla de Empleados Presentes" textFill="#450606">
                            <font>
-                              <Font name="Georgia Bold" size="40.0" />
+                              <Font name="System Italic" size="24.0" />
+                           </font>
+                        </Label>
+                        <TableView fx:id="tablaListaEmpleados11" layoutX="801.0" layoutY="202.0" prefHeight="456.0" prefWidth="606.0">
+                           <placeholder>
+                              <Label text="No hay empleados ausentes" />
+                           </placeholder>
+                           <columns>
+                              <TableColumn fx:id="colNombre11" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Nombre" />
+                              <TableColumn fx:id="colApellido11" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Apellido" />
+                              <TableColumn fx:id="colLegajo11" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Legajo" />
+                              <TableColumn fx:id="colDNI11" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="DNI" />
+                              <TableColumn fx:id="colIDEmpleado11" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="IDEmpleado" />
+                           </columns>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </TableView>
+                        <Label layoutX="801.0" layoutY="156.0" prefHeight="46.0" prefWidth="329.0" text="Tabla de Empleados Ausentes" textFill="#450606">
+                           <font>
+                              <Font name="System Italic" size="24.0" />
                            </font>
                         </Label>
                      </children>

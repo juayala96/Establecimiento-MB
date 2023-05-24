@@ -174,7 +174,7 @@
                         </TextField>
                         <TableView fx:id="tablaListaEmpleados" layoutX="65.0" layoutY="264.0" onMouseClicked="#getListaEmpleados" prefHeight="452.0" prefWidth="606.0">
                            <placeholder>
-                              <Label text="Descripcion" />
+                              <Label text="No hay empleados registrados" />
                            </placeholder>
                            <columns>
                               <TableColumn fx:id="colNombre" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Nombre" />
@@ -307,7 +307,7 @@
                         </Label>
                         <TableView fx:id="tabEmpleadosCrear" layoutX="157.0" layoutY="212.0" onMouseClicked="#getEmpleadoCrear" prefHeight="265.0" prefWidth="610.0" style="-fx-background-color: #e4e4e4;">
                            <placeholder>
-                              <Label text="Descripcion" />
+                              <Label text="No hay empleados registrados" />
                            </placeholder>
                            <columns>
                               <TableColumn fx:id="colNombreEmpleadoCrear" prefWidth="110.39993286132812" text="Nombre" />
@@ -743,7 +743,7 @@
                         </Label>
                         <TableView fx:id="tablaCronograma" layoutX="784.0" layoutY="232.0" prefHeight="425.0" prefWidth="606.0">
                            <placeholder>
-                              <Label text="Descripcion" />
+                              <Label text="El empleado no tiene turnos asignados" />
                            </placeholder>
                            <columns>
                               <TableColumn fx:id="colFecha" prefWidth="153.0" style="-fx-font-size: 14;" text="Fecha" />

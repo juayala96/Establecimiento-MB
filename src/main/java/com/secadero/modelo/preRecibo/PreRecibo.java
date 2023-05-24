@@ -1,8 +1,7 @@
 package com.secadero.modelo.preRecibo;
 
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.secadero.conexion.Conexion;
@@ -29,10 +28,10 @@ public class PreRecibo {
         Connection con = Conexion.leerConexion();
         PreparedStatement pstm = null;
         ResultSet rs = null;
-        String nombre = "";     String apellido = "";
-        String telefono = "";   String email = "";
-        String area = "";       String puesto = "";
-        int legajo = 0;         int dni = 0;
+        String nombre = "";         String apellido = "";
+        String fechaIngreso = "";   String area = "";           String area2 = "";
+        String puesto = "";         String fechaModificadaIngreso = "";
+        int legajo = 0;             int dni = 0;
 
         try{
             String fechaInicioClave = dpFechaDesde.getEditor().getText();
@@ -56,7 +55,7 @@ public class PreRecibo {
 
             // ----------------------- Tomo el Nombre y Apellido del Empleado ------------------------
             try {
-                String consulta1 = "SELECT nombre, apellido, legajo, dni, telefono, email, area.descripcion AS area, puesto.descripcion AS puesto FROM empleados INNER JOIN puesto ON empleados.idPuestoFK = puesto.idpuesto INNER JOIN area ON empleados.idAreaFK = area.idarea WHERE legajo = ?";
+                String consulta1 = "SELECT nombre, apellido, legajo, dni, fechaIngreso, area.descripcion AS area, puesto.descripcion AS puesto FROM empleados INNER JOIN puesto ON empleados.idPuestoFK = puesto.idpuesto INNER JOIN area ON empleados.idAreaFK = area.idarea WHERE legajo = ?";
                 pstm = con.prepareStatement(consulta1);
                 pstm.setString(1, labLegajoEmpleado.getText());
                 rs = pstm.executeQuery();
@@ -65,8 +64,11 @@ public class PreRecibo {
                     apellido = rs.getString("apellido");
                     legajo = rs.getInt("legajo");
                     dni = rs.getInt("dni");
-                    telefono = rs.getString("telefono");
-                    email = rs.getString("email");
+                    String fechaClave5 = rs.getString("fechaIngreso");
+                    String fechaAnio3 = fechaClave5.substring(0, 4);
+                    String fechaMes3 = fechaClave5.substring(5, 7);
+                    String fechaDia3 = fechaClave5.substring(8, 10);
+                    fechaModificadaIngreso = (fechaDia3 + "-" + fechaMes3 + "-" + fechaAnio3);
                     area = rs.getString("area");
                     puesto = rs.getString("puesto");
                 }
@@ -80,103 +82,83 @@ public class PreRecibo {
                 // Nombre del Archivo
                 PdfWriter.getInstance(doc, new FileOutputStream("PreRecibo_" + nombre + "_" + apellido + "_" + labLegajoEmpleado.getText() + "_" + dpFechaDesde.getEditor().getText() + "_" + dpFechaHasta.getEditor().getText() + ".pdf"));
                 doc.open();
-                var paragraph = new Paragraph("------------------------------------ PRE-RECIBO DE " + nombre.toUpperCase() + " " + apellido.toUpperCase() + " ------------------------------------");
-                var saltoLinea = new Paragraph(" ");
-                var fechas = new Paragraph("Fechas Desde: " + dpFechaDesde.getEditor().getText() + "                                                                  Fecha Hasta: " + dpFechaHasta.getEditor().getText());
-                PdfPTable tableTitulo = new PdfPTable(1);
-                tableTitulo.addCell("DATOS PERSONALES");
+                // Crear una tabla
+                PdfPTable tablaGeneral = new PdfPTable(1);
+                tablaGeneral.setWidthPercentage(100);
+                // Agregar contenido al documento
+                tablaGeneral.addCell(createCellNormal("Bida Miguel Marcelo Ivan                                                                                                                     PRE-RECIBO\nLote 8 - (3361) Los Helechos \nC.U.I.T.: 23-32844652-9                                                                                   Período:  " + dpFechaDesde.getEditor().getText() + "  |  " + dpFechaHasta.getEditor().getText(), FontFactory.getFont(FontFactory.HELVETICA, 10)));
 
-                float borderWidth = 4f; // Grosor en puntos
-                PdfPTable tableDatos = new PdfPTable(2);
+                if(area.equals("Administracion")){
+                    area2 = area.substring(0, 13);
+                } else {
+                    area2 = area;
+                }
 
-                tableDatos.addCell("Legajo:");
-                tableDatos.addCell("" + legajo);
-                tableDatos.addCell("Nombre:");
-                tableDatos.addCell("" + nombre);
-                tableDatos.addCell("Apellido:");
-                tableDatos.addCell("" + apellido);
-                tableDatos.addCell("DNI:");
-                tableDatos.addCell("" + dni);
-                tableDatos.addCell("Teléfono:");
-                tableDatos.addCell("" + telefono);
-                tableDatos.addCell("E-mail:");
-                tableDatos.addCell("" + email);
-                tableDatos.addCell("Area:");
-                tableDatos.addCell("" + area);
-                tableDatos.addCell("Puesto:");
-                tableDatos.addCell("" + puesto);
+                PdfPTable tablaInformacionPersonal = new PdfPTable(7);
+                tablaInformacionPersonal.setWidthPercentage(100);
+                tablaInformacionPersonal.addCell(createCell("Legajo\n\n" + legajo, FontFactory.getFont(FontFactory.HELVETICA, 9)));
+                tablaInformacionPersonal.addCell(createCell("Nombre y Apellido\n\n" + nombre + " " + apellido, FontFactory.getFont(FontFactory.HELVETICA, 9)));
+                tablaInformacionPersonal.addCell(createCell("DNI\n\n" + dni, FontFactory.getFont(FontFactory.HELVETICA, 9)));
+                tablaInformacionPersonal.addCell(createCell("Fecha Ing.\n\n" + fechaModificadaIngreso, FontFactory.getFont(FontFactory.HELVETICA, 9)));
+                tablaInformacionPersonal.addCell(createCell("Area\n\n" + area2, FontFactory.getFont(FontFactory.HELVETICA, 9)));
+                tablaInformacionPersonal.addCell(createCell("Puesto\n\n" + puesto, FontFactory.getFont(FontFactory.HELVETICA, 9)));
+                tablaInformacionPersonal.addCell(createCell("Sueldo (Día)\n\n" + "$10.000", FontFactory.getFont(FontFactory.HELVETICA, 9)));
 
-                PdfPTable table = new PdfPTable(4);
-                table.addCell("Unidad");
-                table.addCell("Concepto");
-                table.addCell("Remuneración");
-                table.addCell("Descuento");
+                PdfPTable tablaDescripcion = new PdfPTable(4);
+                tablaDescripcion.setWidthPercentage(100);
+                tablaDescripcion.addCell(createCell2("CONCEPTO", FontFactory.getFont(FontFactory.HELVETICA, 9)));
+                tablaDescripcion.addCell(createCell2("UNIDADES", FontFactory.getFont(FontFactory.HELVETICA, 9)));
+                tablaDescripcion.addCell(createCell2("REMUNERACIÓN", FontFactory.getFont(FontFactory.HELVETICA, 9)));
+                tablaDescripcion.addCell(createCell2("DEDUCCIONES", FontFactory.getFont(FontFactory.HELVETICA, 9)));
 
-                // Cuento los años de dicho empleado y referente a eso lo calculo por la antiguedad ej 5, 10, 25 años
-                table.addCell("(Hora)");
-                table.addCell("Sueldo Básico");
-                // El sueldo basico de todos
-                table.addCell("$");
-                // Descuento
-                table.addCell("");
+                PdfPTable tablaCuerpo = new PdfPTable(4);
+                tablaCuerpo.setWidthPercentage(100);
+                tablaCuerpo.addCell(createCellNormal("Días Laborales \n\nAntigüedad \n\nVacaciones \n\nRetroactive \n\nJubilación CCG \n\nLey 19032 CCG \n\nObra Social CCG \n\nSeguro de Sepelio \n\nCuota Solid. Agraria", FontFactory.getFont(FontFactory.HELVETICA, 10)));
+                tablaCuerpo.addCell(createCellNormal(" ", FontFactory.getFont(FontFactory.HELVETICA, 9)));
+                tablaCuerpo.addCell(createCellNormal(" ", FontFactory.getFont(FontFactory.HELVETICA, 9)));
+                tablaCuerpo.addCell(createCellNormal(" ", FontFactory.getFont(FontFactory.HELVETICA, 9)));
 
+                PdfPTable tablaVacia = new PdfPTable(1);
+                tablaVacia.setWidthPercentage(100);
+                tablaVacia.addCell(createCell(" ", FontFactory.getFont(FontFactory.HELVETICA, 5)));
 
-                table.addCell("");
-                table.addCell("Antigüedad");
-                table.addCell("$");
-                table.addCell("");
+                PdfPTable tablaTotales = new PdfPTable(4);
+                tablaTotales.setWidthPercentage(100);
+                PdfPCell cellTotales = createCellCombinada("TOTALES", FontFactory.getFont(FontFactory.HELVETICA, 9), 2, Element.ALIGN_RIGHT);
+                tablaTotales.addCell(cellTotales);
+                PdfPCell cellTotalesRemuneracion = createCellCombinada(" $  ", FontFactory.getFont(FontFactory.HELVETICA, 10), 1, Element.ALIGN_LEFT);
+                tablaTotales.addCell(cellTotalesRemuneracion);
+                PdfPCell cellTotalesDeduccion = createCellCombinada(" $  ", FontFactory.getFont(FontFactory.HELVETICA, 10), 1, Element.ALIGN_LEFT);
+                tablaTotales.addCell(cellTotalesDeduccion);
 
-                table.addCell("(Horas)");
-                table.addCell("Horas Trabajadas");
-                table.addCell("$");
-                table.addCell("");
+                PdfPTable tablaTotalNeto = new PdfPTable(4);
+                tablaTotalNeto.setWidthPercentage(100);
+                PdfPCell cellNeto = createCellCombinada("NETO", FontFactory.getFont(FontFactory.HELVETICA_BOLD, 9), 2, Element.ALIGN_RIGHT);
+                tablaTotalNeto.addCell(cellNeto);
+                PdfPCell cellNetoPrecio = createCellCombinada(" $  ", FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10), 2, Element.ALIGN_LEFT);
+                tablaTotalNeto.addCell(cellNetoPrecio);
 
-                table.addCell("(Días)");
-                table.addCell("Vacaciones");
-                table.addCell("$");
-                table.addCell("");
+                Date diaActual = new Date();
+                String fechaClave6 = (formatoFecha.format(diaActual));
+                String fechaAnio4 = fechaClave6.substring(0, 4);
+                String fechaMes4 = fechaClave6.substring(5, 7);
+                String fechaDia4 = fechaClave6.substring(8, 10);
+                String fechaModificadaActual = (fechaDia4 + "-" + fechaMes4 + "-" + fechaAnio4);
 
-                table.addCell("");
-                table.addCell("Aporte Jubilatorio");
-                table.addCell("");
-                table.addCell("$");
+                PdfPTable tablaDetalle = new PdfPTable(1);
+                tablaDetalle.setWidthPercentage(100);
+                tablaDetalle.addCell(createCell3("126502 O.S.DE LA CONFEDERACION DE OBREROS Y EMPLEADOS MUNICIPALES \n Lugar y Fecha de Pago: LOS HELECHOS, " + fechaModificadaActual +"\n\n\n                                                                                                                                      ____________________\n                                                                                                                                              Firma Empleado", FontFactory.getFont(FontFactory.HELVETICA, 10)));
 
-                table.addCell("");
-                table.addCell("Aporte a la Obra Social");
-                table.addCell("");
-                table.addCell("$");
-
-                table.addCell("");
-                table.addCell("Impuestos (Retención de Ganancias)");
-                table.addCell("");
-                table.addCell("$");
-
-                PdfPTable table2 = new PdfPTable(1);
-                table2.addCell(" ");
-
-                PdfPTable table3 = new PdfPTable(4);
-                table3.addCell("");
-                table3.addCell("TOTALES: ");
-                table3.addCell("$");
-                table3.addCell("$");
-
-                PdfPTable table4 = new PdfPTable(2);
-                table4.addCell("TOTAL NETO A PAGAR: ");
-                table4.addCell("$");
-
-                doc.add(paragraph);
-                doc.add(saltoLinea);
-                doc.add(fechas);
-                doc.add(saltoLinea);
-                doc.add(tableTitulo);
-                doc.add(tableDatos);
-                doc.add(saltoLinea);
-                doc.add(table);
-                doc.add(table2);
-                doc.add(table3);
-                doc.add(table4);
+                // Agregar la tabla al documento
+                doc.add(tablaGeneral);
+                doc.add(tablaInformacionPersonal);
+                doc.add(tablaDescripcion);
+                doc.add(tablaCuerpo);
+                doc.add(tablaVacia);
+                doc.add(tablaTotales);
+                doc.add(tablaTotalNeto);
+                doc.add(tablaDetalle);
                 doc.close();
-
 
                 File archivo = new File("PreRecibo_" + nombre + "_" + apellido + "_" + labLegajoEmpleado.getText() + "_" + dpFechaDesde.getEditor().getText() + "_" + dpFechaHasta.getEditor().getText() + ".pdf");
 
@@ -204,5 +186,40 @@ public class PreRecibo {
                 System.err.println("Error: " + ex.getMessage());
             }
         }
+    }
+
+    private static PdfPCell createCell(String content, Font font) {
+        PdfPCell cell = new PdfPCell(new Phrase(content, font));
+        cell.setPadding(8);
+        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+        return cell;
+    }
+
+    private static PdfPCell createCell2(String content, Font font) {
+        PdfPCell cell = new PdfPCell(new Phrase(content, font));
+        cell.setPadding(5);
+        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+        return cell;
+    }
+
+    private static PdfPCell createCell3(String content, Font font) {
+        PdfPCell cell = new PdfPCell(new Phrase(content, font));
+        cell.setPadding(8);
+        cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+        return cell;
+    }
+
+    private static PdfPCell createCellNormal(String content, Font font) {
+        PdfPCell cell = new PdfPCell(new Paragraph(content, font));
+        cell.setPadding(10);
+        return cell;
+    }
+
+    private static PdfPCell createCellCombinada(String content, Font font, int colSpan, int alignment) {
+        PdfPCell cell = new PdfPCell(new Phrase(content, font));
+        cell.setPadding(5);
+        cell.setColspan(colSpan);
+        cell.setHorizontalAlignment(alignment);
+        return cell;
     }
 }
