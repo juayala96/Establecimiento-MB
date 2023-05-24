@@ -138,17 +138,6 @@ public class PreRecibo {
                 PdfPCell cellNetoPrecio = createCellCombinada(" $  ", FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10), 2, Element.ALIGN_LEFT);
                 tablaTotalNeto.addCell(cellNetoPrecio);
 
-                Date diaActual = new Date();
-                String fechaClave6 = (formatoFecha.format(diaActual));
-                String fechaAnio4 = fechaClave6.substring(0, 4);
-                String fechaMes4 = fechaClave6.substring(5, 7);
-                String fechaDia4 = fechaClave6.substring(8, 10);
-                String fechaModificadaActual = (fechaDia4 + "-" + fechaMes4 + "-" + fechaAnio4);
-
-                PdfPTable tablaDetalle = new PdfPTable(1);
-                tablaDetalle.setWidthPercentage(100);
-                tablaDetalle.addCell(createCell3("126502 O.S.DE LA CONFEDERACION DE OBREROS Y EMPLEADOS MUNICIPALES \n Lugar y Fecha de Pago: LOS HELECHOS, " + fechaModificadaActual +"\n\n\n                                                                                                                                      ____________________\n                                                                                                                                              Firma Empleado", FontFactory.getFont(FontFactory.HELVETICA, 10)));
-
                 // Agregar la tabla al documento
                 doc.add(tablaGeneral);
                 doc.add(tablaInformacionPersonal);
@@ -157,7 +146,6 @@ public class PreRecibo {
                 doc.add(tablaVacia);
                 doc.add(tablaTotales);
                 doc.add(tablaTotalNeto);
-                doc.add(tablaDetalle);
                 doc.close();
 
                 File archivo = new File("PreRecibo_" + nombre + "_" + apellido + "_" + labLegajoEmpleado.getText() + "_" + dpFechaDesde.getEditor().getText() + "_" + dpFechaHasta.getEditor().getText() + ".pdf");
