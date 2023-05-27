@@ -1,8 +1,8 @@
 package com.secadero.modelo.informePresentismo;
 
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.*;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.secadero.conexion.Conexion;
@@ -39,37 +39,32 @@ public class Informe extends Component {
         Connection con = Conexion.leerConexion();
         PreparedStatement pstm = null;
         ResultSet rs = null;
-        String resultado2;
-        String fechaIncioMax;
-        String fechaFinMax;
-        String fechaEntrada = "";
-        String fechaSalida = "";
-        int cantAusencias = 0;
-        int cantLicencias = 0;
-        int cantDiasTrabajadas = 0;
-        int cantHorasTrabajadas = 0;
-        Time horaEntrada = null;
-        Time horaSalida = null;
-        String nombre = "";
-        String apellido = "";
-        String telefono = "";
-        String email = "";
-        String area = "";
-        String puesto = "";
-        int legajo = 0;
-        int dni = 0;
+        String resultado2;          String fechaIncioMax;
+        String fechaFinMax;         String fechaEntrada = "";
+        String fechaSalida = "";    int cantAusencias = 0;
+        int cantLicencias = 0;      int cantDiasTrabajadas = 0;
+        int cantHorasTrabajadas = 0;Time horaEntrada = null;
+        Time horaSalida = null;     String nombre = "";
+        String apellido = "";       String area = "";
+        String puesto = "";         int legajo = 0;
+        int dni = 0;                String fechaModificadaIngreso = "";
         Set<String> fechasDiasTrabajados = new HashSet<>();
         ArrayList<String> fechassEntrada = new ArrayList<>();
         ArrayList<String> fechassSalida = new ArrayList<>();
         ArrayList<String> horassEntrada = new ArrayList<>();
         ArrayList<String> horassSalida = new ArrayList<>();
+        int cantLicenciasVacaciones = 0;    String cantLicenciasVacacionesString = "";
+        int cantLicenciasEnfermedad = 0;    String cantLicenciasEnfermedadString = "";
+        int cantLicenciasAccidente = 0;     String cantLicenciasAccidenteString = "";
+        int cantLicenciasMatrimonio = 0;    String cantLicenciasMatrimonioString = "";
+        int cantLicenciasMuerteFamiliar = 0;String cantLicenciasMuerteFamiliarString = "";
 
         SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
 
         try {
             // ----------------------- Tomo el Nombre y Apellido del Empleado ------------------------
             try {
-                String consulta1 = "SELECT nombre, apellido, legajo, dni, telefono, email, area.descripcion AS area, puesto.descripcion AS puesto FROM empleados INNER JOIN puesto ON empleados.idPuestoFK = puesto.idpuesto INNER JOIN area ON empleados.idAreaFK = area.idarea WHERE legajo = ?";
+                String consulta1 = "SELECT nombre, apellido, legajo, dni, fechaIngreso, area.descripcion AS area, puesto.descripcion AS puesto FROM empleados INNER JOIN puesto ON empleados.idPuestoFK = puesto.idpuesto INNER JOIN area ON empleados.idAreaFK = area.idarea WHERE legajo = ?";
                 pstm = con.prepareStatement(consulta1);
                 pstm.setString(1, labLegajoEmpleado.getText());
                 rs = pstm.executeQuery();
@@ -78,8 +73,11 @@ public class Informe extends Component {
                     apellido = rs.getString("apellido");
                     legajo = rs.getInt("legajo");
                     dni = rs.getInt("dni");
-                    telefono = rs.getString("telefono");
-                    email = rs.getString("email");
+                    String fechaClave5 = rs.getString("fechaIngreso");
+                    String fechaAnio3 = fechaClave5.substring(0, 4);
+                    String fechaMes3 = fechaClave5.substring(5, 7);
+                    String fechaDia3 = fechaClave5.substring(8, 10);
+                    fechaModificadaIngreso = (fechaDia3 + "-" + fechaMes3 + "-" + fechaAnio3);
                     area = rs.getString("area");
                     puesto = rs.getString("puesto");
                 }
@@ -154,6 +152,129 @@ public class Informe extends Component {
                 } catch (Exception e1) {
                     System.err.println("Error: " + e1.getMessage());
                 }
+
+
+                // ---------------------------------- Cantidad de Licencias (Tipos) ------------------------------
+                try {
+                    String consultaVacaciones = "SELECT fecha_inicio, fecha_fin FROM licencias INNER JOIN empleado_licencia ON licencias.idLicencias = empleado_licencia.idLicenciaFK INNER JOIN empleados ON empleado_licencia.idEmpleadoFK = empleados.idempleados INNER JOIN tipo_licencias ON licencias.idTipoLicenciaFK = tipo_licencias.idTipoLicencia WHERE empleados.legajo = ? AND tipo_licencias.descripcion = ?";
+                    pstm = con.prepareStatement(consultaVacaciones);
+                    pstm.setString(1, labLegajoEmpleado.getText());
+                    pstm.setString(2, "Vacaciones");
+                    rs = pstm.executeQuery();
+                    while (rs.next()) {
+                        fechaIncioMax = rs.getString("fecha_inicio");
+                        fechaFinMax = rs.getString("fecha_fin");
+
+                        // Establecer la fecha inicial y final
+                        LocalDate fechaInicial2 = LocalDate.parse(fechaIncioMax, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                        LocalDate fechaFinal2 = LocalDate.parse(fechaFinMax, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+                        // Iterar sobre las fechas
+                        LocalDate resultadoFechaVacaciones = fechaInicial2;
+                        while (!resultadoFechaVacaciones.isAfter(fechaFinal2)) {
+                            if (String.valueOf(resultadoFecha).equals(String.valueOf(resultadoFechaVacaciones))){
+                                cantLicenciasVacaciones += 1;
+                            }
+                            resultadoFechaVacaciones = resultadoFechaVacaciones.plusDays(1);
+                        }
+                    }
+
+                    String consultaEnfermedad = "SELECT fecha_inicio, fecha_fin FROM licencias INNER JOIN empleado_licencia ON licencias.idLicencias = empleado_licencia.idLicenciaFK INNER JOIN empleados ON empleado_licencia.idEmpleadoFK = empleados.idempleados INNER JOIN tipo_licencias ON licencias.idTipoLicenciaFK = tipo_licencias.idTipoLicencia WHERE empleados.legajo = ? AND tipo_licencias.descripcion = ?";
+                    pstm = con.prepareStatement(consultaEnfermedad);
+                    pstm.setString(1, labLegajoEmpleado.getText());
+                    pstm.setString(2, "Enfermedad");
+                    rs = pstm.executeQuery();
+                    while (rs.next()) {
+                        fechaIncioMax = rs.getString("fecha_inicio");
+                        fechaFinMax = rs.getString("fecha_fin");
+
+                        // Establecer la fecha inicial y final
+                        LocalDate fechaInicial2 = LocalDate.parse(fechaIncioMax, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                        LocalDate fechaFinal2 = LocalDate.parse(fechaFinMax, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+                        // Iterar sobre las fechas
+                        LocalDate resultadoFechaEnfermedad = fechaInicial2;
+                        while (!resultadoFechaEnfermedad.isAfter(fechaFinal2)) {
+                            if (String.valueOf(resultadoFecha).equals(String.valueOf(resultadoFechaEnfermedad))){
+                                cantLicenciasEnfermedad += 1;
+                            }
+                            resultadoFechaEnfermedad = resultadoFechaEnfermedad.plusDays(1);
+                        }
+                    }
+
+                    String consultaAccidente = "SELECT fecha_inicio, fecha_fin FROM licencias INNER JOIN empleado_licencia ON licencias.idLicencias = empleado_licencia.idLicenciaFK INNER JOIN empleados ON empleado_licencia.idEmpleadoFK = empleados.idempleados INNER JOIN tipo_licencias ON licencias.idTipoLicenciaFK = tipo_licencias.idTipoLicencia WHERE empleados.legajo = ? AND tipo_licencias.descripcion = ?";
+                    pstm = con.prepareStatement(consultaAccidente);
+                    pstm.setString(1, labLegajoEmpleado.getText());
+                    pstm.setString(2, "Accidente");
+                    rs = pstm.executeQuery();
+                    while (rs.next()) {
+                        fechaIncioMax = rs.getString("fecha_inicio");
+                        fechaFinMax = rs.getString("fecha_fin");
+
+                        // Establecer la fecha inicial y final
+                        LocalDate fechaInicial2 = LocalDate.parse(fechaIncioMax, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                        LocalDate fechaFinal2 = LocalDate.parse(fechaFinMax, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+                        // Iterar sobre las fechas
+                        LocalDate resultadoFechaAccidente = fechaInicial2;
+                        while (!resultadoFechaAccidente.isAfter(fechaFinal2)) {
+                            if (String.valueOf(resultadoFecha).equals(String.valueOf(resultadoFechaAccidente))){
+                                cantLicenciasAccidente += 1;
+                            }
+                            resultadoFechaAccidente = resultadoFechaAccidente.plusDays(1);
+                        }
+                    }
+
+                    String consultaMatrimonio = "SELECT fecha_inicio, fecha_fin FROM licencias INNER JOIN empleado_licencia ON licencias.idLicencias = empleado_licencia.idLicenciaFK INNER JOIN empleados ON empleado_licencia.idEmpleadoFK = empleados.idempleados INNER JOIN tipo_licencias ON licencias.idTipoLicenciaFK = tipo_licencias.idTipoLicencia WHERE empleados.legajo = ? AND tipo_licencias.descripcion = ?";
+                    pstm = con.prepareStatement(consultaMatrimonio);
+                    pstm.setString(1, labLegajoEmpleado.getText());
+                    pstm.setString(2, "Matrimonio");
+                    rs = pstm.executeQuery();
+                    while (rs.next()) {
+                        fechaIncioMax = rs.getString("fecha_inicio");
+                        fechaFinMax = rs.getString("fecha_fin");
+
+                        // Establecer la fecha inicial y final
+                        LocalDate fechaInicial2 = LocalDate.parse(fechaIncioMax, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                        LocalDate fechaFinal2 = LocalDate.parse(fechaFinMax, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+                        // Iterar sobre las fechas
+                        LocalDate resultadoFechaMatrimonio = fechaInicial2;
+                        while (!resultadoFechaMatrimonio.isAfter(fechaFinal2)) {
+                            if (String.valueOf(resultadoFecha).equals(String.valueOf(resultadoFechaMatrimonio))){
+                                cantLicenciasMatrimonio += 1;
+                            }
+                            resultadoFechaMatrimonio = resultadoFechaMatrimonio.plusDays(1);
+                        }
+                    }
+
+                    String consultaMuerteFamiliar = "SELECT fecha_inicio, fecha_fin FROM licencias INNER JOIN empleado_licencia ON licencias.idLicencias = empleado_licencia.idLicenciaFK INNER JOIN empleados ON empleado_licencia.idEmpleadoFK = empleados.idempleados INNER JOIN tipo_licencias ON licencias.idTipoLicenciaFK = tipo_licencias.idTipoLicencia WHERE empleados.legajo = ? AND tipo_licencias.descripcion = ?";
+                    pstm = con.prepareStatement(consultaMuerteFamiliar);
+                    pstm.setString(1, labLegajoEmpleado.getText());
+                    pstm.setString(2, "Muerte Familiar");
+                    rs = pstm.executeQuery();
+                    while (rs.next()) {
+                        fechaIncioMax = rs.getString("fecha_inicio");
+                        fechaFinMax = rs.getString("fecha_fin");
+
+                        // Establecer la fecha inicial y final
+                        LocalDate fechaInicial2 = LocalDate.parse(fechaIncioMax, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                        LocalDate fechaFinal2 = LocalDate.parse(fechaFinMax, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+                        // Iterar sobre las fechas
+                        LocalDate resultadoFechaMuerteFamiliar = fechaInicial2;
+                        while (!resultadoFechaMuerteFamiliar.isAfter(fechaFinal2)) {
+                            if (String.valueOf(resultadoFecha).equals(String.valueOf(resultadoFechaMuerteFamiliar))){
+                                cantLicenciasMuerteFamiliar += 1;
+                            }
+                            resultadoFechaMuerteFamiliar = resultadoFechaMuerteFamiliar.plusDays(1);
+                        }
+                    }
+                } catch (Exception e1) {
+                    System.err.println("Error: " + e1.getMessage());
+                }
+
+
 
                 // ---------------------------------- Cantidad de Horas Trabajadas ------------------------------
                 try {
@@ -247,6 +368,32 @@ public class Informe extends Component {
                 cantHorasTrabajadas += horas;
             }
 
+            if(cantLicenciasVacaciones == 0){
+                cantLicenciasVacacionesString = "---";
+            } else {
+                cantLicenciasVacacionesString = cantLicenciasVacaciones + "";
+            }
+            if(cantLicenciasEnfermedad == 0){
+                cantLicenciasEnfermedadString = "---";
+            } else {
+                cantLicenciasEnfermedadString = cantLicenciasEnfermedad + "";
+            }
+            if(cantLicenciasAccidente == 0){
+                cantLicenciasAccidenteString = "---";
+            } else {
+                cantLicenciasAccidenteString = cantLicenciasAccidente + "";
+            }
+            if(cantLicenciasMatrimonio == 0){
+                cantLicenciasMatrimonioString = "---";
+            } else {
+                cantLicenciasMatrimonioString = cantLicenciasMatrimonio + "";
+            }
+            if(cantLicenciasMuerteFamiliar == 0){
+                cantLicenciasMuerteFamiliarString = "---";
+            } else {
+                cantLicenciasMuerteFamiliarString = cantLicenciasMuerteFamiliar + "";
+            }
+
             // ----------------------------------- Documento --------------------------------------
             try {
                 var doc = new Document();
@@ -254,50 +401,59 @@ public class Informe extends Component {
                 PdfWriter.getInstance(doc, new FileOutputStream("Informe_" + nombre + "_" + apellido + "_" + labLegajoEmpleado.getText() + "_" + dpFechaDesde.getEditor().getText() + "_" + dpFechaHasta.getEditor().getText() + ".pdf"));
                 doc.open();
 
-                Paragraph paragraph = new Paragraph("INFORME DE PRESENTISMO DE " + nombre.toUpperCase() + " " + apellido.toUpperCase());
-                paragraph.setAlignment(Paragraph.ALIGN_CENTER);
-                var saltoLinea = new Paragraph(" ");
-                var fechas = new Paragraph("Fechas Desde: " + dpFechaDesde.getEditor().getText() + "                                                                  Fecha Hasta: " + dpFechaHasta.getEditor().getText());
-                PdfPTable tableTitulo = new PdfPTable(1);
-                tableTitulo.addCell("DATOS PERSONALES");
+                // Crear una tabla
+                PdfPTable tablaGeneral = new PdfPTable(1);
+                tablaGeneral.setWidthPercentage(100);
+                // Agregar contenido al documento
+                tablaGeneral.addCell(createCellNormal("Bida Miguel Marcelo Ivan                                                                                               INFORME-PRESENTISMO\nLote 8 - (3361) Los Helechos \nC.U.I.T.: 23-32844652-9                                                                                   Período:  " + dpFechaDesde.getEditor().getText() + "  |  " + dpFechaHasta.getEditor().getText(), FontFactory.getFont(FontFactory.HELVETICA, 10)));
 
-                PdfPTable tableDatos = new PdfPTable(2);
-                tableDatos.addCell("Legajo:"); tableDatos.addCell("" + legajo);
-                tableDatos.addCell("Nombre:"); tableDatos.addCell("" + nombre);
-                tableDatos.addCell("Apellido:"); tableDatos.addCell("" + apellido);
-                tableDatos.addCell("DNI:"); tableDatos.addCell("" + dni);
-                tableDatos.addCell("Teléfono:"); tableDatos.addCell("" + telefono);
-                tableDatos.addCell("E-mail:"); tableDatos.addCell("" + email);
-                tableDatos.addCell("Area:"); tableDatos.addCell("" + area);
-                tableDatos.addCell("Puesto:"); tableDatos.addCell("" + puesto);
+                // Datos Personales
+                PdfPTable tablaInformacionPersonal = new PdfPTable(6);
+                tablaInformacionPersonal.setWidthPercentage(100);
+                tablaInformacionPersonal.addCell(createCell("Legajo\n\n" + legajo, FontFactory.getFont(FontFactory.HELVETICA, 9)));
+                tablaInformacionPersonal.addCell(createCell("Nombre y Apellido\n\n" + nombre + " " + apellido, FontFactory.getFont(FontFactory.HELVETICA, 9)));
+                tablaInformacionPersonal.addCell(createCell("DNI\n\n" + dni, FontFactory.getFont(FontFactory.HELVETICA, 9)));
+                tablaInformacionPersonal.addCell(createCell("Fecha Ing.\n\n" + fechaModificadaIngreso, FontFactory.getFont(FontFactory.HELVETICA, 9)));
+                tablaInformacionPersonal.addCell(createCell("Area\n\n" + area, FontFactory.getFont(FontFactory.HELVETICA, 9)));
+                tablaInformacionPersonal.addCell(createCell("Puesto\n\n" + puesto, FontFactory.getFont(FontFactory.HELVETICA, 9)));
 
-                PdfPTable table = new PdfPTable(3);
-                table.addCell("Unidades"); table.addCell("Concepto"); table.addCell("Cantidad");
+                // Descripción
+                PdfPTable tablaDescripcion = new PdfPTable(2);
+                tablaDescripcion.setWidthPercentage(100);
+                tablaDescripcion.addCell(createCell2("DESCRIPCIÓN", FontFactory.getFont(FontFactory.HELVETICA, 9)));
+                tablaDescripcion.addCell(createCell2("CANTIDAD", FontFactory.getFont(FontFactory.HELVETICA, 9)));
 
-                table.addCell("(Días)");
-                table.addCell("Total de Ausencias:");
-                table.addCell( "" + cantAusencias);
+                // Datos
+                PdfPTable tablaDatos = new PdfPTable(2);
+                tablaDatos.setWidthPercentage(100);
+                PdfPCell cellConcepto = createCellNormal("# Días Trabajados \n\n# Horas Trabajados \n\n# Días Ausentes", FontFactory.getFont(FontFactory.HELVETICA, 10));
+                tablaDatos.addCell(cellConcepto);
+                PdfPCell cellCantidad = createCellNormal("  " + cantDiasTrabajadas + "\n\n  " + cantHorasTrabajadas + "\n\n  " + cantAusencias, FontFactory.getFont(FontFactory.HELVETICA, 10));
+                tablaDatos.addCell(cellCantidad);
 
-                table.addCell("(Días)");
-                table.addCell("Total de Licencias:");
-                table.addCell( "" + cantLicencias);
+                // Datos Tipos de Licencias
+                PdfPTable tablaDatosLicencia = new PdfPTable(2);
+                tablaDatosLicencia.setWidthPercentage(100);
+                PdfPCell cellConcepto2 = createCellNormal("Vacaciones \n\nEnfermedad \n\nAccidente \n\nMatrimonio \n\nMuerte Familiar", FontFactory.getFont(FontFactory.HELVETICA, 10));
+                tablaDatosLicencia.addCell(cellConcepto2);
+                PdfPCell cellCantidad2 = createCellNormal("  " + cantLicenciasVacacionesString + "\n\n  " + cantLicenciasEnfermedadString + "\n\n  " + cantLicenciasAccidenteString + "\n\n  " + cantLicenciasMatrimonioString + "\n\n  " + cantLicenciasMuerteFamiliarString, FontFactory.getFont(FontFactory.HELVETICA, 10));
+                tablaDatosLicencia.addCell(cellCantidad2);
 
-                table.addCell("(Días)");
-                table.addCell("Total Trabajadas:");
-                table.addCell( "" + cantDiasTrabajadas);
+                // Datos del Total de Días de Licencias
+                PdfPTable tablaLicencia = new PdfPTable(2);
+                tablaLicencia.setWidthPercentage(100);
+                PdfPCell cellDescripcionLicencia = createCell3("  # Total Días Licencias", FontFactory.getFont(FontFactory.HELVETICA, 10));
+                tablaLicencia.addCell(cellDescripcionLicencia);
+                PdfPCell cellCantidadLicencia = createCell3("   " + cantLicencias, FontFactory.getFont(FontFactory.HELVETICA, 10));
+                tablaLicencia.addCell(cellCantidadLicencia);
 
-                table.addCell("(Horas)");
-                table.addCell("Total Trabajadas:");
-                table.addCell("" + cantHorasTrabajadas);
-
-                doc.add(paragraph);
-                doc.add(saltoLinea);
-                doc.add(fechas);
-                doc.add(saltoLinea);
-                doc.add(tableTitulo);
-                doc.add(tableDatos);
-                doc.add(saltoLinea);
-                doc.add(table);
+                // Agregar la tabla al documento
+                doc.add(tablaGeneral);
+                doc.add(tablaInformacionPersonal);
+                doc.add(tablaDescripcion);
+                doc.add(tablaDatos);
+                doc.add(tablaDatosLicencia);
+                doc.add(tablaLicencia);
                 doc.close();
 
                 File archivo = new File("Informe_" + nombre + "_" + apellido + "_" + labLegajoEmpleado.getText() + "_" + dpFechaDesde.getEditor().getText() + "_" + dpFechaHasta.getEditor().getText() + ".pdf");
@@ -325,5 +481,32 @@ public class Informe extends Component {
                 System.err.println("Error: " + ex.getMessage());
             }
         }
+    }
+
+    private static PdfPCell createCell(String content, Font font) {
+        PdfPCell cell = new PdfPCell(new Phrase(content, font));
+        cell.setPadding(8);
+        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+        return cell;
+    }
+
+    private static PdfPCell createCell2(String content, Font font) {
+        PdfPCell cell = new PdfPCell(new Phrase(content, font));
+        cell.setPadding(5);
+        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+        return cell;
+    }
+
+    private static PdfPCell createCell3(String content, Font font) {
+        PdfPCell cell = new PdfPCell(new Phrase(content, font));
+        cell.setPadding(6);
+        cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+        return cell;
+    }
+
+    private static PdfPCell createCellNormal(String content, Font font) {
+        PdfPCell cell = new PdfPCell(new Paragraph(content, font));
+        cell.setPadding(10);
+        return cell;
     }
 }
