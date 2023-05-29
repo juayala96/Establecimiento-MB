@@ -298,7 +298,7 @@ public class PreRecibo {
                 PdfPTable tablaCuerpo = new PdfPTable(4);
                 tablaCuerpo.setWidthPercentage(100);
                 if(cantLicencias > 0){
-                    tablaCuerpo.addCell(createCellNormal("Días Trabajados \n\nAntigüedad \n\nDías Licencias \n\nRetroactive \n\nJubilación CCG \n\nLey 19032 CCG \n\nObra Social CCG \n\nSeguro de Sepelio \n\nCuota Solid. Agraria", FontFactory.getFont(FontFactory.HELVETICA, 10)));
+                    tablaCuerpo.addCell(createCellNormal("Días Trabajados \n\nAntigüedad \n\nDías Licencias \n\nRetroactivo \n\nJubilación CCG \n\nLey 19032 CCG \n\nObra Social CCG \n\nSeguro de Sepelio \n\nCuota Solid. Agraria", FontFactory.getFont(FontFactory.HELVETICA, 10)));
 
                     // Unidades
                     tablaCuerpo.addCell(createCellNormal(cantDiasTrabajadas +" \n\n" + porcentajeGananciaAntiguedad + " %\n\n" + cantLicencias + " \n\n" + rectroactivo + " %\n\n" + jubilacion + " %\n\n" + ley + " %\n\n"  + obraSocial + " %\n\n" + seguroSepelio + " %\n\n" + cuotaAgraria + " %",FontFactory.getFont(FontFactory.HELVETICA, 10)));
