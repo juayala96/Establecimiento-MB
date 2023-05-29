@@ -514,6 +514,7 @@ public class ControladorLicencias {
         textBuscarLegajoEmpleado.setText("");
         tablaListaEmpleados.getItems().setAll(listEmpleadoLicencia);
         cbTiposFiltrosLicencia.getSelectionModel().selectFirst();
+        inicializarTablaListaEmpleados();
         inicializarTablaLicencias();
         limpiarCamposModificar();
         limpiarCamposEliminar();

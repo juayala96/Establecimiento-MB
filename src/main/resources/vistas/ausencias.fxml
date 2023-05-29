@@ -712,16 +712,16 @@
                               <Font name="Georgia" size="28.0" />
                            </font>
                         </Label>
-                        <TableView fx:id="tablaListaEmpleados1" layoutX="129.0" layoutY="202.0" prefHeight="456.0" prefWidth="606.0">
+                        <TableView fx:id="tablaListaEmpleadosPresentes" layoutX="129.0" layoutY="202.0" prefHeight="456.0" prefWidth="606.0">
                            <placeholder>
                               <Label text="No hay empleados presentes" />
                            </placeholder>
                            <columns>
-                              <TableColumn fx:id="colNombre1" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Nombre" />
-                              <TableColumn fx:id="colApellido1" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Apellido" />
-                              <TableColumn fx:id="colLegajo1" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Legajo" />
-                              <TableColumn fx:id="colDNI1" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="DNI" />
-                              <TableColumn fx:id="colIDEmpleado1" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="IDEmpleado" />
+                              <TableColumn fx:id="colNombrePresente" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Nombre" />
+                              <TableColumn fx:id="colApellidoPresente" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Apellido" />
+                              <TableColumn fx:id="colLegajoPresente" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Legajo" />
+                              <TableColumn fx:id="colDNIPresente" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="DNI" />
+                              <TableColumn fx:id="colIDEmpleadoPresente" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="IDEmpleado" />
                            </columns>
                            <cursor>
                               <Cursor fx:constant="HAND" />
@@ -732,16 +732,16 @@
                               <Font name="System Italic" size="24.0" />
                            </font>
                         </Label>
-                        <TableView fx:id="tablaListaEmpleados11" layoutX="801.0" layoutY="202.0" prefHeight="456.0" prefWidth="606.0">
+                        <TableView fx:id="tablaListaEmpleadosAusentesC" layoutX="801.0" layoutY="202.0" prefHeight="456.0" prefWidth="606.0">
                            <placeholder>
                               <Label text="No hay empleados ausentes" />
                            </placeholder>
                            <columns>
-                              <TableColumn fx:id="colNombre11" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Nombre" />
-                              <TableColumn fx:id="colApellido11" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Apellido" />
-                              <TableColumn fx:id="colLegajo11" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Legajo" />
-                              <TableColumn fx:id="colDNI11" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="DNI" />
-                              <TableColumn fx:id="colIDEmpleado11" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="IDEmpleado" />
+                              <TableColumn fx:id="colNombreAusenteC" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Nombre" />
+                              <TableColumn fx:id="colApellidoAusenteC" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Apellido" />
+                              <TableColumn fx:id="colLegajoAusenteC" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Legajo" />
+                              <TableColumn fx:id="colDNIAusenteC" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="DNI" />
+                              <TableColumn fx:id="colIDEmpleadoAusenteC" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="IDEmpleado" />
                            </columns>
                            <cursor>
                               <Cursor fx:constant="HAND" />

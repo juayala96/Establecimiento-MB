@@ -153,6 +153,11 @@
             <Font name="Candara Italic" size="36.0" />
          </font>
       </Label>
+      <Label fx:id="labEmpleadoAusenteActual" layoutX="204.0" layoutY="673.0" prefHeight="30.0" prefWidth="336.0" textFill="#bc0f0f">
+         <font>
+            <Font name="Consolas" size="18.0" />
+         </font>
+      </Label>
    </children>
    <opaqueInsets>
       <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />

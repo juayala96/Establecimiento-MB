@@ -1,9 +1,6 @@
 package com.secadero.controlador;
 
-import com.secadero.modelo.ausencia.CrearAusencia;
-import com.secadero.modelo.ausencia.EliminarAusencia;
-import com.secadero.modelo.ausencia.LeerAusencia;
-import com.secadero.modelo.ausencia.ModificarAusencia;
+import com.secadero.modelo.ausencia.*;
 import com.secadero.modelo.empleados.LeerEmpleado;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -21,6 +18,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Objects;
 import java.util.Optional;
+
+import static com.secadero.modelo.ausencia.ConsultaAsistencia.listaEmpleadoPresentes;
 
 public class ControladorAusencias {
     public ControladorAusencias(){}
@@ -208,6 +207,30 @@ public class ControladorAusencias {
     @FXML
     private TextArea textMotivoModificar;
     @FXML
+    private TableView<ConsultaAsistencia> tablaListaEmpleadosPresentes;
+    @FXML
+    private TableView<ConsultaAsistencia> tablaListaEmpleadosAusentesC;
+    @FXML
+    private TableColumn<ConsultaAsistencia, String> colNombrePresente;
+    @FXML
+    private TableColumn<ConsultaAsistencia, String> colApellidoPresente;
+    @FXML
+    private TableColumn<ConsultaAsistencia, Integer> colLegajoPresente;
+    @FXML
+    private TableColumn<ConsultaAsistencia, Integer> colDNIPresente;
+    @FXML
+    private TableColumn<ConsultaAsistencia, Integer> colIDEmpleadoPresente;
+    @FXML
+    private TableColumn<ConsultaAsistencia, String> colNombreAusenteC;
+    @FXML
+    private TableColumn<ConsultaAsistencia, String> colApellidoAusenteC;
+    @FXML
+    private TableColumn<ConsultaAsistencia, Integer> colLegajoAusenteC;
+    @FXML
+    private TableColumn<ConsultaAsistencia, Integer> colDNIAusenteC;
+    @FXML
+    private TableColumn<ConsultaAsistencia, Integer> colIDEmpleadoAusenteC;
+    @FXML
     private TextField textBuscarLegajoEmpleadoCrear;
 
     ObservableList<LeerEmpleado> listTablaEmpleados;
@@ -218,6 +241,9 @@ public class ControladorAusencias {
 
     ObservableList<LeerEmpleado> listEmpleadoAusencia;
     int index3 = -1;
+
+    ObservableList<ConsultaAsistencia> listTablaEmpleadosPresentes;
+    ObservableList<ConsultaAsistencia> listTablaEmpleadosAusenteC;
 
     // -------------------------------------------- Inicialización ----------------------------------------------
     public void initialize() {
@@ -231,6 +257,7 @@ public class ControladorAusencias {
         getCertificadoCrear();
         getCertificadoModificar();
         fechasInicializar();
+        listaEmpleadoPresentes();
     }
 
     // ----------------------------------------- Tabla de Empleados ---------------------------------------------
@@ -272,6 +299,30 @@ public class ControladorAusencias {
         listEmpleadoAusencia = LeerEmpleado.listaEmpleadoGeneral();
         tabEmpleadosCrear.getColumns().setAll(colNombreEmpleadoCrear, colApellidoEmpleadoCrear, colLegajoEmpleadoCrear, colDNIEmpleadoCrear, colTelefonoEmpleadoCrear, colIDEmpleadoCrear);
         tabEmpleadosCrear.getItems().setAll(listEmpleadoAusencia);
+    }
+
+    public void inicializarTablaListaEmpleadosPresentes(){
+        colNombrePresente.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("nombre"));
+        colApellidoPresente.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("apellido"));
+        colLegajoPresente.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, Integer>("legajo"));
+        colDNIPresente.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, Integer>("dni"));
+        colIDEmpleadoPresente.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, Integer>("idempleados"));
+
+        listTablaEmpleadosPresentes = listaEmpleadoPresentes();
+        tablaListaEmpleadosPresentes.getColumns().setAll(colNombrePresente, colApellidoPresente, colLegajoPresente, colDNIPresente, colIDEmpleadoPresente);
+        tablaListaEmpleadosPresentes.getItems().setAll(listTablaEmpleadosPresentes);
+    }
+
+    public void inicializarTablaListaEmpleadosAusenteC(){
+        colNombreAusenteC.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("nombre"));
+        colApellidoAusenteC.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("apellido"));
+        colLegajoAusenteC.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, Integer>("legajo"));
+        colDNIAusenteC.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, Integer>("dni"));
+        colIDEmpleadoAusenteC.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, Integer>("idempleados"));
+
+        listTablaEmpleadosAusenteC = ConsultaAsistencia.listaEmpleadoAsusenteC();
+        tablaListaEmpleadosAusentesC.getColumns().setAll(colDNIAusenteC, colDNIAusenteC, colDNIAusenteC, colDNIAusenteC, colIDEmpleadoPresente);
+        tablaListaEmpleadosAusentesC.getItems().setAll(listTablaEmpleadosAusenteC);
     }
 
     // ------------------------------------- Tomo todos los datos al Seleccionar en la tabla ------------------------
@@ -395,6 +446,7 @@ public class ControladorAusencias {
         textBuscarLegajoEmpleado.setText("");
         tablaListaEmpleados.getItems().setAll(listEmpleadoAusencia);
         cbTiposFiltrosAusencias.getSelectionModel().selectFirst();
+        inicializarTablaListaEmpleados();
         inicializarTablaAusencias();
         limpiarCamposModificar();
         limpiarCamposEliminar();

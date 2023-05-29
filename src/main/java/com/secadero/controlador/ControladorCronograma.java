@@ -501,7 +501,7 @@ public class ControladorCronograma {
     public void cambioDeItem(ObservableValue<? extends String> observable, String valorAntiguo, String valorActual){
         if(valorActual.equals("Dia")){
             textHoraEntradaCrear.setText("12:00");
-            textHoraSalidaCrear.setText("00:00");
+            textHoraSalidaCrear.setText("23:59");
         } else if(valorActual.equals("Noche")){
             textHoraEntradaCrear.setText("00:00");
             textHoraSalidaCrear.setText("12:00");
@@ -511,7 +511,7 @@ public class ControladorCronograma {
     public void cambioDeItem2(ObservableValue<? extends String> observable, String valorAntiguo, String valorActual){
         if(valorActual.equals("Dia")){
             textHoraEntradaModificar.setText("12:00");
-            textHoraSalidaModificar.setText("00:00");
+            textHoraSalidaModificar.setText("23:59");
         } else if(valorActual.equals("Noche")){
             textHoraEntradaModificar.setText("00:00");
             textHoraSalidaModificar.setText("12:00");
@@ -521,7 +521,7 @@ public class ControladorCronograma {
     public void cambioDeItem3(ObservableValue<? extends String> observable, String valorAntiguo, String valorActual){
         if(valorActual.equals("Dia")){
             textHoraEntradaEliminar.setText("12:00");
-            textHoraSalidaEliminar.setText("00:00");
+            textHoraSalidaEliminar.setText("23:59");
         } else if(valorActual.equals("Noche")){
             textHoraEntradaEliminar.setText("00:00");
             textHoraSalidaEliminar.setText("12:00");
@@ -582,6 +582,7 @@ public class ControladorCronograma {
         textBuscarLegajoEmpleado.setText("");
         tablaListaEmpleados.getItems().setAll(listTablaEmpleadosDisponible);
         cbTiposFiltrosCronograma.getSelectionModel().selectFirst();
+        inicializarTablaListaEmpleadosDisponible();
         inicializarTablaCronograma();
         limpiarCamposModificar();
         limpiarCamposEliminar();
