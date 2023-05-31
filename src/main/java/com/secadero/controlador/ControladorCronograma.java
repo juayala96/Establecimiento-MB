@@ -971,6 +971,8 @@ public class ControladorCronograma {
         }
         comboBoxCrear();
         fechasInicializar();
+        labNombreEmpleadoAgregadoCrear.setText("");
+        labApellidoEmpleadoAgregadoCrear.setText("");
     }
 
     private void limpiarCamposModificar(){

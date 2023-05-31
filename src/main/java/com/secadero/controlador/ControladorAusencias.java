@@ -19,8 +19,6 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.Optional;
 
-import static com.secadero.modelo.ausencia.ConsultaAsistencia.listaEmpleadoPresentes;
-
 public class ControladorAusencias {
     public ControladorAusencias(){}
 
@@ -257,7 +255,6 @@ public class ControladorAusencias {
         getCertificadoCrear();
         getCertificadoModificar();
         fechasInicializar();
-        listaEmpleadoPresentes();
     }
 
     // ----------------------------------------- Tabla de Empleados ---------------------------------------------
@@ -308,9 +305,12 @@ public class ControladorAusencias {
         colDNIPresente.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, Integer>("dni"));
         colIDEmpleadoPresente.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, Integer>("idempleados"));
 
+        /*
         listTablaEmpleadosPresentes = listaEmpleadoPresentes();
         tablaListaEmpleadosPresentes.getColumns().setAll(colNombrePresente, colApellidoPresente, colLegajoPresente, colDNIPresente, colIDEmpleadoPresente);
         tablaListaEmpleadosPresentes.getItems().setAll(listTablaEmpleadosPresentes);
+
+         */
     }
 
     public void inicializarTablaListaEmpleadosAusenteC(){
@@ -320,9 +320,12 @@ public class ControladorAusencias {
         colDNIAusenteC.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, Integer>("dni"));
         colIDEmpleadoAusenteC.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, Integer>("idempleados"));
 
+        /*
         listTablaEmpleadosAusenteC = ConsultaAsistencia.listaEmpleadoAsusenteC();
         tablaListaEmpleadosAusentesC.getColumns().setAll(colDNIAusenteC, colDNIAusenteC, colDNIAusenteC, colDNIAusenteC, colIDEmpleadoPresente);
         tablaListaEmpleadosAusentesC.getItems().setAll(listTablaEmpleadosAusenteC);
+
+         */
     }
 
     // ------------------------------------- Tomo todos los datos al Seleccionar en la tabla ------------------------
