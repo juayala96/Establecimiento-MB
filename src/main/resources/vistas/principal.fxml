@@ -10,7 +10,9 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="749.0" prefWidth="1536.0" style="-fx-background-color: #7dc8cc;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.secadero.controlador.ControladorPrincipal">
+
    <children>
+
       <Button fx:id="btnUsuarios" graphicTextGap="6.0" layoutX="204.0" layoutY="375.0" mnemonicParsing="false" onAction="#Usuarios" prefHeight="74.0" prefWidth="336.0" text="Usuarios" textFill="#110043">
          <font>
             <Font name="System Bold" size="26.0" />
