@@ -15,7 +15,8 @@ public class LeerAusencia {
     private String certificado;
     private int idausencias;
 
-    public LeerAusencia(){}
+    public LeerAusencia() {
+    }
 
     public LeerAusencia(String fecha, String motivo, String justificado, String certificado, int idausencias) {
         this.fecha = fecha;
@@ -66,7 +67,7 @@ public class LeerAusencia {
     }
 
     //------------------------------------------- Leer Ausencias --------------------------------------------------
-    public static ObservableList<LeerAusencia> listaAusencia(Label labIDEmpleadoLista){
+    public static ObservableList<LeerAusencia> listaAusencia(Label labIDEmpleadoLista) {
         Connection con = Conexion.leerConexion();
         PreparedStatement pstm = null;
         ResultSet rs = null;
@@ -78,7 +79,7 @@ public class LeerAusencia {
             pstm.setInt(2, Integer.parseInt(labIDEmpleadoLista.getText()));
             rs = pstm.executeQuery();
 
-            while (rs.next()){
+            while (rs.next()) {
                 String fecha = rs.getString("fecha");
                 String fechaAnio = fecha.substring(0, 4);
                 String fechaMes = fecha.substring(5, 7);
@@ -94,7 +95,7 @@ public class LeerAusencia {
                 if (rs != null) rs.close();
                 if (pstm != null) pstm.close();
                 if (con != null) con.close();
-            } catch (Exception ex){
+            } catch (Exception ex) {
                 System.err.println("Error: " + ex.getMessage());
             }
         }
@@ -102,7 +103,7 @@ public class LeerAusencia {
     }
 
     //-------------------------------------- Leer Ausencias Comprobación ----------------------------------------------
-    public void listaAusenciaComprobacion(Label labIDEmpleadoLista, Label labIDAusenciaLista, Label labResultadoID){
+    public void listaAusenciaComprobacion(Label labIDEmpleadoLista, Label labIDAusenciaLista, Label labResultadoID) {
         Connection con = Conexion.leerConexion();
         PreparedStatement pstm = null;
         ResultSet rs = null;
@@ -115,12 +116,12 @@ public class LeerAusencia {
             pstm.setInt(3, Integer.parseInt(labIDAusenciaLista.getText()));
             rs = pstm.executeQuery();
 
-            while (rs.next()){
+            while (rs.next()) {
                 labResultadoID.setText("YES");
-                cont +=1;
+                cont += 1;
             }
 
-            if(cont == 0){
+            if (cont == 0) {
                 labResultadoID.setText("NO");
             }
         } catch (SQLException ex) {
@@ -130,14 +131,14 @@ public class LeerAusencia {
                 if (rs != null) rs.close();
                 if (pstm != null) pstm.close();
                 if (con != null) con.close();
-            } catch (Exception ex){
+            } catch (Exception ex) {
                 System.err.println("Error: " + ex.getMessage());
             }
         }
     }
 
     //---------------------------------------- Buscar Ausencia Fecha --------------------------------------------------
-    public static ObservableList<LeerAusencia> buscarAusenciaFecha(Label labIDEmpleadoLista, DatePicker dpBuscarFecha){
+    public static ObservableList<LeerAusencia> buscarAusenciaFecha(Label labIDEmpleadoLista, DatePicker dpBuscarFecha) {
         Connection con = Conexion.leerConexion();
         PreparedStatement pstm = null;
         ResultSet rs = null;
@@ -156,7 +157,7 @@ public class LeerAusencia {
             pstm.setDate(3, Date.valueOf(fechaBusqueda));
             rs = pstm.executeQuery();
 
-            while (rs.next()){
+            while (rs.next()) {
                 String fecha2 = rs.getString("fecha");
                 String fechaAnio2 = fecha2.substring(0, 4);
                 String fechaMes2 = fecha2.substring(5, 7);
@@ -172,51 +173,11 @@ public class LeerAusencia {
                 if (rs != null) rs.close();
                 if (pstm != null) pstm.close();
                 if (con != null) con.close();
-            } catch (Exception ex){
+            } catch (Exception ex) {
                 System.err.println("Error: " + ex.getMessage());
             }
         }
         return lista;
     }
 
-    //------------------------------------------- Filtro Ausencia --------------------------------------------------
-    public static ObservableList<LeerAusencia> filtroAusencia(ComboBox<String> cbTiposFiltrosAusencias, Label labIDEmpleadoLista){
-        Connection con = Conexion.leerConexion();
-        PreparedStatement pstm = null;
-        ResultSet rs = null;
-        ObservableList<LeerAusencia> lista = FXCollections.observableArrayList();
-        String dato = cbTiposFiltrosAusencias.getSelectionModel().getSelectedItem().toLowerCase();
-
-        if(labIDEmpleadoLista.getText().equals("")){
-            labIDEmpleadoLista.setText("0");
-        }
-
-        try {
-            pstm = con.prepareStatement("SELECT fecha, motivo, justificado, certificado, idausencias FROM ausencias INNER JOIN empleados ON ausencias.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND empleados.idempleados = ? ORDER BY " + dato +" DESC");
-            pstm.setString(1, "Vigente");
-            pstm.setInt(2, Integer.parseInt(labIDEmpleadoLista.getText()));
-            rs = pstm.executeQuery();
-
-            while (rs.next()){
-                String fecha = rs.getString("fecha");
-                String fechaAnio = fecha.substring(0, 4);
-                String fechaMes = fecha.substring(5, 7);
-                String fechaDia = fecha.substring(8, 10);
-                String fechaModificada = (fechaDia + "-" + fechaMes + "-" + fechaAnio);
-
-                lista.add(new LeerAusencia(fechaModificada, rs.getString("motivo"), rs.getString("justificado"), rs.getString("certificado"), rs.getInt("idausencias")));
-            }
-        } catch (SQLException ex) {
-            System.err.println("Error: " + ex.getMessage());
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (pstm != null) pstm.close();
-                if (con != null) con.close();
-            } catch (Exception ex){
-                System.err.println("Error: " + ex.getMessage());
-            }
-        }
-        return lista;
-        }
-    }
+}

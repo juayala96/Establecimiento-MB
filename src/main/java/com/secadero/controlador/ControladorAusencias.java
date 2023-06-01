@@ -53,8 +53,6 @@ public class ControladorAusencias {
     @FXML
     private Button btnVolver;
     @FXML
-    private ComboBox<String> cbTiposFiltrosAusencias;
-    @FXML
     private TableColumn<LeerEmpleado, String> colApellido;
     @FXML
     private TableColumn<LeerEmpleado, Integer> colLegajoEmpleadoCrear;
@@ -185,6 +183,12 @@ public class ControladorAusencias {
     @FXML
     private Tab tabConsultaAsistencia;
     @FXML
+    private Tab tabConsultaSalida;
+    @FXML
+    private Tab tabRegistroEntrada;
+    @FXML
+    private Tab tabRegistroSalida;
+    @FXML
     private TableView<LeerEmpleado> tablaListaEmpleados;
     @FXML
     private TableView<LeerAusencia> tablaAusencias;
@@ -205,29 +209,137 @@ public class ControladorAusencias {
     @FXML
     private TextArea textMotivoModificar;
     @FXML
+    private TableView<ConsultaAsistencia> tablaCronogramaAsistencia;
+    @FXML
     private TableView<ConsultaAsistencia> tablaListaEmpleadosPresentes;
     @FXML
-    private TableView<ConsultaAsistencia> tablaListaEmpleadosAusentesC;
+    private TableView<ConsultaAsistencia> tablaCronogramaSalida;
     @FXML
-    private TableColumn<ConsultaAsistencia, String> colNombrePresente;
+    private TableView<ConsultaAsistencia> tablaListaEmpleadosSalida;
     @FXML
-    private TableColumn<ConsultaAsistencia, String> colApellidoPresente;
+    private DatePicker dpBuscarFechaAsistencia;
     @FXML
-    private TableColumn<ConsultaAsistencia, Integer> colLegajoPresente;
+    private DatePicker dpBuscarFechaSalida;
     @FXML
-    private TableColumn<ConsultaAsistencia, Integer> colDNIPresente;
+    private ComboBox<String> cbTurnoAsistencia;
     @FXML
-    private TableColumn<ConsultaAsistencia, Integer> colIDEmpleadoPresente;
+    private ComboBox<String> cbTurnoSalida;
     @FXML
-    private TableColumn<ConsultaAsistencia, String> colNombreAusenteC;
+    private TextField textBuscarLegajoEmpleadoAsistencia;
     @FXML
-    private TableColumn<ConsultaAsistencia, String> colApellidoAusenteC;
+    private TextField textBuscarLegajoEmpleadoSalida;
     @FXML
-    private TableColumn<ConsultaAsistencia, Integer> colLegajoAusenteC;
+    private Button btnConsultaAsistenciaC;
     @FXML
-    private TableColumn<ConsultaAsistencia, Integer> colDNIAusenteC;
+    private Button btnConsultaSalida;
     @FXML
-    private TableColumn<ConsultaAsistencia, Integer> colIDEmpleadoAusenteC;
+    private Button btnBuscarEmpleadoAsistencia;
+    @FXML
+    private Button btnBuscarEmpleadoSalida;
+    @FXML
+    private Label labCantidadCronograma;
+    @FXML
+    private Label labCantidadPresentes;
+    @FXML
+    private Label labCantidadCronogramaS;
+    @FXML
+    private Label labCantidadS;
+    @FXML
+    private Button btnRegresarCCLista;
+    @FXML
+    private Button btnVerificarSalida;
+    @FXML
+    private Button btnRegistrarEntrada;
+    @FXML
+    private Button btnRegistrarAusenciaA;
+    @FXML
+    private Button btnRegresarAsistenciaS;
+    @FXML
+    private Button btnRegistrarSalida;
+    @FXML
+    private Button btnRegresarAsistenciaEntrada;
+    @FXML
+    private Button btnMarcarEntrada;
+    @FXML
+    private Button btnRegresarAsistenciaSalida;
+    @FXML
+    private Button btnMarcarSalida;
+    @FXML
+    private TableColumn<ConsultaAsistencia, String> colNombreAsistenciaCE;
+    @FXML
+    private TableColumn<ConsultaAsistencia, String> colApellidoAsistenciaCE;
+    @FXML
+    private TableColumn<ConsultaAsistencia, Integer> colLegajoAsistenciaCE;
+    @FXML
+    private TableColumn<ConsultaAsistencia, String> colTurnoAsistenciaCE;
+    @FXML
+    private TableColumn<ConsultaAsistencia, String> colFechaAsistenciaCE;
+    @FXML
+    private TableColumn<ConsultaAsistencia, String> colHoraEntradaAsistenciaCE;
+    @FXML
+    private TableColumn<ConsultaAsistencia, String> colHoraSalidaAsistenciaCE;
+    @FXML
+    private TableColumn<ConsultaAsistencia, Integer> colIDCronogramaAsistenciaCE;
+    @FXML
+    private TableColumn<ConsultaAsistencia, String> colNombreEntrada;
+    @FXML
+    private TableColumn<ConsultaAsistencia, String> colApellidoEntrada;
+    @FXML
+    private TableColumn<ConsultaAsistencia, Integer> colLegajoEntrada;
+    @FXML
+    private TableColumn<ConsultaAsistencia, String> colFechaEntrada;
+    @FXML
+    private TableColumn<ConsultaAsistencia, String> colHoraEntrada;
+    @FXML
+    private TableColumn<ConsultaAsistencia, Integer> colIDEmpleadoEntrada;
+    @FXML
+    private TableColumn<ConsultaAsistencia, String> colNombreAsistenciaCS;
+    @FXML
+    private TableColumn<ConsultaAsistencia, String> colApellidoAsistenciaCS;
+    @FXML
+    private TableColumn<ConsultaAsistencia, Integer> colLegajoAsistenciaCS;
+    @FXML
+    private TableColumn<ConsultaAsistencia, String> colTurnoAsistenciaCS;
+    @FXML
+    private TableColumn<ConsultaAsistencia, String> colFechaAsistenciaCS;
+    @FXML
+    private TableColumn<ConsultaAsistencia, String> colHoraEntradaAsistenciaCS;
+    @FXML
+    private TableColumn<ConsultaAsistencia, String> colHoraSalidaAsistenciaCS;
+    @FXML
+    private TableColumn<ConsultaAsistencia, Integer> colIDCronogramaAsistenciaCS;
+    @FXML
+    private TableColumn<ConsultaAsistencia, String> colNombreSalida;
+    @FXML
+    private TableColumn<ConsultaAsistencia, String> colApellidoSalida;
+    @FXML
+    private TableColumn<ConsultaAsistencia, Integer> colLegajoSalida;
+    @FXML
+    private TableColumn<ConsultaAsistencia, String> colFechaSalida;
+    @FXML
+    private TableColumn<ConsultaAsistencia, String> colHoraSalida;
+    @FXML
+    private TableColumn<ConsultaAsistencia, Integer> colIDEmpleadoSalida;
+    @FXML
+    private Label labNombreEmpleadoEntrada;
+    @FXML
+    private Label labApellidoEmpleadoEntrada;
+    @FXML
+    private Label labLegajoEmpleadoEntrada;
+    @FXML
+    private Label labNombreEmpleadoSalida;
+    @FXML
+    private Label labApellidoEmpleadoSalida;
+    @FXML
+    private Label labLegajoEmpleadoSalida;
+    @FXML
+    private Label labErrorHoraEntrada;
+    @FXML
+    private Label labErrorHoraSalida;
+    @FXML
+    private TextField textHoraEntrada;
+    @FXML
+    private TextField textHoraSalida;
     @FXML
     private TextField textBuscarLegajoEmpleadoCrear;
 
@@ -240,14 +352,10 @@ public class ControladorAusencias {
     ObservableList<LeerEmpleado> listEmpleadoAusencia;
     int index3 = -1;
 
-    ObservableList<ConsultaAsistencia> listTablaEmpleadosPresentes;
-    ObservableList<ConsultaAsistencia> listTablaEmpleadosAusenteC;
+    String regresarConsultaAsistenia = "0";
 
     // -------------------------------------------- Inicialización ----------------------------------------------
     public void initialize() {
-        String[] tipoFiltro = {"Nombre", "Legajo", "DNI", "Justificado", "Certificado"};
-        cbTiposFiltrosAusencias.getItems().addAll(tipoFiltro);
-        cbTiposFiltrosAusencias.getSelectionModel().selectFirst();
         inicializarTablaListaEmpleados();
         inicializarTablaEmpleado();
         getJustificadoCrear();
@@ -296,36 +404,6 @@ public class ControladorAusencias {
         listEmpleadoAusencia = LeerEmpleado.listaEmpleadoGeneral();
         tabEmpleadosCrear.getColumns().setAll(colNombreEmpleadoCrear, colApellidoEmpleadoCrear, colLegajoEmpleadoCrear, colDNIEmpleadoCrear, colTelefonoEmpleadoCrear, colIDEmpleadoCrear);
         tabEmpleadosCrear.getItems().setAll(listEmpleadoAusencia);
-    }
-
-    public void inicializarTablaListaEmpleadosPresentes(){
-        colNombrePresente.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("nombre"));
-        colApellidoPresente.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("apellido"));
-        colLegajoPresente.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, Integer>("legajo"));
-        colDNIPresente.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, Integer>("dni"));
-        colIDEmpleadoPresente.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, Integer>("idempleados"));
-
-        /*
-        listTablaEmpleadosPresentes = listaEmpleadoPresentes();
-        tablaListaEmpleadosPresentes.getColumns().setAll(colNombrePresente, colApellidoPresente, colLegajoPresente, colDNIPresente, colIDEmpleadoPresente);
-        tablaListaEmpleadosPresentes.getItems().setAll(listTablaEmpleadosPresentes);
-
-         */
-    }
-
-    public void inicializarTablaListaEmpleadosAusenteC(){
-        colNombreAusenteC.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("nombre"));
-        colApellidoAusenteC.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("apellido"));
-        colLegajoAusenteC.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, Integer>("legajo"));
-        colDNIAusenteC.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, Integer>("dni"));
-        colIDEmpleadoAusenteC.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, Integer>("idempleados"));
-
-        /*
-        listTablaEmpleadosAusenteC = ConsultaAsistencia.listaEmpleadoAsusenteC();
-        tablaListaEmpleadosAusentesC.getColumns().setAll(colDNIAusenteC, colDNIAusenteC, colDNIAusenteC, colDNIAusenteC, colIDEmpleadoPresente);
-        tablaListaEmpleadosAusentesC.getItems().setAll(listTablaEmpleadosAusenteC);
-
-         */
     }
 
     // ------------------------------------- Tomo todos los datos al Seleccionar en la tabla ------------------------
@@ -422,24 +500,20 @@ public class ControladorAusencias {
     }
 
     @FXML
-    private void filtroAusencia() {
-        String dato = cbTiposFiltrosAusencias.getSelectionModel().getSelectedItem().toLowerCase();
-        if(dato.equals("justificado") || dato.equals("certificado")){
-            ObservableList<LeerAusencia> listFiltros;
-            listFiltros = LeerAusencia.filtroAusencia(cbTiposFiltrosAusencias, labIDEmpleadoLista);
-            tablaAusencias.getItems().setAll(listFiltros);
-        } else {
-            ObservableList<LeerEmpleado> listFiltrosEmpleados;
-            listFiltrosEmpleados = LeerEmpleado.filtroEmpleadoGeneral(cbTiposFiltrosAusencias);
-            tablaListaEmpleados.getItems().setAll(listFiltrosEmpleados);
-        }
-    }
-
-    @FXML
     private void btnBuscarEmpleadoCrear(){
         ObservableList<LeerEmpleado> listBuscarEmpleadoCrear;
         listBuscarEmpleadoCrear = LeerEmpleado.buscarEmpleadoGeneralCrear(textBuscarLegajoEmpleadoCrear);
         tabEmpleadosCrear.getItems().setAll(listBuscarEmpleadoCrear);
+    }
+
+    @FXML
+    private void btnBuscarEmpleadoAsistencia(){
+
+    }
+
+    @FXML
+    private void btnBuscarEmpleadoSalida(){
+
     }
 
     @FXML
@@ -448,7 +522,6 @@ public class ControladorAusencias {
         labIDEmpleadoLista.setText("0");
         textBuscarLegajoEmpleado.setText("");
         tablaListaEmpleados.getItems().setAll(listEmpleadoAusencia);
-        cbTiposFiltrosAusencias.getSelectionModel().selectFirst();
         inicializarTablaListaEmpleados();
         inicializarTablaAusencias();
         limpiarCamposModificar();
@@ -551,6 +624,26 @@ public class ControladorAusencias {
         }
     }
 
+    @FXML
+    private void consultaAsistenciaGeneral(){
+
+    }
+
+    @FXML
+    private void consultaSalidaGeneral(){
+
+    }
+
+    @FXML
+    private void marcarEntrada(){
+
+    }
+
+    @FXML
+    private void marcarSalida(){
+
+    }
+
     //------------------------------------ Acciones Simples de los Botones --------------------------------------
     @FXML
     public void getJustificadoCrear(){
@@ -609,6 +702,7 @@ public class ControladorAusencias {
         SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasAusencias.getSelectionModel();
         modeloSeleccion.select(tabRegistrarAusencia);
         dpFechaCrear.requestFocus();
+        regresarConsultaAsistenia = "0";
     }
 
     @FXML
@@ -633,8 +727,13 @@ public class ControladorAusencias {
 
     @FXML
     private void regresarCLista() {
-        SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasAusencias.getSelectionModel();
-        modeloSeleccion.select(tabListaAusencias);
+        if(Objects.equals(regresarConsultaAsistenia, "0")){
+            SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasAusencias.getSelectionModel();
+            modeloSeleccion.select(tabListaAusencias);
+        } else if(Objects.equals(regresarConsultaAsistenia, "1")){
+            SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasAusencias.getSelectionModel();
+            modeloSeleccion.select(tabConsultaAsistencia);
+        }
     }
 
     @FXML
@@ -649,7 +748,51 @@ public class ControladorAusencias {
 
     @FXML
     private void regresarCCLista() {
-        regresarCLista();
+        SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasAusencias.getSelectionModel();
+        modeloSeleccion.select(tabListaAusencias);
+    }
+
+    @FXML
+    private void verificarSalida(){
+        SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasAusencias.getSelectionModel();
+        modeloSeleccion.select(tabConsultaSalida);
+    }
+
+    @FXML
+    private void registrarEntrada(){
+        SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasAusencias.getSelectionModel();
+        modeloSeleccion.select(tabRegistroEntrada);
+    }
+
+    @FXML
+    private void registrarAusenciaA(){
+        SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasAusencias.getSelectionModel();
+        modeloSeleccion.select(tabRegistrarAusencia);
+        regresarConsultaAsistenia = "1";
+    }
+
+    @FXML
+    private void regresarAsistenciaEntrada(){
+        SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasAusencias.getSelectionModel();
+        modeloSeleccion.select(tabConsultaAsistencia);
+    }
+
+    @FXML
+    private void regresarAsistenciaS(){
+        SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasAusencias.getSelectionModel();
+        modeloSeleccion.select(tabConsultaAsistencia);
+    }
+
+    @FXML
+    private void registrarSalida(){
+        SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasAusencias.getSelectionModel();
+        modeloSeleccion.select(tabRegistroSalida);
+    }
+
+    @FXML
+    private void regresarAsistenciaSalida(){
+        SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasAusencias.getSelectionModel();
+        modeloSeleccion.select(tabConsultaSalida);
     }
 
     @FXML
