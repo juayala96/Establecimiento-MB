@@ -14,6 +14,7 @@ import javafx.util.StringConverter;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Objects;
@@ -356,6 +357,11 @@ public class ControladorAusencias {
 
     // -------------------------------------------- Inicialización ----------------------------------------------
     public void initialize() {
+        String[] turnos = {"Dia", "Noche"};
+        cbTurnoAsistencia.getItems().addAll(turnos);
+        cbTurnoAsistencia.getSelectionModel().selectFirst();
+        cbTurnoSalida.getItems().addAll(turnos);
+        cbTurnoSalida.getSelectionModel().selectFirst();
         inicializarTablaListaEmpleados();
         inicializarTablaEmpleado();
         getJustificadoCrear();
@@ -363,6 +369,7 @@ public class ControladorAusencias {
         getCertificadoCrear();
         getCertificadoModificar();
         fechasInicializar();
+        fechasInicializarConsultas();
     }
 
     // ----------------------------------------- Tabla de Empleados ---------------------------------------------
@@ -626,12 +633,12 @@ public class ControladorAusencias {
 
     @FXML
     private void consultaAsistenciaGeneral(){
-
+        textBuscarLegajoEmpleadoAsistencia.setText("");
     }
 
     @FXML
     private void consultaSalidaGeneral(){
-
+        textBuscarLegajoEmpleadoSalida.setText("");
     }
 
     @FXML
@@ -762,6 +769,10 @@ public class ControladorAusencias {
     private void registrarEntrada(){
         SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasAusencias.getSelectionModel();
         modeloSeleccion.select(tabRegistroEntrada);
+        LocalTime horaActual = LocalTime.now();
+        int hora = horaActual.getHour();
+        int minuto = horaActual.getMinute();
+        textHoraEntrada.setText(hora + ":" + minuto);
     }
 
     @FXML
@@ -781,12 +792,17 @@ public class ControladorAusencias {
     private void regresarAsistenciaS(){
         SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasAusencias.getSelectionModel();
         modeloSeleccion.select(tabConsultaAsistencia);
+
     }
 
     @FXML
     private void registrarSalida(){
         SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasAusencias.getSelectionModel();
         modeloSeleccion.select(tabRegistroSalida);
+        LocalTime horaActual = LocalTime.now();
+        int hora = horaActual.getHour();
+        int minuto = horaActual.getMinute();
+        textHoraSalida.setText(hora + ":" + minuto);
     }
 
     @FXML
@@ -1000,6 +1016,36 @@ public class ControladorAusencias {
 
         dpFechaEliminar.setValue(LocalDate.now());
         dpFechaEliminar.setConverter(new StringConverter<LocalDate>() {
+            @Override
+            public String toString(LocalDate localDate) {
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                return dtf.format(localDate);
+            }
+
+            @Override
+            public LocalDate fromString(String s) {
+                return null;
+            }
+        });
+    }
+
+    public void fechasInicializarConsultas() {
+        dpBuscarFechaAsistencia.setValue(LocalDate.now());
+        dpBuscarFechaAsistencia.setConverter(new StringConverter<LocalDate>() {
+            @Override
+            public String toString(LocalDate localDate) {
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                return dtf.format(localDate);
+            }
+
+            @Override
+            public LocalDate fromString(String s) {
+                return null;
+            }
+        });
+
+        dpBuscarFechaSalida.setValue(LocalDate.now());
+        dpBuscarFechaSalida.setConverter(new StringConverter<LocalDate>() {
             @Override
             public String toString(LocalDate localDate) {
                 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");

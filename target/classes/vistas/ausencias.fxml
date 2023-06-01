@@ -770,7 +770,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <ComboBox fx:id="cbTurnoAsistencia" layoutX="636.0" layoutY="141.0" prefHeight="42.0" prefWidth="140.0" style="-fx-font-size: 16;">
+                        <ComboBox fx:id="cbTurnoAsistencia" layoutX="636.0" layoutY="141.0" prefHeight="42.0" prefWidth="140.0" style="-fx-font-size: 18;">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -919,7 +919,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <ComboBox fx:id="cbTurnoSalida" layoutX="636.0" layoutY="141.0" prefHeight="42.0" prefWidth="140.0" style="-fx-font-size: 16;">
+                        <ComboBox fx:id="cbTurnoSalida" layoutX="636.0" layoutY="141.0" prefHeight="42.0" prefWidth="140.0" style="-fx-font-size: 18;">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
