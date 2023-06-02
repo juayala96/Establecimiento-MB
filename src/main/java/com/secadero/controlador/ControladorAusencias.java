@@ -354,6 +354,10 @@ public class ControladorAusencias {
     int index3 = -1;
 
     String regresarConsultaAsistenia = "0";
+    ObservableList<ConsultaAsistencia> listCronogramaCE;
+    int index4 = -1;
+    ObservableList<ConsultaAsistencia> listCronogramaCS;
+    int index5 = -1;
 
     // -------------------------------------------- Inicialización ----------------------------------------------
     public void initialize() {
@@ -634,6 +638,18 @@ public class ControladorAusencias {
     @FXML
     private void consultaAsistenciaGeneral(){
         textBuscarLegajoEmpleadoAsistencia.setText("");
+        colNombreAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("nombre"));
+        colApellidoAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("apellido"));
+        colLegajoAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, Integer>("legajo"));
+        colTurnoAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("turno"));
+        colFechaAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("fecha"));
+        colHoraEntradaAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("horaEntrada"));
+        colHoraSalidaAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("horaSalida"));
+        colIDCronogramaAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, Integer>("idCronograma"));
+
+        listCronogramaCE = ConsultaAsistencia.listaCronogramaCE(dpBuscarFechaAsistencia, cbTurnoAsistencia);
+        tablaCronogramaAsistencia.getColumns().setAll(colNombreAsistenciaCE, colApellidoAsistenciaCE, colLegajoAsistenciaCE, colTurnoAsistenciaCE, colFechaAsistenciaCE, colHoraEntradaAsistenciaCE, colHoraSalidaAsistenciaCE, colIDCronogramaAsistenciaCE);
+        tablaCronogramaAsistencia.getItems().setAll(listCronogramaCE);
     }
 
     @FXML
