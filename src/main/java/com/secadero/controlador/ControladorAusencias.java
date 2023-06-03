@@ -13,6 +13,8 @@ import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -214,9 +216,9 @@ public class ControladorAusencias {
     @FXML
     private TableView<ConsultaAsistencia> tablaListaEmpleadosPresentes;
     @FXML
-    private TableView<ConsultaAsistencia> tablaCronogramaSalida;
+    private TableView<VerificarSalida> tablaCronogramaSalida;
     @FXML
-    private TableView<ConsultaAsistencia> tablaListaEmpleadosSalida;
+    private TableView<VerificarSalida> tablaListaEmpleadosSalida;
     @FXML
     private DatePicker dpBuscarFechaAsistencia;
     @FXML
@@ -294,33 +296,33 @@ public class ControladorAusencias {
     @FXML
     private TableColumn<ConsultaAsistencia, Integer> colIDEmpleadoEntrada;
     @FXML
-    private TableColumn<ConsultaAsistencia, String> colNombreAsistenciaCS;
+    private TableColumn<VerificarSalida, String> colNombreAsistenciaCS;
     @FXML
-    private TableColumn<ConsultaAsistencia, String> colApellidoAsistenciaCS;
+    private TableColumn<VerificarSalida, String> colApellidoAsistenciaCS;
     @FXML
-    private TableColumn<ConsultaAsistencia, Integer> colLegajoAsistenciaCS;
+    private TableColumn<VerificarSalida, Integer> colLegajoAsistenciaCS;
     @FXML
-    private TableColumn<ConsultaAsistencia, String> colTurnoAsistenciaCS;
+    private TableColumn<VerificarSalida, String> colTurnoAsistenciaCS;
     @FXML
-    private TableColumn<ConsultaAsistencia, String> colFechaAsistenciaCS;
+    private TableColumn<VerificarSalida, String> colFechaAsistenciaCS;
     @FXML
-    private TableColumn<ConsultaAsistencia, String> colHoraEntradaAsistenciaCS;
+    private TableColumn<VerificarSalida, String> colHoraEntradaAsistenciaCS;
     @FXML
-    private TableColumn<ConsultaAsistencia, String> colHoraSalidaAsistenciaCS;
+    private TableColumn<VerificarSalida, String> colHoraSalidaAsistenciaCS;
     @FXML
-    private TableColumn<ConsultaAsistencia, Integer> colIDCronogramaAsistenciaCS;
+    private TableColumn<VerificarSalida, Integer> colIDCronogramaAsistenciaCS;
     @FXML
-    private TableColumn<ConsultaAsistencia, String> colNombreSalida;
+    private TableColumn<VerificarSalida, String> colNombreSalida;
     @FXML
-    private TableColumn<ConsultaAsistencia, String> colApellidoSalida;
+    private TableColumn<VerificarSalida, String> colApellidoSalida;
     @FXML
-    private TableColumn<ConsultaAsistencia, Integer> colLegajoSalida;
+    private TableColumn<VerificarSalida, Integer> colLegajoSalida;
     @FXML
-    private TableColumn<ConsultaAsistencia, String> colFechaSalida;
+    private TableColumn<VerificarSalida, String> colFechaSalida;
     @FXML
-    private TableColumn<ConsultaAsistencia, String> colHoraSalida;
+    private TableColumn<VerificarSalida, String> colHoraSalida;
     @FXML
-    private TableColumn<ConsultaAsistencia, Integer> colIDEmpleadoSalida;
+    private TableColumn<VerificarSalida, Integer> colIDEmpleadoSalida;
     @FXML
     private Label labNombreEmpleadoEntrada;
     @FXML
@@ -356,8 +358,10 @@ public class ControladorAusencias {
     String regresarConsultaAsistenia = "0";
     ObservableList<ConsultaAsistencia> listCronogramaCE;
     int index4 = -1;
-    ObservableList<ConsultaAsistencia> listCronogramaCS;
+    ObservableList<VerificarSalida> listCronogramaCS;
     int index5 = -1;
+    ObservableList<ConsultaAsistencia> listEntrada;
+    ObservableList<VerificarSalida> listSalida;
 
     // -------------------------------------------- Inicialización ----------------------------------------------
     public void initialize() {
@@ -518,13 +522,117 @@ public class ControladorAusencias {
     }
 
     @FXML
-    private void btnBuscarEmpleadoAsistencia(){
+    private void btnBuscarEmpleadoAsistencia() throws ParseException {
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+        LocalTime horaActual = LocalTime.now();
+        int hora = horaActual.getHour();
+        int minuto = horaActual.getMinute();
 
+        String fechaInicioClave = dpBuscarFechaAsistencia.getEditor().getText();
+        String fechaAnio = fechaInicioClave.substring(6, 10);
+        String fechaMes = fechaInicioClave.substring(3, 5);
+        String fechaDia = fechaInicioClave.substring(0, 2);
+        String fechaModificadaBuscar = (fechaAnio + "-" + fechaMes + "-" + fechaDia);
+
+        Date fechaBuscar = formatoFecha.parse(fechaModificadaBuscar);
+        Date fechaActualPais = new Date();
+        String Fecha_Actual = (formatoFecha.format(fechaActualPais));
+        Date fechaActual = formatoFecha.parse(Fecha_Actual);
+        long Diferencias = fechaActual.getTime() - fechaBuscar.getTime();
+        long Cant_Dias = Diferencias / (1000 * 60 * 60 * 24);
+
+        if((-Cant_Dias) < 0){
+            tablasAsistenciasBuscar();
+        } else if((-Cant_Dias) == 0){
+            if(Objects.equals(cbTurnoAsistencia.getSelectionModel().getSelectedItem(), "Dia")){
+                LocalTime horaInicio = LocalTime.of(12, 10);
+                LocalTime horaFin = LocalTime.of(23, 59);
+                if (horaActual.isAfter(horaInicio) && horaActual.isBefore(horaFin)) { // Despues y Antes
+                    tablasAsistenciasBuscar();
+                } else if(horaActual.isBefore(horaInicio) && horaActual.isBefore(horaFin)){
+                    Alert alerta = new Alert(Alert.AlertType.ERROR);
+                    alerta.setTitle("Error de Consulta");
+                    alerta.setContentText("La Fecha y Turno asignado no esta permitido según la (Fecha y Hora Actual)");
+                    alerta.showAndWait();
+                }
+
+            } else if(Objects.equals(cbTurnoAsistencia.getSelectionModel().getSelectedItem(), "Noche")){
+                LocalTime horaInicio = LocalTime.of(0, 10);
+                LocalTime horaFin = LocalTime.of(12, 0);
+                if (horaActual.isAfter(horaInicio) && horaActual.isBefore(horaFin)) { // Despues y Antes
+                    tablasAsistenciasBuscar();
+                } else if(horaActual.isAfter(horaInicio) && horaActual.isAfter(horaFin)){
+                    tablasAsistenciasBuscar();
+                } else {
+                    Alert alerta = new Alert(Alert.AlertType.ERROR);
+                    alerta.setTitle("Error de Consulta");
+                    alerta.setContentText("La Fecha y Turno asignado no esta permitido según la (Fecha y Hora Actual)");
+                    alerta.showAndWait();
+                }
+            }
+        } else {
+            Alert alerta = new Alert(Alert.AlertType.ERROR);
+            alerta.setTitle("Error de Consulta");
+            alerta.setContentText("La Fecha y Turno asignado no esta permitido según la (Fecha y Hora Actual)");
+            alerta.showAndWait();
+        }
     }
 
     @FXML
-    private void btnBuscarEmpleadoSalida(){
+    private void btnBuscarEmpleadoSalida() throws ParseException {
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+        LocalTime horaActual = LocalTime.now();
+        int hora = horaActual.getHour();
+        int minuto = horaActual.getMinute();
 
+        String fechaInicioClave = dpBuscarFechaSalida.getEditor().getText();
+        String fechaAnio = fechaInicioClave.substring(6, 10);
+        String fechaMes = fechaInicioClave.substring(3, 5);
+        String fechaDia = fechaInicioClave.substring(0, 2);
+        String fechaModificadaBuscar = (fechaAnio + "-" + fechaMes + "-" + fechaDia);
+
+        Date fechaBuscar = formatoFecha.parse(fechaModificadaBuscar);
+        Date fechaActualPais = new Date();
+        String Fecha_Actual = (formatoFecha.format(fechaActualPais));
+        Date fechaActual = formatoFecha.parse(Fecha_Actual);
+        long Diferencias = fechaActual.getTime() - fechaBuscar.getTime();
+        long Cant_Dias = Diferencias / (1000 * 60 * 60 * 24);
+
+        if((-Cant_Dias) < 0){
+            tablasSalidaBuscar();
+        } else if((-Cant_Dias) == 0){
+            if(Objects.equals(cbTurnoSalida.getSelectionModel().getSelectedItem(), "Dia")){
+                LocalTime horaInicio = LocalTime.of(12, 10);
+                LocalTime horaFin = LocalTime.of(23, 59);
+                if (horaActual.isAfter(horaInicio) && horaActual.isBefore(horaFin)) { // Despues y Antes
+                    tablasSalidaBuscar();
+                } else if(horaActual.isBefore(horaInicio) && horaActual.isBefore(horaFin)){
+                    Alert alerta = new Alert(Alert.AlertType.ERROR);
+                    alerta.setTitle("Error de Consulta");
+                    alerta.setContentText("La Fecha y Turno asignado no esta permitido según la (Fecha y Hora Actual)");
+                    alerta.showAndWait();
+                }
+
+            } else if(Objects.equals(cbTurnoSalida.getSelectionModel().getSelectedItem(), "Noche")){
+                LocalTime horaInicio = LocalTime.of(0, 10);
+                LocalTime horaFin = LocalTime.of(12, 0);
+                if (horaActual.isAfter(horaInicio) && horaActual.isBefore(horaFin)) { // Despues y Antes
+                    tablasSalidaBuscar();
+                } else if(horaActual.isAfter(horaInicio) && horaActual.isAfter(horaFin)){
+                    tablasSalidaBuscar();
+                } else {
+                    Alert alerta = new Alert(Alert.AlertType.ERROR);
+                    alerta.setTitle("Error de Consulta");
+                    alerta.setContentText("La Fecha y Turno asignado no esta permitido según la (Fecha y Hora Actual)");
+                    alerta.showAndWait();
+                }
+            }
+        } else {
+            Alert alerta = new Alert(Alert.AlertType.ERROR);
+            alerta.setTitle("Error de Consulta");
+            alerta.setContentText("La Fecha y Turno asignado no esta permitido según la (Fecha y Hora Actual)");
+            alerta.showAndWait();
+        }
     }
 
     @FXML
@@ -636,8 +744,65 @@ public class ControladorAusencias {
     }
 
     @FXML
-    private void consultaAsistenciaGeneral(){
+    private void consultaAsistenciaGeneral() throws ParseException {
         textBuscarLegajoEmpleadoAsistencia.setText("");
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+        LocalTime horaActual = LocalTime.now();
+        int hora = horaActual.getHour();
+        int minuto = horaActual.getMinute();
+
+        String fechaInicioClave = dpBuscarFechaAsistencia.getEditor().getText();
+        String fechaAnio = fechaInicioClave.substring(6, 10);
+        String fechaMes = fechaInicioClave.substring(3, 5);
+        String fechaDia = fechaInicioClave.substring(0, 2);
+        String fechaModificadaBuscar = (fechaAnio + "-" + fechaMes + "-" + fechaDia);
+
+        Date fechaBuscar = formatoFecha.parse(fechaModificadaBuscar);
+        Date fechaActualPais = new Date();
+        String Fecha_Actual = (formatoFecha.format(fechaActualPais));
+        Date fechaActual = formatoFecha.parse(Fecha_Actual);
+        long Diferencias = fechaActual.getTime() - fechaBuscar.getTime();
+        long Cant_Dias = Diferencias / (1000 * 60 * 60 * 24);
+
+        if((-Cant_Dias) < 0){
+            tablasAsistencias();
+        } else if((-Cant_Dias) == 0){
+            if(Objects.equals(cbTurnoAsistencia.getSelectionModel().getSelectedItem(), "Dia")){
+                LocalTime horaInicio = LocalTime.of(12, 10);
+                LocalTime horaFin = LocalTime.of(23, 59);
+                if (horaActual.isAfter(horaInicio) && horaActual.isBefore(horaFin)) { // Despues y Antes
+                    tablasAsistencias();
+                } else if(horaActual.isBefore(horaInicio) && horaActual.isBefore(horaFin)){
+                    Alert alerta = new Alert(Alert.AlertType.ERROR);
+                    alerta.setTitle("Error de Consulta");
+                    alerta.setContentText("La Fecha y Turno asignado no esta permitido según la (Fecha y Hora Actual)");
+                    alerta.showAndWait();
+                }
+
+            } else if(Objects.equals(cbTurnoAsistencia.getSelectionModel().getSelectedItem(), "Noche")){
+                LocalTime horaInicio = LocalTime.of(0, 10);
+                LocalTime horaFin = LocalTime.of(12, 0);
+                if (horaActual.isAfter(horaInicio) && horaActual.isBefore(horaFin)) { // Despues y Antes
+                    tablasAsistencias();
+                } else if(horaActual.isAfter(horaInicio) && horaActual.isAfter(horaFin)){
+                    tablasAsistencias();
+                } else {
+                    Alert alerta = new Alert(Alert.AlertType.ERROR);
+                    alerta.setTitle("Error de Consulta");
+                    alerta.setContentText("La Fecha y Turno asignado no esta permitido según la (Fecha y Hora Actual)");
+                    alerta.showAndWait();
+                }
+            }
+        } else {
+            Alert alerta = new Alert(Alert.AlertType.ERROR);
+            alerta.setTitle("Error de Consulta");
+            alerta.setContentText("La Fecha y Turno asignado no esta permitido según la (Fecha y Hora Actual)");
+            alerta.showAndWait();
+        }
+    }
+
+    private void tablasAsistencias(){
+        // Cronograma
         colNombreAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("nombre"));
         colApellidoAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("apellido"));
         colLegajoAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, Integer>("legajo"));
@@ -647,14 +812,163 @@ public class ControladorAusencias {
         colHoraSalidaAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("horaSalida"));
         colIDCronogramaAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, Integer>("idCronograma"));
 
-        listCronogramaCE = ConsultaAsistencia.listaCronogramaCE(dpBuscarFechaAsistencia, cbTurnoAsistencia);
+        listCronogramaCE = ConsultaAsistencia.listaCronogramaCE(dpBuscarFechaAsistencia, cbTurnoAsistencia, labCantidadCronograma);
         tablaCronogramaAsistencia.getColumns().setAll(colNombreAsistenciaCE, colApellidoAsistenciaCE, colLegajoAsistenciaCE, colTurnoAsistenciaCE, colFechaAsistenciaCE, colHoraEntradaAsistenciaCE, colHoraSalidaAsistenciaCE, colIDCronogramaAsistenciaCE);
         tablaCronogramaAsistencia.getItems().setAll(listCronogramaCE);
+
+        // Entrada
+        colNombreEntrada.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("nombre"));
+        colApellidoEntrada.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("apellido"));
+        colLegajoEntrada.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, Integer>("legajo"));
+        colFechaEntrada.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("fecha"));
+        colHoraEntrada.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("horaEntrada"));
+        colIDEmpleadoEntrada.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, Integer>("idEmpleado"));
+
+        listEntrada = ConsultaAsistencia.listaEntrada(dpBuscarFechaAsistencia, cbTurnoAsistencia, labCantidadPresentes);
+        tablaListaEmpleadosPresentes.getColumns().setAll(colNombreEntrada, colApellidoEntrada, colLegajoEntrada, colFechaEntrada, colHoraEntrada, colIDEmpleadoEntrada);
+        tablaListaEmpleadosPresentes.getItems().setAll(listEntrada);
+    }
+
+    private void tablasAsistenciasBuscar(){
+        // Cronograma
+        colNombreAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("nombre"));
+        colApellidoAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("apellido"));
+        colLegajoAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, Integer>("legajo"));
+        colTurnoAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("turno"));
+        colFechaAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("fecha"));
+        colHoraEntradaAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("horaEntrada"));
+        colHoraSalidaAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("horaSalida"));
+        colIDCronogramaAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, Integer>("idCronograma"));
+
+        listCronogramaCE = ConsultaAsistencia.listaCronogramaCEBuscar(dpBuscarFechaAsistencia, cbTurnoAsistencia, labCantidadCronograma, textBuscarLegajoEmpleadoAsistencia);
+        tablaCronogramaAsistencia.getColumns().setAll(colNombreAsistenciaCE, colApellidoAsistenciaCE, colLegajoAsistenciaCE, colTurnoAsistenciaCE, colFechaAsistenciaCE, colHoraEntradaAsistenciaCE, colHoraSalidaAsistenciaCE, colIDCronogramaAsistenciaCE);
+        tablaCronogramaAsistencia.getItems().setAll(listCronogramaCE);
+
+        // Entrada
+        colNombreEntrada.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("nombre"));
+        colApellidoEntrada.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("apellido"));
+        colLegajoEntrada.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, Integer>("legajo"));
+        colFechaEntrada.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("fecha"));
+        colHoraEntrada.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("horaEntrada"));
+        colIDEmpleadoEntrada.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, Integer>("idEmpleado"));
+
+        listEntrada = ConsultaAsistencia.listaEntradaBuscar(dpBuscarFechaAsistencia, cbTurnoAsistencia, labCantidadPresentes, textBuscarLegajoEmpleadoAsistencia);
+        tablaListaEmpleadosPresentes.getColumns().setAll(colNombreEntrada, colApellidoEntrada, colLegajoEntrada, colFechaEntrada, colHoraEntrada, colIDEmpleadoEntrada);
+        tablaListaEmpleadosPresentes.getItems().setAll(listEntrada);
+    }
+
+    private void tablasSalidas(){
+        // Cronograma
+        colNombreAsistenciaCS.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("nombre"));
+        colApellidoAsistenciaCS.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("apellido"));
+        colLegajoAsistenciaCS.setCellValueFactory(new PropertyValueFactory<VerificarSalida, Integer>("legajo"));
+        colTurnoAsistenciaCS.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("turno"));
+        colFechaAsistenciaCS.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("fecha"));
+        colHoraSalidaAsistenciaCS.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("horaSalida"));
+        colHoraEntradaAsistenciaCS.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("horaEntrada"));
+        colIDCronogramaAsistenciaCS.setCellValueFactory(new PropertyValueFactory<VerificarSalida, Integer>("idCronograma"));
+
+        listCronogramaCS = VerificarSalida.listaCronogramaCS(dpBuscarFechaSalida, cbTurnoSalida, labCantidadCronogramaS);
+        tablaCronogramaSalida.getColumns().setAll(colNombreAsistenciaCS, colApellidoAsistenciaCS, colLegajoAsistenciaCS, colTurnoAsistenciaCS, colFechaAsistenciaCS, colHoraSalidaAsistenciaCS, colHoraEntradaAsistenciaCS, colIDCronogramaAsistenciaCS);
+        tablaCronogramaSalida.getItems().setAll(listCronogramaCS);
+
+        // Salida
+        colNombreSalida.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("nombre"));
+        colApellidoSalida.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("apellido"));
+        colLegajoSalida.setCellValueFactory(new PropertyValueFactory<VerificarSalida, Integer>("legajo"));
+        colFechaSalida.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("fecha"));
+        colHoraSalida.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("horaSalida"));
+        colIDEmpleadoSalida.setCellValueFactory(new PropertyValueFactory<VerificarSalida, Integer>("idEmpleado"));
+
+        listSalida = VerificarSalida.listaSalida(dpBuscarFechaSalida, cbTurnoSalida, labCantidadS);
+        tablaListaEmpleadosSalida.getColumns().setAll(colNombreSalida, colApellidoSalida, colLegajoSalida, colFechaSalida, colHoraSalida, colIDEmpleadoSalida);
+        tablaListaEmpleadosSalida.getItems().setAll(listSalida);
+    }
+
+    private void tablasSalidaBuscar(){
+        // Cronograma
+        colNombreAsistenciaCS.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("nombre"));
+        colApellidoAsistenciaCS.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("apellido"));
+        colLegajoAsistenciaCS.setCellValueFactory(new PropertyValueFactory<VerificarSalida, Integer>("legajo"));
+        colTurnoAsistenciaCS.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("turno"));
+        colFechaAsistenciaCS.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("fecha"));
+        colHoraSalidaAsistenciaCS.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("horaSalida"));
+        colHoraEntradaAsistenciaCS.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("horaEntrada"));
+        colIDCronogramaAsistenciaCS.setCellValueFactory(new PropertyValueFactory<VerificarSalida, Integer>("idCronograma"));
+
+        listCronogramaCS = VerificarSalida.listaCronogramaCSBuscar(dpBuscarFechaSalida, cbTurnoSalida, labCantidadCronogramaS, textBuscarLegajoEmpleadoSalida);
+        tablaCronogramaSalida.getColumns().setAll(colNombreAsistenciaCS, colApellidoAsistenciaCS, colLegajoAsistenciaCS, colTurnoAsistenciaCS, colFechaAsistenciaCS, colHoraSalidaAsistenciaCS, colHoraEntradaAsistenciaCS, colIDCronogramaAsistenciaCS);
+        tablaCronogramaSalida.getItems().setAll(listCronogramaCS);
+
+        // Salida
+        colNombreSalida.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("nombre"));
+        colApellidoSalida.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("apellido"));
+        colLegajoSalida.setCellValueFactory(new PropertyValueFactory<VerificarSalida, Integer>("legajo"));
+        colFechaSalida.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("fecha"));
+        colHoraSalida.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("horaSalida"));
+        colIDEmpleadoSalida.setCellValueFactory(new PropertyValueFactory<VerificarSalida, Integer>("idEmpleado"));
+
+        listSalida = VerificarSalida.listaSalidaBuscar(dpBuscarFechaSalida, cbTurnoSalida, labCantidadS, textBuscarLegajoEmpleadoSalida);
+        tablaListaEmpleadosSalida.getColumns().setAll(colNombreSalida, colApellidoSalida, colLegajoSalida, colFechaSalida, colHoraSalida, colIDEmpleadoSalida);
+        tablaListaEmpleadosSalida.getItems().setAll(listSalida);
     }
 
     @FXML
-    private void consultaSalidaGeneral(){
+    private void consultaSalidaGeneral() throws ParseException {
         textBuscarLegajoEmpleadoSalida.setText("");
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+        LocalTime horaActual = LocalTime.now();
+        int hora = horaActual.getHour();
+        int minuto = horaActual.getMinute();
+
+        String fechaInicioClave = dpBuscarFechaSalida.getEditor().getText();
+        String fechaAnio = fechaInicioClave.substring(6, 10);
+        String fechaMes = fechaInicioClave.substring(3, 5);
+        String fechaDia = fechaInicioClave.substring(0, 2);
+        String fechaModificadaBuscar = (fechaAnio + "-" + fechaMes + "-" + fechaDia);
+
+        Date fechaBuscar = formatoFecha.parse(fechaModificadaBuscar);
+        Date fechaActualPais = new Date();
+        String Fecha_Actual = (formatoFecha.format(fechaActualPais));
+        Date fechaActual = formatoFecha.parse(Fecha_Actual);
+        long Diferencias = fechaActual.getTime() - fechaBuscar.getTime();
+        long Cant_Dias = Diferencias / (1000 * 60 * 60 * 24);
+
+        if((-Cant_Dias) < 0){
+            tablasSalidas();
+        } else if((-Cant_Dias) == 0){
+            if(Objects.equals(cbTurnoSalida.getSelectionModel().getSelectedItem(), "Dia")){
+                LocalTime horaInicio = LocalTime.of(12, 10);
+                LocalTime horaFin = LocalTime.of(23, 59);
+                if (horaActual.isAfter(horaInicio) && horaActual.isBefore(horaFin)) { // Despues y Antes
+                    tablasSalidas();
+                } else if(horaActual.isBefore(horaInicio) && horaActual.isBefore(horaFin)){
+                    Alert alerta = new Alert(Alert.AlertType.ERROR);
+                    alerta.setTitle("Error de Consulta");
+                    alerta.setContentText("La Fecha y Turno asignado no esta permitido según la (Fecha y Hora Actual)");
+                    alerta.showAndWait();
+                }
+
+            } else if(Objects.equals(cbTurnoSalida.getSelectionModel().getSelectedItem(), "Noche")){
+                LocalTime horaInicio = LocalTime.of(0, 10);
+                LocalTime horaFin = LocalTime.of(12, 0);
+                if (horaActual.isAfter(horaInicio) && horaActual.isBefore(horaFin)) { // Despues y Antes
+                    tablasSalidas();
+                } else if(horaActual.isAfter(horaInicio) && horaActual.isAfter(horaFin)){
+                    tablasSalidas();
+                } else {
+                    Alert alerta = new Alert(Alert.AlertType.ERROR);
+                    alerta.setTitle("Error de Consulta");
+                    alerta.setContentText("La Fecha y Turno asignado no esta permitido según la (Fecha y Hora Actual)");
+                    alerta.showAndWait();
+                }
+            }
+        } else {
+            Alert alerta = new Alert(Alert.AlertType.ERROR);
+            alerta.setTitle("Error de Consulta");
+            alerta.setContentText("La Fecha y Turno asignado no esta permitido según la (Fecha y Hora Actual)");
+            alerta.showAndWait();
+        }
     }
 
     @FXML

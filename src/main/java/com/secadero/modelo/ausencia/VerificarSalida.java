@@ -1,7 +1,6 @@
 package com.secadero.modelo.ausencia;
 
 import com.secadero.conexion.Conexion;
-import com.secadero.modelo.cronograma.LeerCronograma;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
@@ -16,37 +15,37 @@ import java.sql.SQLException;
 import java.time.LocalTime;
 import java.util.Objects;
 
-public class ConsultaAsistencia {
+public class VerificarSalida {
     private String nombre;
     private String apellido;
     private int legajo;
     private String turno;
     private String fecha;
-    private String horaEntrada;
     private String horaSalida;
+    private String horaEntrada;
     private int idCronograma;
     private int idEmpleado;
 
-    public ConsultaAsistencia() {
+    public VerificarSalida() {
     }
 
-    public ConsultaAsistencia(String nombre, String apellido, int legajo, String turno, String fecha, String horaEntrada, String horaSalida, int idCronograma) {
+    public VerificarSalida(String nombre, String apellido, int legajo, String turno, String fecha, String horaSalida, String horaEntrada, int idCronograma) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.legajo = legajo;
         this.turno = turno;
         this.fecha = fecha;
-        this.horaEntrada = horaEntrada;
         this.horaSalida = horaSalida;
+        this.horaEntrada = horaEntrada;
         this.idCronograma = idCronograma;
     }
 
-    public ConsultaAsistencia(String nombre, String apellido, int legajo, String fecha, String horaEntrada, int idEmpleado) {
+    public VerificarSalida(String nombre, String apellido, int legajo, String fecha, String horaSalida, int idEmpleado) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.legajo = legajo;
         this.fecha = fecha;
-        this.horaEntrada = horaEntrada;
+        this.horaSalida = horaSalida;
         this.idEmpleado = idEmpleado;
     }
 
@@ -90,20 +89,20 @@ public class ConsultaAsistencia {
         this.fecha = fecha;
     }
 
-    public String getHoraEntrada() {
-        return horaEntrada;
-    }
-
-    public void setHoraEntrada(String horaEntrada) {
-        this.horaEntrada = horaEntrada;
-    }
-
     public String getHoraSalida() {
         return horaSalida;
     }
 
     public void setHoraSalida(String horaSalida) {
         this.horaSalida = horaSalida;
+    }
+
+    public String getHoraEntrada() {
+        return horaEntrada;
+    }
+
+    public void setHoraEntrada(String horaEntrada) {
+        this.horaEntrada = horaEntrada;
     }
 
     public int getIdCronograma() {
@@ -122,17 +121,17 @@ public class ConsultaAsistencia {
         this.idEmpleado = idEmpleado;
     }
 
-    //-------------------------------- Leer Cronograma Consulta Asistencia (CE) ----------------------------------------
-    public static ObservableList<ConsultaAsistencia> listaCronogramaCE(DatePicker dpBuscarFechaAsistencia, ComboBox<String> cbTurnoAsistencia, Label labCantidadCronograma) {
+    //-------------------------------- Leer Cronograma Consulta Salida (CS) ----------------------------------------
+    public static ObservableList<VerificarSalida> listaCronogramaCS(DatePicker dpBuscarFechaSalida, ComboBox<String> cbTurnoSalida, Label labCantidadCronogramaS) {
         Connection con = Conexion.leerConexion();
         PreparedStatement pstm = null;
         ResultSet rs = null;
-        ObservableList<ConsultaAsistencia> lista = FXCollections.observableArrayList();
-        String dato = cbTurnoAsistencia.getSelectionModel().getSelectedItem();
+        ObservableList<VerificarSalida> lista = FXCollections.observableArrayList();
+        String dato = cbTurnoSalida.getSelectionModel().getSelectedItem();
         String hora_entrada;
         String hora_salida;
 
-        String fechaBuscar = dpBuscarFechaAsistencia.getEditor().getText();
+        String fechaBuscar = dpBuscarFechaSalida.getEditor().getText();
         String fechaAnio = fechaBuscar.substring(6, 10);
         String fechaMes = fechaBuscar.substring(3, 5);
         String fechaDia = fechaBuscar.substring(0, 2);
@@ -140,7 +139,7 @@ public class ConsultaAsistencia {
         int cantCronograma = 0;
 
         try {
-            pstm = con.prepareStatement("SELECT empleados.nombre, empleados.apellido, empleados.legajo, turno, fecha, horario_entrada AS horaEntrada, horario_salida AS horaSalida, idCronograma FROM cronograma INNER JOIN empleado_cronograma ON cronograma.idCronograma = empleado_cronograma.idCronogramaFK INNER JOIN empleados ON empleado_cronograma.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND empleados.estado = ? AND fecha = ? AND turno = ? ORDER BY empleados.legajo ASC");
+            pstm = con.prepareStatement("SELECT empleados.nombre, empleados.apellido, empleados.legajo, turno, fecha, horario_salida AS horaSalida, horario_entrada AS horaEntrada, idCronograma FROM cronograma INNER JOIN empleado_cronograma ON cronograma.idCronograma = empleado_cronograma.idCronogramaFK INNER JOIN empleados ON empleado_cronograma.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND empleados.estado = ? AND fecha = ? AND turno = ? ORDER BY empleados.legajo ASC");
             pstm.setString(1, "Vigente");
             pstm.setString(2, "Disponible");
             pstm.setString(3, fechaBusqueda);
@@ -156,10 +155,10 @@ public class ConsultaAsistencia {
                 String fechaMes2 = fechaClave.substring(5, 7);
                 String fechaDia2 = fechaClave.substring(8, 10);
                 String fechaModificada = (fechaDia2 + "-" + fechaMes2 + "-" + fechaAnio2);
-                lista.add(new ConsultaAsistencia(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getString("turno"), fechaModificada, hora_entrada, hora_salida, rs.getInt("idCronograma")));
+                lista.add(new VerificarSalida(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getString("turno"), fechaModificada, hora_salida, hora_entrada, rs.getInt("idCronograma")));
                 cantCronograma += 1;
             }
-            labCantidadCronograma.setText(String.valueOf(cantCronograma));
+            labCantidadCronogramaS.setText(String.valueOf(cantCronograma));
         } catch (SQLException ex) {
             System.err.println("Error: " + ex.getMessage());
         } finally {
@@ -174,16 +173,16 @@ public class ConsultaAsistencia {
         return lista;
     }
 
-    //--------------------------------------- Leer Entrada (Presentes) -------------------------------------------------
-    public static ObservableList<ConsultaAsistencia> listaEntrada(DatePicker dpBuscarFechaAsistencia, ComboBox<String> cbTurnoAsistencia, Label labCantidadPresentes) {
+    //----------------------------------------------- Leer Salida-------------------------------------------------
+    public static ObservableList<VerificarSalida> listaSalida(DatePicker dpBuscarFechaSalida, ComboBox<String> cbTurnoSalida, Label labCantidadS) {
         Connection con = Conexion.leerConexion();
         PreparedStatement pstm = null;
         ResultSet rs = null;
-        ObservableList<ConsultaAsistencia> lista = FXCollections.observableArrayList();
-        String dato = cbTurnoAsistencia.getSelectionModel().getSelectedItem();
-        String hora_entrada;
+        ObservableList<VerificarSalida> lista = FXCollections.observableArrayList();
+        String dato = cbTurnoSalida.getSelectionModel().getSelectedItem();
+        String hora_salida;
 
-        String fechaBuscar = dpBuscarFechaAsistencia.getEditor().getText();
+        String fechaBuscar = dpBuscarFechaSalida.getEditor().getText();
         String fechaAnio = fechaBuscar.substring(6, 10);
         String fechaMes = fechaBuscar.substring(3, 5);
         String fechaDia = fechaBuscar.substring(0, 2);
@@ -203,15 +202,15 @@ public class ConsultaAsistencia {
 
         try {
             if(Objects.equals(dato, "Dia")){
-                LocalTime horaInicio = LocalTime.of(12, 0);
+                LocalTime horaInicio = LocalTime.of(23, 30);
                 hora1 = horaInicio.getHour();
                 minuto1 = horaInicio.getMinute();
-                LocalTime horaFin = LocalTime.of(13, 0);
+                LocalTime horaFin = LocalTime.of(23, 59);
                 hora2 = horaFin.getHour();
                 minuto2 = horaFin.getMinute();
 
                 try {
-                    pstm = con.prepareStatement("SELECT empleados.nombre, empleados.apellido, empleados.legajo, fecha, hora AS horaEntrada, empleados.idempleados AS idEmpleado FROM entrada INNER JOIN empleados ON entrada.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND fecha = ? AND (hora BETWEEN TIME ? AND TIME ?) ORDER BY empleados.legajo ASC");
+                    pstm = con.prepareStatement("SELECT empleados.nombre, empleados.apellido, empleados.legajo, fecha, hora AS horaSalida, empleados.idempleados AS idEmpleado FROM salida INNER JOIN empleados ON salida.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND fecha = ? AND (hora BETWEEN TIME ? AND TIME ?) ORDER BY empleados.legajo ASC");
                     pstm.setString(1, "Vigente");
                     pstm.setString(2, fechaBusqueda);
                     pstm.setString(3, hora1 + ":" + minuto1);
@@ -219,14 +218,14 @@ public class ConsultaAsistencia {
                     rs = pstm.executeQuery();
 
                     while (rs.next()){
-                        hora_entrada = String.valueOf(rs.getTime("horaEntrada")).substring(0, 5);
+                        hora_salida = String.valueOf(rs.getTime("horaSalida")).substring(0, 5);
 
                         String fechaClave = rs.getString("fecha");
                         String fechaAnio2 = fechaClave.substring(0, 4);
                         String fechaMes2 = fechaClave.substring(5, 7);
                         String fechaDia2 = fechaClave.substring(8, 10);
                         String fechaModificada = (fechaDia2 + "-" + fechaMes2 + "-" + fechaAnio2);
-                        lista.add(new ConsultaAsistencia(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), fechaModificada, hora_entrada, rs.getInt("idEmpleado")));
+                        lista.add(new VerificarSalida(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), fechaModificada, hora_salida, rs.getInt("idEmpleado")));
                         cantPresentes += 1;
                     }
                 } catch (SQLException ex) {
@@ -234,15 +233,15 @@ public class ConsultaAsistencia {
                 }
 
             } else if(Objects.equals(dato, "Noche")){
-                LocalTime horaInicio = LocalTime.of(0, 0);
+                LocalTime horaInicio = LocalTime.of(11, 30);
                 hora1 = horaInicio.getHour();
                 minuto1 = horaInicio.getMinute();
-                LocalTime horaFin = LocalTime.of(1, 0);
+                LocalTime horaFin = LocalTime.of(12, 0);
                 hora2 = horaFin.getHour();
                 minuto2 = horaFin.getMinute();
 
                 try {
-                    pstm = con.prepareStatement("SELECT empleados.nombre, empleados.apellido, empleados.legajo, fecha, hora AS hora, empleados.idempleados AS idempleados FROM entrada INNER JOIN empleados ON entrada.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND fecha = ? AND (hora BETWEEN TIME ? AND TIME ?) ORDER BY empleados.legajo ASC");
+                    pstm = con.prepareStatement("SELECT empleados.nombre, empleados.apellido, empleados.legajo, fecha, hora AS horaSalida, empleados.idempleados AS idEmpleado FROM salida INNER JOIN empleados ON salida.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND fecha = ? AND (hora BETWEEN TIME ? AND TIME ?) ORDER BY empleados.legajo ASC");
                     pstm.setString(1, "Vigente");
                     pstm.setString(2, fechaBusqueda);
                     pstm.setString(3, hora1 + ":" + minuto1);
@@ -250,14 +249,14 @@ public class ConsultaAsistencia {
                     rs = pstm.executeQuery();
 
                     while (rs.next()){
-                        hora_entrada = String.valueOf(rs.getTime("hora")).substring(0, 5);
+                        hora_salida = String.valueOf(rs.getTime("horaSalida")).substring(0, 5);
 
                         String fechaClave = rs.getString("fecha");
                         String fechaAnio2 = fechaClave.substring(0, 4);
                         String fechaMes2 = fechaClave.substring(5, 7);
                         String fechaDia2 = fechaClave.substring(8, 10);
                         String fechaModificada = (fechaDia2 + "-" + fechaMes2 + "-" + fechaAnio2);
-                        lista.add(new ConsultaAsistencia(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), fechaModificada, hora_entrada, rs.getInt("idempleados")));
+                        lista.add(new VerificarSalida(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), fechaModificada, hora_salida, rs.getInt("idEmpleado")));
                         cantPresentes += 1;
                     }
                 } catch (SQLException ex) {
@@ -265,7 +264,7 @@ public class ConsultaAsistencia {
                 }
 
             }
-            labCantidadPresentes.setText(String.valueOf(cantPresentes));
+            labCantidadS.setText(String.valueOf(cantPresentes));
         } finally {
             try {
                 if (rs != null) rs.close();
@@ -278,18 +277,18 @@ public class ConsultaAsistencia {
         return lista;
     }
 
-    /////////////////////////////////////////////// Buscar //////////////////////////////////////////////////////
-    //-------------------------------- Leer Cronograma Consulta Asistencia (CE) ----------------------------------------
-    public static ObservableList<ConsultaAsistencia> listaCronogramaCEBuscar(DatePicker dpBuscarFechaAsistencia, ComboBox<String> cbTurnoAsistencia, Label labCantidadCronograma, TextField textBuscarLegajoEmpleadoAsistencia) {
+    /////////////////////////////////////////////////// Buscar //////////////////////////////////////////////////
+    //-------------------------------- Leer Cronograma Consulta Salida (CS) ----------------------------------------
+    public static ObservableList<VerificarSalida> listaCronogramaCSBuscar(DatePicker dpBuscarFechaSalida, ComboBox<String> cbTurnoSalida, Label labCantidadCronogramaS, TextField textBuscarLegajoEmpleadoSalida) {
         Connection con = Conexion.leerConexion();
         PreparedStatement pstm = null;
         ResultSet rs = null;
-        ObservableList<ConsultaAsistencia> lista = FXCollections.observableArrayList();
-        String dato = cbTurnoAsistencia.getSelectionModel().getSelectedItem();
+        ObservableList<VerificarSalida> lista = FXCollections.observableArrayList();
+        String dato = cbTurnoSalida.getSelectionModel().getSelectedItem();
         String hora_entrada;
         String hora_salida;
 
-        String fechaBuscar = dpBuscarFechaAsistencia.getEditor().getText();
+        String fechaBuscar = dpBuscarFechaSalida.getEditor().getText();
         String fechaAnio = fechaBuscar.substring(6, 10);
         String fechaMes = fechaBuscar.substring(3, 5);
         String fechaDia = fechaBuscar.substring(0, 2);
@@ -297,12 +296,12 @@ public class ConsultaAsistencia {
         int cantCronograma = 0;
 
         try {
-            pstm = con.prepareStatement("SELECT empleados.nombre, empleados.apellido, empleados.legajo, turno, fecha, horario_entrada AS horaEntrada, horario_salida AS horaSalida, idCronograma FROM cronograma INNER JOIN empleado_cronograma ON cronograma.idCronograma = empleado_cronograma.idCronogramaFK INNER JOIN empleados ON empleado_cronograma.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND empleados.estado = ? AND fecha = ? AND turno = ? AND empleados.legajo LIKE ? ORDER BY empleados.legajo ASC");
+            pstm = con.prepareStatement("SELECT empleados.nombre, empleados.apellido, empleados.legajo, turno, fecha, horario_salida AS horaSalida, horario_entrada AS horaEntrada, idCronograma FROM cronograma INNER JOIN empleado_cronograma ON cronograma.idCronograma = empleado_cronograma.idCronogramaFK INNER JOIN empleados ON empleado_cronograma.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND empleados.estado = ? AND fecha = ? AND turno = ? AND empleados.legajo LIKE ? ORDER BY empleados.legajo ASC");
             pstm.setString(1, "Vigente");
             pstm.setString(2, "Disponible");
             pstm.setString(3, fechaBusqueda);
             pstm.setString(4, dato);
-            pstm.setString(5, textBuscarLegajoEmpleadoAsistencia.getText() + "%");
+            pstm.setString(5, textBuscarLegajoEmpleadoSalida.getText() + "%");
             rs = pstm.executeQuery();
 
             while (rs.next()){
@@ -314,10 +313,10 @@ public class ConsultaAsistencia {
                 String fechaMes2 = fechaClave.substring(5, 7);
                 String fechaDia2 = fechaClave.substring(8, 10);
                 String fechaModificada = (fechaDia2 + "-" + fechaMes2 + "-" + fechaAnio2);
-                lista.add(new ConsultaAsistencia(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getString("turno"), fechaModificada, hora_entrada, hora_salida, rs.getInt("idCronograma")));
+                lista.add(new VerificarSalida(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getString("turno"), fechaModificada, hora_salida, hora_entrada, rs.getInt("idCronograma")));
                 cantCronograma += 1;
             }
-            labCantidadCronograma.setText(String.valueOf(cantCronograma));
+            labCantidadCronogramaS.setText(String.valueOf(cantCronograma));
         } catch (SQLException ex) {
             System.err.println("Error: " + ex.getMessage());
         } finally {
@@ -332,16 +331,16 @@ public class ConsultaAsistencia {
         return lista;
     }
 
-    //--------------------------------------- Leer Entrada (Presentes) -------------------------------------------------
-    public static ObservableList<ConsultaAsistencia> listaEntradaBuscar(DatePicker dpBuscarFechaAsistencia, ComboBox<String> cbTurnoAsistencia, Label labCantidadPresentes, TextField textBuscarLegajoEmpleadoAsistencia) {
+    //----------------------------------------------- Leer Salida-------------------------------------------------
+    public static ObservableList<VerificarSalida> listaSalidaBuscar(DatePicker dpBuscarFechaSalida, ComboBox<String> cbTurnoSalida, Label labCantidadS, TextField textBuscarLegajoEmpleadoSalida) {
         Connection con = Conexion.leerConexion();
         PreparedStatement pstm = null;
         ResultSet rs = null;
-        ObservableList<ConsultaAsistencia> lista = FXCollections.observableArrayList();
-        String dato = cbTurnoAsistencia.getSelectionModel().getSelectedItem();
-        String hora_entrada;
+        ObservableList<VerificarSalida> lista = FXCollections.observableArrayList();
+        String dato = cbTurnoSalida.getSelectionModel().getSelectedItem();
+        String hora_salida;
 
-        String fechaBuscar = dpBuscarFechaAsistencia.getEditor().getText();
+        String fechaBuscar = dpBuscarFechaSalida.getEditor().getText();
         String fechaAnio = fechaBuscar.substring(6, 10);
         String fechaMes = fechaBuscar.substring(3, 5);
         String fechaDia = fechaBuscar.substring(0, 2);
@@ -361,31 +360,31 @@ public class ConsultaAsistencia {
 
         try {
             if(Objects.equals(dato, "Dia")){
-                LocalTime horaInicio = LocalTime.of(12, 0);
+                LocalTime horaInicio = LocalTime.of(23, 30);
                 hora1 = horaInicio.getHour();
                 minuto1 = horaInicio.getMinute();
-                LocalTime horaFin = LocalTime.of(13, 0);
+                LocalTime horaFin = LocalTime.of(23, 59);
                 hora2 = horaFin.getHour();
                 minuto2 = horaFin.getMinute();
 
                 try {
-                    pstm = con.prepareStatement("SELECT empleados.nombre, empleados.apellido, empleados.legajo, fecha, hora AS horaEntrada, empleados.idempleados AS idEmpleado FROM entrada INNER JOIN empleados ON entrada.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND fecha = ? AND (hora BETWEEN TIME ? AND TIME ?) AND empleados.legajo LIKE ? ORDER BY empleados.legajo ASC");
+                    pstm = con.prepareStatement("SELECT empleados.nombre, empleados.apellido, empleados.legajo, fecha, hora AS horaSalida, empleados.idempleados AS idEmpleado FROM salida INNER JOIN empleados ON salida.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND fecha = ? AND (hora BETWEEN TIME ? AND TIME ?) AND empleados.legajo LIKE ? ORDER BY empleados.legajo ASC");
                     pstm.setString(1, "Vigente");
                     pstm.setString(2, fechaBusqueda);
                     pstm.setString(3, hora1 + ":" + minuto1);
                     pstm.setString(4, hora2 + ":" + minuto2);
-                    pstm.setString(5, textBuscarLegajoEmpleadoAsistencia.getText() + "%");
+                    pstm.setString(5, textBuscarLegajoEmpleadoSalida.getText() + "%");
                     rs = pstm.executeQuery();
 
                     while (rs.next()){
-                        hora_entrada = String.valueOf(rs.getTime("horaEntrada")).substring(0, 5);
+                        hora_salida = String.valueOf(rs.getTime("horaSalida")).substring(0, 5);
 
                         String fechaClave = rs.getString("fecha");
                         String fechaAnio2 = fechaClave.substring(0, 4);
                         String fechaMes2 = fechaClave.substring(5, 7);
                         String fechaDia2 = fechaClave.substring(8, 10);
                         String fechaModificada = (fechaDia2 + "-" + fechaMes2 + "-" + fechaAnio2);
-                        lista.add(new ConsultaAsistencia(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), fechaModificada, hora_entrada, rs.getInt("idEmpleado")));
+                        lista.add(new VerificarSalida(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), fechaModificada, hora_salida, rs.getInt("idEmpleado")));
                         cantPresentes += 1;
                     }
                 } catch (SQLException ex) {
@@ -393,31 +392,31 @@ public class ConsultaAsistencia {
                 }
 
             } else if(Objects.equals(dato, "Noche")){
-                LocalTime horaInicio = LocalTime.of(0, 0);
+                LocalTime horaInicio = LocalTime.of(11, 30);
                 hora1 = horaInicio.getHour();
                 minuto1 = horaInicio.getMinute();
-                LocalTime horaFin = LocalTime.of(1, 0);
+                LocalTime horaFin = LocalTime.of(12, 0);
                 hora2 = horaFin.getHour();
                 minuto2 = horaFin.getMinute();
 
                 try {
-                    pstm = con.prepareStatement("SELECT empleados.nombre, empleados.apellido, empleados.legajo, fecha, hora AS hora, empleados.idempleados AS idempleados FROM entrada INNER JOIN empleados ON entrada.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND fecha = ? AND (hora BETWEEN TIME ? AND TIME ?) AND empleados.legajo LIKE ? ORDER BY empleados.legajo ASC");
+                    pstm = con.prepareStatement("SELECT empleados.nombre, empleados.apellido, empleados.legajo, fecha, hora AS horaSalida, empleados.idempleados AS idEmpleado FROM salida INNER JOIN empleados ON salida.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND fecha = ? AND (hora BETWEEN TIME ? AND TIME ?) AND empleados.legajo LIKE ? ORDER BY empleados.legajo ASC");
                     pstm.setString(1, "Vigente");
                     pstm.setString(2, fechaBusqueda);
                     pstm.setString(3, hora1 + ":" + minuto1);
                     pstm.setString(4, hora2 + ":" + minuto2);
-                    pstm.setString(5, textBuscarLegajoEmpleadoAsistencia.getText() + "%");
+                    pstm.setString(5, textBuscarLegajoEmpleadoSalida.getText() + "%");
                     rs = pstm.executeQuery();
 
                     while (rs.next()){
-                        hora_entrada = String.valueOf(rs.getTime("hora")).substring(0, 5);
+                        hora_salida = String.valueOf(rs.getTime("horaSalida")).substring(0, 5);
 
                         String fechaClave = rs.getString("fecha");
                         String fechaAnio2 = fechaClave.substring(0, 4);
                         String fechaMes2 = fechaClave.substring(5, 7);
                         String fechaDia2 = fechaClave.substring(8, 10);
                         String fechaModificada = (fechaDia2 + "-" + fechaMes2 + "-" + fechaAnio2);
-                        lista.add(new ConsultaAsistencia(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), fechaModificada, hora_entrada, rs.getInt("idempleados")));
+                        lista.add(new VerificarSalida(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), fechaModificada, hora_salida, rs.getInt("idEmpleado")));
                         cantPresentes += 1;
                     }
                 } catch (SQLException ex) {
@@ -425,7 +424,7 @@ public class ConsultaAsistencia {
                 }
 
             }
-            labCantidadPresentes.setText(String.valueOf(cantPresentes));
+            labCantidadS.setText(String.valueOf(cantPresentes));
         } finally {
             try {
                 if (rs != null) rs.close();
