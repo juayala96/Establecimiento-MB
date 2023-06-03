@@ -801,118 +801,6 @@ public class ControladorAusencias {
         }
     }
 
-    private void tablasAsistencias(){
-        // Cronograma
-        colNombreAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("nombre"));
-        colApellidoAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("apellido"));
-        colLegajoAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, Integer>("legajo"));
-        colTurnoAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("turno"));
-        colFechaAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("fecha"));
-        colHoraEntradaAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("horaEntrada"));
-        colHoraSalidaAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("horaSalida"));
-        colIDCronogramaAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, Integer>("idCronograma"));
-
-        listCronogramaCE = ConsultaAsistencia.listaCronogramaCE(dpBuscarFechaAsistencia, cbTurnoAsistencia, labCantidadCronograma);
-        tablaCronogramaAsistencia.getColumns().setAll(colNombreAsistenciaCE, colApellidoAsistenciaCE, colLegajoAsistenciaCE, colTurnoAsistenciaCE, colFechaAsistenciaCE, colHoraEntradaAsistenciaCE, colHoraSalidaAsistenciaCE, colIDCronogramaAsistenciaCE);
-        tablaCronogramaAsistencia.getItems().setAll(listCronogramaCE);
-
-        // Entrada
-        colNombreEntrada.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("nombre"));
-        colApellidoEntrada.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("apellido"));
-        colLegajoEntrada.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, Integer>("legajo"));
-        colFechaEntrada.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("fecha"));
-        colHoraEntrada.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("horaEntrada"));
-        colIDEmpleadoEntrada.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, Integer>("idEmpleado"));
-
-        listEntrada = ConsultaAsistencia.listaEntrada(dpBuscarFechaAsistencia, cbTurnoAsistencia, labCantidadPresentes);
-        tablaListaEmpleadosPresentes.getColumns().setAll(colNombreEntrada, colApellidoEntrada, colLegajoEntrada, colFechaEntrada, colHoraEntrada, colIDEmpleadoEntrada);
-        tablaListaEmpleadosPresentes.getItems().setAll(listEntrada);
-    }
-
-    private void tablasAsistenciasBuscar(){
-        // Cronograma
-        colNombreAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("nombre"));
-        colApellidoAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("apellido"));
-        colLegajoAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, Integer>("legajo"));
-        colTurnoAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("turno"));
-        colFechaAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("fecha"));
-        colHoraEntradaAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("horaEntrada"));
-        colHoraSalidaAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("horaSalida"));
-        colIDCronogramaAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, Integer>("idCronograma"));
-
-        listCronogramaCE = ConsultaAsistencia.listaCronogramaCEBuscar(dpBuscarFechaAsistencia, cbTurnoAsistencia, labCantidadCronograma, textBuscarLegajoEmpleadoAsistencia);
-        tablaCronogramaAsistencia.getColumns().setAll(colNombreAsistenciaCE, colApellidoAsistenciaCE, colLegajoAsistenciaCE, colTurnoAsistenciaCE, colFechaAsistenciaCE, colHoraEntradaAsistenciaCE, colHoraSalidaAsistenciaCE, colIDCronogramaAsistenciaCE);
-        tablaCronogramaAsistencia.getItems().setAll(listCronogramaCE);
-
-        // Entrada
-        colNombreEntrada.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("nombre"));
-        colApellidoEntrada.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("apellido"));
-        colLegajoEntrada.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, Integer>("legajo"));
-        colFechaEntrada.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("fecha"));
-        colHoraEntrada.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("horaEntrada"));
-        colIDEmpleadoEntrada.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, Integer>("idEmpleado"));
-
-        listEntrada = ConsultaAsistencia.listaEntradaBuscar(dpBuscarFechaAsistencia, cbTurnoAsistencia, labCantidadPresentes, textBuscarLegajoEmpleadoAsistencia);
-        tablaListaEmpleadosPresentes.getColumns().setAll(colNombreEntrada, colApellidoEntrada, colLegajoEntrada, colFechaEntrada, colHoraEntrada, colIDEmpleadoEntrada);
-        tablaListaEmpleadosPresentes.getItems().setAll(listEntrada);
-    }
-
-    private void tablasSalidas(){
-        // Cronograma
-        colNombreAsistenciaCS.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("nombre"));
-        colApellidoAsistenciaCS.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("apellido"));
-        colLegajoAsistenciaCS.setCellValueFactory(new PropertyValueFactory<VerificarSalida, Integer>("legajo"));
-        colTurnoAsistenciaCS.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("turno"));
-        colFechaAsistenciaCS.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("fecha"));
-        colHoraSalidaAsistenciaCS.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("horaSalida"));
-        colHoraEntradaAsistenciaCS.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("horaEntrada"));
-        colIDCronogramaAsistenciaCS.setCellValueFactory(new PropertyValueFactory<VerificarSalida, Integer>("idCronograma"));
-
-        listCronogramaCS = VerificarSalida.listaCronogramaCS(dpBuscarFechaSalida, cbTurnoSalida, labCantidadCronogramaS);
-        tablaCronogramaSalida.getColumns().setAll(colNombreAsistenciaCS, colApellidoAsistenciaCS, colLegajoAsistenciaCS, colTurnoAsistenciaCS, colFechaAsistenciaCS, colHoraSalidaAsistenciaCS, colHoraEntradaAsistenciaCS, colIDCronogramaAsistenciaCS);
-        tablaCronogramaSalida.getItems().setAll(listCronogramaCS);
-
-        // Salida
-        colNombreSalida.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("nombre"));
-        colApellidoSalida.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("apellido"));
-        colLegajoSalida.setCellValueFactory(new PropertyValueFactory<VerificarSalida, Integer>("legajo"));
-        colFechaSalida.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("fecha"));
-        colHoraSalida.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("horaSalida"));
-        colIDEmpleadoSalida.setCellValueFactory(new PropertyValueFactory<VerificarSalida, Integer>("idEmpleado"));
-
-        listSalida = VerificarSalida.listaSalida(dpBuscarFechaSalida, cbTurnoSalida, labCantidadS);
-        tablaListaEmpleadosSalida.getColumns().setAll(colNombreSalida, colApellidoSalida, colLegajoSalida, colFechaSalida, colHoraSalida, colIDEmpleadoSalida);
-        tablaListaEmpleadosSalida.getItems().setAll(listSalida);
-    }
-
-    private void tablasSalidaBuscar(){
-        // Cronograma
-        colNombreAsistenciaCS.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("nombre"));
-        colApellidoAsistenciaCS.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("apellido"));
-        colLegajoAsistenciaCS.setCellValueFactory(new PropertyValueFactory<VerificarSalida, Integer>("legajo"));
-        colTurnoAsistenciaCS.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("turno"));
-        colFechaAsistenciaCS.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("fecha"));
-        colHoraSalidaAsistenciaCS.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("horaSalida"));
-        colHoraEntradaAsistenciaCS.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("horaEntrada"));
-        colIDCronogramaAsistenciaCS.setCellValueFactory(new PropertyValueFactory<VerificarSalida, Integer>("idCronograma"));
-
-        listCronogramaCS = VerificarSalida.listaCronogramaCSBuscar(dpBuscarFechaSalida, cbTurnoSalida, labCantidadCronogramaS, textBuscarLegajoEmpleadoSalida);
-        tablaCronogramaSalida.getColumns().setAll(colNombreAsistenciaCS, colApellidoAsistenciaCS, colLegajoAsistenciaCS, colTurnoAsistenciaCS, colFechaAsistenciaCS, colHoraSalidaAsistenciaCS, colHoraEntradaAsistenciaCS, colIDCronogramaAsistenciaCS);
-        tablaCronogramaSalida.getItems().setAll(listCronogramaCS);
-
-        // Salida
-        colNombreSalida.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("nombre"));
-        colApellidoSalida.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("apellido"));
-        colLegajoSalida.setCellValueFactory(new PropertyValueFactory<VerificarSalida, Integer>("legajo"));
-        colFechaSalida.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("fecha"));
-        colHoraSalida.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("horaSalida"));
-        colIDEmpleadoSalida.setCellValueFactory(new PropertyValueFactory<VerificarSalida, Integer>("idEmpleado"));
-
-        listSalida = VerificarSalida.listaSalidaBuscar(dpBuscarFechaSalida, cbTurnoSalida, labCantidadS, textBuscarLegajoEmpleadoSalida);
-        tablaListaEmpleadosSalida.getColumns().setAll(colNombreSalida, colApellidoSalida, colLegajoSalida, colFechaSalida, colHoraSalida, colIDEmpleadoSalida);
-        tablaListaEmpleadosSalida.getItems().setAll(listSalida);
-    }
-
     @FXML
     private void consultaSalidaGeneral() throws ParseException {
         textBuscarLegajoEmpleadoSalida.setText("");
@@ -1268,6 +1156,118 @@ public class ControladorAusencias {
         labJustificadoEliminar.setText("");
         labCertificadoEliminar.setText("");
         fechasInicializarMyE();
+    }
+
+    private void tablasAsistencias(){
+        // Cronograma
+        colNombreAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("nombre"));
+        colApellidoAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("apellido"));
+        colLegajoAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, Integer>("legajo"));
+        colTurnoAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("turno"));
+        colFechaAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("fecha"));
+        colHoraEntradaAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("horaEntrada"));
+        colHoraSalidaAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("horaSalida"));
+        colIDCronogramaAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, Integer>("idCronograma"));
+
+        listCronogramaCE = ConsultaAsistencia.listaCronogramaCE(dpBuscarFechaAsistencia, cbTurnoAsistencia, labCantidadCronograma);
+        tablaCronogramaAsistencia.getColumns().setAll(colNombreAsistenciaCE, colApellidoAsistenciaCE, colLegajoAsistenciaCE, colTurnoAsistenciaCE, colFechaAsistenciaCE, colHoraEntradaAsistenciaCE, colHoraSalidaAsistenciaCE, colIDCronogramaAsistenciaCE);
+        tablaCronogramaAsistencia.getItems().setAll(listCronogramaCE);
+
+        // Entrada
+        colNombreEntrada.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("nombre"));
+        colApellidoEntrada.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("apellido"));
+        colLegajoEntrada.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, Integer>("legajo"));
+        colFechaEntrada.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("fecha"));
+        colHoraEntrada.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("horaEntrada"));
+        colIDEmpleadoEntrada.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, Integer>("idEmpleado"));
+
+        listEntrada = ConsultaAsistencia.listaEntrada(dpBuscarFechaAsistencia, cbTurnoAsistencia, labCantidadPresentes);
+        tablaListaEmpleadosPresentes.getColumns().setAll(colNombreEntrada, colApellidoEntrada, colLegajoEntrada, colFechaEntrada, colHoraEntrada, colIDEmpleadoEntrada);
+        tablaListaEmpleadosPresentes.getItems().setAll(listEntrada);
+    }
+
+    private void tablasAsistenciasBuscar(){
+        // Cronograma
+        colNombreAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("nombre"));
+        colApellidoAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("apellido"));
+        colLegajoAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, Integer>("legajo"));
+        colTurnoAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("turno"));
+        colFechaAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("fecha"));
+        colHoraEntradaAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("horaEntrada"));
+        colHoraSalidaAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("horaSalida"));
+        colIDCronogramaAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, Integer>("idCronograma"));
+
+        listCronogramaCE = ConsultaAsistencia.listaCronogramaCEBuscar(dpBuscarFechaAsistencia, cbTurnoAsistencia, labCantidadCronograma, textBuscarLegajoEmpleadoAsistencia);
+        tablaCronogramaAsistencia.getColumns().setAll(colNombreAsistenciaCE, colApellidoAsistenciaCE, colLegajoAsistenciaCE, colTurnoAsistenciaCE, colFechaAsistenciaCE, colHoraEntradaAsistenciaCE, colHoraSalidaAsistenciaCE, colIDCronogramaAsistenciaCE);
+        tablaCronogramaAsistencia.getItems().setAll(listCronogramaCE);
+
+        // Entrada
+        colNombreEntrada.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("nombre"));
+        colApellidoEntrada.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("apellido"));
+        colLegajoEntrada.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, Integer>("legajo"));
+        colFechaEntrada.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("fecha"));
+        colHoraEntrada.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("horaEntrada"));
+        colIDEmpleadoEntrada.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, Integer>("idEmpleado"));
+
+        listEntrada = ConsultaAsistencia.listaEntradaBuscar(dpBuscarFechaAsistencia, cbTurnoAsistencia, labCantidadPresentes, textBuscarLegajoEmpleadoAsistencia);
+        tablaListaEmpleadosPresentes.getColumns().setAll(colNombreEntrada, colApellidoEntrada, colLegajoEntrada, colFechaEntrada, colHoraEntrada, colIDEmpleadoEntrada);
+        tablaListaEmpleadosPresentes.getItems().setAll(listEntrada);
+    }
+
+    private void tablasSalidas(){
+        // Cronograma
+        colNombreAsistenciaCS.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("nombre"));
+        colApellidoAsistenciaCS.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("apellido"));
+        colLegajoAsistenciaCS.setCellValueFactory(new PropertyValueFactory<VerificarSalida, Integer>("legajo"));
+        colTurnoAsistenciaCS.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("turno"));
+        colFechaAsistenciaCS.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("fecha"));
+        colHoraSalidaAsistenciaCS.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("horaSalida"));
+        colHoraEntradaAsistenciaCS.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("horaEntrada"));
+        colIDCronogramaAsistenciaCS.setCellValueFactory(new PropertyValueFactory<VerificarSalida, Integer>("idCronograma"));
+
+        listCronogramaCS = VerificarSalida.listaCronogramaCS(dpBuscarFechaSalida, cbTurnoSalida, labCantidadCronogramaS);
+        tablaCronogramaSalida.getColumns().setAll(colNombreAsistenciaCS, colApellidoAsistenciaCS, colLegajoAsistenciaCS, colTurnoAsistenciaCS, colFechaAsistenciaCS, colHoraSalidaAsistenciaCS, colHoraEntradaAsistenciaCS, colIDCronogramaAsistenciaCS);
+        tablaCronogramaSalida.getItems().setAll(listCronogramaCS);
+
+        // Salida
+        colNombreSalida.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("nombre"));
+        colApellidoSalida.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("apellido"));
+        colLegajoSalida.setCellValueFactory(new PropertyValueFactory<VerificarSalida, Integer>("legajo"));
+        colFechaSalida.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("fecha"));
+        colHoraSalida.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("horaSalida"));
+        colIDEmpleadoSalida.setCellValueFactory(new PropertyValueFactory<VerificarSalida, Integer>("idEmpleado"));
+
+        listSalida = VerificarSalida.listaSalida(dpBuscarFechaSalida, cbTurnoSalida, labCantidadS);
+        tablaListaEmpleadosSalida.getColumns().setAll(colNombreSalida, colApellidoSalida, colLegajoSalida, colFechaSalida, colHoraSalida, colIDEmpleadoSalida);
+        tablaListaEmpleadosSalida.getItems().setAll(listSalida);
+    }
+
+    private void tablasSalidaBuscar(){
+        // Cronograma
+        colNombreAsistenciaCS.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("nombre"));
+        colApellidoAsistenciaCS.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("apellido"));
+        colLegajoAsistenciaCS.setCellValueFactory(new PropertyValueFactory<VerificarSalida, Integer>("legajo"));
+        colTurnoAsistenciaCS.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("turno"));
+        colFechaAsistenciaCS.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("fecha"));
+        colHoraSalidaAsistenciaCS.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("horaSalida"));
+        colHoraEntradaAsistenciaCS.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("horaEntrada"));
+        colIDCronogramaAsistenciaCS.setCellValueFactory(new PropertyValueFactory<VerificarSalida, Integer>("idCronograma"));
+
+        listCronogramaCS = VerificarSalida.listaCronogramaCSBuscar(dpBuscarFechaSalida, cbTurnoSalida, labCantidadCronogramaS, textBuscarLegajoEmpleadoSalida);
+        tablaCronogramaSalida.getColumns().setAll(colNombreAsistenciaCS, colApellidoAsistenciaCS, colLegajoAsistenciaCS, colTurnoAsistenciaCS, colFechaAsistenciaCS, colHoraSalidaAsistenciaCS, colHoraEntradaAsistenciaCS, colIDCronogramaAsistenciaCS);
+        tablaCronogramaSalida.getItems().setAll(listCronogramaCS);
+
+        // Salida
+        colNombreSalida.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("nombre"));
+        colApellidoSalida.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("apellido"));
+        colLegajoSalida.setCellValueFactory(new PropertyValueFactory<VerificarSalida, Integer>("legajo"));
+        colFechaSalida.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("fecha"));
+        colHoraSalida.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("horaSalida"));
+        colIDEmpleadoSalida.setCellValueFactory(new PropertyValueFactory<VerificarSalida, Integer>("idEmpleado"));
+
+        listSalida = VerificarSalida.listaSalidaBuscar(dpBuscarFechaSalida, cbTurnoSalida, labCantidadS, textBuscarLegajoEmpleadoSalida);
+        tablaListaEmpleadosSalida.getColumns().setAll(colNombreSalida, colApellidoSalida, colLegajoSalida, colFechaSalida, colHoraSalida, colIDEmpleadoSalida);
+        tablaListaEmpleadosSalida.getItems().setAll(listSalida);
     }
 
     // ---------------------------------------- Fechas Actuales Inicializadas ----------------------------------------
