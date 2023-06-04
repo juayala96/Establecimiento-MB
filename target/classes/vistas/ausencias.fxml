@@ -715,7 +715,7 @@
                               <Font name="System Italic" size="24.0" />
                            </font>
                         </Label>
-                        <TableView fx:id="tablaCronogramaAsistencia" layoutX="45.0" layoutY="247.0" prefHeight="404.0" prefWidth="729.0">
+                        <TableView fx:id="tablaCronogramaAsistencia" layoutX="45.0" layoutY="247.0" onMouseClicked="#getCronogramaAsistencia" prefHeight="404.0" prefWidth="729.0">
                            <placeholder>
                               <Label text="Los empleados no tiene turnos asignados" />
                            </placeholder>
@@ -728,6 +728,7 @@
                               <TableColumn fx:id="colHoraEntradaAsistenciaCE" prefWidth="130.0" style="-fx-font-size: 15;" text="Hora de Entrada" />
                               <TableColumn fx:id="colHoraSalidaAsistenciaCE" prefWidth="130.0" style="-fx-font-size: 15;" text="Hora de Salida" />
                               <TableColumn fx:id="colIDCronogramaAsistenciaCE" prefWidth="107.2000732421875" style="-fx-font-size: 14;" text="IDCronograma" />
+                              <TableColumn fx:id="colIDEmpleadoCronogramaA" prefWidth="107.2000732421875" style="-fx-font-size: 14;" text="IDEmpleado" />
                            </columns>
                            <cursor>
                               <Cursor fx:constant="HAND" />
@@ -888,7 +889,7 @@
                               <Font name="System Italic" size="24.0" />
                            </font>
                         </Label>
-                        <TableView fx:id="tablaCronogramaSalida" layoutX="45.0" layoutY="247.0" prefHeight="404.0" prefWidth="729.0">
+                        <TableView fx:id="tablaCronogramaSalida" layoutX="45.0" layoutY="247.0" onMouseClicked="#getCronogramaSalida" prefHeight="404.0" prefWidth="729.0">
                            <placeholder>
                               <Label text="Los empleados no tiene turnos asignados" />
                            </placeholder>
@@ -901,6 +902,7 @@
                               <TableColumn fx:id="colHoraSalidaAsistenciaCS" prefWidth="130.0" style="-fx-font-size: 15;" text="Hora de Salida" />
                               <TableColumn fx:id="colHoraEntradaAsistenciaCS" prefWidth="130.0" style="-fx-font-size: 15;" text="Hora de Entrada" />
                               <TableColumn fx:id="colIDCronogramaAsistenciaCS" prefWidth="108.79998779296875" style="-fx-font-size: 14;" text="IDCronograma" />
+                              <TableColumn fx:id="colIDEmpleadoCronogramaS" prefWidth="108.79998779296875" style="-fx-font-size: 14;" text="IDEmpleado" />
                            </columns>
                            <cursor>
                               <Cursor fx:constant="HAND" />
@@ -939,7 +941,7 @@
                               <Font name="Ebrima" size="20.0" />
                            </font>
                         </Label>
-                        <Label layoutX="46.0" layoutY="651.0" prefHeight="26.0" prefWidth="458.0" text="Seleccione un empleado de la lista para poder registrar su entrada o ausencia " textFill="#080808">
+                        <Label layoutX="46.0" layoutY="651.0" prefHeight="26.0" prefWidth="458.0" text="Seleccione un empleado de la lista para poder registrar su salida " textFill="#080808">
                            <font>
                               <Font size="13.0" />
                            </font>
@@ -1011,17 +1013,19 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
+                        <Label fx:id="labExisteEntrada" layoutX="503.0" layoutY="89.0" prefHeight="18.0" prefWidth="26.0" />
+                        <Label fx:id="labIDEmpleadoEntradaA" layoutX="479.0" layoutY="89.0" prefHeight="18.0" prefWidth="26.0" />
                         <ImageView fitHeight="1168.0" fitWidth="1536.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../imagenes/verde_agua.jpg" />
                            </image>
                         </ImageView>
-                        <Label layoutX="551.0" layoutY="65.0" prefHeight="56.0" prefWidth="445.0" text="Registrar Entrada" textFill="#080808">
+                        <Label layoutX="545.0" layoutY="71.0" prefHeight="56.0" prefWidth="445.0" text="Registrar Entrada" textFill="#080808">
                            <font>
                               <Font name="Georgia Bold" size="48.0" />
                            </font>
                         </Label>
-                        <Button fx:id="btnRegresarAsistenciaEntrada" layoutX="350.0" layoutY="684.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#regresarAsistenciaEntrada" prefHeight="46.0" prefWidth="181.0" text="Regresar" textFill="#382929">
+                        <Button fx:id="btnRegresarAsistenciaEntrada" layoutX="394.0" layoutY="646.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#regresarAsistenciaEntrada" prefHeight="46.0" prefWidth="166.0" text="Regresar" textFill="#382929">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -1039,7 +1043,7 @@
                               <Font name="System Bold" size="20.0" />
                            </font>
                         </Label>
-                        <Button fx:id="btnMarcarEntrada" layoutX="1017.0" layoutY="684.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#marcarEntrada" prefHeight="46.0" prefWidth="181.0" text="Marcar Entrada" textFill="#382929">
+                        <Button fx:id="btnMarcarEntrada" layoutX="995.0" layoutY="646.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#marcarEntrada" prefHeight="46.0" prefWidth="166.0" style="-fx-background-color: #085e05;" text="Marcar Entrada" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -1047,50 +1051,77 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Label layoutX="663.0" layoutY="168.0" prefHeight="35.0" prefWidth="80.0" text="Nombre:" textFill="#080808">
+                        <Label layoutX="479.0" layoutY="182.0" prefHeight="35.0" prefWidth="80.0" text="Nombre:" textFill="#080808">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <Label layoutX="663.0" layoutY="288.0" prefHeight="35.0" prefWidth="79.0" text="Apellido:" textFill="#080808">
+                        <Label layoutX="477.0" layoutY="302.0" prefHeight="35.0" prefWidth="79.0" text="Apellido:" textFill="#080808">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <Label layoutX="662.0" layoutY="408.0" prefHeight="30.0" prefWidth="68.0" text="Legajo:" textFill="#080808">
+                        <Label layoutX="477.0" layoutY="429.0" prefHeight="30.0" prefWidth="68.0" text="Legajo:" textFill="#080808">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <Label layoutX="664.0" layoutY="324.0" prefHeight="40.0" prefWidth="220.0" style="-fx-background-color: white;" />
-                        <Label fx:id="labApellidoEmpleadoEntrada" layoutX="674.0" layoutY="324.0" prefHeight="40.0" prefWidth="210.0" textFill="#1200ff">
+                        <Label layoutX="478.0" layoutY="338.0" prefHeight="40.0" prefWidth="220.0" style="-fx-background-color: white;" />
+                        <Label fx:id="labApellidoEmpleadoEntrada" layoutX="488.0" layoutY="338.0" prefHeight="40.0" prefWidth="210.0" textFill="#1200ff">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="663.0" layoutY="204.0" prefHeight="40.0" prefWidth="220.0" style="-fx-background-color: white;" />
-                        <Label fx:id="labNombreEmpleadoEntrada" layoutX="673.0" layoutY="204.0" prefHeight="40.0" prefWidth="210.0" textFill="#1200ff">
+                        <Label layoutX="479.0" layoutY="218.0" prefHeight="40.0" prefWidth="220.0" style="-fx-background-color: white;" />
+                        <Label fx:id="labNombreEmpleadoEntrada" layoutX="489.0" layoutY="218.0" prefHeight="40.0" prefWidth="210.0" textFill="#1200ff">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="663.0" layoutY="439.0" prefHeight="40.0" prefWidth="140.0" style="-fx-background-color: white;" />
-                        <Label fx:id="labLegajoEmpleadoEntrada" layoutX="673.0" layoutY="439.0" prefHeight="40.0" prefWidth="130.0" textFill="#d101dc">
+                        <Label layoutX="478.0" layoutY="460.0" prefHeight="40.0" prefWidth="140.0" style="-fx-background-color: white;" />
+                        <Label fx:id="labLegajoEmpleadoEntrada" layoutX="488.0" layoutY="460.0" prefHeight="40.0" prefWidth="130.0" textFill="#d101dc">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="textHoraEntrada" layoutX="662.0" layoutY="555.0" prefHeight="44.0" prefWidth="141.0">
+                        <TextField fx:id="textHoraEntrada" layoutX="904.0" layoutY="458.0" prefHeight="44.0" prefWidth="83.0">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </TextField>
-                        <Label layoutX="663.0" layoutY="525.0" prefHeight="30.0" prefWidth="68.0" text="Hora:" textFill="#080808">
+                        <Label layoutX="904.0" layoutY="429.0" prefHeight="30.0" prefWidth="68.0" text="Hora:" textFill="#080808">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <Label fx:id="labErrorHoraEntrada" layoutX="662.0" layoutY="599.0" prefHeight="22.0" prefWidth="220.0" textFill="#bc0f0f">
+                        <Label fx:id="labErrorHoraEntrada" layoutX="991.0" layoutY="451.0" prefHeight="40.0" prefWidth="43.0" textFill="#bc0f0f">
+                           <font>
+                              <Font name="Consolas" size="48.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="904.0" layoutY="187.0" prefHeight="30.0" prefWidth="68.0" text="Fecha:" textFill="#080808">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="904.0" layoutY="295.0" prefHeight="30.0" prefWidth="68.0" text="Turno:" textFill="#080808">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="904.0" layoutY="338.0" prefHeight="40.0" prefWidth="113.0" style="-fx-background-color: white;" />
+                        <Label fx:id="labTurnoEntrada" layoutX="913.0" layoutY="338.0" prefHeight="40.0" prefWidth="105.0" textFill="#1200ff">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="904.0" layoutY="218.0" prefHeight="40.0" prefWidth="141.0" style="-fx-background-color: white;" />
+                        <Label fx:id="labFechaEntrada" layoutX="913.0" layoutY="218.0" prefHeight="40.0" prefWidth="105.0" textFill="#1200ff">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="labErrorHoraEntrada2" layoutX="904.0" layoutY="502.0" prefHeight="22.0" prefWidth="260.0" textFill="#bc0f0f">
                            <font>
                               <Font name="Consolas" size="14.0" />
                            </font>
@@ -1099,21 +1130,23 @@
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab fx:id="tabRegistroSalida" text="Registrar Salida">
+            <Tab fx:id="tabRegistroSalida" text="Registrar Entrada">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
+                        <Label fx:id="labExisteSalida" layoutX="503.0" layoutY="89.0" prefHeight="18.0" prefWidth="26.0" />
+                        <Label fx:id="labIDEmpleadoSalidaS" layoutX="479.0" layoutY="89.0" prefHeight="18.0" prefWidth="26.0" />
                         <ImageView fitHeight="1168.0" fitWidth="1536.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../imagenes/verde_agua.jpg" />
                            </image>
                         </ImageView>
-                        <Label layoutX="567.0" layoutY="64.0" prefHeight="56.0" prefWidth="402.0" text="Registrar Salida" textFill="#080808">
+                        <Label layoutX="566.0" layoutY="70.0" prefHeight="56.0" prefWidth="404.0" text="Registrar Salida" textFill="#080808">
                            <font>
                               <Font name="Georgia Bold" size="48.0" />
                            </font>
                         </Label>
-                        <Button fx:id="btnRegresarAsistenciaSalida" layoutX="350.0" layoutY="684.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#regresarAsistenciaSalida" prefHeight="46.0" prefWidth="181.0" text="Regresar" textFill="#382929">
+                        <Button fx:id="btnRegresarAsistenciaSalida" layoutX="394.0" layoutY="646.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#regresarAsistenciaSalida" prefHeight="46.0" prefWidth="166.0" text="Regresar" textFill="#382929">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -1131,7 +1164,7 @@
                               <Font name="System Bold" size="20.0" />
                            </font>
                         </Label>
-                        <Button fx:id="btnMarcarSalida" layoutX="1017.0" layoutY="684.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#marcarSalida" prefHeight="46.0" prefWidth="181.0" text="Marcar Salida" textFill="#382929">
+                        <Button fx:id="btnMarcarSalida" layoutX="995.0" layoutY="646.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#marcarSalida" prefHeight="46.0" prefWidth="166.0" style="-fx-background-color: #085e05;" text="Marcar Salida" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -1139,50 +1172,77 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Label layoutX="663.0" layoutY="168.0" prefHeight="35.0" prefWidth="80.0" text="Nombre:" textFill="#080808">
+                        <Label layoutX="479.0" layoutY="182.0" prefHeight="35.0" prefWidth="80.0" text="Nombre:" textFill="#080808">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <Label layoutX="663.0" layoutY="288.0" prefHeight="35.0" prefWidth="79.0" text="Apellido:" textFill="#080808">
+                        <Label layoutX="477.0" layoutY="302.0" prefHeight="35.0" prefWidth="79.0" text="Apellido:" textFill="#080808">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <Label layoutX="662.0" layoutY="408.0" prefHeight="30.0" prefWidth="68.0" text="Legajo:" textFill="#080808">
+                        <Label layoutX="477.0" layoutY="429.0" prefHeight="30.0" prefWidth="68.0" text="Legajo:" textFill="#080808">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <Label layoutX="664.0" layoutY="324.0" prefHeight="40.0" prefWidth="220.0" style="-fx-background-color: white;" />
-                        <Label fx:id="labApellidoEmpleadoSalida" layoutX="674.0" layoutY="324.0" prefHeight="40.0" prefWidth="210.0" textFill="#1200ff">
+                        <Label layoutX="478.0" layoutY="338.0" prefHeight="40.0" prefWidth="220.0" style="-fx-background-color: white;" />
+                        <Label fx:id="labApellidoEmpleadoSalida" layoutX="488.0" layoutY="338.0" prefHeight="40.0" prefWidth="210.0" textFill="#1200ff">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="663.0" layoutY="204.0" prefHeight="40.0" prefWidth="220.0" style="-fx-background-color: white;" />
-                        <Label fx:id="labNombreEmpleadoSalida" layoutX="673.0" layoutY="204.0" prefHeight="40.0" prefWidth="210.0" textFill="#1200ff">
+                        <Label layoutX="479.0" layoutY="218.0" prefHeight="40.0" prefWidth="220.0" style="-fx-background-color: white;" />
+                        <Label fx:id="labNombreEmpleadoSalida" layoutX="489.0" layoutY="218.0" prefHeight="40.0" prefWidth="210.0" textFill="#1200ff">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="663.0" layoutY="439.0" prefHeight="40.0" prefWidth="140.0" style="-fx-background-color: white;" />
-                        <Label fx:id="labLegajoEmpleadoSalida" layoutX="673.0" layoutY="439.0" prefHeight="40.0" prefWidth="130.0" textFill="#d101dc">
+                        <Label layoutX="478.0" layoutY="460.0" prefHeight="40.0" prefWidth="140.0" style="-fx-background-color: white;" />
+                        <Label fx:id="labLegajoEmpleadoSalida" layoutX="488.0" layoutY="460.0" prefHeight="40.0" prefWidth="130.0" textFill="#d101dc">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="textHoraSalida" layoutX="662.0" layoutY="555.0" prefHeight="44.0" prefWidth="141.0">
+                        <TextField fx:id="textHoraSalida" layoutX="904.0" layoutY="458.0" prefHeight="44.0" prefWidth="83.0">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </TextField>
-                        <Label layoutX="663.0" layoutY="525.0" prefHeight="30.0" prefWidth="68.0" text="Hora:" textFill="#080808">
+                        <Label layoutX="904.0" layoutY="429.0" prefHeight="30.0" prefWidth="68.0" text="Hora:" textFill="#080808">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <Label fx:id="labErrorHoraSalida" layoutX="662.0" layoutY="599.0" prefHeight="22.0" prefWidth="220.0" textFill="#bc0f0f">
+                        <Label fx:id="labErrorHoraSalida" layoutX="991.0" layoutY="451.0" prefHeight="40.0" prefWidth="43.0" textFill="#bc0f0f">
+                           <font>
+                              <Font name="Consolas" size="48.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="904.0" layoutY="187.0" prefHeight="30.0" prefWidth="68.0" text="Fecha:" textFill="#080808">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="904.0" layoutY="295.0" prefHeight="30.0" prefWidth="68.0" text="Turno:" textFill="#080808">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="904.0" layoutY="338.0" prefHeight="40.0" prefWidth="113.0" style="-fx-background-color: white;" />
+                        <Label fx:id="labTurnoSalida" layoutX="913.0" layoutY="338.0" prefHeight="40.0" prefWidth="105.0" textFill="#1200ff">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="904.0" layoutY="218.0" prefHeight="40.0" prefWidth="141.0" style="-fx-background-color: white;" />
+                        <Label fx:id="labFechaSalida" layoutX="913.0" layoutY="218.0" prefHeight="40.0" prefWidth="105.0" textFill="#1200ff">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="labErrorHoraSalida2" layoutX="904.0" layoutY="502.0" prefHeight="22.0" prefWidth="260.0" textFill="#bc0f0f">
                            <font>
                               <Font name="Consolas" size="14.0" />
                            </font>
