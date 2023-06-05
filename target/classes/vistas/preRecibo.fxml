@@ -41,7 +41,7 @@
                            <graphic>
                               <ImageView fitHeight="29.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../imagenes/iconos/Volver.png" />
+                                    <Image url="@../imagenes/iconos/Inicio.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -56,15 +56,15 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <Label layoutX="677.0" layoutY="529.0" prefHeight="30.0" prefWidth="66.0" text="Legajo:" textFill="#080808">
+                        <Label layoutX="759.0" layoutY="529.0" prefHeight="30.0" prefWidth="66.0" text="Legajo:" textFill="#080808">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </Label>
                         <Label layoutX="396.0" layoutY="598.0" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: white;" />
                         <Label layoutX="396.0" layoutY="525.0" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: white;" />
-                        <Label layoutX="752.0" layoutY="525.0" prefHeight="40.0" prefWidth="154.0" style="-fx-background-color: white;" />
-                        <Label fx:id="labLegajoEmpleado" layoutX="763.0" layoutY="525.0" prefHeight="40.0" prefWidth="144.0" textAlignment="CENTER" textFill="#d101dc">
+                        <Label layoutX="834.0" layoutY="525.0" prefHeight="40.0" prefWidth="154.0" style="-fx-background-color: white;" />
+                        <Label fx:id="labLegajoEmpleado" layoutX="845.0" layoutY="525.0" prefHeight="40.0" prefWidth="144.0" textAlignment="CENTER" textFill="#d101dc">
                            <font>
                               <Font name="System Bold" size="17.0" />
                            </font>
@@ -84,16 +84,16 @@
                               <Font name="Georgia Bold" size="72.0" />
                            </font>
                         </Label>
-                        <TableView fx:id="tabEmpleados" layoutX="305.0" layoutY="188.0" onMouseClicked="#getListaEmpleados" prefHeight="294.0" prefWidth="601.0" style="-fx-background-color: #e4e4e4;">
+                        <TableView fx:id="tabEmpleados" layoutX="305.0" layoutY="188.0" onMouseClicked="#getListaEmpleados" prefHeight="282.0" prefWidth="684.0" style="-fx-background-color: #e4e4e4;">
                            <placeholder>
                               <Label text="No hay empleados registrados" />
                            </placeholder>
                            <columns>
-                              <TableColumn fx:id="colNombre" prefWidth="120.0" text="Nombre" />
-                              <TableColumn fx:id="colApellido" prefWidth="120.0" text="Apellido" />
-                              <TableColumn fx:id="colLegajo" prefWidth="120.0" text="Legajo" />
-                              <TableColumn fx:id="colDNI" prefWidth="120.0" text="DNI" />
-                              <TableColumn fx:id="colTelefono" prefWidth="120.0" text="Telefono" />
+                              <TableColumn fx:id="colNombre" prefWidth="150.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Nombre" />
+                              <TableColumn fx:id="colApellido" prefWidth="150.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Apellido" />
+                              <TableColumn fx:id="colLegajo" prefWidth="100.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Legajo" />
+                              <TableColumn fx:id="colDNI" prefWidth="150.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="DNI" />
+                              <TableColumn fx:id="colTelefono" prefWidth="136.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Telefono" />
                               <TableColumn fx:id="colIDEmpleado" prefWidth="63.199951171875" text="ID" />
                            </columns>
                         </TableView>

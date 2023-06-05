@@ -71,10 +71,10 @@
                               <Label text="El empleado no tiene ausencias registradas" />
                            </placeholder>
                            <columns>
-                              <TableColumn fx:id="colFecha" prefWidth="140.0" style="-fx-font-size: 15;" text="Fecha" />
-                              <TableColumn fx:id="colMotivo" prefWidth="200.0" style="-fx-font-size: 15;" text="Motivo" />
-                              <TableColumn fx:id="colJustificado" prefWidth="125.0" style="-fx-font-size: 15;" text="Justificado" />
-                              <TableColumn fx:id="colCertificado" prefWidth="125.0" style="-fx-font-size: 15;" text="Certificado" />
+                              <TableColumn fx:id="colFecha" prefWidth="133.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Fecha" />
+                              <TableColumn fx:id="colMotivo" prefWidth="207.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Motivo" />
+                              <TableColumn fx:id="colJustificado" prefWidth="125.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Justificado" />
+                              <TableColumn fx:id="colCertificado" prefWidth="125.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Certificado" />
                               <TableColumn fx:id="colIDAusencia" prefWidth="84.800048828125" style="-fx-font-size: 15;" text="IDAusencia" />
                            </columns>
                            <cursor>
@@ -102,7 +102,7 @@
                               <Font name="System Bold Italic" size="16.0" />
                            </font>
                         </Button>
-                        <Button fx:id="btnModificarAusencia" alignment="TOP_LEFT" graphicTextGap="8.0" layoutX="1334.0" layoutY="363.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#modificarAusencia" prefHeight="46.0" prefWidth="166.0" text="Modificar" textFill="#080808">
+                        <Button fx:id="btnModificarAusencia" alignment="CENTER" graphicTextGap="8.0" layoutX="1334.0" layoutY="363.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#modificarAusencia" prefHeight="46.0" prefWidth="166.0" text="Modificar" textFill="#080808">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -117,7 +117,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button fx:id="btnEliminarAusencia" alignment="TOP_LEFT" graphicTextGap="8.0" layoutX="1334.0" layoutY="460.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#eliminarAusencia" prefHeight="46.0" prefWidth="165.0" text="Eliminar" textFill="#080808">
+                        <Button fx:id="btnEliminarAusencia" alignment="CENTER" graphicTextGap="8.0" layoutX="1334.0" layoutY="460.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#eliminarAusencia" prefHeight="46.0" prefWidth="165.0" text="Eliminar" textFill="#080808">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -132,7 +132,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button fx:id="btnVolver" alignment="TOP_LEFT" graphicTextGap="12.0" layoutX="1333.0" layoutY="674.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#volverEmpleados" prefHeight="46.0" prefWidth="166.0" text="Regresar" textFill="#d40000">
+                        <Button fx:id="btnVolver" alignment="CENTER" graphicTextGap="12.0" layoutX="1333.0" layoutY="674.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#volverEmpleados" prefHeight="46.0" prefWidth="166.0" text="Regresar" textFill="#d40000">
                            <font>
                               <Font name="System Bold Italic" size="18.0" />
                            </font>
@@ -147,7 +147,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button fx:id="btnRegistrarAusencia" alignment="TOP_LEFT" layoutX="1335.0" layoutY="265.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#registrarAusencia" prefHeight="46.0" prefWidth="166.0" text="Registrar" textFill="#080808">
+                        <Button fx:id="btnRegistrarAusencia" alignment="CENTER" layoutX="1335.0" layoutY="265.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#registrarAusencia" prefHeight="46.0" prefWidth="166.0" text="Registrar" textFill="#080808">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -167,11 +167,11 @@
                               <Label text="No hay empleados registrados" />
                            </placeholder>
                            <columns>
-                              <TableColumn fx:id="colNombre" prefWidth="165.0" style="-fx-font-size: 15;" text="Nombre" />
-                              <TableColumn fx:id="colApellido" prefWidth="165.0" style="-fx-font-size: 15;" text="Apellido" />
-                              <TableColumn fx:id="colLegajo" prefWidth="125.0" style="-fx-font-size: 15;" text="Legajo" />
-                              <TableColumn fx:id="colDNI" prefWidth="150.0" style="-fx-font-size: 15;" text="DNI" />
-                              <TableColumn fx:id="colIDEmpleado" prefWidth="101.60003662109375" style="-fx-font-size: 15;" text="IDEmpleado" />
+                              <TableColumn fx:id="colNombre" prefWidth="170.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Nombre" />
+                              <TableColumn fx:id="colApellido" prefWidth="170.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Apellido" />
+                              <TableColumn fx:id="colLegajo" prefWidth="100.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Legajo" />
+                              <TableColumn fx:id="colDNI" prefWidth="170.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="DNI" />
+                              <TableColumn fx:id="colIDEmpleado" prefWidth="82.0" style="-fx-font-size: 15;" text="IDEmpleado" />
                            </columns>
                            <cursor>
                               <Cursor fx:constant="HAND" />
@@ -187,7 +187,7 @@
                               <Font name="Georgia" size="28.0" />
                            </font>
                         </Label>
-                        <Button fx:id="btnConsultaAsistencia" layoutX="1333.0" layoutY="555.0" mnemonicParsing="false" onAction="#consultaAsistencia" prefHeight="46.0" prefWidth="170.0" text="Consulta Asistencia" textFill="#080808">
+                        <Button fx:id="btnConsultaAsistencia" alignment="CENTER" layoutX="1333.0" layoutY="555.0" mnemonicParsing="false" onAction="#consultaAsistencia" prefHeight="46.0" prefWidth="170.0" text="Consulta Asistencia" textFill="#080808">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>
@@ -292,12 +292,12 @@
                               <Label text="No hay empleados registrados" />
                            </placeholder>
                            <columns>
-                              <TableColumn fx:id="colNombreEmpleadoCrear" prefWidth="150.0" style="-fx-font-size: 15;" text="Nombre" />
-                              <TableColumn fx:id="colApellidoEmpleadoCrear" prefWidth="150.0" style="-fx-font-size: 15;" text="Apellido" />
-                              <TableColumn fx:id="colLegajoEmpleadoCrear" prefWidth="120.0" style="-fx-font-size: 15;" text="Legajo" />
-                              <TableColumn fx:id="colDNIEmpleadoCrear" prefWidth="130.0" style="-fx-font-size: 15;" text="DNI" />
-                              <TableColumn fx:id="colTelefonoEmpleadoCrear" prefWidth="130.0" style="-fx-font-size: 15;" text="Telefono" />
-                              <TableColumn fx:id="colIDEmpleadoCrear" prefWidth="63.199951171875" style="-fx-font-size: 15;" text="ID" />
+                              <TableColumn fx:id="colNombreEmpleadoCrear" prefWidth="150.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Nombre" />
+                              <TableColumn fx:id="colApellidoEmpleadoCrear" prefWidth="150.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Apellido" />
+                              <TableColumn fx:id="colLegajoEmpleadoCrear" prefWidth="100.0" style="-fx-font-size: 14; -fx-alignment: CENTER;" text="Legajo" />
+                              <TableColumn fx:id="colDNIEmpleadoCrear" prefWidth="150.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="DNI" />
+                              <TableColumn fx:id="colTelefonoEmpleadoCrear" prefWidth="136.0" style="-fx-font-size: 14; -fx-alignment: CENTER;" text="Telefono" />
+                              <TableColumn fx:id="colIDEmpleadoCrear" prefWidth="58.0" style="-fx-font-size: 15;" text="ID" />
                            </columns>
                            <cursor>
                               <Cursor fx:constant="HAND" />
@@ -699,12 +699,12 @@
                               <Label text="No hay registro de empleados presentes" />
                            </placeholder>
                            <columns>
-                              <TableColumn fx:id="colNombreEntrada" prefWidth="150.0" style="-fx-font-size: 15;" text="Nombre" />
-                              <TableColumn fx:id="colApellidoEntrada" prefWidth="150.0" style="-fx-font-size: 15;" text="Apellido" />
-                              <TableColumn fx:id="colLegajoEntrada" prefWidth="125.0" style="-fx-font-size: 15;" text="Legajo" />
-                              <TableColumn fx:id="colFechaEntrada" prefWidth="130.0" style="-fx-font-size: 15;" text="Fecha" />
-                              <TableColumn fx:id="colHoraEntrada" prefWidth="130.0" style="-fx-font-size: 15;" text="Hora de Entrada" />
-                              <TableColumn fx:id="colIDEmpleadoEntrada" prefWidth="92.0" style="-fx-font-size: 14;" text="IDEmpleado" />
+                              <TableColumn fx:id="colNombreEntrada" prefWidth="150.0" style="-fx-font-size: 16; -fx-alignment: CENTER;" text="Nombre" />
+                              <TableColumn fx:id="colApellidoEntrada" prefWidth="150.0" style="-fx-font-size: 16; -fx-alignment: CENTER;" text="Apellido" />
+                              <TableColumn fx:id="colLegajoEntrada" prefWidth="125.0" style="-fx-font-size: 16; -fx-alignment: CENTER;" text="Legajo" />
+                              <TableColumn fx:id="colFechaEntrada" prefWidth="130.0" style="-fx-font-size: 16; -fx-alignment: CENTER;" text="Fecha" />
+                              <TableColumn fx:id="colHoraEntrada" prefWidth="135.0" style="-fx-font-size: 16; -fx-alignment: CENTER;" text="Hora de Entrada" />
+                              <TableColumn fx:id="colIDEmpleadoEntrada" prefWidth="63.0" style="-fx-font-size: 14;" text="IDEmpleado" />
                            </columns>
                            <cursor>
                               <Cursor fx:constant="HAND" />
@@ -720,13 +720,13 @@
                               <Label text="Los empleados no tiene turnos asignados" />
                            </placeholder>
                            <columns>
-                              <TableColumn fx:id="colNombreAsistenciaCE" prefWidth="145.0" style="-fx-font-size: 15;" text="Nombre" />
-                              <TableColumn fx:id="colApellidoAsistenciaCE" prefWidth="145.0" style="-fx-font-size: 15;" text="Apellido" />
-                              <TableColumn fx:id="colLegajoAsistenciaCE" prefWidth="100.0" style="-fx-font-size: 15;" text="Legajo" />
-                              <TableColumn fx:id="colTurnoAsistenciaCE" prefWidth="100.0" style="-fx-font-size: 15;" text="Turno" />
-                              <TableColumn fx:id="colFechaAsistenciaCE" prefWidth="105.0" style="-fx-font-size: 15;" text="Fecha" />
-                              <TableColumn fx:id="colHoraEntradaAsistenciaCE" prefWidth="130.0" style="-fx-font-size: 15;" text="Hora de Entrada" />
-                              <TableColumn fx:id="colHoraSalidaAsistenciaCE" prefWidth="130.0" style="-fx-font-size: 15;" text="Hora de Salida" />
+                              <TableColumn fx:id="colNombreAsistenciaCE" prefWidth="145.0" style="-fx-font-size: 16; -fx-alignment: CENTER;" text="Nombre" />
+                              <TableColumn fx:id="colApellidoAsistenciaCE" prefWidth="145.0" style="-fx-font-size: 16; -fx-alignment: CENTER;" text="Apellido" />
+                              <TableColumn fx:id="colLegajoAsistenciaCE" prefWidth="100.0" style="-fx-font-size: 16; -fx-alignment: CENTER;" text="Legajo" />
+                              <TableColumn fx:id="colTurnoAsistenciaCE" prefWidth="100.0" style="-fx-font-size: 16; -fx-alignment: CENTER;" text="Turno" />
+                              <TableColumn fx:id="colFechaAsistenciaCE" prefWidth="105.0" style="-fx-font-size: 16; -fx-alignment: CENTER;" text="Fecha" />
+                              <TableColumn fx:id="colHoraEntradaAsistenciaCE" prefWidth="135.0" style="-fx-font-size: 16; -fx-alignment: CENTER;" text="Hora de Entrada" />
+                              <TableColumn fx:id="colHoraSalidaAsistenciaCE" prefWidth="125.0" style="-fx-font-size: 15;" text="Hora de Salida" />
                               <TableColumn fx:id="colIDCronogramaAsistenciaCE" prefWidth="107.2000732421875" style="-fx-font-size: 14;" text="IDCronograma" />
                            </columns>
                            <cursor>
@@ -876,8 +876,8 @@
                               <TableColumn fx:id="colApellidoSalida" prefWidth="150.0" style="-fx-font-size: 15;" text="Apellido" />
                               <TableColumn fx:id="colLegajoSalida" prefWidth="125.0" style="-fx-font-size: 15;" text="Legajo" />
                               <TableColumn fx:id="colFechaSalida" prefWidth="130.0" style="-fx-font-size: 15;" text="Fecha" />
-                              <TableColumn fx:id="colHoraSalida" prefWidth="130.0" style="-fx-font-size: 15;" text="Hora de Salida" />
-                              <TableColumn fx:id="colIDEmpleadoSalida" prefWidth="89.5999755859375" style="-fx-font-size: 14;" text="IDEmpleado" />
+                              <TableColumn fx:id="colHoraSalida" prefWidth="135.0" style="-fx-font-size: 15;" text="Hora de Salida" />
+                              <TableColumn fx:id="colIDEmpleadoSalida" prefWidth="83.0" style="-fx-font-size: 14;" text="IDEmpleado" />
                            </columns>
                            <cursor>
                               <Cursor fx:constant="HAND" />
@@ -893,13 +893,13 @@
                               <Label text="Los empleados no tiene turnos asignados" />
                            </placeholder>
                            <columns>
-                              <TableColumn fx:id="colNombreAsistenciaCS" prefWidth="145.0" style="-fx-font-size: 15;" text="Nombre" />
-                              <TableColumn fx:id="colApellidoAsistenciaCS" prefWidth="145.0" style="-fx-font-size: 15;" text="Apellido" />
-                              <TableColumn fx:id="colLegajoAsistenciaCS" prefWidth="100.0" style="-fx-font-size: 15;" text="Legajo" />
-                              <TableColumn fx:id="colTurnoAsistenciaCS" prefWidth="100.0" style="-fx-font-size: 15;" text="Turno" />
-                              <TableColumn fx:id="colFechaAsistenciaCS" prefWidth="105.0" style="-fx-font-size: 15;" text="Fecha" />
-                              <TableColumn fx:id="colHoraSalidaAsistenciaCS" prefWidth="130.0" style="-fx-font-size: 15;" text="Hora de Salida" />
-                              <TableColumn fx:id="colHoraEntradaAsistenciaCS" prefWidth="130.0" style="-fx-font-size: 15;" text="Hora de Entrada" />
+                              <TableColumn fx:id="colNombreAsistenciaCS" prefWidth="145.0" style="-fx-font-size: 16; -fx-alignment: CENTER;" text="Nombre" />
+                              <TableColumn fx:id="colApellidoAsistenciaCS" prefWidth="145.0" style="-fx-font-size: 16; -fx-alignment: CENTER;" text="Apellido" />
+                              <TableColumn fx:id="colLegajoAsistenciaCS" prefWidth="100.0" style="-fx-font-size: 16; -fx-alignment: CENTER;" text="Legajo" />
+                              <TableColumn fx:id="colTurnoAsistenciaCS" prefWidth="100.0" style="-fx-font-size: 16; -fx-alignment: CENTER;" text="Turno" />
+                              <TableColumn fx:id="colFechaAsistenciaCS" prefWidth="105.0" style="-fx-font-size: 16; -fx-alignment: CENTER;" text="Fecha" />
+                              <TableColumn fx:id="colHoraSalidaAsistenciaCS" prefWidth="136.0" style="-fx-font-size: 16; -fx-alignment: CENTER;" text="Hora de Salida" />
+                              <TableColumn fx:id="colHoraEntradaAsistenciaCS" prefWidth="124.0" style="-fx-font-size: 15;" text="Hora de Entrada" />
                               <TableColumn fx:id="colIDCronogramaAsistenciaCS" prefWidth="108.79998779296875" style="-fx-font-size: 14;" text="IDCronograma" />
                            </columns>
                            <cursor>

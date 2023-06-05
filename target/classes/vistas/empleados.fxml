@@ -38,15 +38,15 @@
                               <Label text="No hay empleados registrados" />
                            </placeholder>
                            <columns>
-                              <TableColumn fx:id="colNombre" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Nombre" />
-                              <TableColumn fx:id="colApellido" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Apellido" />
-                              <TableColumn fx:id="colLegajo" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Legajo" />
-                              <TableColumn fx:id="colDNI" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="DNI" />
-                              <TableColumn fx:id="colTelefono" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Teléfono" />
-                              <TableColumn fx:id="colFechaIngreso" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Fecha de Ingreso" />
-                              <TableColumn fx:id="colArea" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Area" />
-                              <TableColumn fx:id="colPuesto" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Puesto" />
-                              <TableColumn fx:id="colID" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="ID" />
+                              <TableColumn fx:id="colNombre" prefWidth="170.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Nombre" />
+                              <TableColumn fx:id="colApellido" prefWidth="170.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Apellido" />
+                              <TableColumn fx:id="colLegajo" prefWidth="100.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Legajo" />
+                              <TableColumn fx:id="colDNI" prefWidth="150.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="DNI" />
+                              <TableColumn fx:id="colTelefono" prefWidth="170.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Teléfono" />
+                              <TableColumn fx:id="colFechaIngreso" prefWidth="148.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Fecha de Ingreso" />
+                              <TableColumn fx:id="colArea" prefWidth="166.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Area" />
+                              <TableColumn fx:id="colPuesto" prefWidth="143.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Puesto" />
+                              <TableColumn fx:id="colID" prefWidth="168.0" style="-fx-font-size: 14;" text="ID" />
                            </columns>
                            <cursor>
                               <Cursor fx:constant="HAND" />
@@ -83,7 +83,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </ComboBox>
-                        <Button fx:id="btnLicenciasEmpleado" alignment="TOP_LEFT" graphicTextGap="8.0" layoutX="1328.0" layoutY="581.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#licenciasEmpleado" prefHeight="46.0" prefWidth="166.0" text="Licencias" textFill="#080808">
+                        <Button fx:id="btnLicenciasEmpleado" alignment="CENTER" graphicTextGap="8.0" layoutX="1328.0" layoutY="581.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#licenciasEmpleado" prefHeight="46.0" prefWidth="166.0" text="Licencias" textFill="#080808">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -97,7 +97,7 @@
                                  </image></ImageView>
                            </graphic>
                         </Button>
-                        <Button fx:id="btnAusenciasEmpleado" alignment="TOP_LEFT" graphicTextGap="6.0" layoutX="1328.0" layoutY="489.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#ausenciasEmpleado" prefHeight="46.0" prefWidth="166.0" text="Ausencias" textFill="#080808">
+                        <Button fx:id="btnAusenciasEmpleado" alignment="CENTER" graphicTextGap="6.0" layoutX="1328.0" layoutY="489.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#ausenciasEmpleado" prefHeight="46.0" prefWidth="166.0" text="Ausencias" textFill="#080808">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -124,7 +124,7 @@
                               <Font name="System Bold Italic" size="16.0" />
                            </font>
                         </Button>
-                        <Button fx:id="btnCrearEmpleado" alignment="TOP_LEFT" graphicTextGap="6.0" layoutX="1328.0" layoutY="214.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#crearEmpleado" prefHeight="46.0" prefWidth="166.0" text="Crear" textFill="#080808">
+                        <Button fx:id="btnCrearEmpleado" alignment="CENTER" graphicTextGap="6.0" layoutX="1328.0" layoutY="214.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#crearEmpleado" prefHeight="46.0" prefWidth="166.0" text="Crear" textFill="#080808">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -138,7 +138,7 @@
                                  </image></ImageView>
                            </graphic>
                         </Button>
-                        <Button fx:id="btnModificarEmpleado" alignment="TOP_LEFT" graphicTextGap="6.0" layoutX="1328.0" layoutY="305.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#modificarEmpleado" prefHeight="46.0" prefWidth="166.0" text="Modificar" textFill="#080808">
+                        <Button fx:id="btnModificarEmpleado" alignment="CENTER" graphicTextGap="6.0" layoutX="1328.0" layoutY="305.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#modificarEmpleado" prefHeight="46.0" prefWidth="166.0" text="Modificar" textFill="#080808">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -152,7 +152,7 @@
                                  </image></ImageView>
                            </graphic>
                         </Button>
-                        <Button fx:id="btnEliminarEmpleado" alignment="TOP_LEFT" graphicTextGap="8.0" layoutX="1328.0" layoutY="397.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#eliminarEmpleado" prefHeight="46.0" prefWidth="166.0" text="Eliminar" textFill="#080808">
+                        <Button fx:id="btnEliminarEmpleado" alignment="CENTER" graphicTextGap="8.0" layoutX="1328.0" layoutY="397.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#eliminarEmpleado" prefHeight="46.0" prefWidth="166.0" text="Eliminar" textFill="#080808">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -167,7 +167,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button fx:id="btnVolver" alignment="TOP_LEFT" graphicTextGap="12.0" layoutX="1328.0" layoutY="678.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#volverPrincipal" prefHeight="46.0" prefWidth="166.0" text="Inicio" textFill="#d40000">
+                        <Button fx:id="btnVolver" alignment="CENTER" graphicTextGap="12.0" layoutX="1328.0" layoutY="678.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#volverPrincipal" prefHeight="46.0" prefWidth="166.0" text="Inicio" textFill="#d40000">
                            <font>
                               <Font name="System Bold Italic" size="18.0" />
                            </font>
@@ -177,7 +177,7 @@
                            <graphic>
                               <ImageView fitHeight="29.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../imagenes/iconos/Volver.png" />
+                                    <Image url="@../imagenes/iconos/Inicio.png" />
                                  </image>
                               </ImageView>
                            </graphic>

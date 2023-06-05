@@ -44,11 +44,11 @@
             <Label text="No hay empleados registrados" />
          </placeholder>
          <columns>
-            <TableColumn fx:id="colNombre" prefWidth="120.0" text="Nombre" />
-            <TableColumn fx:id="colApellido" prefWidth="120.0" text="Apellido" />
-            <TableColumn fx:id="colLegajo" prefWidth="120.0" text="Legajo" />
-            <TableColumn fx:id="colDNI" prefWidth="120.0" text="DNI" />
-            <TableColumn fx:id="colTelefono" prefWidth="120.0" text="Telefono" />
+            <TableColumn fx:id="colNombre" prefWidth="130.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Nombre" />
+            <TableColumn fx:id="colApellido" prefWidth="130.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Apellido" />
+            <TableColumn fx:id="colLegajo" prefWidth="100.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Legajo" />
+            <TableColumn fx:id="colDNI" prefWidth="120.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="DNI" />
+            <TableColumn fx:id="colTelefono" prefWidth="120.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Telefono" />
             <TableColumn fx:id="colIDEmpleado" prefWidth="63.199951171875" text="ID" />
          </columns>
       </TableView>
@@ -118,7 +118,7 @@
          <graphic>
             <ImageView fitHeight="29.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../imagenes/iconos/Volver.png" />
+                  <Image url="@../imagenes/iconos/Inicio.png" />
                </image>
             </ImageView>
          </graphic>
