@@ -63,19 +63,6 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button fx:id="btnFiltroEmpleados" layoutX="1215.0" layoutY="91.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#filtroCronograma" prefHeight="46.0" prefWidth="88.0" text="Aceptar" textFill="#e4461a">
-                           <font>
-                              <Font name="System Bold" size="16.0" />
-                           </font>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
-                        <ComboBox fx:id="cbTiposFiltrosCronograma" layoutX="1309.0" layoutY="91.0" prefHeight="46.0" prefWidth="198.0" style="-fx-font-size: 16;">
-                           <cursor>
-                              <Cursor fx:constant="DISAPPEAR" />
-                           </cursor>
-                        </ComboBox>
                         <Button fx:id="btnModificarCronograma" alignment="TOP_LEFT" graphicTextGap="8.0" layoutX="1340.0" layoutY="362.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#modificarCronograma" prefHeight="46.0" prefWidth="166.0" text="Modificar" textFill="#080808">
                            <font>
                               <Font name="System Bold" size="18.0" />
@@ -136,7 +123,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </TableView>
-                        <Button fx:id="btnActualizar" layoutX="1356.0" layoutY="25.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#actualizarTabla" prefHeight="46.0" prefWidth="150.0" text="Actualizar Listas" textFill="#6b027a">
+                        <Button fx:id="btnActualizar" layoutX="1153.0" layoutY="96.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#actualizarTabla" prefHeight="46.0" prefWidth="150.0" text="Actualizar Listas" textFill="#6b027a">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>

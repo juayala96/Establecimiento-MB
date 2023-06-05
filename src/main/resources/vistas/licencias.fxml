@@ -31,19 +31,6 @@
                               <Image url="@../imagenes/verde_agua.jpg" />
                            </image>
                         </ImageView>
-                        <Button fx:id="btnFiltroLicencias" layoutX="1186.0" layoutY="109.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#filtroLicencia" prefHeight="46.0" prefWidth="94.0" text="Aceptar" textFill="#e4461a">
-                           <font>
-                              <Font name="System Bold" size="16.0" />
-                           </font>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
-                        <ComboBox fx:id="cbTiposFiltrosLicencia" layoutX="1287.0" layoutY="109.0" prefHeight="46.0" prefWidth="204.0" style="-fx-font-size: 16;">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </ComboBox>
                         <DatePicker fx:id="dpBuscarFechaInicio" editable="false" layoutX="919.0" layoutY="201.0" prefHeight="46.0" prefWidth="178.0" style="-fx-font-size: 18;">
                            <cursor>
                               <Cursor fx:constant="HAND" />
@@ -141,7 +128,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button fx:id="btnActualizar" layoutX="1341.0" layoutY="44.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#actualizarTabla" prefHeight="46.0" prefWidth="150.0" text="Actualizar Listas" textFill="#6b027a">
+                        <Button fx:id="btnActualizar" layoutX="1129.0" layoutY="113.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#actualizarTabla" prefHeight="46.0" prefWidth="153.0" text="Actualizar Listas" textFill="#6b027a">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>

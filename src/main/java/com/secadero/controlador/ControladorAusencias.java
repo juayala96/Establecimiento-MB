@@ -382,8 +382,6 @@ public class ControladorAusencias {
     String regresarConsultaAsistenia = "0";
     String asistencia = "NO";
     String salida = "NO";
-    String modificarA = "NO";
-    String eliminarA = "NO";
     ObservableList<ConsultaAsistencia> listCronogramaCE;
     int index4 = -1;
     ObservableList<VerificarSalida> listCronogramaCS;
@@ -566,6 +564,7 @@ public class ControladorAusencias {
     // --------------------------------------------- Búsqueda y Filtros -----------------------------------------
     @FXML
     private void btnBuscarEmpleado() {
+        limpiarCamposGeneralizada();
         ObservableList<LeerEmpleado> listBuscarEmpleado;
         listBuscarEmpleado = LeerEmpleado.buscarEmpleadoGeneral(textBuscarLegajoEmpleado);
         if(textBuscarLegajoEmpleado.getText().equals("")){
@@ -575,14 +574,20 @@ public class ControladorAusencias {
             alerta.showAndWait();
         } else {
             tablaListaEmpleados.getItems().setAll(listBuscarEmpleado);
+            labIDEmpleadoLista.setText("0");
+            inicializarTablaAusencias();
         }
     }
 
     @FXML
     private void btnBuscarAusencia(){
-        ObservableList<LeerAusencia> listaBuscarAusencia;
-        listaBuscarAusencia = LeerAusencia.buscarAusenciaFecha(labIDEmpleadoLista, dpBuscarFecha);
-        tablaAusencias.getItems().setAll(listaBuscarAusencia);
+        labIDAusenciaModificar.setText("");
+        labIDAusenciaEliminar.setText("");
+        if(!labIDEmpleadoLista.getText().equals("")){
+            ObservableList<LeerAusencia> listaBuscarAusencia;
+            listaBuscarAusencia = LeerAusencia.buscarAusenciaFecha(labIDEmpleadoLista, dpBuscarFecha);
+            tablaAusencias.getItems().setAll(listaBuscarAusencia);
+        }
     }
 
     @FXML
@@ -1411,6 +1416,29 @@ public class ControladorAusencias {
 
     private void limpiarCamposEliminar(){
         textBuscarLegajoEmpleado.setText("");
+        labIDEmpleadoEliminar.setText("");
+        labNombreEmpleadoEliminar.setText("");
+        labApellidoEmpleadoEliminar.setText("");
+        labLegajoEmpleadoEliminar.setText("");
+        textMotivoEliminar.setText("");
+        labJustificadoEliminar.setText("");
+        labCertificadoEliminar.setText("");
+        labIDAusenciaEliminar.setText("");
+        fechasInicializar();
+    }
+
+    private void limpiarCamposGeneralizada(){
+        labIDEmpleadoModificar.setText("");
+        labNombreEmpleadoModificar.setText("");
+        labApellidoEmpleadoModificar.setText("");
+        labLegajoEmpleadoModificar.setText("");
+        textMotivoModificar.setText("");
+        rbJustificadoNoModificar.fire();
+        rbCertificadoNoModificar.fire();
+        labLimpiarCamposModificar.setText("");
+        labIDAusenciaModificar.setText("");
+        getJustificadoModificar();
+        getCertificadoModificar();
         labIDEmpleadoEliminar.setText("");
         labNombreEmpleadoEliminar.setText("");
         labApellidoEmpleadoEliminar.setText("");
