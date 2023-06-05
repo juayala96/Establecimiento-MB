@@ -3,10 +3,7 @@ package com.secadero.modelo.ausencia;
 import com.secadero.conexion.Conexion;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -29,7 +26,7 @@ public class VerificarSalida {
     public VerificarSalida() {
     }
 
-    public VerificarSalida(String nombre, String apellido, int legajo, String turno, String fecha, String horaSalida, String horaEntrada, int idCronograma) {
+    public VerificarSalida(String nombre, String apellido, int legajo, String turno, String fecha, String horaSalida, String horaEntrada, int idCronograma, int idEmpleado) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.legajo = legajo;
@@ -38,6 +35,7 @@ public class VerificarSalida {
         this.horaSalida = horaSalida;
         this.horaEntrada = horaEntrada;
         this.idCronograma = idCronograma;
+        this.idEmpleado = idEmpleado;
     }
 
     public VerificarSalida(String nombre, String apellido, int legajo, String fecha, String horaSalida, int idEmpleado) {
@@ -139,7 +137,7 @@ public class VerificarSalida {
         int cantCronograma = 0;
 
         try {
-            pstm = con.prepareStatement("SELECT empleados.nombre, empleados.apellido, empleados.legajo, turno, fecha, horario_salida AS horaSalida, horario_entrada AS horaEntrada, idCronograma FROM cronograma INNER JOIN empleado_cronograma ON cronograma.idCronograma = empleado_cronograma.idCronogramaFK INNER JOIN empleados ON empleado_cronograma.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND empleados.estado = ? AND fecha = ? AND turno = ? ORDER BY empleados.legajo ASC");
+            pstm = con.prepareStatement("SELECT empleados.nombre, empleados.apellido, empleados.legajo, turno, fecha, horario_salida AS horaSalida, horario_entrada AS horaEntrada, idCronograma, empleados.idempleados AS idEmpleado FROM cronograma INNER JOIN empleado_cronograma ON cronograma.idCronograma = empleado_cronograma.idCronogramaFK INNER JOIN empleados ON empleado_cronograma.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND empleados.estado = ? AND fecha = ? AND turno = ? ORDER BY empleados.legajo ASC");
             pstm.setString(1, "Vigente");
             pstm.setString(2, "Disponible");
             pstm.setString(3, fechaBusqueda);
@@ -155,7 +153,7 @@ public class VerificarSalida {
                 String fechaMes2 = fechaClave.substring(5, 7);
                 String fechaDia2 = fechaClave.substring(8, 10);
                 String fechaModificada = (fechaDia2 + "-" + fechaMes2 + "-" + fechaAnio2);
-                lista.add(new VerificarSalida(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getString("turno"), fechaModificada, hora_salida, hora_entrada, rs.getInt("idCronograma")));
+                lista.add(new VerificarSalida(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getString("turno"), fechaModificada, hora_salida, hora_entrada, rs.getInt("idCronograma"), rs.getInt("idEmpleado")));
                 cantCronograma += 1;
             }
             labCantidadCronogramaS.setText(String.valueOf(cantCronograma));
@@ -296,7 +294,7 @@ public class VerificarSalida {
         int cantCronograma = 0;
 
         try {
-            pstm = con.prepareStatement("SELECT empleados.nombre, empleados.apellido, empleados.legajo, turno, fecha, horario_salida AS horaSalida, horario_entrada AS horaEntrada, idCronograma FROM cronograma INNER JOIN empleado_cronograma ON cronograma.idCronograma = empleado_cronograma.idCronogramaFK INNER JOIN empleados ON empleado_cronograma.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND empleados.estado = ? AND fecha = ? AND turno = ? AND empleados.legajo LIKE ? ORDER BY empleados.legajo ASC");
+            pstm = con.prepareStatement("SELECT empleados.nombre, empleados.apellido, empleados.legajo, turno, fecha, horario_salida AS horaSalida, horario_entrada AS horaEntrada, idCronograma, empleados.idempleados AS idEmpleado FROM cronograma INNER JOIN empleado_cronograma ON cronograma.idCronograma = empleado_cronograma.idCronogramaFK INNER JOIN empleados ON empleado_cronograma.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND empleados.estado = ? AND fecha = ? AND turno = ? AND empleados.legajo LIKE ? ORDER BY empleados.legajo ASC");
             pstm.setString(1, "Vigente");
             pstm.setString(2, "Disponible");
             pstm.setString(3, fechaBusqueda);
@@ -313,7 +311,7 @@ public class VerificarSalida {
                 String fechaMes2 = fechaClave.substring(5, 7);
                 String fechaDia2 = fechaClave.substring(8, 10);
                 String fechaModificada = (fechaDia2 + "-" + fechaMes2 + "-" + fechaAnio2);
-                lista.add(new VerificarSalida(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getString("turno"), fechaModificada, hora_salida, hora_entrada, rs.getInt("idCronograma")));
+                lista.add(new VerificarSalida(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getString("turno"), fechaModificada, hora_salida, hora_entrada, rs.getInt("idCronograma"), rs.getInt("idEmpleado")));
                 cantCronograma += 1;
             }
             labCantidadCronogramaS.setText(String.valueOf(cantCronograma));
@@ -435,5 +433,120 @@ public class VerificarSalida {
             }
         }
         return lista;
+    }
+
+    //------------------------------ Verificar si Existe Salida de dicho Empleado ---------------------------------------
+    public void verificacionSalida(Label labIDEmpleadoSalidaS, Label labFechaSalida, Label labTurnoSalida, Label labExisteSalida) {
+        Connection con = Conexion.leerConexion();
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+
+        String fecha = labFechaSalida.getText();
+        String fechaAnio = fecha.substring(6, 10);
+        String fechaMes = fecha.substring(3, 5);
+        String fechaDia = fecha.substring(0, 2);
+        String fechaModificada = (fechaAnio + "-" + fechaMes + "-" + fechaDia);
+
+        int hora1 = 0;
+        int minuto1 = 0;
+        int hora2 = 0;
+        int minuto2 = 0;
+
+        try {
+            if(Objects.equals(labTurnoSalida.getText(), "Dia")){
+                LocalTime horaInicio = LocalTime.of(23, 30);
+                hora1 = horaInicio.getHour();
+                minuto1 = horaInicio.getMinute();
+                LocalTime horaFin = LocalTime.of(23, 59);
+                hora2 = horaFin.getHour();
+                minuto2 = horaFin.getMinute();
+
+                try {
+                    pstm = con.prepareStatement("SELECT empleados.nombre, empleados.apellido, empleados.legajo, fecha, hora AS horaEntrada, empleados.idempleados AS idEmpleado FROM salida INNER JOIN empleados ON salida.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND salida.idEmpleadoFK = ? AND fecha = ? AND (hora BETWEEN TIME ? AND TIME ?) ORDER BY empleados.legajo ASC");
+                    pstm.setString(1, "Vigente");
+                    pstm.setInt(2, Integer.parseInt(labIDEmpleadoSalidaS.getText()));
+                    pstm.setString(3, fechaModificada);
+                    pstm.setString(4, hora1 + ":" + minuto1);
+                    pstm.setString(5, hora2 + ":" + minuto2);
+                    rs = pstm.executeQuery();
+
+                    while (rs.next()){
+                        labExisteSalida.setText("YES");
+                    }
+                } catch (SQLException ex) {
+                    System.err.println("Error: " + ex.getMessage());
+                }
+
+            } else if(Objects.equals(labTurnoSalida.getText(), "Noche")){
+                LocalTime horaInicio = LocalTime.of(11, 30);
+                hora1 = horaInicio.getHour();
+                minuto1 = horaInicio.getMinute();
+                LocalTime horaFin = LocalTime.of(12, 0);
+                hora2 = horaFin.getHour();
+                minuto2 = horaFin.getMinute();
+
+                try {
+                    pstm = con.prepareStatement("SELECT empleados.nombre, empleados.apellido, empleados.legajo, fecha, hora AS hora, empleados.idempleados AS idempleados FROM salida INNER JOIN empleados ON salida.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND salida.idEmpleadoFK = ? AND fecha = ? AND (hora BETWEEN TIME ? AND TIME ?) ORDER BY empleados.legajo ASC");
+                    pstm.setString(1, "Vigente");
+                    pstm.setInt(2, Integer.parseInt(labIDEmpleadoSalidaS.getText()));
+                    pstm.setString(3, fechaModificada);
+                    pstm.setString(4, hora1 + ":" + minuto1);
+                    pstm.setString(5, hora2 + ":" + minuto2);
+                    rs = pstm.executeQuery();
+
+                    while (rs.next()){
+                        labExisteSalida.setText("YES");
+                    }
+                } catch (SQLException ex) {
+                    System.err.println("Error: " + ex.getMessage());
+                }
+            }
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pstm != null) pstm.close();
+                if (con != null) con.close();
+            } catch (Exception ex){
+                System.err.println("Error: " + ex.getMessage());
+            }
+        }
+    }
+
+    //------------------------------------------- Crear Salida del Empleado -------------------------------------------
+    public void crearSalida(Label labIDEmpleadoSalidaS, Label labFechaSalida, TextField textHoraSalida) {
+        Connection con = Conexion.leerConexion();
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+
+        String fecha = labFechaSalida.getText();
+        String fechaAnio = fecha.substring(6, 10);
+        String fechaMes = fecha.substring(3, 5);
+        String fechaDia = fecha.substring(0, 2);
+        String fechaModificada = (fechaAnio + "-" + fechaMes + "-" + fechaDia);
+
+        try {
+            String consulta = "INSERT INTO salida(hora, fecha, idEmpleadoFK) VALUES (?, ?, ?)";
+            pstm = con.prepareStatement(consulta);
+            pstm.setString(1, textHoraSalida.getText());
+            pstm.setString(2, fechaModificada);
+            pstm.setInt(3, Integer.parseInt(labIDEmpleadoSalidaS.getText()));
+            pstm.executeUpdate();
+
+            Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+            alerta.setTitle("Exito!!");
+            alerta.setContentText("Se guardo correctamente la Salida del Empleado.");
+            alerta.showAndWait();
+
+        } catch (SQLException ex) {
+            System.err.println("Error: " + ex.getMessage());
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pstm != null) pstm.close();
+                if (con != null) con.close();
+            } catch (Exception ex){
+                System.err.println("Error: " + ex.getMessage());
+            }
+        }
     }
 }
