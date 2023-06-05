@@ -112,7 +112,7 @@ public class LeerUsuario {
         ObservableList<LeerUsuario> lista = FXCollections.observableArrayList();
 
         try {
-            pstm = con.prepareStatement("SELECT * FROM usuarios INNER JOIN empleados ON usuarios.idEmpleadoFK = empleados.idempleados WHERE estadoEmpleado = ? ORDER BY legajo ASC");
+            pstm = con.prepareStatement("SELECT * FROM usuarios INNER JOIN empleados ON usuarios.idEmpleadoFK = empleados.idempleados WHERE estadoEmpleado = ?");
             pstm.setString(1, "Vigente");
             rs = pstm.executeQuery();
 

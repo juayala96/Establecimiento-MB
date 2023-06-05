@@ -128,7 +128,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button fx:id="btnActualizar" layoutX="1129.0" layoutY="113.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#actualizarTabla" prefHeight="46.0" prefWidth="153.0" text="Actualizar Listas" textFill="#6b027a">
+                        <Button fx:id="btnActualizar" layoutX="1341.0" layoutY="44.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#actualizarTabla" prefHeight="46.0" prefWidth="150.0" text="Actualizar Listas" textFill="#6b027a">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>

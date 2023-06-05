@@ -245,33 +245,26 @@ public class ControladorUsuarios {
     // --------------------------------------------- Búsqueda y Filtros -----------------------------------------
     @FXML
     private void btnBuscar() {
-        limpiarCamposGeneralizada();
         ObservableList<LeerUsuario> listBuscar;
         listBuscar = LeerUsuario.buscarUsuario(textBuscarUsuario);
 
         if(!textBuscarUsuario.getText().equals("")){
             tablaUsuarios.getItems().setAll(listBuscar);
-            labIDModificar.setText("");
-            labIDEliminar.setText("");
         }
     }
 
     @FXML
     private void filtroUsuarios() {
         if(textBuscarUsuario.getText().equals("")){
-            limpiarCamposGeneralizada();
             ObservableList<LeerUsuario> listFiltros;
             listFiltros = LeerUsuario.filtroUsuario(cbTiposFiltrosUsuarios);
+
             tablaUsuarios.getItems().setAll(listFiltros);
-            labIDModificar.setText("");
-            labIDEliminar.setText("");
         } else {
-            limpiarCamposGeneralizada();
             ObservableList<LeerUsuario> listFiltros2;
             listFiltros2 = LeerUsuario.filtroUsuarioBusqueda(cbTiposFiltrosUsuarios, textBuscarUsuario);
+
             tablaUsuarios.getItems().setAll(listFiltros2);
-            labIDModificar.setText("");
-            labIDEliminar.setText("");
         }
     }
 
@@ -285,10 +278,8 @@ public class ControladorUsuarios {
     @FXML
     private void actualizarTabla(){
         textBuscarUsuario.setText("");
-        limpiarCamposGeneralizada();
         cbTiposFiltrosUsuarios.getSelectionModel().selectFirst();
         tablaUsuarios.getItems().setAll(listUsuarios);
-        inicializarTabla();
     }
 
     //---------------------------------------------- Eventos Importantes ----------------------------------------
@@ -391,29 +382,15 @@ public class ControladorUsuarios {
 
     @FXML
     private void modificarUsuario() {
-        if(labIDModificar.getText().trim().isEmpty() || labIDModificar.getText() == null){
-            Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("Advertencia!");
-            alerta.setContentText("Debe de seleccionar antes un Usuario para Modificarlo");
-            alerta.showAndWait();
-        } else {
-            SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasUsuarios.getSelectionModel();
-            modeloSeleccion.select(tabModificarUsuario);
-        }
+        SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasUsuarios.getSelectionModel();
+        modeloSeleccion.select(tabModificarUsuario);
     }
 
     @FXML
     private void eliminarUsuario() {
-        if(labIDEliminar.getText().trim().isEmpty() || labIDEliminar.getText() == null){
-            Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("Advertencia!");
-            alerta.setContentText("Debe de seleccionar antes un Usuario para Eliminar");
-            alerta.showAndWait();
-        } else {
-            SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasUsuarios.getSelectionModel();
-            modeloSeleccion.select(tabEliminarUsuario);
-            btnEliminar.requestFocus();
-        }
+        SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasUsuarios.getSelectionModel();
+        modeloSeleccion.select(tabEliminarUsuario);
+        btnEliminar.requestFocus();
     }
 
     @FXML
@@ -528,24 +505,6 @@ public class ControladorUsuarios {
 
     private void limpiarCamposEliminar(){
         textBuscarUsuario.setText("");
-        labNombreEmpleadoEliminar.setText("");
-        labApellidoEmpleadoEliminar.setText("");
-        labLegajoEmpleadoEliminar.setText("");
-        textNombreUsuarioEliminar.setText("");
-        textContraseniaEliminar.setText("");
-        labIDEliminar.setText("");
-    }
-
-    private void limpiarCamposGeneralizada(){
-        labNombreEmpleadoModificar.setText("");
-        labApellidoEmpleadoModificar.setText("");
-        labLegajoEmpleadoModificar.setText("");
-        textNombreUsuarioModificar.setText("");
-        textContraseniaModificar.setText("");
-        textRepetirContraseniaModificar.setText("");
-        labIDModificar.setText("");
-        labLimpiarCamposModificar.setText("");
-        labInformacionModificarNombreUsuario.setText("");
         labNombreEmpleadoEliminar.setText("");
         labApellidoEmpleadoEliminar.setText("");
         labLegajoEmpleadoEliminar.setText("");

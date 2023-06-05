@@ -345,43 +345,34 @@ public class ControladorEmpleados {
 
     @FXML
     private void btnBuscar() {
-        limpiarCamposGeneralizada();
         ObservableList<LeerEmpleado> listBuscar;
         listBuscar = LeerEmpleado.buscarEmpleado(textBuscarEmpleado);
 
         if(!textBuscarEmpleado.getText().equals("")){
             tablaEmpleados.getItems().setAll(listBuscar);
-            labIDModificar.setText("");
-            labIDEliminar.setText("");
         }
     }
 
     @FXML
     private void filtroEmpleado() {
         if(textBuscarEmpleado.getText().equals("")){
-            limpiarCamposGeneralizada();
             ObservableList<LeerEmpleado> listFiltros;
             listFiltros = LeerEmpleado.filtroEmpleado(cbTiposfiltrosEmpleados);
+
             tablaEmpleados.getItems().setAll(listFiltros);
-            labIDModificar.setText("");
-            labIDEliminar.setText("");
         } else {
-            limpiarCamposGeneralizada();
             ObservableList<LeerEmpleado> listFiltros2;
             listFiltros2 = LeerEmpleado.filtroEmpleadoBusqueda(cbTiposfiltrosEmpleados, textBuscarEmpleado);
+
             tablaEmpleados.getItems().setAll(listFiltros2);
-            labIDModificar.setText("");
-            labIDEliminar.setText("");
         }
     }
 
     @FXML
     private void actualizarTabla(){
         textBuscarEmpleado.setText("");
-        limpiarCamposGeneralizada();
         cbTiposfiltrosEmpleados.getSelectionModel().selectFirst();
         tablaEmpleados.getItems().setAll(listEmpleado);
-        inicializarTabla();
     }
 
     //---------------------------------------------- Eventos Importantes ----------------------------------------
@@ -478,30 +469,16 @@ public class ControladorEmpleados {
 
     @FXML
     private void modificarEmpleado() {
-        if(labIDModificar.getText().trim().isEmpty() || labIDModificar.getText() == null){
-            Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("Advertencia!");
-            alerta.setContentText("Debe de seleccionar antes un Empleado para Modificarlo");
-            alerta.showAndWait();
-        } else {
-            SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasEmpleados.getSelectionModel();
-            modeloSeleccion.select(tabModificarEmpleado);
-            textNombreModificar.requestFocus();
-        }
+        SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasEmpleados.getSelectionModel();
+        modeloSeleccion.select(tabModificarEmpleado);
+        textNombreModificar.requestFocus();
     }
 
     @FXML
     private void eliminarEmpleado() {
-        if(labIDEliminar.getText().trim().isEmpty() || labIDEliminar.getText() == null){
-            Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("Advertencia!");
-            alerta.setContentText("Debe de seleccionar antes un Empleado para Eliminarlo");
-            alerta.showAndWait();
-        } else {
-            SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasEmpleados.getSelectionModel();
-            modeloSeleccion.select(tabEliminarEmpleado);
-            btnEliminar.requestFocus();
-        }
+        SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasEmpleados.getSelectionModel();
+        modeloSeleccion.select(tabEliminarEmpleado);
+        btnEliminar.requestFocus();
     }
 
     @FXML
@@ -628,39 +605,6 @@ public class ControladorEmpleados {
 
     private void limpiarCamposEliminar(){
         textBuscarEmpleado.setText("");
-        textNombreEliminar.setText("");
-        textApellidoEliminar.setText("");
-        textLegajoEliminar.setText("");
-        textDNIEliminar.setText("");
-        textTelefonoEliminar.setText("");
-        textDireccionEliminar.setText("");
-        textEmailEliminar.setText("");
-        cbGeneroEliminar.getSelectionModel().selectFirst();
-        cbEstadoCivilEliminar.getSelectionModel().selectFirst();
-        cbGrupoSanguineoEliminar.getSelectionModel().selectFirst();
-        cbAreaEliminar.getSelectionModel().selectFirst();
-        cbPuestoEliminar.getSelectionModel().selectFirst();
-        labIDEliminar.setText("");
-        fechasInicializar();
-    }
-
-    private void limpiarCamposGeneralizada(){
-        textNombreModificar.setText("");
-        textApellidoModificar.setText("");
-        textLegajoModificar.setText("");
-        textDNIModificar.setText("");
-        textTelefonoModificar.setText("");
-        textDireccionModificar.setText("");
-        textEmailModificar.setText("");
-        cbGeneroModificar.getSelectionModel().selectFirst();
-        cbEstadoCivilModificar.getSelectionModel().selectFirst();
-        cbGrupoSanguineoModificar.getSelectionModel().selectFirst();
-        cbAreaModificar.getSelectionModel().selectFirst();
-        cbPuestoModificar.getSelectionModel().selectFirst();
-        labIDModificar.setText("");
-        labLimpiarCamposModificar.setText("");
-        labInformacionModificarLegajo.setText("");
-        labInformacionModificarDNI.setText("");
         textNombreEliminar.setText("");
         textApellidoEliminar.setText("");
         textLegajoEliminar.setText("");

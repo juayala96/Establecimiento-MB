@@ -65,6 +65,8 @@ public class ControladorLicencias {
     @FXML
     private ComboBox<String> cbTipoLicenciaModificar;
     @FXML
+    private ComboBox<String> cbTiposFiltrosLicencia;
+    @FXML
     private TableColumn<LeerEmpleado, String> colApellido;
     @FXML
     private TableColumn<LeerEmpleado, String> colApellidoEmpleadoCrear;
@@ -245,6 +247,9 @@ public class ControladorLicencias {
 
     // -------------------------------------------- Inicialización ----------------------------------------------
     public void initialize() {
+        String[] tipoFiltro = {"Nombre", "Legajo", "DNI", "Fecha_Inicio", "Fecha_Fin", "Tipo_Licencia"};
+        cbTiposFiltrosLicencia.getItems().addAll(tipoFiltro);
+        cbTiposFiltrosLicencia.getSelectionModel().selectFirst();
         inicializarTablaListaEmpleados();
         inicializarTablaEmpleado();
         inicializarComboBoxBD();
@@ -461,7 +466,6 @@ public class ControladorLicencias {
     // --------------------------------------------- Búsqueda y Filtros -----------------------------------------
     @FXML
     private void btnBuscarEmpleado(){
-        limpiarCamposGeneralizada();
         ObservableList<LeerEmpleado> listBuscarEmpleado;
         listBuscarEmpleado = LeerEmpleado.buscarEmpleadoGeneral(textBuscarLegajoEmpleado);
         if(textBuscarLegajoEmpleado.getText().equals("")){
@@ -471,18 +475,29 @@ public class ControladorLicencias {
             alerta.showAndWait();
         } else {
             tablaListaEmpleados.getItems().setAll(listBuscarEmpleado);
-            labIDEmpleadoLista.setText("0");
-            inicializarTablaLicencias();
         }
     }
 
     @FXML
     private void btnBuscarLicencia(){
-        labIDLicenciaModificar.setText("");
-        labIDLicenciaEliminar.setText("");
         ObservableList<LeerLicencia> listaBuscarLicencia;
         listaBuscarLicencia = LeerLicencia.buscarLicenciaFechaInicio(labIDEmpleadoLista, dpBuscarFechaInicio);
         tablaLicencia.getItems().setAll(listaBuscarLicencia);
+    }
+
+
+    @FXML
+    private void filtroLicencia() {
+        String dato = cbTiposFiltrosLicencia.getSelectionModel().getSelectedItem().toLowerCase();
+        if(dato.equals("fecha_inicio") || dato.equals("fecha_fin") || dato.equals("tipo_licencia")){
+            ObservableList<LeerLicencia> listFiltros;
+            listFiltros = LeerLicencia.filtroLicencia(cbTiposFiltrosLicencia, labIDEmpleadoLista);
+            tablaLicencia.getItems().setAll(listFiltros);
+        } else {
+            ObservableList<LeerEmpleado> listFiltrosEmpleados;
+            listFiltrosEmpleados = LeerEmpleado.filtroEmpleadoGeneral(cbTiposFiltrosLicencia);
+            tablaListaEmpleados.getItems().setAll(listFiltrosEmpleados);
+        }
     }
 
     @FXML
@@ -498,6 +513,7 @@ public class ControladorLicencias {
         labIDEmpleadoLista.setText("0");
         textBuscarLegajoEmpleado.setText("");
         tablaListaEmpleados.getItems().setAll(listEmpleadoLicencia);
+        cbTiposFiltrosLicencia.getSelectionModel().selectFirst();
         inicializarTablaListaEmpleados();
         inicializarTablaLicencias();
         limpiarCamposModificar();
@@ -690,30 +706,16 @@ public class ControladorLicencias {
 
     @FXML
     private void modificarLicencia() {
-        if(labIDLicenciaModificar.getText().trim().isEmpty() || labIDLicenciaModificar.getText() == null){
-            Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("Advertencia!");
-            alerta.setContentText("Para Modificar debes de tomar una Licencia del empleado");
-            alerta.showAndWait();
-        } else {
-            SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasLicencias.getSelectionModel();
-            modeloSeleccion.select(tabModificarLicencia);
-            dpFechaInicioModificar.requestFocus();
-        }
+        SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasLicencias.getSelectionModel();
+        modeloSeleccion.select(tabModificarLicencia);
+        dpFechaInicioModificar.requestFocus();
     }
 
     @FXML
     private void eliminarLicencia() {
-        if(labIDLicenciaEliminar.getText().trim().isEmpty() || labIDLicenciaEliminar.getText() == null){
-            Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("Advertencia!");
-            alerta.setContentText("Para Eliminar debes de tomar una Licencia del empleado");
-            alerta.showAndWait();
-        } else {
-            SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasLicencias.getSelectionModel();
-            modeloSeleccion.select(tabEliminarLicencia);
-            btnEliminar.requestFocus();
-        }
+        SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasLicencias.getSelectionModel();
+        modeloSeleccion.select(tabEliminarLicencia);
+        btnEliminar.requestFocus();
     }
 
     @FXML
@@ -884,29 +886,6 @@ public class ControladorLicencias {
 
     private void limpiarCamposEliminar(){
         textBuscarLegajoEmpleado.setText("");
-        labIDLicenciaEliminar.setText("");
-        labIDEmpleadoEliminar.setText("");
-        labNombreEmpleadoEliminar.setText("");
-        labApellidoEmpleadoEliminar.setText("");
-        labLegajoEmpleadoEliminar.setText("");
-        cbTipoLicenciaEliminar.getSelectionModel().selectFirst();
-        textDescripcionLicenciaEliminar.setText("");
-        labDiasDisponiblesEliminar.setText("");
-        fechasInicializar();
-    }
-
-    private void limpiarCamposGeneralizada(){
-        labIDLicenciaModificar.setText("");
-        labIDEmpleadoModificar.setText("");
-        labNombreEmpleadoModificar.setText("");
-        labApellidoEmpleadoModificar.setText("");
-        labLegajoEmpleadoModificar.setText("");
-        labLimpiarCamposModificar.setText("");
-        cbTipoLicenciaModificar.getSelectionModel().selectFirst();
-        textDescripcionLicenciaModificar.setText("");
-        labDiasDisponiblesModificar.setText("");
-        dpFechaModificarDuplicadaInicio.getEditor().setText("");
-        dpFechaModificarDuplicadaFin.getEditor().setText("");
         labIDLicenciaEliminar.setText("");
         labIDEmpleadoEliminar.setText("");
         labNombreEmpleadoEliminar.setText("");

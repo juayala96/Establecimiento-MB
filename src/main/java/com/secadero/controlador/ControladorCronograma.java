@@ -66,6 +66,8 @@ public class ControladorCronograma {
     @FXML
     private Button btnBuscarListaEmpleadoCalendario;
     @FXML
+    private ComboBox<String> cbTiposFiltrosCronograma;
+    @FXML
     private ComboBox<String> cbTurnoCrear;
     @FXML
     private ComboBox<String> cbTurnoEliminar;
@@ -275,11 +277,14 @@ public class ControladorCronograma {
 
     // -------------------------------------------- Inicialización ----------------------------------------------
     public void initialize() throws ParseException {
+        String[] tipoFiltro = {"Nombre", "Legajo", "DNI", "Fecha", "Turno"};
         String[] tipoTurnos = {"Dia", "Noche"};
         dpFechaModificarDuplicada.getEditor().setText("01-01-2000");
         comboBoxCrear();
         comboBoxModificar();
         comboBoxEliminar();
+        cbTiposFiltrosCronograma.getItems().addAll(tipoFiltro);
+        cbTiposFiltrosCronograma.getSelectionModel().selectFirst();
         cbTurnoCrear.getItems().addAll(tipoTurnos);
         cbTurnoCrear.getSelectionModel().selectFirst();
         cbTurnoModificar.getItems().addAll(tipoTurnos);
@@ -526,7 +531,6 @@ public class ControladorCronograma {
     // --------------------------------------------- Búsqueda y Filtros -----------------------------------------
     @FXML
     private void btnBuscarEmpleadoDisponible() {
-        limpiarCamposGeneralizada();
         ObservableList<LeerEmpleado> listBuscarEmpleado;
         listBuscarEmpleado = LeerEmpleado.buscarEmpleadoDisponible(textBuscarLegajoEmpleado);
         if(textBuscarLegajoEmpleado.getText().equals("")){
@@ -543,8 +547,6 @@ public class ControladorCronograma {
 
     @FXML
     private void btnBuscarCronograma() {
-        labIDCronogramaModificar.setText("");
-        labIDCronogramaEliminar.setText("");
         if(!labIDEmpleadoLista.getText().equals("")){
             ObservableList<LeerCronograma> listaBuscarCronograma;
             listaBuscarCronograma = LeerCronograma.buscarFechaCronograma(labIDEmpleadoLista, dpBuscarFecha);
@@ -560,11 +562,26 @@ public class ControladorCronograma {
     }
 
     @FXML
+    private void filtroCronograma() {
+        String dato = cbTiposFiltrosCronograma.getSelectionModel().getSelectedItem().toLowerCase();
+        if(dato.equals("fecha") || dato.equals("turno")){
+            ObservableList<LeerCronograma> listFiltros;
+            listFiltros = LeerCronograma.filtroCronograma(cbTiposFiltrosCronograma, labIDEmpleadoLista);
+            tablaCronograma.getItems().setAll(listFiltros);
+        } else {
+            ObservableList<LeerEmpleado> listFiltrosEmpleados;
+            listFiltrosEmpleados = LeerEmpleado.filtroEmpleadoDisponible(cbTiposFiltrosCronograma);
+            tablaListaEmpleados.getItems().setAll(listFiltrosEmpleados);
+        }
+    }
+
+    @FXML
     private void actualizarTabla() {
         labIDCronogramaLista.setText("0");
         labIDEmpleadoLista.setText("0");
         textBuscarLegajoEmpleado.setText("");
         tablaListaEmpleados.getItems().setAll(listTablaEmpleadosDisponible);
+        cbTiposFiltrosCronograma.getSelectionModel().selectFirst();
         inicializarTablaListaEmpleadosDisponible();
         inicializarTablaCronograma();
         limpiarCamposModificar();
@@ -628,10 +645,6 @@ public class ControladorCronograma {
         textBuscarLegajoEmpleadoCalendario.setText("");
         fechaCalendario();
         inicializarTablaEmpleadoCalendario();
-    }
-
-    @FXML
-    private void filtroCronograma(){
     }
 
     // ------------------------------------------ Agrego en la Lista ---------------------------------------------
@@ -844,30 +857,16 @@ public class ControladorCronograma {
 
     @FXML
     private void modificarCronograma() {
-        if(labIDCronogramaModificar.getText().trim().isEmpty() || labIDCronogramaModificar.getText() == null){
-            Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("Advertencia!");
-            alerta.setContentText("Para Modificar debes de tomar un Cronograma del empleado");
-            alerta.showAndWait();
-        } else {
-            SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasCronograma.getSelectionModel();
-            modeloSeleccion.select(tabModificarCronograma);
-            dpFechaModificar.requestFocus();
-        }
+        SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasCronograma.getSelectionModel();
+        modeloSeleccion.select(tabModificarCronograma);
+        dpFechaModificar.requestFocus();
     }
 
     @FXML
     private void eliminarCronograma() {
-        if(labIDCronogramaEliminar.getText().trim().isEmpty() || labIDCronogramaEliminar.getText() == null){
-            Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("Advertencia!");
-            alerta.setContentText("Para Eliminar debes de tomar un Cronograma del empleado");
-            alerta.showAndWait();
-        } else {
-            SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasCronograma.getSelectionModel();
-            modeloSeleccion.select(tabEliminarCronograma);
-            btnEliminar.requestFocus();
-        }
+        SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasCronograma.getSelectionModel();
+        modeloSeleccion.select(tabEliminarCronograma);
+        btnEliminar.requestFocus();
     }
 
     @FXML
@@ -978,35 +977,6 @@ public class ControladorCronograma {
 
     private void limpiarCamposModificar(){
         textBuscarLegajoEmpleado.setText("");
-        labIDCronogramaModificar.setText("");
-        labIDEmpleadoModificar.setText("");
-        labNombreEmpleadoModificar.setText("");
-        labApellidoEmpleadoModificar.setText("");
-        labLegajoEmpleadoModificar.setText("");
-        labLimpiarCamposModificar.setText("");
-        dpFechaModificarDuplicada.getEditor().setText("01-01-2000");
-        cbTurnoModificar.getSelectionModel().selectFirst();
-        comboBoxModificar();
-        fechasInicializar();
-    }
-
-    private void limpiarCamposGeneralizada(){
-        labIDEmpleadoCrear.setText("");
-        labNombreEmpleadoCrear.setText("");
-        labApellidoEmpleadoCrear.setText("");
-        labLegajoEmpleadoCrear.setText("");
-        cbTurnoCrear.getSelectionModel().selectFirst();
-        labLimpiarCamposCrear.setText("");
-
-        while (listEmpleadosAgregados.getItems().size() > 0){
-            for (int i = 0; i < listEmpleadosAgregados.getItems().size(); i++) {
-                listEmpleadosAgregados.getItems().remove(i);
-            }
-        }
-        comboBoxCrear();
-        fechasInicializar();
-        labNombreEmpleadoAgregadoCrear.setText("");
-        labApellidoEmpleadoAgregadoCrear.setText("");
         labIDCronogramaModificar.setText("");
         labIDEmpleadoModificar.setText("");
         labNombreEmpleadoModificar.setText("");
