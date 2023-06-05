@@ -630,6 +630,10 @@ public class ControladorCronograma {
         inicializarTablaEmpleadoCalendario();
     }
 
+    @FXML
+    private void filtroCronograma(){
+    }
+
     // ------------------------------------------ Agrego en la Lista ---------------------------------------------
     @FXML
     private void agregarCrear(){
