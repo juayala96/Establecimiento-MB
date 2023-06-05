@@ -50,10 +50,10 @@
                               <Label text="El empleado no tiene licencias registradas" />
                            </placeholder>
                            <columns>
-                              <TableColumn fx:id="colFechaInicio" prefWidth="180.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Fecha de Inicio" />
-                              <TableColumn fx:id="colFechaFin" prefWidth="180.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Fecha de Fin" />
-                              <TableColumn fx:id="colTipoLicencia" prefWidth="204.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Tipo de Licencia" />
-                              <TableColumn fx:id="colIDLicencia" prefWidth="147.0" style="-fx-font-size: 14;" text="IDLicencia" />
+                              <TableColumn fx:id="colFechaInicio" prefWidth="190.0" style="-fx-font-size: 14;" text="Fecha de Inicio" />
+                              <TableColumn fx:id="colFechaFin" prefWidth="190.0" style="-fx-font-size: 14;" text="Fecha de Fin" />
+                              <TableColumn fx:id="colTipoLicencia" prefWidth="190.0" style="-fx-font-size: 14;" text="Tipo de Licencia" />
+                              <TableColumn fx:id="colIDLicencia" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="IDLicencia" />
                               <TableColumn fx:id="colDescripcion" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Descripcion" />
                            </columns>
                            <cursor>
@@ -68,7 +68,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button fx:id="btnModificarLicencia" alignment="CENTER" graphicTextGap="8.0" layoutX="1325.0" layoutY="362.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#modificarLicencia" prefHeight="46.0" prefWidth="166.0" text="Modificar" textFill="#080808">
+                        <Button fx:id="btnModificarLicencia" alignment="TOP_LEFT" graphicTextGap="8.0" layoutX="1325.0" layoutY="362.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#modificarLicencia" prefHeight="46.0" prefWidth="166.0" text="Modificar" textFill="#080808">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -83,7 +83,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button fx:id="btnEliminarLicencia" alignment="CENTER" graphicTextGap="8.0" layoutX="1325.0" layoutY="459.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#eliminarLicencia" prefHeight="46.0" prefWidth="165.0" text="Eliminar" textFill="#080808">
+                        <Button fx:id="btnEliminarLicencia" alignment="TOP_LEFT" graphicTextGap="8.0" layoutX="1325.0" layoutY="459.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#eliminarLicencia" prefHeight="46.0" prefWidth="165.0" text="Eliminar" textFill="#080808">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -98,7 +98,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button fx:id="btnVolver" alignment="CENTER" graphicTextGap="12.0" layoutX="1324.0" layoutY="669.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#volverEmpleados" prefHeight="46.0" prefWidth="166.0" text="Regresar" textFill="#d40000">
+                        <Button fx:id="btnVolver" alignment="TOP_LEFT" graphicTextGap="12.0" layoutX="1324.0" layoutY="669.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#volverEmpleados" prefHeight="46.0" prefWidth="166.0" text="Regresar" textFill="#d40000">
                            <font>
                               <Font name="System Bold Italic" size="18.0" />
                            </font>
@@ -113,7 +113,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button fx:id="btnRegistrarLicencia" alignment="CENTER" layoutX="1326.0" layoutY="264.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#registrarLicencia" prefHeight="46.0" prefWidth="166.0" text="Registrar" textFill="#080808">
+                        <Button fx:id="btnRegistrarLicencia" alignment="TOP_LEFT" layoutX="1326.0" layoutY="264.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#registrarLicencia" prefHeight="46.0" prefWidth="166.0" text="Registrar" textFill="#080808">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -128,7 +128,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button fx:id="btnActualizar" layoutX="1341.0" layoutY="44.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#actualizarTabla" prefHeight="46.0" prefWidth="150.0" text="Actualizar Listas" textFill="#6b027a">
+                        <Button fx:id="btnActualizar" layoutX="1129.0" layoutY="113.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#actualizarTabla" prefHeight="46.0" prefWidth="153.0" text="Actualizar Listas" textFill="#6b027a">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -164,10 +164,10 @@
                               <Label text="No hay empleados registrados" />
                            </placeholder>
                            <columns>
-                              <TableColumn fx:id="colNombre" prefWidth="170.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Nombre" />
-                              <TableColumn fx:id="colApellido" prefWidth="170.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Apellido" />
-                              <TableColumn fx:id="colLegajo" prefWidth="100.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Legajo" />
-                              <TableColumn fx:id="colDNI" prefWidth="170.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="DNI" />
+                              <TableColumn fx:id="colNombre" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Nombre" />
+                              <TableColumn fx:id="colApellido" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Apellido" />
+                              <TableColumn fx:id="colLegajo" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Legajo" />
+                              <TableColumn fx:id="colDNI" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="DNI" />
                               <TableColumn fx:id="colIDEmpleado" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="IDEmpleado" />
                            </columns>
                            <cursor>
@@ -292,17 +292,17 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <TableView fx:id="tabEmpleadosCrear" layoutX="156.0" layoutY="207.0" onMouseClicked="#getEmpleadoCrear" prefHeight="282.0" prefWidth="684.0" style="-fx-background-color: #e4e4e4;">
+                        <TableView fx:id="tabEmpleadosCrear" layoutX="157.0" layoutY="212.0" onMouseClicked="#getEmpleadoCrear" prefHeight="265.0" prefWidth="610.0" style="-fx-background-color: #e4e4e4;">
                            <placeholder>
                               <Label text="No hay empleados registrados" />
                            </placeholder>
                            <columns>
-                              <TableColumn fx:id="colNombreEmpleadoCrear" prefWidth="150.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Nombre" />
-                              <TableColumn fx:id="colApellidoEmpleadoCrear" prefWidth="150.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Apellido" />
-                              <TableColumn fx:id="colLegajoEmpleadoCrear" prefWidth="100.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Legajo" />
-                              <TableColumn fx:id="colDNIEmpleadoCrear" prefWidth="150.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="DNI" />
-                              <TableColumn fx:id="colTelefonoEmpleadoCrear" prefWidth="136.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Telefono" />
-                              <TableColumn fx:id="colIDEmpleadoCrear" prefWidth="36.0" text="ID" />
+                              <TableColumn fx:id="colNombreEmpleadoCrear" prefWidth="110.39993286132812" text="Nombre" />
+                              <TableColumn fx:id="colApellidoEmpleadoCrear" prefWidth="120.80006408691406" text="Apellido" />
+                              <TableColumn fx:id="colLegajoEmpleadoCrear" prefWidth="117.5999755859375" text="Legajo" />
+                              <TableColumn fx:id="colDNIEmpleadoCrear" prefWidth="113.5999755859375" text="DNI" />
+                              <TableColumn fx:id="colTelefonoEmpleadoCrear" prefWidth="145.60003662109375" text="Telefono" />
+                              <TableColumn fx:id="colIDEmpleadoCrear" prefWidth="63.199951171875" text="ID" />
                            </columns>
                            <cursor>
                               <Cursor fx:constant="HAND" />
@@ -377,7 +377,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Label layoutX="156.0" layoutY="490.0" prefHeight="25.0" prefWidth="403.0" text="Seleccione un empleado de la lista para poder registrar su licencia. " textFill="#080808">
+                        <Label layoutX="157.0" layoutY="479.0" prefHeight="25.0" prefWidth="403.0" text="Seleccione un empleado de la lista para poder registrar su licencia. " textFill="#080808">
                            <font>
                               <Font size="13.0" />
                            </font>
@@ -733,10 +733,10 @@
                               <Label text="El empleado no tiene turnos asignados" />
                            </placeholder>
                            <columns>
-                              <TableColumn fx:id="colFecha" prefWidth="153.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Fecha" />
-                              <TableColumn fx:id="colTurno" prefWidth="150.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Turno" />
-                              <TableColumn fx:id="colHoraEntrada" prefWidth="150.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Hora de Entrada" />
-                              <TableColumn fx:id="colHoraSalida" prefWidth="150.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Hora de Salida" />
+                              <TableColumn fx:id="colFecha" prefWidth="153.0" style="-fx-font-size: 14;" text="Fecha" />
+                              <TableColumn fx:id="colTurno" prefWidth="150.0" style="-fx-font-size: 14;" text="Turno" />
+                              <TableColumn fx:id="colHoraEntrada" prefWidth="150.0" style="-fx-font-size: 14;" text="Hora de Entrada" />
+                              <TableColumn fx:id="colHoraSalida" prefWidth="150.0" style="-fx-font-size: 14;" text="Hora de Salida" />
                               <TableColumn fx:id="colIDCronograma" prefWidth="140.0" style="-fx-font-size: 14;" text="IDCronograma" />
                            </columns>
                            <cursor>

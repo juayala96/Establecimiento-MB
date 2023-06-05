@@ -324,6 +324,10 @@ public class ControladorAusencias {
     @FXML
     private TableColumn<VerificarSalida, Integer> colIDEmpleadoSalida;
     @FXML
+    private TableColumn<ConsultaAsistencia, Integer> colIDEmpleadoCronogramaA;
+    @FXML
+    private TableColumn<VerificarSalida, Integer> colIDEmpleadoCronogramaS;
+    @FXML
     private Label labNombreEmpleadoEntrada;
     @FXML
     private Label labApellidoEmpleadoEntrada;
@@ -338,11 +342,31 @@ public class ControladorAusencias {
     @FXML
     private Label labErrorHoraEntrada;
     @FXML
+    private Label labErrorHoraEntrada2;
+    @FXML
     private Label labErrorHoraSalida;
     @FXML
     private TextField textHoraEntrada;
     @FXML
     private TextField textHoraSalida;
+    @FXML
+    private Label labFechaEntrada;
+    @FXML
+    private Label labTurnoEntrada;
+    @FXML
+    private Label labIDEmpleadoEntradaA;
+    @FXML
+    private Label labExisteEntrada;
+    @FXML
+    private Label labFechaSalida;
+    @FXML
+    private Label labTurnoSalida;
+    @FXML
+    private Label labIDEmpleadoSalidaS;
+    @FXML
+    private Label labExisteSalida;
+    @FXML
+    private Label labErrorHoraSalida2;
     @FXML
     private TextField textBuscarLegajoEmpleadoCrear;
 
@@ -356,6 +380,8 @@ public class ControladorAusencias {
     int index3 = -1;
 
     String regresarConsultaAsistenia = "0";
+    String asistencia = "NO";
+    String salida = "NO";
     ObservableList<ConsultaAsistencia> listCronogramaCE;
     int index4 = -1;
     ObservableList<VerificarSalida> listCronogramaCS;
@@ -492,9 +518,53 @@ public class ControladorAusencias {
         labLegajoEmpleadoCrear.setText(colLegajoEmpleadoCrear.getCellData(index3).toString());
     }
 
+    @FXML
+    private void getCronogramaAsistencia(){
+        asistencia = "YES";
+        index4 = tablaCronogramaAsistencia.getSelectionModel().getSelectedIndex();
+        if (index4 <= -1){
+
+            return;
+        }
+        // Registrar Ausencia
+        labIDEmpleadoCrear.setText(colIDEmpleadoCronogramaA.getCellData(index4).toString());
+        labNombreEmpleadoCrear.setText(colNombreAsistenciaCE.getCellData(index4));
+        labApellidoEmpleadoCrear.setText(colApellidoAsistenciaCE.getCellData(index4));
+        labLegajoEmpleadoCrear.setText(colLegajoAsistenciaCE.getCellData(index4).toString());
+
+        // Registrar Entrada
+        labIDEmpleadoEntradaA.setText(colIDEmpleadoCronogramaA.getCellData(index4).toString());
+        labNombreEmpleadoEntrada.setText(colNombreAsistenciaCE.getCellData(index4));
+        labApellidoEmpleadoEntrada.setText(colApellidoAsistenciaCE.getCellData(index4));
+        labLegajoEmpleadoEntrada.setText(colLegajoAsistenciaCE.getCellData(index4).toString());
+        labFechaEntrada.setText(colFechaAsistenciaCE.getCellData(index4));
+        labTurnoEntrada.setText(colTurnoAsistenciaCE.getCellData(index4));
+        textHoraEntrada.setText(colHoraEntradaAsistenciaCE.getCellData(index4));
+    }
+
+    @FXML
+    private void getCronogramaSalida(){
+        salida = "YES";
+        index5 = tablaCronogramaSalida.getSelectionModel().getSelectedIndex();
+        if (index5 <= -1){
+
+            return;
+        }
+
+        // Registrar Salida
+        labIDEmpleadoSalidaS.setText(colIDEmpleadoCronogramaS.getCellData(index5).toString());
+        labNombreEmpleadoSalida.setText(colNombreAsistenciaCS.getCellData(index5));
+        labApellidoEmpleadoSalida.setText(colApellidoAsistenciaCS.getCellData(index5));
+        labLegajoEmpleadoSalida.setText(colLegajoAsistenciaCS.getCellData(index5).toString());
+        labFechaSalida.setText(colFechaAsistenciaCS.getCellData(index5));
+        labTurnoSalida.setText(colTurnoAsistenciaCS.getCellData(index5));
+        textHoraSalida.setText(colHoraSalidaAsistenciaCS.getCellData(index5));
+    }
+
     // --------------------------------------------- Búsqueda y Filtros -----------------------------------------
     @FXML
     private void btnBuscarEmpleado() {
+        limpiarCamposGeneralizada();
         ObservableList<LeerEmpleado> listBuscarEmpleado;
         listBuscarEmpleado = LeerEmpleado.buscarEmpleadoGeneral(textBuscarLegajoEmpleado);
         if(textBuscarLegajoEmpleado.getText().equals("")){
@@ -504,14 +574,20 @@ public class ControladorAusencias {
             alerta.showAndWait();
         } else {
             tablaListaEmpleados.getItems().setAll(listBuscarEmpleado);
+            labIDEmpleadoLista.setText("0");
+            inicializarTablaAusencias();
         }
     }
 
     @FXML
     private void btnBuscarAusencia(){
-        ObservableList<LeerAusencia> listaBuscarAusencia;
-        listaBuscarAusencia = LeerAusencia.buscarAusenciaFecha(labIDEmpleadoLista, dpBuscarFecha);
-        tablaAusencias.getItems().setAll(listaBuscarAusencia);
+        labIDAusenciaModificar.setText("");
+        labIDAusenciaEliminar.setText("");
+        if(!labIDEmpleadoLista.getText().equals("")){
+            ObservableList<LeerAusencia> listaBuscarAusencia;
+            listaBuscarAusencia = LeerAusencia.buscarAusenciaFecha(labIDEmpleadoLista, dpBuscarFecha);
+            tablaAusencias.getItems().setAll(listaBuscarAusencia);
+        }
     }
 
     @FXML
@@ -523,6 +599,9 @@ public class ControladorAusencias {
 
     @FXML
     private void btnBuscarEmpleadoAsistencia() throws ParseException {
+        limpiarCamposEntradaAusencia();
+        limpiarCamposEntrada();
+        asistencia = "NO";
         SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
         LocalTime horaActual = LocalTime.now();
         int hora = horaActual.getHour();
@@ -580,6 +659,8 @@ public class ControladorAusencias {
 
     @FXML
     private void btnBuscarEmpleadoSalida() throws ParseException {
+        limpiarCamposSalida();
+        salida = "NO";
         SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
         LocalTime horaActual = LocalTime.now();
         int hora = horaActual.getHour();
@@ -746,10 +827,11 @@ public class ControladorAusencias {
     @FXML
     private void consultaAsistenciaGeneral() throws ParseException {
         textBuscarLegajoEmpleadoAsistencia.setText("");
+        limpiarCamposEntradaAusencia();
+        limpiarCamposEntrada();
+        asistencia = "NO";
         SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
         LocalTime horaActual = LocalTime.now();
-        int hora = horaActual.getHour();
-        int minuto = horaActual.getMinute();
 
         String fechaInicioClave = dpBuscarFechaAsistencia.getEditor().getText();
         String fechaAnio = fechaInicioClave.substring(6, 10);
@@ -804,10 +886,10 @@ public class ControladorAusencias {
     @FXML
     private void consultaSalidaGeneral() throws ParseException {
         textBuscarLegajoEmpleadoSalida.setText("");
+        limpiarCamposSalida();
+        salida = "NO";
         SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
         LocalTime horaActual = LocalTime.now();
-        int hora = horaActual.getHour();
-        int minuto = horaActual.getMinute();
 
         String fechaInicioClave = dpBuscarFechaSalida.getEditor().getText();
         String fechaAnio = fechaInicioClave.substring(6, 10);
@@ -861,12 +943,182 @@ public class ControladorAusencias {
 
     @FXML
     private void marcarEntrada(){
+        String respuesta = "NO";
+        labExisteEntrada.setText("");
+        if(labIDEmpleadoEntradaA.getText().trim().isEmpty() || labIDEmpleadoEntradaA.getText() == null){
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setTitle("Error al Marcar la Entrada!");
+            alerta.setContentText("Debe de seleccionar antes un empleado en la (Tabla del Cronograma) para marcar su entrada");
+            alerta.showAndWait();
+        } else {
+            if (!textHoraEntrada.getText().matches("[0-9:]*") || textHoraEntrada.getText().length() > 5 | textHoraEntrada.getText().length() < 5 || textHoraEntrada.getText().charAt(2) != ':') {
+                if(labTurnoEntrada.getText().equals("Dia")){
+                    textHoraEntrada.setText("12:00");
+                }
+                if(labTurnoEntrada.getText().equals("Noche")){
+                    textHoraEntrada.setText("00:00");
+                }
+                labErrorHoraEntrada2.setText("No está Permitido ese formato");
+            } else {
+                labErrorHoraEntrada.setText("");
+                labErrorHoraEntrada2.setText("");
+                respuesta = "YES";
+            }
 
+            if(respuesta.equals("YES")){
+                LocalTime horaE = LocalTime.of(Integer.parseInt(textHoraEntrada.getText().substring(0, 2)), Integer.parseInt(textHoraEntrada.getText().substring(3, 5)));
+
+                if(labTurnoEntrada.getText().equals("Dia")){
+                    LocalTime horaInicio = LocalTime.of(12, 0);
+                    LocalTime horaFin = LocalTime.of(12, 30);
+
+                    if ((horaE.equals(horaInicio) || horaE.isAfter(horaInicio)) && ((horaE.equals(horaFin) || horaE.isBefore(horaFin)))) {
+                        ConsultaAsistencia verificar = new ConsultaAsistencia();
+                        verificar.verificacionEntrada(labIDEmpleadoEntradaA, labFechaEntrada, labTurnoEntrada, labExisteEntrada);
+                        if(labExisteEntrada.getText().equals("")){
+                            ConsultaAsistencia crear = new ConsultaAsistencia();
+                            crear.crearEntrada(labIDEmpleadoEntradaA, labFechaEntrada, textHoraEntrada);
+                            textBuscarLegajoEmpleadoAsistencia.setText("");
+                            tablasAsistencias();
+                            limpiarCamposEntrada();
+                            limpiarCamposEntradaAusencia();
+                            consultaAsistencia();
+                            asistencia = "NO";
+                        } else {
+                            Alert alerta = new Alert(Alert.AlertType.ERROR);
+                            alerta.setTitle("Error de Marcar Entrada");
+                            alerta.setContentText("La entrada de dicho empleado ya está registrada. ");
+                            alerta.showAndWait();
+                        }
+                    } else {
+                        Alert alerta = new Alert(Alert.AlertType.ERROR);
+                        alerta.setTitle("Error de Marcar Entrada");
+                        alerta.setContentText("La Hora que a asignado se encuentra afuera del rango del Turno. (Permitido desde: 12:00 a 12:30 hs)");
+                        alerta.showAndWait();
+                        labErrorHoraEntrada.setText("X");
+                    }
+                } else if(labTurnoEntrada.getText().equals("Noche")){
+                    LocalTime horaInicio = LocalTime.of(0, 0);
+                    LocalTime horaFin = LocalTime.of(0, 30);
+
+                    if ((horaE.equals(horaInicio) || horaE.isAfter(horaInicio)) && ((horaE.equals(horaFin) || horaE.isBefore(horaFin)))) {
+                        ConsultaAsistencia verificar = new ConsultaAsistencia();
+                        verificar.verificacionEntrada(labIDEmpleadoEntradaA, labFechaEntrada, labTurnoEntrada, labExisteEntrada);
+                        if(labExisteEntrada.getText().equals("")){
+                            ConsultaAsistencia crear = new ConsultaAsistencia();
+                            crear.crearEntrada(labIDEmpleadoEntradaA, labFechaEntrada, textHoraEntrada);
+                            textBuscarLegajoEmpleadoAsistencia.setText("");
+                            tablasAsistencias();
+                            limpiarCamposEntrada();
+                            limpiarCamposEntradaAusencia();
+                            consultaAsistencia();
+                            asistencia = "NO";
+                        } else {
+                            Alert alerta = new Alert(Alert.AlertType.ERROR);
+                            alerta.setTitle("Error de Marcar Entrada");
+                            alerta.setContentText("La entrada de dicho empleado ya está registrada. ");
+                            alerta.showAndWait();
+                        }
+                    } else {
+                        Alert alerta = new Alert(Alert.AlertType.ERROR);
+                        alerta.setTitle("Error de Marcar Entrada");
+                        alerta.setContentText("La Hora que a asignado se encuentra afuera del rango del Turno. (Permitido desde: 00:00 a 00:30 hs)");
+                        alerta.showAndWait();
+                        labErrorHoraEntrada.setText("X");
+                    }
+                }
+            }
+        }
     }
 
     @FXML
     private void marcarSalida(){
+        String respuesta = "NO";
+        labExisteSalida.setText("");
+        if(labIDEmpleadoSalidaS.getText().trim().isEmpty() || labIDEmpleadoSalidaS.getText() == null){
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setTitle("Error al Marcar la Salida!");
+            alerta.setContentText("Debe de seleccionar antes un empleado en la (Tabla del Cronograma) para marcar su salida");
+            alerta.showAndWait();
+        } else {
+            if (!textHoraSalida.getText().matches("[0-9:]*") || textHoraSalida.getText().length() > 5 | textHoraSalida.getText().length() < 5 || textHoraSalida.getText().charAt(2) != ':') {
+                if(labTurnoSalida.getText().equals("Dia")){
+                    textHoraSalida.setText("23:59");
+                }
+                if(labTurnoSalida.getText().equals("Noche")){
+                    textHoraSalida.setText("12:00");
+                }
+                labErrorHoraSalida2.setText("No está Permitido ese formato");
+            } else {
+                labErrorHoraSalida.setText("");
+                labErrorHoraSalida2.setText("");
+                respuesta = "YES";
+            }
 
+            if(respuesta.equals("YES")){
+                LocalTime horaS = LocalTime.of(Integer.parseInt(textHoraSalida.getText().substring(0, 2)), Integer.parseInt(textHoraSalida.getText().substring(3, 5)));
+
+                if(labTurnoSalida.getText().equals("Dia")){
+                    LocalTime horaInicio = LocalTime.of(23, 30);
+                    LocalTime horaFin = LocalTime.of(23, 59);
+
+                    if ((horaS.equals(horaInicio) || horaS.isAfter(horaInicio)) && ((horaS.equals(horaFin) || horaS.isBefore(horaFin)))) {
+                        VerificarSalida verificar = new VerificarSalida();
+                        verificar.verificacionSalida(labIDEmpleadoSalidaS, labFechaSalida, labTurnoSalida, labExisteSalida);
+                        if(labExisteSalida.getText().equals("")){
+                            System.out.println(labExisteSalida.getText());
+                            VerificarSalida crear = new VerificarSalida();
+                            crear.crearSalida(labIDEmpleadoSalidaS, labFechaSalida, textHoraSalida);
+                            textBuscarLegajoEmpleadoSalida.setText("");
+                            tablasSalidas();
+                            limpiarCamposSalida();
+                            verificarSalida();
+                            salida = "NO";
+                        } else {
+                            Alert alerta = new Alert(Alert.AlertType.ERROR);
+                            alerta.setTitle("Error de Marcar Salida");
+                            alerta.setContentText("La salida de dicho empleado ya está registrada. ");
+                            alerta.showAndWait();
+                        }
+                    } else {
+                        Alert alerta = new Alert(Alert.AlertType.ERROR);
+                        alerta.setTitle("Error de Marcar Salida");
+                        alerta.setContentText("La Hora que a asignado se encuentra afuera del rango del Turno. (Permitido desde: 23:30 a 23:59 hs)");
+                        alerta.showAndWait();
+                        labErrorHoraSalida.setText("X");
+                    }
+                } else if(labTurnoSalida.getText().equals("Noche")){
+                    LocalTime horaInicio = LocalTime.of(11, 30);
+                    LocalTime horaFin = LocalTime.of(12, 0);
+
+                    if ((horaS.equals(horaInicio) || horaS.isAfter(horaInicio)) && ((horaS.equals(horaFin) || horaS.isBefore(horaFin)))) {
+                        VerificarSalida verificar = new VerificarSalida();
+                        verificar.verificacionSalida(labIDEmpleadoSalidaS, labFechaSalida, labTurnoSalida, labExisteSalida);
+                        if(labExisteSalida.getText().equals("")){
+                            System.out.println(labExisteSalida.getText());
+                            VerificarSalida crear = new VerificarSalida();
+                            crear.crearSalida(labIDEmpleadoSalidaS, labFechaSalida, textHoraSalida);
+                            textBuscarLegajoEmpleadoSalida.setText("");
+                            tablasSalidas();
+                            limpiarCamposSalida();
+                            verificarSalida();
+                            salida = "NO";
+                        } else {
+                            Alert alerta = new Alert(Alert.AlertType.ERROR);
+                            alerta.setTitle("Error de Marcar Salida");
+                            alerta.setContentText("La salida de dicho empleado ya está registrada. ");
+                            alerta.showAndWait();
+                        }
+                    } else {
+                        Alert alerta = new Alert(Alert.AlertType.ERROR);
+                        alerta.setTitle("Error de Marcar Salida");
+                        alerta.setContentText("La Hora que a asignado se encuentra afuera del rango del Turno. (Permitido desde: 11:30 a 12:00 hs)");
+                        alerta.showAndWait();
+                        labErrorHoraSalida.setText("X");
+                    }
+                }
+            }
+        }
     }
 
     //------------------------------------ Acciones Simples de los Botones --------------------------------------
@@ -932,16 +1184,30 @@ public class ControladorAusencias {
 
     @FXML
     private void modificarAusencia() {
-        SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasAusencias.getSelectionModel();
-        modeloSeleccion.select(tabModificarAusencia);
-        dpFechaModificar.requestFocus();
+        if(labIDAusenciaModificar.getText().trim().isEmpty() || labIDAusenciaModificar.getText() == null){
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setTitle("Advertencia!");
+            alerta.setContentText("Debe de seleccionar antes una Ausencia de dicho empleado para Modificarlo");
+            alerta.showAndWait();
+        } else {
+            SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasAusencias.getSelectionModel();
+            modeloSeleccion.select(tabModificarAusencia);
+            dpFechaModificar.requestFocus();
+        }
     }
 
     @FXML
     private void eliminarAusencia() {
-        SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasAusencias.getSelectionModel();
-        modeloSeleccion.select(tabEliminarAusencia);
-        btnEliminar.requestFocus();
+        if (labIDAusenciaEliminar.getText().trim().isEmpty() || labIDAusenciaEliminar.getText() == null){
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setTitle("Advertencia!");
+            alerta.setContentText("Debe de seleccionar antes una Ausencia de dicho empleado para Eliminarlo");
+            alerta.showAndWait();
+        } else {
+            SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasAusencias.getSelectionModel();
+            modeloSeleccion.select(tabEliminarAusencia);
+            btnEliminar.requestFocus();
+        }
     }
 
     @FXML
@@ -985,19 +1251,31 @@ public class ControladorAusencias {
 
     @FXML
     private void registrarEntrada(){
-        SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasAusencias.getSelectionModel();
-        modeloSeleccion.select(tabRegistroEntrada);
-        LocalTime horaActual = LocalTime.now();
-        int hora = horaActual.getHour();
-        int minuto = horaActual.getMinute();
-        textHoraEntrada.setText(hora + ":" + minuto);
+        if(asistencia.equals("YES")){
+            SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasAusencias.getSelectionModel();
+            modeloSeleccion.select(tabRegistroEntrada);
+            labErrorHoraEntrada.setText("");
+            labErrorHoraEntrada2.setText("");
+        } else {
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setTitle("Advertencia!");
+            alerta.setContentText("Debe de seleccionar antes un empleado en la (Tabla del Cronograma) para registrar su entrada");
+            alerta.showAndWait();
+        }
     }
 
     @FXML
     private void registrarAusenciaA(){
-        SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasAusencias.getSelectionModel();
-        modeloSeleccion.select(tabRegistrarAusencia);
-        regresarConsultaAsistenia = "1";
+        if(asistencia.equals("YES")){
+            SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasAusencias.getSelectionModel();
+            modeloSeleccion.select(tabRegistrarAusencia);
+            regresarConsultaAsistenia = "1";
+        } else {
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setTitle("Advertencia!");
+            alerta.setContentText("Debe de seleccionar antes un empleado en la (Tabla del Cronograma) para registrar su ausencia");
+            alerta.showAndWait();
+        }
     }
 
     @FXML
@@ -1015,12 +1293,17 @@ public class ControladorAusencias {
 
     @FXML
     private void registrarSalida(){
-        SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasAusencias.getSelectionModel();
-        modeloSeleccion.select(tabRegistroSalida);
-        LocalTime horaActual = LocalTime.now();
-        int hora = horaActual.getHour();
-        int minuto = horaActual.getMinute();
-        textHoraSalida.setText(hora + ":" + minuto);
+        if(salida.equals("YES")){
+            SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasAusencias.getSelectionModel();
+            modeloSeleccion.select(tabRegistroSalida);
+            labErrorHoraSalida.setText("");
+            labErrorHoraSalida2.setText("");
+        } else {
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setTitle("Advertencia!");
+            alerta.setContentText("Debe de seleccionar antes un empleado en la (Tabla del Cronograma) para registrar su salida");
+            alerta.showAndWait();
+        }
     }
 
     @FXML
@@ -1144,6 +1427,29 @@ public class ControladorAusencias {
         fechasInicializar();
     }
 
+    private void limpiarCamposGeneralizada(){
+        labIDEmpleadoModificar.setText("");
+        labNombreEmpleadoModificar.setText("");
+        labApellidoEmpleadoModificar.setText("");
+        labLegajoEmpleadoModificar.setText("");
+        textMotivoModificar.setText("");
+        rbJustificadoNoModificar.fire();
+        rbCertificadoNoModificar.fire();
+        labLimpiarCamposModificar.setText("");
+        labIDAusenciaModificar.setText("");
+        getJustificadoModificar();
+        getCertificadoModificar();
+        labIDEmpleadoEliminar.setText("");
+        labNombreEmpleadoEliminar.setText("");
+        labApellidoEmpleadoEliminar.setText("");
+        labLegajoEmpleadoEliminar.setText("");
+        textMotivoEliminar.setText("");
+        labJustificadoEliminar.setText("");
+        labCertificadoEliminar.setText("");
+        labIDAusenciaEliminar.setText("");
+        fechasInicializar();
+    }
+
     private void limpiarCamposAusencias(){
         labIDAusenciaModificar.setText("");
         dpFechaModificarDuplicada.getEditor().setText("");
@@ -1158,6 +1464,36 @@ public class ControladorAusencias {
         fechasInicializarMyE();
     }
 
+    private void limpiarCamposEntrada(){
+        labExisteEntrada.setText("");
+        labIDEmpleadoEntradaA.setText("");
+        labNombreEmpleadoEntrada.setText("");
+        labApellidoEmpleadoEntrada.setText("");
+        labLegajoEmpleadoEntrada.setText("");
+        labFechaEntrada.setText("");
+        labTurnoEntrada.setText("");
+        textHoraEntrada.setText("");
+    }
+
+    private void limpiarCamposEntradaAusencia(){
+        textBuscarLegajoEmpleadoCrear.setText("");
+        labIDEmpleadoCrear.setText("");
+        labNombreEmpleadoCrear.setText("");
+        labApellidoEmpleadoCrear.setText("");
+        labLegajoEmpleadoCrear.setText("");
+    }
+
+    private void limpiarCamposSalida(){
+        labExisteSalida.setText("");
+        labIDEmpleadoSalidaS.setText("");
+        labNombreEmpleadoSalida.setText("");
+        labApellidoEmpleadoSalida.setText("");
+        labLegajoEmpleadoSalida.setText("");
+        labFechaSalida.setText("");
+        labTurnoSalida.setText("");
+        textHoraSalida.setText("");
+    }
+
     private void tablasAsistencias(){
         // Cronograma
         colNombreAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("nombre"));
@@ -1168,9 +1504,10 @@ public class ControladorAusencias {
         colHoraEntradaAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("horaEntrada"));
         colHoraSalidaAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("horaSalida"));
         colIDCronogramaAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, Integer>("idCronograma"));
+        colIDEmpleadoCronogramaA.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, Integer>("idEmpleado"));
 
         listCronogramaCE = ConsultaAsistencia.listaCronogramaCE(dpBuscarFechaAsistencia, cbTurnoAsistencia, labCantidadCronograma);
-        tablaCronogramaAsistencia.getColumns().setAll(colNombreAsistenciaCE, colApellidoAsistenciaCE, colLegajoAsistenciaCE, colTurnoAsistenciaCE, colFechaAsistenciaCE, colHoraEntradaAsistenciaCE, colHoraSalidaAsistenciaCE, colIDCronogramaAsistenciaCE);
+        tablaCronogramaAsistencia.getColumns().setAll(colNombreAsistenciaCE, colApellidoAsistenciaCE, colLegajoAsistenciaCE, colTurnoAsistenciaCE, colFechaAsistenciaCE, colHoraEntradaAsistenciaCE, colHoraSalidaAsistenciaCE, colIDCronogramaAsistenciaCE, colIDEmpleadoCronogramaA);
         tablaCronogramaAsistencia.getItems().setAll(listCronogramaCE);
 
         // Entrada
@@ -1196,9 +1533,10 @@ public class ControladorAusencias {
         colHoraEntradaAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("horaEntrada"));
         colHoraSalidaAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("horaSalida"));
         colIDCronogramaAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, Integer>("idCronograma"));
+        colIDEmpleadoCronogramaA.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, Integer>("idEmpleado"));
 
         listCronogramaCE = ConsultaAsistencia.listaCronogramaCEBuscar(dpBuscarFechaAsistencia, cbTurnoAsistencia, labCantidadCronograma, textBuscarLegajoEmpleadoAsistencia);
-        tablaCronogramaAsistencia.getColumns().setAll(colNombreAsistenciaCE, colApellidoAsistenciaCE, colLegajoAsistenciaCE, colTurnoAsistenciaCE, colFechaAsistenciaCE, colHoraEntradaAsistenciaCE, colHoraSalidaAsistenciaCE, colIDCronogramaAsistenciaCE);
+        tablaCronogramaAsistencia.getColumns().setAll(colNombreAsistenciaCE, colApellidoAsistenciaCE, colLegajoAsistenciaCE, colTurnoAsistenciaCE, colFechaAsistenciaCE, colHoraEntradaAsistenciaCE, colHoraSalidaAsistenciaCE, colIDCronogramaAsistenciaCE, colIDEmpleadoCronogramaA);
         tablaCronogramaAsistencia.getItems().setAll(listCronogramaCE);
 
         // Entrada
@@ -1224,9 +1562,10 @@ public class ControladorAusencias {
         colHoraSalidaAsistenciaCS.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("horaSalida"));
         colHoraEntradaAsistenciaCS.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("horaEntrada"));
         colIDCronogramaAsistenciaCS.setCellValueFactory(new PropertyValueFactory<VerificarSalida, Integer>("idCronograma"));
+        colIDEmpleadoCronogramaS.setCellValueFactory(new PropertyValueFactory<VerificarSalida, Integer>("idEmpleado"));
 
         listCronogramaCS = VerificarSalida.listaCronogramaCS(dpBuscarFechaSalida, cbTurnoSalida, labCantidadCronogramaS);
-        tablaCronogramaSalida.getColumns().setAll(colNombreAsistenciaCS, colApellidoAsistenciaCS, colLegajoAsistenciaCS, colTurnoAsistenciaCS, colFechaAsistenciaCS, colHoraSalidaAsistenciaCS, colHoraEntradaAsistenciaCS, colIDCronogramaAsistenciaCS);
+        tablaCronogramaSalida.getColumns().setAll(colNombreAsistenciaCS, colApellidoAsistenciaCS, colLegajoAsistenciaCS, colTurnoAsistenciaCS, colFechaAsistenciaCS, colHoraSalidaAsistenciaCS, colHoraEntradaAsistenciaCS, colIDCronogramaAsistenciaCS, colIDEmpleadoCronogramaS);
         tablaCronogramaSalida.getItems().setAll(listCronogramaCS);
 
         // Salida
@@ -1252,9 +1591,10 @@ public class ControladorAusencias {
         colHoraSalidaAsistenciaCS.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("horaSalida"));
         colHoraEntradaAsistenciaCS.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("horaEntrada"));
         colIDCronogramaAsistenciaCS.setCellValueFactory(new PropertyValueFactory<VerificarSalida, Integer>("idCronograma"));
+        colIDEmpleadoCronogramaS.setCellValueFactory(new PropertyValueFactory<VerificarSalida, Integer>("idEmpleado"));
 
         listCronogramaCS = VerificarSalida.listaCronogramaCSBuscar(dpBuscarFechaSalida, cbTurnoSalida, labCantidadCronogramaS, textBuscarLegajoEmpleadoSalida);
-        tablaCronogramaSalida.getColumns().setAll(colNombreAsistenciaCS, colApellidoAsistenciaCS, colLegajoAsistenciaCS, colTurnoAsistenciaCS, colFechaAsistenciaCS, colHoraSalidaAsistenciaCS, colHoraEntradaAsistenciaCS, colIDCronogramaAsistenciaCS);
+        tablaCronogramaSalida.getColumns().setAll(colNombreAsistenciaCS, colApellidoAsistenciaCS, colLegajoAsistenciaCS, colTurnoAsistenciaCS, colFechaAsistenciaCS, colHoraSalidaAsistenciaCS, colHoraEntradaAsistenciaCS, colIDCronogramaAsistenciaCS, colIDEmpleadoCronogramaS);
         tablaCronogramaSalida.getItems().setAll(listCronogramaCS);
 
         // Salida

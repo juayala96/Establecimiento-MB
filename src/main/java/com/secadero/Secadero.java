@@ -3,7 +3,6 @@ package com.secadero;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -21,8 +20,6 @@ public class Secadero extends Application {
         Scene escena = new Scene(root);
         primaryStage.setScene(escena);
         primaryStage.setTitle("Gestión Secadero");
-        //Image imagen = new Image("C:/Users/juela/OneDrive/Escritorio/Ipesmi/Práctica Profecional/Establecimiento-MB/src/main/java/com/secadero/logo.png");
-        //primaryStage.getIcons().add(imagen);
         primaryStage.show();
     }
 }

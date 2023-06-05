@@ -33,7 +33,7 @@
                               <Image url="@../imagenes/verde_agua.jpg" />
                            </image>
                         </ImageView>
-                        <Button fx:id="btnVolver" alignment="CENTER" graphicTextGap="12.0" layoutX="1340.0" layoutY="674.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#volverPrincipal" prefHeight="46.0" prefWidth="166.0" text="Inicio" textFill="#d40000">
+                        <Button fx:id="btnVolver" alignment="TOP_LEFT" graphicTextGap="12.0" layoutX="1340.0" layoutY="674.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#volverPrincipal" prefHeight="46.0" prefWidth="166.0" text="Inicio" textFill="#d40000">
                            <font>
                               <Font name="System Bold Italic" size="18.0" />
                            </font>
@@ -43,12 +43,12 @@
                            <graphic>
                               <ImageView fitHeight="29.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../imagenes/iconos/Inicio.png" />
+                                    <Image url="@../imagenes/iconos/Volver.png" />
                                  </image>
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button fx:id="btnCrearCronograma" alignment="CENTER" layoutX="1340.0" layoutY="265.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#crearCronograma" prefHeight="46.0" prefWidth="166.0" text="Crear" textFill="#080808">
+                        <Button fx:id="btnCrearCronograma" alignment="TOP_LEFT" layoutX="1340.0" layoutY="265.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#crearCronograma" prefHeight="46.0" prefWidth="166.0" text="Crear" textFill="#080808">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -63,7 +63,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button fx:id="btnModificarCronograma" alignment="CENTER" graphicTextGap="8.0" layoutX="1340.0" layoutY="362.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#modificarCronograma" prefHeight="46.0" prefWidth="166.0" text="Modificar" textFill="#080808">
+                        <Button fx:id="btnModificarCronograma" alignment="TOP_LEFT" graphicTextGap="8.0" layoutX="1340.0" layoutY="362.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#modificarCronograma" prefHeight="46.0" prefWidth="166.0" text="Modificar" textFill="#080808">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -78,7 +78,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button fx:id="btnEliminarCronograma" alignment="CENTER" graphicTextGap="8.0" layoutX="1340.0" layoutY="459.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#eliminarCronograma" prefHeight="46.0" prefWidth="165.0" text="Eliminar" textFill="#080808">
+                        <Button fx:id="btnEliminarCronograma" alignment="TOP_LEFT" graphicTextGap="8.0" layoutX="1340.0" layoutY="459.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#eliminarCronograma" prefHeight="46.0" prefWidth="165.0" text="Eliminar" textFill="#080808">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -98,11 +98,11 @@
                               <Label text="El empleado no tiene turnos asignados" />
                            </placeholder>
                            <columns>
-                              <TableColumn fx:id="colFecha" prefWidth="143.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Fecha" />
-                              <TableColumn fx:id="colTurno" prefWidth="140.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Turno" />
-                              <TableColumn fx:id="colHoraEntrada" prefWidth="162.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Hora de Entrada" />
-                              <TableColumn fx:id="colHoraSalida" prefWidth="159.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Hora de Salida" />
-                              <TableColumn fx:id="colIDCronograma" prefWidth="119.0" style="-fx-font-size: 14;" text="IDCronograma" />
+                              <TableColumn fx:id="colFecha" prefWidth="153.0" style="-fx-font-size: 14;" text="Fecha" />
+                              <TableColumn fx:id="colTurno" prefWidth="150.0" style="-fx-font-size: 14;" text="Turno" />
+                              <TableColumn fx:id="colHoraEntrada" prefWidth="150.0" style="-fx-font-size: 14;" text="Hora de Entrada" />
+                              <TableColumn fx:id="colHoraSalida" prefWidth="150.0" style="-fx-font-size: 14;" text="Hora de Salida" />
+                              <TableColumn fx:id="colIDCronograma" prefWidth="140.0" style="-fx-font-size: 14;" text="IDCronograma" />
                            </columns>
                            <cursor>
                               <Cursor fx:constant="HAND" />
@@ -113,17 +113,17 @@
                               <Label text="No hay empleados disponibles" />
                            </placeholder>
                            <columns>
-                              <TableColumn fx:id="colNombre" prefWidth="170.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Nombre" />
-                              <TableColumn fx:id="colApellido" prefWidth="170.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Apellido" />
-                              <TableColumn fx:id="colLegajo" prefWidth="100.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Legajo" />
-                              <TableColumn fx:id="colDNI" prefWidth="170.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="DNI" />
+                              <TableColumn fx:id="colNombre" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Nombre" />
+                              <TableColumn fx:id="colApellido" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Apellido" />
+                              <TableColumn fx:id="colLegajo" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Legajo" />
+                              <TableColumn fx:id="colDNI" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="DNI" />
                               <TableColumn fx:id="colIDEmpleado" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="IDEmpleado" />
                            </columns>
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </TableView>
-                        <Button fx:id="btnActualizar" layoutX="1356.0" layoutY="25.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#actualizarTabla" prefHeight="46.0" prefWidth="150.0" text="Actualizar Listas" textFill="#6b027a">
+                        <Button fx:id="btnActualizar" layoutX="1153.0" layoutY="96.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#actualizarTabla" prefHeight="46.0" prefWidth="150.0" text="Actualizar Listas" textFill="#6b027a">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -163,7 +163,7 @@
                               <Font name="Georgia Bold" size="56.0" />
                            </font>
                         </Label>
-                        <Button fx:id="btnCalendario" alignment="CENTER" graphicTextGap="12.0" layoutX="1340.0" layoutY="549.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#calendario" prefHeight="46.0" prefWidth="166.0" text="Calendario" textFill="#080808">
+                        <Button fx:id="btnCalendario" alignment="TOP_LEFT" graphicTextGap="12.0" layoutX="1340.0" layoutY="549.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#calendario" prefHeight="46.0" prefWidth="166.0" text="Calendario" textFill="#080808">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -272,11 +272,11 @@
                               <Label text="No hay empleados disponibles" />
                            </placeholder>
                            <columns>
-                              <TableColumn fx:id="colNombreEmpleadoCrear" prefWidth="135.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Nombre" />
-                              <TableColumn fx:id="colApellidoEmpleadoCrear" prefWidth="135.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Apellido" />
-                              <TableColumn fx:id="colLegajoEmpleadoCrear" prefWidth="100.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Legajo" />
-                              <TableColumn fx:id="colDNIEmpleadoCrear" prefWidth="140.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="DNI" />
-                              <TableColumn fx:id="colEmailEmpleadoCrear" prefWidth="119.0" text="Email" />
+                              <TableColumn fx:id="colNombreEmpleadoCrear" prefWidth="126.0" text="Nombre" />
+                              <TableColumn fx:id="colApellidoEmpleadoCrear" prefWidth="126.0" text="Apellido" />
+                              <TableColumn fx:id="colLegajoEmpleadoCrear" prefWidth="126.0" text="Legajo" />
+                              <TableColumn fx:id="colDNIEmpleadoCrear" prefWidth="126.0" text="DNI" />
+                              <TableColumn fx:id="colEmailEmpleadoCrear" prefWidth="145.60003662109375" text="Email" />
                               <TableColumn fx:id="colIDEmpleadoCrear" prefWidth="63.199951171875" text="ID" />
                            </columns>
                            <cursor>
@@ -735,9 +735,9 @@
                               <Label text="El empleado no tiene licencias registradas" />
                            </placeholder>
                            <columns>
-                              <TableColumn fx:id="colFechaInicio" prefWidth="190.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Fecha de Inicio" />
-                              <TableColumn fx:id="colFechaFin" prefWidth="190.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Fecha de Fin" />
-                              <TableColumn fx:id="colTipoLicencia" prefWidth="190.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Tipo de Licencia" />
+                              <TableColumn fx:id="colFechaInicio" prefWidth="190.0" style="-fx-font-size: 14;" text="Fecha de Inicio" />
+                              <TableColumn fx:id="colFechaFin" prefWidth="190.0" style="-fx-font-size: 14;" text="Fecha de Fin" />
+                              <TableColumn fx:id="colTipoLicencia" prefWidth="190.0" style="-fx-font-size: 14;" text="Tipo de Licencia" />
                               <TableColumn fx:id="colIDLicencia" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="IDLicencia" />
                               <TableColumn fx:id="colDescripcion" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Descripcion" />
                            </columns>
@@ -781,10 +781,10 @@
                               <Label text="No hay empleados registrados" />
                            </placeholder>
                            <columns>
-                              <TableColumn fx:id="colNombreConsulta" prefWidth="170.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Nombre" />
-                              <TableColumn fx:id="colApellidoConsulta" prefWidth="170.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Apellido" />
-                              <TableColumn fx:id="colLegajoConsulta" prefWidth="100.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Legajo" />
-                              <TableColumn fx:id="colDNIConsulta" prefWidth="170.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="DNI" />
+                              <TableColumn fx:id="colNombreConsulta" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Nombre" />
+                              <TableColumn fx:id="colApellidoConsulta" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Apellido" />
+                              <TableColumn fx:id="colLegajoConsulta" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Legajo" />
+                              <TableColumn fx:id="colDNIConsulta" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="DNI" />
                               <TableColumn fx:id="colIDEmpleadoConsulta" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="IDEmpleado" />
                            </columns>
                            <cursor>
@@ -885,15 +885,15 @@
                               <Label text="No hay cronogramas disponibles en la fecha elegida" />
                            </placeholder>
                            <columns>
-                              <TableColumn fx:id="colNombreCalendario" prefWidth="170.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Nombre" />
-                              <TableColumn fx:id="colApellidoCalendario" prefWidth="170.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Apellido" />
-                              <TableColumn fx:id="colLegajoCalendario" prefWidth="100.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Legajo" />
-                              <TableColumn fx:id="colDNICalendario" prefWidth="170.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="DNI" />
-                              <TableColumn fx:id="colFechaCalendario" prefWidth="144.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Fecha" />
-                              <TableColumn fx:id="colTurnoCalendario" prefWidth="156.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Turno" />
-                              <TableColumn fx:id="colHoraEntradaCalendario" prefWidth="150.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Hora de Entrada" />
-                              <TableColumn fx:id="colHoraSalidaCalendario" prefWidth="150.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Hora de Salida" />
-                              <TableColumn fx:id="colIDEmpleadoCalendario" prefWidth="157.0" style="-fx-font-size: 14;" text="IDEmpleado" />
+                              <TableColumn fx:id="colNombreCalendario" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Nombre" />
+                              <TableColumn fx:id="colApellidoCalendario" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Apellido" />
+                              <TableColumn fx:id="colLegajoCalendario" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Legajo" />
+                              <TableColumn fx:id="colDNICalendario" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="DNI" />
+                              <TableColumn fx:id="colFechaCalendario" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Fecha" />
+                              <TableColumn fx:id="colTurnoCalendario" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Turno" />
+                              <TableColumn fx:id="colHoraEntradaCalendario" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Hora de Entrada" />
+                              <TableColumn fx:id="colHoraSalidaCalendario" prefWidth="150.40000915527344" style="-fx-font-size: 14;" text="Hora de Salida" />
+                              <TableColumn fx:id="colIDEmpleadoCalendario" prefWidth="120.0" style="-fx-font-size: 14;" text="IDEmpleado" />
                               <TableColumn fx:id="colIDCronogramaCalendario" prefWidth="120.0" style="-fx-font-size: 14;" text="IDCronograma" />
                            </columns>
                            <cursor>
