@@ -1,11 +1,8 @@
 package com.secadero.controlador;
 
 import com.secadero.modelo.empleados.LeerEmpleado;
-import com.secadero.modelo.empleados.ModificarEmpleado;
 import com.secadero.modelo.empleados.leerComboBoxes.AreaEmpleado;
 import com.secadero.modelo.empleados.leerComboBoxes.PuestoEmpleado;
-import com.secadero.modelo.licencias.CrearLicencia;
-import com.secadero.modelo.licencias.LeerLicencia;
 import com.secadero.modelo.preRecibo.PreRecibo;
 import com.secadero.modelo.preRecibo.modificaciones.Porcentaje;
 import com.secadero.modelo.preRecibo.modificaciones.Sueldo;

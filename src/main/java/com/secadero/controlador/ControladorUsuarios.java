@@ -1,6 +1,5 @@
 package com.secadero.controlador;
 
-import com.secadero.modelo.empleados.CrearEmpleado;
 import com.secadero.modelo.empleados.LeerEmpleado;
 import com.secadero.modelo.usuarios.CrearUsuario;
 import com.secadero.modelo.usuarios.EliminarUsuario;

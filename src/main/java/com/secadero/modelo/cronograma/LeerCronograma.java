@@ -1,13 +1,11 @@
 package com.secadero.modelo.cronograma;
 
 import com.secadero.conexion.Conexion;
-import com.secadero.modelo.empleados.LeerEmpleado;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 
 import java.sql.*;
-import java.util.Date;
 
 public class LeerCronograma {
     private String nombre;

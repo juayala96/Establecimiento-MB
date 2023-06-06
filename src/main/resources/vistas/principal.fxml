@@ -146,11 +146,6 @@
             <Font name="Arial" size="32.0" />
          </font>
       </Label>
-      <Label fx:id="labEmpleadoAusenteActual" layoutX="204.0" layoutY="673.0" prefHeight="30.0" prefWidth="336.0" textFill="#bc0f0f">
-         <font>
-            <Font name="Consolas" size="18.0" />
-         </font>
-      </Label>
       <ImageView fitHeight="40.0" fitWidth="45.0" layoutX="221.0" layoutY="556.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../imagenes/iconos/Informe.png" />

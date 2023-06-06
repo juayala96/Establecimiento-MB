@@ -1,7 +1,6 @@
 package com.secadero.modelo.ausencia;
 
 import com.secadero.conexion.Conexion;
-import com.secadero.modelo.cronograma.LeerCronograma;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;

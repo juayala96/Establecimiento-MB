@@ -985,6 +985,7 @@ public class ControladorAusencias {
                             consultaAsistencia();
                             asistencia = "NO";
                         } else {
+                            labExisteEntrada.setText("");
                             Alert alerta = new Alert(Alert.AlertType.ERROR);
                             alerta.setTitle("Error de Marcar Entrada");
                             alerta.setContentText("La entrada de dicho empleado ya está registrada. ");
@@ -1063,21 +1064,31 @@ public class ControladorAusencias {
                     LocalTime horaFin = LocalTime.of(23, 59);
 
                     if ((horaS.equals(horaInicio) || horaS.isAfter(horaInicio)) && ((horaS.equals(horaFin) || horaS.isBefore(horaFin)))) {
-                        VerificarSalida verificar = new VerificarSalida();
-                        verificar.verificacionSalida(labIDEmpleadoSalidaS, labFechaSalida, labTurnoSalida, labExisteSalida);
-                        if(labExisteSalida.getText().equals("")){
-                            System.out.println(labExisteSalida.getText());
-                            VerificarSalida crear = new VerificarSalida();
-                            crear.crearSalida(labIDEmpleadoSalidaS, labFechaSalida, textHoraSalida);
-                            textBuscarLegajoEmpleadoSalida.setText("");
-                            tablasSalidas();
-                            limpiarCamposSalida();
-                            verificarSalida();
-                            salida = "NO";
+                        ConsultaAsistencia contulta = new ConsultaAsistencia();
+                        contulta.verificacionEntrada(labIDEmpleadoSalidaS, labFechaSalida, labTurnoSalida, labExisteEntrada);
+                        if(labExisteEntrada.getText().equals("YES")){
+                            VerificarSalida verificar = new VerificarSalida();
+                            verificar.verificacionSalida(labIDEmpleadoSalidaS, labFechaSalida, labTurnoSalida, labExisteSalida);
+                            if(labExisteSalida.getText().equals("")){
+                                System.out.println(labExisteSalida.getText());
+                                VerificarSalida crear = new VerificarSalida();
+                                crear.crearSalida(labIDEmpleadoSalidaS, labFechaSalida, textHoraSalida);
+                                textBuscarLegajoEmpleadoSalida.setText("");
+                                tablasSalidas();
+                                limpiarCamposSalida();
+                                verificarSalida();
+                                salida = "NO";
+                            } else {
+                                Alert alerta = new Alert(Alert.AlertType.ERROR);
+                                alerta.setTitle("Error de Marcar Salida");
+                                alerta.setContentText("La salida de dicho empleado ya está registrada. ");
+                                alerta.showAndWait();
+                            }
                         } else {
+                            labExisteEntrada.setText("");
                             Alert alerta = new Alert(Alert.AlertType.ERROR);
                             alerta.setTitle("Error de Marcar Salida");
-                            alerta.setContentText("La salida de dicho empleado ya está registrada. ");
+                            alerta.setContentText("La salida de dicho empleado no se puede realizar porque no a ingresado su Entrada.");
                             alerta.showAndWait();
                         }
                     } else {
@@ -1092,21 +1103,31 @@ public class ControladorAusencias {
                     LocalTime horaFin = LocalTime.of(12, 0);
 
                     if ((horaS.equals(horaInicio) || horaS.isAfter(horaInicio)) && ((horaS.equals(horaFin) || horaS.isBefore(horaFin)))) {
-                        VerificarSalida verificar = new VerificarSalida();
-                        verificar.verificacionSalida(labIDEmpleadoSalidaS, labFechaSalida, labTurnoSalida, labExisteSalida);
-                        if(labExisteSalida.getText().equals("")){
-                            System.out.println(labExisteSalida.getText());
-                            VerificarSalida crear = new VerificarSalida();
-                            crear.crearSalida(labIDEmpleadoSalidaS, labFechaSalida, textHoraSalida);
-                            textBuscarLegajoEmpleadoSalida.setText("");
-                            tablasSalidas();
-                            limpiarCamposSalida();
-                            verificarSalida();
-                            salida = "NO";
+                        ConsultaAsistencia contulta = new ConsultaAsistencia();
+                        contulta.verificacionEntrada(labIDEmpleadoSalidaS, labFechaSalida, labTurnoSalida, labExisteEntrada);
+                        if(labExisteEntrada.getText().equals("YES")){
+                            VerificarSalida verificar = new VerificarSalida();
+                            verificar.verificacionSalida(labIDEmpleadoSalidaS, labFechaSalida, labTurnoSalida, labExisteSalida);
+                            if(labExisteSalida.getText().equals("")){
+                                System.out.println(labExisteSalida.getText());
+                                VerificarSalida crear = new VerificarSalida();
+                                crear.crearSalida(labIDEmpleadoSalidaS, labFechaSalida, textHoraSalida);
+                                textBuscarLegajoEmpleadoSalida.setText("");
+                                tablasSalidas();
+                                limpiarCamposSalida();
+                                verificarSalida();
+                                salida = "NO";
+                            } else {
+                                Alert alerta = new Alert(Alert.AlertType.ERROR);
+                                alerta.setTitle("Error de Marcar Salida");
+                                alerta.setContentText("La salida de dicho empleado ya está registrada. ");
+                                alerta.showAndWait();
+                            }
                         } else {
+                            labExisteEntrada.setText("");
                             Alert alerta = new Alert(Alert.AlertType.ERROR);
                             alerta.setTitle("Error de Marcar Salida");
-                            alerta.setContentText("La salida de dicho empleado ya está registrada. ");
+                            alerta.setContentText("La salida de dicho empleado no se puede realizar porque no a ingresado su Entrada.");
                             alerta.showAndWait();
                         }
                     } else {

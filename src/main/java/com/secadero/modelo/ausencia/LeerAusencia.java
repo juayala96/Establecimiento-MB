@@ -1,11 +1,9 @@
 package com.secadero.modelo.ausencia;
 
 import com.secadero.conexion.Conexion;
-import com.secadero.modelo.empleados.LeerEmpleado;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
-
 import java.sql.*;
 
 public class LeerAusencia {
@@ -179,5 +177,4 @@ public class LeerAusencia {
         }
         return lista;
     }
-
 }
