@@ -5,10 +5,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 
-import java.text.CompactNumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -279,14 +277,15 @@ public class LeerEmpleado {
     }
 
     //------------------------------------------- Buscar Empleado ------------------------------------------------
-    public static ObservableList<LeerEmpleado> buscarEmpleado(TextField textBuscarEmpleado){
+    public static ObservableList<LeerEmpleado> buscarEmpleado(TextField textBuscarEmpleado, ComboBox<String> cbBuscarEmpleado){
         Connection con = Conexion.leerConexion();
         PreparedStatement pstm = null;
         ResultSet rs = null;
         ObservableList<LeerEmpleado> listaBuscar = FXCollections.observableArrayList();
+        String dato = cbBuscarEmpleado.getSelectionModel().getSelectedItem().toLowerCase();;
 
         try {
-            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, dni, telefono, fechaIngreso, area.descripcion, puesto.descripcion, idempleados FROM empleados INNER JOIN area ON empleados.idAreaFK = area.idarea INNER JOIN puesto ON empleados.idPuestoFK = puesto.idpuesto WHERE empleados.estadoEmpleado = ? AND empleados.legajo LIKE ? ORDER BY legajo ASC");
+            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, dni, telefono, fechaIngreso, area.descripcion, puesto.descripcion, idempleados FROM empleados INNER JOIN area ON empleados.idAreaFK = area.idarea INNER JOIN puesto ON empleados.idPuestoFK = puesto.idpuesto WHERE empleados.estadoEmpleado = ? AND empleados." + dato +" LIKE ? ORDER BY legajo ASC");
             pstm.setString(1, "Vigente");
             pstm.setString(2, textBuscarEmpleado.getText() + "%");
             rs = pstm.executeQuery();
@@ -300,6 +299,7 @@ public class LeerEmpleado {
 
                 listaBuscar.add(new LeerEmpleado(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getInt("dni"), rs.getString("telefono"), fechaIngresoModificada, rs.getString("area.descripcion"), rs.getString("puesto.descripcion"), Integer.parseInt(rs.getString("idempleados"))));
             }
+
         } catch (SQLException ex) {
             System.err.println("Error: " + ex.getMessage());
         } finally {
@@ -354,7 +354,7 @@ public class LeerEmpleado {
         return listaFiltro;
     }
 
-    //------------------------------------------- Filtro Empleado (Búsqueda) ------------------------------------------------
+    //---------------------------------------- Filtro Empleado (Búsqueda) ----------------------------------------------
     public static ObservableList<LeerEmpleado> filtroEmpleadoBusqueda(ComboBox<String> cbTiposfiltrosEmpleados, TextField textBuscarEmpleado){
         Connection con = Conexion.leerConexion();
         PreparedStatement pstm = null;
@@ -426,14 +426,15 @@ public class LeerEmpleado {
     }
 
     //------------------------------------------- Buscar Empleado General ------------------------------------------------
-    public static ObservableList<LeerEmpleado> buscarEmpleadoGeneral(TextField textBuscarLegajoEmpleado){
+    public static ObservableList<LeerEmpleado> buscarEmpleadoGeneral(TextField textBuscarLegajoEmpleado, ComboBox<String> cbBuscarEmpleadoLista){
         Connection con = Conexion.leerConexion();
         PreparedStatement pstm = null;
         ResultSet rs = null;
         ObservableList<LeerEmpleado> listaBuscar = FXCollections.observableArrayList();
+        String dato = cbBuscarEmpleadoLista.getSelectionModel().getSelectedItem().toLowerCase();
 
         try {
-            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, dni, telefono, fechaIngreso, area.descripcion, puesto.descripcion, idempleados FROM empleados INNER JOIN area ON empleados.idAreaFK = area.idarea INNER JOIN puesto ON empleados.idPuestoFK = puesto.idpuesto WHERE empleados.estadoEmpleado = ? AND empleados.legajo LIKE ? ORDER BY legajo ASC");
+            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, dni, telefono, fechaIngreso, area.descripcion, puesto.descripcion, idempleados FROM empleados INNER JOIN area ON empleados.idAreaFK = area.idarea INNER JOIN puesto ON empleados.idPuestoFK = puesto.idpuesto WHERE empleados.estadoEmpleado = ? AND empleados."+ dato +" LIKE ? ORDER BY legajo ASC");
             pstm.setString(1, "Vigente");
             pstm.setString(2, textBuscarLegajoEmpleado.getText() + "%");
             rs = pstm.executeQuery();
@@ -456,50 +457,21 @@ public class LeerEmpleado {
     }
 
     //--------------------------------------- Buscar Empleado General (Crear) ---------------------------------------------
-    public static ObservableList<LeerEmpleado> buscarEmpleadoGeneralCrear(TextField textBuscarLegajoEmpleadoCrear){
+    public static ObservableList<LeerEmpleado> buscarEmpleadoGeneralCrear(TextField textBuscarLegajoEmpleadoCrear, ComboBox<String> cbBuscarEmpleado){
         Connection con = Conexion.leerConexion();
         PreparedStatement pstm = null;
         ResultSet rs = null;
         ObservableList<LeerEmpleado> listaBuscar = FXCollections.observableArrayList();
+        String dato = cbBuscarEmpleado.getSelectionModel().getSelectedItem().toLowerCase();
 
         try {
-            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, dni, telefono, fechaIngreso, area.descripcion, puesto.descripcion, idempleados FROM empleados INNER JOIN area ON empleados.idAreaFK = area.idarea INNER JOIN puesto ON empleados.idPuestoFK = puesto.idpuesto WHERE empleados.estadoEmpleado = ? AND empleados.legajo LIKE ? ORDER BY legajo ASC");
+            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, dni, telefono, fechaIngreso, area.descripcion, puesto.descripcion, idempleados FROM empleados INNER JOIN area ON empleados.idAreaFK = area.idarea INNER JOIN puesto ON empleados.idPuestoFK = puesto.idpuesto WHERE empleados.estadoEmpleado = ? AND empleados."+ dato +" LIKE ? ORDER BY legajo ASC");
             pstm.setString(1, "Vigente");
             pstm.setString(2, textBuscarLegajoEmpleadoCrear.getText() + "%");
             rs = pstm.executeQuery();
 
             while (rs.next()){
                 listaBuscar.add(new LeerEmpleado(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getInt("dni"), rs.getString("telefono"), Integer.parseInt(rs.getString("idempleados"))));
-            }
-        } catch (SQLException ex) {
-            System.err.println("Error: " + ex.getMessage());
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (pstm != null) pstm.close();
-                if (con != null) con.close();
-            } catch (Exception ex){
-                System.err.println("Error: " + ex.getMessage());
-            }
-        }
-        return listaBuscar;
-    }
-
-    //------------------------------------------- Filtro Empleado General ------------------------------------------------
-    public static ObservableList<LeerEmpleado> filtroEmpleadoGeneral(ComboBox<String> cbTiposFiltrosAusencias){
-        Connection con = Conexion.leerConexion();
-        PreparedStatement pstm = null;
-        ResultSet rs = null;
-        ObservableList<LeerEmpleado> listaBuscar = FXCollections.observableArrayList();
-        String dato = cbTiposFiltrosAusencias.getSelectionModel().getSelectedItem().toLowerCase();
-
-        try {
-            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, dni, idempleados FROM empleados WHERE empleados.estadoEmpleado = ? ORDER BY " + dato + " ASC");
-            pstm.setString(1, "Vigente");
-            rs = pstm.executeQuery();
-
-            while (rs.next()){
-                listaBuscar.add(new LeerEmpleado(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getInt("dni"), Integer.parseInt(rs.getString("idempleados"))));
             }
         } catch (SQLException ex) {
             System.err.println("Error: " + ex.getMessage());
@@ -547,48 +519,18 @@ public class LeerEmpleado {
     }
 
     //----------------------------------------- Buscar Empleado Disponibles en Cronograma ---------------------------------
-    public static ObservableList<LeerEmpleado> buscarEmpleadoDisponible(TextField textBuscarLegajoEmpleado){
+    public static ObservableList<LeerEmpleado> buscarEmpleadoDisponible(TextField textBuscarLegajoEmpleado, ComboBox<String> cbBuscarEmpleadoDisponibleLista){
         Connection con = Conexion.leerConexion();
         PreparedStatement pstm = null;
         ResultSet rs = null;
         ObservableList<LeerEmpleado> listaBuscar = FXCollections.observableArrayList();
+        String dato = cbBuscarEmpleadoDisponibleLista.getSelectionModel().getSelectedItem().toLowerCase();
 
         try {
-            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, dni, fechaIngreso, area.descripcion, puesto.descripcion, idempleados FROM empleados INNER JOIN area ON empleados.idAreaFK = area.idarea INNER JOIN puesto ON empleados.idPuestoFK = puesto.idpuesto WHERE empleados.estadoEmpleado = ? AND empleados.estado = ? AND empleados.legajo LIKE ? ORDER BY legajo ASC");
+            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, dni, fechaIngreso, area.descripcion, puesto.descripcion, idempleados FROM empleados INNER JOIN area ON empleados.idAreaFK = area.idarea INNER JOIN puesto ON empleados.idPuestoFK = puesto.idpuesto WHERE empleados.estadoEmpleado = ? AND empleados.estado = ? AND empleados."+ dato +" LIKE ? ORDER BY legajo ASC");
             pstm.setString(1, "Vigente");
             pstm.setString(2, "Disponible");
             pstm.setString(3, textBuscarLegajoEmpleado.getText() + "%");
-            rs = pstm.executeQuery();
-
-            while (rs.next()){
-                listaBuscar.add(new LeerEmpleado(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getInt("dni"), Integer.parseInt(rs.getString("idempleados"))));
-            }
-        } catch (SQLException ex) {
-            System.err.println("Error: " + ex.getMessage());
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (pstm != null) pstm.close();
-                if (con != null) con.close();
-            } catch (Exception ex){
-                System.err.println("Error: " + ex.getMessage());
-            }
-        }
-        return listaBuscar;
-    }
-
-    //-------------------------------------- Filtro Empleado Disponibles en Cronograma -----------------------------------
-    public static ObservableList<LeerEmpleado> filtroEmpleadoDisponible(ComboBox<String> cbTiposFiltrosAusencias){
-        Connection con = Conexion.leerConexion();
-        PreparedStatement pstm = null;
-        ResultSet rs = null;
-        ObservableList<LeerEmpleado> listaBuscar = FXCollections.observableArrayList();
-        String dato = cbTiposFiltrosAusencias.getSelectionModel().getSelectedItem().toLowerCase();
-
-        try {
-            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, dni, idempleados FROM empleados WHERE empleados.estadoEmpleado = ? AND empleados.estado = ? ORDER BY " + dato + " ASC");
-            pstm.setString(1, "Vigente");
-            pstm.setString(2, "Disponible");
             rs = pstm.executeQuery();
 
             while (rs.next()){
@@ -696,14 +638,15 @@ public class LeerEmpleado {
 
     ///////////////////////////////////////////////// INFORMES ///////////////////////////////////////////////////
     //------------------------------------------- Buscar Empleado Informes ------------------------------------------------
-    public static ObservableList<LeerEmpleado> buscarEmpleadoInformes(TextField textBuscarLegajoEmpleado){
+    public static ObservableList<LeerEmpleado> buscarEmpleadoInformes(TextField textBuscarLegajoEmpleado, ComboBox<String> cbBuscarEmpleado){
         Connection con = Conexion.leerConexion();
         PreparedStatement pstm = null;
         ResultSet rs = null;
         ObservableList<LeerEmpleado> listaBuscar = FXCollections.observableArrayList();
+        String dato = cbBuscarEmpleado.getSelectionModel().getSelectedItem().toLowerCase();
 
         try {
-            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, dni, telefono, idempleados FROM empleados WHERE empleados.estadoEmpleado = ? AND empleados.legajo LIKE ? ORDER BY legajo ASC");
+            pstm = con.prepareStatement("SELECT nombre, apellido, legajo, dni, telefono, idempleados FROM empleados WHERE empleados.estadoEmpleado = ? AND empleados."+ dato +" LIKE ? ORDER BY legajo ASC");
             pstm.setString(1, "Vigente");
             pstm.setString(2, textBuscarLegajoEmpleado.getText() + "%");
             rs = pstm.executeQuery();
@@ -761,14 +704,15 @@ public class LeerEmpleado {
     }
 
     //------------------------------------ Buscar Empleado (Crear Usuario) ---------------------------------------------
-    public static ObservableList<LeerEmpleado> buscarEmpleadoCrear(TextField textBuscarLegajoEmpleadoCrear){
+    public static ObservableList<LeerEmpleado> buscarEmpleadoCrear(TextField textBuscarLegajoEmpleadoCrear, ComboBox <String> cbBuscarEmpleado){
         Connection con = Conexion.leerConexion();
         PreparedStatement pstm = null;
         ResultSet rs = null;
         ObservableList<LeerEmpleado> listaBuscar = FXCollections.observableArrayList();
+        String dato = cbBuscarEmpleado.getSelectionModel().getSelectedItem().toLowerCase();
 
         try {
-            String consulta = "SELECT * FROM empleados INNER JOIN area ON empleados.idAreaFK = area.idarea INNER JOIN puesto ON empleados.idPuestoFK = puesto.idpuesto WHERE empleados.estadoEmpleado = ? AND area.descripcion = ? AND empleados.estadoSistema != ? AND empleados.legajo LIKE ? ORDER BY legajo ASC";
+            String consulta = "SELECT * FROM empleados INNER JOIN area ON empleados.idAreaFK = area.idarea INNER JOIN puesto ON empleados.idPuestoFK = puesto.idpuesto WHERE empleados.estadoEmpleado = ? AND area.descripcion = ? AND empleados.estadoSistema != ? AND empleados." + dato + " LIKE ? ORDER BY legajo ASC";
             pstm = con.prepareStatement(consulta);
             pstm.setString(1, "Vigente");
             pstm.setString(2, "Administracion");
@@ -779,7 +723,6 @@ public class LeerEmpleado {
             while (rs.next()){
                 listaBuscar.add(new LeerEmpleado(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getInt("dni"), rs.getString("telefono"), Integer.parseInt(rs.getString("idempleados"))));
             }
-
         } catch (SQLException ex) {
             System.err.println("Error: " + ex.getMessage());
         } finally {
@@ -856,15 +799,16 @@ public class LeerEmpleado {
     }
 
     //----------------------------------------- Buscar Empleado (Consulta Licencia) ---------------------------------
-    public static ObservableList<LeerEmpleado> buscarEmpleadoConsultaCrear(ListView<String> listEmpleadosAgregados, TextField textBuscarLegajoEmpleadoConsulta){
+    public static ObservableList<LeerEmpleado> buscarEmpleadoConsultaCrear(ListView<String> listEmpleadosAgregados, TextField textBuscarLegajoEmpleadoConsulta, ComboBox<String> cbBuscarEmpleado){
         Connection con = Conexion.leerConexion();
         PreparedStatement pstm = null;
         ResultSet rs = null;
         ObservableList<LeerEmpleado> listaBuscar = FXCollections.observableArrayList();
+        String dato = cbBuscarEmpleado.getSelectionModel().getSelectedItem().toLowerCase();
 
         try {
             for (int i = 0; i < listEmpleadosAgregados.getItems().size(); i++) {
-                String consulta = "SELECT nombre, apellido, legajo, dni, idempleados FROM empleados WHERE legajo = ? AND legajo LIKE ? ORDER BY legajo ASC";
+                String consulta = "SELECT nombre, apellido, legajo, dni, idempleados FROM empleados WHERE legajo = ? AND "+ dato +" LIKE ? ORDER BY legajo ASC";
                 pstm = con.prepareStatement(consulta);
                 pstm.setString(1, listEmpleadosAgregados.getItems().get(i));
                 pstm.setString(2, textBuscarLegajoEmpleadoConsulta.getText() + "%");

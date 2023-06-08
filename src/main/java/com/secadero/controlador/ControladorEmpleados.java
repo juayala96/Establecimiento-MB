@@ -57,6 +57,8 @@ public class ControladorEmpleados {
     @FXML
     private Button btnVolver;
     @FXML
+    private ComboBox<String> cbBuscarEmpleado;
+    @FXML
     private ComboBox<String> cbAreaCrear;
     @FXML
     private ComboBox<String> cbAreaEliminar;
@@ -227,9 +229,17 @@ public class ControladorEmpleados {
         String[] tipoFiltro = {"Nombre", "Apellido", "Legajo", "DNI", "Area", "Puesto"};
         cbTiposfiltrosEmpleados.getItems().addAll(tipoFiltro);
         cbTiposfiltrosEmpleados.getSelectionModel().selectFirst();
+        String[] tipoBuscar = {"Legajo", "Nombre", "Apellido"};
+        cbBuscarEmpleado.getItems().addAll(tipoBuscar);
+        cbBuscarEmpleado.getSelectionModel().selectFirst();
         inicializarComboBoxBD();
         inicializarTabla();
         fechasInicializar();
+
+        cbBuscarEmpleado.setOnAction(event -> {
+            String selectedItem = cbBuscarEmpleado.getSelectionModel().getSelectedItem();
+            textBuscarEmpleado.setPromptText("Ingrese el " + selectedItem);
+        });
     }
 
     public void inicializarTabla(){
@@ -347,7 +357,7 @@ public class ControladorEmpleados {
     private void btnBuscar() {
         limpiarCamposGeneralizada();
         ObservableList<LeerEmpleado> listBuscar;
-        listBuscar = LeerEmpleado.buscarEmpleado(textBuscarEmpleado);
+        listBuscar = LeerEmpleado.buscarEmpleado(textBuscarEmpleado, cbBuscarEmpleado);
 
         if(!textBuscarEmpleado.getText().equals("")){
             tablaEmpleados.getItems().setAll(listBuscar);

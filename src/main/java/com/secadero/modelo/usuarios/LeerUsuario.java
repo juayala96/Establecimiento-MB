@@ -134,14 +134,15 @@ public class LeerUsuario {
     }
 
     //------------------------------------------- Buscar Usuario ------------------------------------------------
-    public static ObservableList<LeerUsuario> buscarUsuario(TextField textBuscarUsuario){
+    public static ObservableList<LeerUsuario> buscarUsuario(TextField textBuscarUsuario, ComboBox<String> cbBuscarUsuario){
         Connection con = Conexion.leerConexion();
         PreparedStatement pstm = null;
         ResultSet rs = null;
         ObservableList<LeerUsuario> listaBuscar = FXCollections.observableArrayList();
+        String dato = cbBuscarUsuario.getSelectionModel().getSelectedItem().toLowerCase();;
 
         try {
-            pstm = con.prepareStatement("SELECT * FROM usuarios INNER JOIN empleados ON usuarios.idEmpleadoFK = empleados.idempleados WHERE estadoEmpleado = ? AND empleados.legajo LIKE ? ORDER BY legajo ASC");
+            pstm = con.prepareStatement("SELECT * FROM usuarios INNER JOIN empleados ON usuarios.idEmpleadoFK = empleados.idempleados WHERE estadoEmpleado = ? AND empleados." + dato +" LIKE ? ORDER BY legajo ASC");
             pstm.setString(1, "Vigente");
             pstm.setString(2, textBuscarUsuario.getText() + "%");
             rs = pstm.executeQuery();

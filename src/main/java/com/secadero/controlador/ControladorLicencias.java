@@ -65,6 +65,10 @@ public class ControladorLicencias {
     @FXML
     private ComboBox<String> cbTipoLicenciaModificar;
     @FXML
+    private ComboBox<String> cbBuscarEmpleadoLista;
+    @FXML
+    private ComboBox<String> cbBuscarEmpleado;
+    @FXML
     private TableColumn<LeerEmpleado, String> colApellido;
     @FXML
     private TableColumn<LeerEmpleado, String> colApellidoEmpleadoCrear;
@@ -252,6 +256,11 @@ public class ControladorLicencias {
         fechaConsultaCronograma();
         cbTipoLicenciaCrear.getSelectionModel().getSelectedItem();
         cbTipoLicenciaCrear.getSelectionModel().selectedItemProperty().addListener(this::cambioDeItem);
+        String[] tipoBuscar = {"Legajo", "Nombre", "Apellido"};
+        cbBuscarEmpleadoLista.getItems().addAll(tipoBuscar);
+        cbBuscarEmpleado.getItems().addAll(tipoBuscar);
+        cbBuscarEmpleadoLista.getSelectionModel().selectFirst();
+        cbBuscarEmpleado.getSelectionModel().selectFirst();
         textDescripcionLicenciaCrear.setDisable(true);
         textDescripcionLicenciaCrear.setVisible(false);
         labDescripcionCrear1.setVisible(false);
@@ -264,6 +273,16 @@ public class ControladorLicencias {
         textDescripcionLicenciaEliminar.setVisible(false);
         labDescripcionEliminar1.setVisible(false);
         labDescripcionEliminar2.setVisible(false);
+
+        cbBuscarEmpleadoLista.setOnAction(event -> {
+            String selectedItem = cbBuscarEmpleadoLista.getSelectionModel().getSelectedItem();
+            textBuscarLegajoEmpleado.setPromptText("Ingrese el " + selectedItem);
+        });
+
+        cbBuscarEmpleado.setOnAction(event -> {
+            String selectedItem = cbBuscarEmpleado.getSelectionModel().getSelectedItem();
+            textBuscarLegajoEmpleadoCrear.setPromptText("Ingrese el " + selectedItem);
+        });
     }
 
     // ----------------------------------------- Tabla de Empleados ---------------------------------------------
@@ -463,11 +482,13 @@ public class ControladorLicencias {
     private void btnBuscarEmpleado(){
         limpiarCamposGeneralizada();
         ObservableList<LeerEmpleado> listBuscarEmpleado;
-        listBuscarEmpleado = LeerEmpleado.buscarEmpleadoGeneral(textBuscarLegajoEmpleado);
+        listBuscarEmpleado = LeerEmpleado.buscarEmpleadoGeneral(textBuscarLegajoEmpleado, cbBuscarEmpleadoLista
+        );
         if(textBuscarLegajoEmpleado.getText().equals("")){
+            String dato = cbBuscarEmpleadoLista.getSelectionModel().getSelectedItem();
             Alert alerta = new Alert(Alert.AlertType.WARNING);
             alerta.setTitle("Error!");
-            alerta.setContentText("Debe de completar el Legajo para Buscar");
+            alerta.setContentText("Debe de completar el "+ dato +" para Buscar");
             alerta.showAndWait();
         } else {
             tablaListaEmpleados.getItems().setAll(listBuscarEmpleado);
@@ -488,7 +509,7 @@ public class ControladorLicencias {
     @FXML
     private void btnBuscarEmpleadoCrear(){
         ObservableList<LeerEmpleado> listBuscarEmpleadoCrear;
-        listBuscarEmpleadoCrear = LeerEmpleado.buscarEmpleadoGeneralCrear(textBuscarLegajoEmpleadoCrear);
+        listBuscarEmpleadoCrear = LeerEmpleado.buscarEmpleadoGeneralCrear(textBuscarLegajoEmpleadoCrear, cbBuscarEmpleado);
         tabEmpleadosCrear.getItems().setAll(listBuscarEmpleadoCrear);
     }
 
@@ -498,6 +519,7 @@ public class ControladorLicencias {
         labIDEmpleadoLista.setText("0");
         textBuscarLegajoEmpleado.setText("");
         tablaListaEmpleados.getItems().setAll(listEmpleadoLicencia);
+        cbBuscarEmpleadoLista.getSelectionModel().getSelectedItem();
         inicializarTablaListaEmpleados();
         inicializarTablaLicencias();
         limpiarCamposModificar();

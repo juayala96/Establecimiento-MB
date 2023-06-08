@@ -52,16 +52,11 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </TableView>
-                        <TextField fx:id="textBuscarEmpleado" layoutX="303.0" layoutY="143.0" prefHeight="46.0" prefWidth="200.0">
+                        <TextField fx:id="textBuscarEmpleado" layoutX="303.0" layoutY="143.0" prefHeight="46.0" prefWidth="200.0" promptText="Ingrese el Legajo">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </TextField>
-                        <Label layoutX="303.0" layoutY="115.0" prefHeight="12.0" prefWidth="67.0" text="Legajo:" textFill="#080808">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
                         <Button fx:id="btnBuscarEmpleado" layoutX="509.0" layoutY="142.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnBuscar" prefHeight="46.0" prefWidth="155.0" text="Buscar Empleado" textFill="#022c7b">
                            <font>
                               <Font name="System Bold" size="16.0" />
@@ -78,7 +73,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <ComboBox fx:id="cbTiposfiltrosEmpleados" layoutX="774.0" layoutY="142.0" prefHeight="46.0" prefWidth="200.0" style="-fx-font-size: 16;">
+                        <ComboBox fx:id="cbTiposfiltrosEmpleados" layoutX="774.0" layoutY="142.0" prefHeight="46.0" prefWidth="200.0" style="-fx-font-size: 18;">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -192,6 +187,11 @@
                               <Font size="13.0" />
                            </font>
                         </Label>
+                        <ComboBox fx:id="cbBuscarEmpleado" layoutX="303.0" layoutY="105.0" prefHeight="27.0" prefWidth="111.0" style="-fx-font-size: 15; -fx-background-color: #dcecb4;">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ComboBox>
                      </children>
                   </AnchorPane>
                </content>

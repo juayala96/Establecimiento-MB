@@ -226,6 +226,14 @@ public class ControladorAusencias {
     @FXML
     private ComboBox<String> cbTurnoAsistencia;
     @FXML
+    private ComboBox<String> cbBuscarEmpleadoLista;
+    @FXML
+    private ComboBox<String> cbBuscarEmpleado;
+    @FXML
+    private ComboBox<String> cbBuscarEmpleadoEntrada;
+    @FXML
+    private ComboBox<String> cbBuscarEmpleadoSalida;
+    @FXML
     private ComboBox<String> cbTurnoSalida;
     @FXML
     private TextField textBuscarLegajoEmpleadoAsistencia;
@@ -391,11 +399,20 @@ public class ControladorAusencias {
 
     // -------------------------------------------- Inicialización ----------------------------------------------
     public void initialize() {
-        String[] turnos = {"Dia", "Noche"};
+        String[] turnos = {"Noche", "Dia"};
         cbTurnoAsistencia.getItems().addAll(turnos);
         cbTurnoAsistencia.getSelectionModel().selectFirst();
         cbTurnoSalida.getItems().addAll(turnos);
         cbTurnoSalida.getSelectionModel().selectFirst();
+        String[] tipoBuscar = {"Legajo", "Nombre", "Apellido"};
+        cbBuscarEmpleadoLista.getItems().addAll(tipoBuscar);
+        cbBuscarEmpleado.getItems().addAll(tipoBuscar);
+        cbBuscarEmpleadoEntrada.getItems().addAll(tipoBuscar);
+        cbBuscarEmpleadoSalida.getItems().addAll(tipoBuscar);
+        cbBuscarEmpleadoLista.getSelectionModel().selectFirst();
+        cbBuscarEmpleado.getSelectionModel().selectFirst();
+        cbBuscarEmpleadoEntrada.getSelectionModel().selectFirst();
+        cbBuscarEmpleadoSalida.getSelectionModel().selectFirst();
         inicializarTablaListaEmpleados();
         inicializarTablaEmpleado();
         getJustificadoCrear();
@@ -404,6 +421,26 @@ public class ControladorAusencias {
         getCertificadoModificar();
         fechasInicializar();
         fechasInicializarConsultas();
+
+        cbBuscarEmpleadoLista.setOnAction(event -> {
+            String selectedItem = cbBuscarEmpleadoLista.getSelectionModel().getSelectedItem();
+            textBuscarLegajoEmpleado.setPromptText("Ingrese el " + selectedItem);
+        });
+
+        cbBuscarEmpleado.setOnAction(event -> {
+            String selectedItem = cbBuscarEmpleado.getSelectionModel().getSelectedItem();
+            textBuscarLegajoEmpleadoCrear.setPromptText("Ingrese el " + selectedItem);
+        });
+
+        cbBuscarEmpleadoEntrada.setOnAction(event -> {
+            String selectedItem = cbBuscarEmpleadoEntrada.getSelectionModel().getSelectedItem();
+            textBuscarLegajoEmpleadoAsistencia.setPromptText("Ingrese el " + selectedItem);
+        });
+
+        cbBuscarEmpleadoSalida.setOnAction(event -> {
+            String selectedItem = cbBuscarEmpleadoSalida.getSelectionModel().getSelectedItem();
+            textBuscarLegajoEmpleadoSalida.setPromptText("Ingrese el " + selectedItem);
+        });
     }
 
     // ----------------------------------------- Tabla de Empleados ---------------------------------------------
@@ -566,11 +603,12 @@ public class ControladorAusencias {
     private void btnBuscarEmpleado() {
         limpiarCamposGeneralizada();
         ObservableList<LeerEmpleado> listBuscarEmpleado;
-        listBuscarEmpleado = LeerEmpleado.buscarEmpleadoGeneral(textBuscarLegajoEmpleado);
+        listBuscarEmpleado = LeerEmpleado.buscarEmpleadoGeneral(textBuscarLegajoEmpleado, cbBuscarEmpleadoLista);
         if(textBuscarLegajoEmpleado.getText().equals("")){
+            String dato = cbBuscarEmpleadoLista.getSelectionModel().getSelectedItem();
             Alert alerta = new Alert(Alert.AlertType.WARNING);
             alerta.setTitle("Error!");
-            alerta.setContentText("Debe de completar el Legajo para Buscar");
+            alerta.setContentText("Debe de completar el " + dato +" para Buscar");
             alerta.showAndWait();
         } else {
             tablaListaEmpleados.getItems().setAll(listBuscarEmpleado);
@@ -593,7 +631,7 @@ public class ControladorAusencias {
     @FXML
     private void btnBuscarEmpleadoCrear(){
         ObservableList<LeerEmpleado> listBuscarEmpleadoCrear;
-        listBuscarEmpleadoCrear = LeerEmpleado.buscarEmpleadoGeneralCrear(textBuscarLegajoEmpleadoCrear);
+        listBuscarEmpleadoCrear = LeerEmpleado.buscarEmpleadoGeneralCrear(textBuscarLegajoEmpleadoCrear, cbBuscarEmpleado);
         tabEmpleadosCrear.getItems().setAll(listBuscarEmpleadoCrear);
     }
 
@@ -1556,7 +1594,7 @@ public class ControladorAusencias {
         colIDCronogramaAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, Integer>("idCronograma"));
         colIDEmpleadoCronogramaA.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, Integer>("idEmpleado"));
 
-        listCronogramaCE = ConsultaAsistencia.listaCronogramaCEBuscar(dpBuscarFechaAsistencia, cbTurnoAsistencia, labCantidadCronograma, textBuscarLegajoEmpleadoAsistencia);
+        listCronogramaCE = ConsultaAsistencia.listaCronogramaCEBuscar(dpBuscarFechaAsistencia, cbTurnoAsistencia, labCantidadCronograma, textBuscarLegajoEmpleadoAsistencia, cbBuscarEmpleadoEntrada);
         tablaCronogramaAsistencia.getColumns().setAll(colNombreAsistenciaCE, colApellidoAsistenciaCE, colLegajoAsistenciaCE, colTurnoAsistenciaCE, colFechaAsistenciaCE, colHoraEntradaAsistenciaCE, colHoraSalidaAsistenciaCE, colIDCronogramaAsistenciaCE, colIDEmpleadoCronogramaA);
         tablaCronogramaAsistencia.getItems().setAll(listCronogramaCE);
 
@@ -1568,7 +1606,7 @@ public class ControladorAusencias {
         colHoraEntrada.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("horaEntrada"));
         colIDEmpleadoEntrada.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, Integer>("idEmpleado"));
 
-        listEntrada = ConsultaAsistencia.listaEntradaBuscar(dpBuscarFechaAsistencia, cbTurnoAsistencia, labCantidadPresentes, textBuscarLegajoEmpleadoAsistencia);
+        listEntrada = ConsultaAsistencia.listaEntradaBuscar(dpBuscarFechaAsistencia, cbTurnoAsistencia, labCantidadPresentes, textBuscarLegajoEmpleadoAsistencia, cbBuscarEmpleadoEntrada);
         tablaListaEmpleadosPresentes.getColumns().setAll(colNombreEntrada, colApellidoEntrada, colLegajoEntrada, colFechaEntrada, colHoraEntrada, colIDEmpleadoEntrada);
         tablaListaEmpleadosPresentes.getItems().setAll(listEntrada);
     }
@@ -1614,7 +1652,7 @@ public class ControladorAusencias {
         colIDCronogramaAsistenciaCS.setCellValueFactory(new PropertyValueFactory<VerificarSalida, Integer>("idCronograma"));
         colIDEmpleadoCronogramaS.setCellValueFactory(new PropertyValueFactory<VerificarSalida, Integer>("idEmpleado"));
 
-        listCronogramaCS = VerificarSalida.listaCronogramaCSBuscar(dpBuscarFechaSalida, cbTurnoSalida, labCantidadCronogramaS, textBuscarLegajoEmpleadoSalida);
+        listCronogramaCS = VerificarSalida.listaCronogramaCSBuscar(dpBuscarFechaSalida, cbTurnoSalida, labCantidadCronogramaS, textBuscarLegajoEmpleadoSalida, cbBuscarEmpleadoSalida);
         tablaCronogramaSalida.getColumns().setAll(colNombreAsistenciaCS, colApellidoAsistenciaCS, colLegajoAsistenciaCS, colTurnoAsistenciaCS, colFechaAsistenciaCS, colHoraSalidaAsistenciaCS, colHoraEntradaAsistenciaCS, colIDCronogramaAsistenciaCS, colIDEmpleadoCronogramaS);
         tablaCronogramaSalida.getItems().setAll(listCronogramaCS);
 
@@ -1626,7 +1664,7 @@ public class ControladorAusencias {
         colHoraSalida.setCellValueFactory(new PropertyValueFactory<VerificarSalida, String>("horaSalida"));
         colIDEmpleadoSalida.setCellValueFactory(new PropertyValueFactory<VerificarSalida, Integer>("idEmpleado"));
 
-        listSalida = VerificarSalida.listaSalidaBuscar(dpBuscarFechaSalida, cbTurnoSalida, labCantidadS, textBuscarLegajoEmpleadoSalida);
+        listSalida = VerificarSalida.listaSalidaBuscar(dpBuscarFechaSalida, cbTurnoSalida, labCantidadS, textBuscarLegajoEmpleadoSalida, cbBuscarEmpleadoSalida);
         tablaListaEmpleadosSalida.getColumns().setAll(colNombreSalida, colApellidoSalida, colLegajoSalida, colFechaSalida, colHoraSalida, colIDEmpleadoSalida);
         tablaListaEmpleadosSalida.getItems().setAll(listSalida);
     }

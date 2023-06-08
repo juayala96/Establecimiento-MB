@@ -141,11 +141,6 @@
                               <Font name="System Italic" size="24.0" />
                            </font>
                         </Label>
-                        <Label layoutX="309.0" layoutY="173.0" prefHeight="12.0" prefWidth="67.0" text="Legajo:" textFill="#080808">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
                         <Button fx:id="btnBuscarAusenciaEmpleado" layoutX="495.0" layoutY="201.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnBuscarEmpleado" prefHeight="46.0" prefWidth="175.0" text="Buscar Empleado" textFill="#022c7b">
                            <font>
                               <Font name="System Bold" size="16.0" />
@@ -154,7 +149,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <TextField fx:id="textBuscarLegajoEmpleado" layoutX="309.0" layoutY="201.0" prefHeight="46.0" prefWidth="177.0">
+                        <TextField fx:id="textBuscarLegajoEmpleado" layoutX="309.0" layoutY="201.0" prefHeight="46.0" prefWidth="177.0" promptText="Ingrese el Legajo">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -194,6 +189,11 @@
                               <Font size="13.0" />
                            </font>
                         </Label>
+                        <ComboBox fx:id="cbBuscarEmpleadoLista" layoutX="309.0" layoutY="161.0" prefHeight="32.0" prefWidth="111.0" style="-fx-font-size: 15; -fx-background-color: #dcecb4;">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ComboBox>
                      </children>
                   </AnchorPane>
                </content>
@@ -341,11 +341,6 @@
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="436.0" layoutY="125.0" prefHeight="12.0" prefWidth="67.0" text="Legajo:" textFill="#080808">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
                         <Button fx:id="btnBuscarEmpleadoCrear" layoutX="617.0" layoutY="153.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnBuscarEmpleadoCrear" prefHeight="42.0" prefWidth="152.0" text="Buscar Empleado" textFill="#022c7b">
                            <font>
                               <Font name="System Bold" size="16.0" />
@@ -354,7 +349,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <TextField fx:id="textBuscarLegajoEmpleadoCrear" layoutX="436.0" layoutY="152.0" prefHeight="44.0" prefWidth="174.0">
+                        <TextField fx:id="textBuscarLegajoEmpleadoCrear" layoutX="436.0" layoutY="152.0" prefHeight="44.0" prefWidth="174.0" promptText="Ingrese el Legajo">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -382,6 +377,11 @@
                               <Font size="13.0" />
                            </font>
                         </Label>
+                        <ComboBox fx:id="cbBuscarEmpleado" layoutX="436.0" layoutY="112.0" prefHeight="32.0" prefWidth="111.0" style="-fx-font-size: 15; -fx-background-color: #dcecb4;">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ComboBox>
                      </children>
                   </AnchorPane>
                </content>

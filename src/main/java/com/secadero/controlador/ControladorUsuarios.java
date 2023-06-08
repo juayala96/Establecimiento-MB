@@ -52,6 +52,10 @@ public class ControladorUsuarios {
     @FXML
     private ComboBox<String> cbTiposFiltrosUsuarios;
     @FXML
+    private ComboBox<String> cbBuscarEmpleado;
+    @FXML
+    private ComboBox<String> cbBuscarUsuario;
+    @FXML
     private TableColumn<LeerUsuario, String> colApellido;
     @FXML
     private TableColumn<LeerEmpleado, String> colApellidoEmpleadoCrear;
@@ -167,8 +171,23 @@ public class ControladorUsuarios {
         String[] tipoFiltro = {"Nombre", "Apellido", "Legajo", "DNI"};
         cbTiposFiltrosUsuarios.getItems().addAll(tipoFiltro);
         cbTiposFiltrosUsuarios.getSelectionModel().selectFirst();
+        String[] tipoBuscar = {"Legajo", "Nombre", "Apellido"};
+        cbBuscarUsuario.getItems().addAll(tipoBuscar);
+        cbBuscarEmpleado.getItems().addAll(tipoBuscar);
+        cbBuscarUsuario.getSelectionModel().selectFirst();
+        cbBuscarEmpleado.getSelectionModel().selectFirst();
         inicializarTabla();
         inicializarTablaEmpleado();
+
+        cbBuscarUsuario.setOnAction(event -> {
+            String selectedItem = cbBuscarUsuario.getSelectionModel().getSelectedItem();
+            textBuscarUsuario.setPromptText("Ingrese el " + selectedItem);
+        });
+
+        cbBuscarEmpleado.setOnAction(event -> {
+            String selectedItem = cbBuscarEmpleado.getSelectionModel().getSelectedItem();
+            textBuscarLegajoEmpleadoCrear.setPromptText("Ingrese el " + selectedItem);
+        });
     }
 
     // -------------------------------------------- Lista de Usuarios ----------------------------------------------
@@ -246,7 +265,7 @@ public class ControladorUsuarios {
     private void btnBuscar() {
         limpiarCamposGeneralizada();
         ObservableList<LeerUsuario> listBuscar;
-        listBuscar = LeerUsuario.buscarUsuario(textBuscarUsuario);
+        listBuscar = LeerUsuario.buscarUsuario(textBuscarUsuario, cbBuscarUsuario);
 
         if(!textBuscarUsuario.getText().equals("")){
             tablaUsuarios.getItems().setAll(listBuscar);
@@ -277,7 +296,7 @@ public class ControladorUsuarios {
     @FXML
     private void btnBuscarEmpleadoCrear(){
         ObservableList<LeerEmpleado> listBuscarEmpleadoCrear;
-        listBuscarEmpleadoCrear = LeerEmpleado.buscarEmpleadoCrear(textBuscarLegajoEmpleadoCrear);
+        listBuscarEmpleadoCrear = LeerEmpleado.buscarEmpleadoCrear(textBuscarLegajoEmpleadoCrear, cbBuscarEmpleado);
         tabEmpleadosCrear.getItems().setAll(listBuscarEmpleadoCrear);
     }
 

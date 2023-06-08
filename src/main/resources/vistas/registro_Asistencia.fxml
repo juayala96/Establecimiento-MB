@@ -7,7 +7,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="670.0" prefWidth="1000.0" style="-fx-background-color: #7dc8cc;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.secadero.controlador.controladorAsistencia.ControladorMenu">
    <children>
-      <Label layoutX="249.0" layoutY="100.0" prefHeight="70.0" prefWidth="502.0" text="Registrar Asistencia" textAlignment="CENTER" textFill="#080808">
+      <Label layoutX="251.0" layoutY="102.0" prefHeight="70.0" prefWidth="502.0" text="Registrar Asistencia" textAlignment="CENTER" textFill="#080808">
          <font>
             <Font name="Georgia Bold" size="48.0" />
          </font>
@@ -26,5 +26,15 @@
       <Label layoutX="-5.0" layoutY="-2.0" prefHeight="31.0" prefWidth="1014.0" style="-fx-background-color: #30373e;" />
       <Label layoutX="990.0" layoutY="29.0" prefHeight="623.0" prefWidth="19.0" style="-fx-background-color: #30373e;" />
       <Label layoutY="21.0" prefHeight="623.0" prefWidth="13.0" style="-fx-background-color: #30373e;" />
+      <Label fx:id="labFechaActual" alignment="CENTER" layoutX="418.0" layoutY="172.0" prefHeight="38.0" prefWidth="164.0" textFill="#080808">
+         <font>
+            <Font name="System Bold Italic" size="26.0" />
+         </font>
+      </Label>
+      <Label fx:id="labHoraActual" alignment="CENTER" layoutX="891.0" layoutY="594.0" prefHeight="35.0" prefWidth="84.0" textFill="#080808">
+         <font>
+            <Font name="System Bold Italic" size="24.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

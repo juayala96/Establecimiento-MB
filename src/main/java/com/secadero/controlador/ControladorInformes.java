@@ -29,6 +29,8 @@ public class ControladorInformes {
     @FXML
     private Button btnVolver;
     @FXML
+    private ComboBox<String> cbBuscarEmpleado;
+    @FXML
     private TableColumn<LeerEmpleado, String> colApellido;
     @FXML
     private TableColumn<LeerEmpleado, Integer> colDNI;
@@ -62,6 +64,14 @@ public class ControladorInformes {
     public void initialize() {
         inicializarTablaListaEmpleados();
         fechasInicializar();
+        String[] tipoBuscar = {"Legajo", "Nombre", "Apellido"};
+        cbBuscarEmpleado.getItems().addAll(tipoBuscar);
+        cbBuscarEmpleado.getSelectionModel().selectFirst();
+
+        cbBuscarEmpleado.setOnAction(event -> {
+            String selectedItem = cbBuscarEmpleado.getSelectionModel().getSelectedItem();
+            textBuscarLegajoEmpleado.setPromptText("Ingrese el " + selectedItem);
+        });
     }
 
     // ----------------------------------------- Tabla de Empleados ---------------------------------------------
@@ -95,7 +105,7 @@ public class ControladorInformes {
     @FXML
     private void buscarEmpleado() {
         ObservableList<LeerEmpleado> listBuscarEmpleado;
-        listBuscarEmpleado = LeerEmpleado.buscarEmpleadoInformes(textBuscarLegajoEmpleado);
+        listBuscarEmpleado = LeerEmpleado.buscarEmpleadoInformes(textBuscarLegajoEmpleado, cbBuscarEmpleado);
         tabEmpleados.getItems().setAll(listBuscarEmpleado);
     }
 

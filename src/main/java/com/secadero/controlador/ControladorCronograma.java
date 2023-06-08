@@ -66,11 +66,23 @@ public class ControladorCronograma {
     @FXML
     private Button btnBuscarListaEmpleadoCalendario;
     @FXML
+    private Button btnbuscarTurno;
+    @FXML
     private ComboBox<String> cbTurnoCrear;
     @FXML
     private ComboBox<String> cbTurnoEliminar;
     @FXML
     private ComboBox<String> cbTurnoModificar;
+    @FXML
+    private ComboBox<String> cbBuscarEmpleadoDisponibleLista;
+    @FXML
+    private ComboBox<String> cbBuscarEmpleadoDisponibleCrear;
+    @FXML
+    private ComboBox<String> cbBuscarEmpleadoCalendario;
+    @FXML
+    private ComboBox<String> cbBuscarEmpleado;
+    @FXML
+    private ComboBox<String> cbBuscarTurnoCalendario;
     @FXML
     private TableColumn<LeerEmpleado, String> colApellido;
     @FXML
@@ -293,6 +305,40 @@ public class ControladorCronograma {
         inicializarTablaListaEmpleadosDisponible();
         inicializarTablaEmpleado();
         labIDEmpleadoConsulta.setText("0");
+
+        String[] tipoTurno = {"Noche", "Dia"};
+        cbBuscarTurnoCalendario.getItems().addAll(tipoTurno);
+        cbBuscarTurnoCalendario.getSelectionModel().selectFirst();
+
+        String[] tipoBuscar = {"Legajo", "Nombre", "Apellido"};
+        cbBuscarEmpleadoDisponibleLista.getItems().addAll(tipoBuscar);
+        cbBuscarEmpleadoDisponibleCrear.getItems().addAll(tipoBuscar);
+        cbBuscarEmpleadoCalendario.getItems().addAll(tipoBuscar);
+        cbBuscarEmpleado.getItems().addAll(tipoBuscar);
+        cbBuscarEmpleadoDisponibleLista.getSelectionModel().selectFirst();
+        cbBuscarEmpleadoDisponibleCrear.getSelectionModel().selectFirst();
+        cbBuscarEmpleadoCalendario.getSelectionModel().selectFirst();
+        cbBuscarEmpleado.getSelectionModel().selectFirst();
+
+        cbBuscarEmpleadoDisponibleLista.setOnAction(event -> {
+            String selectedItem = cbBuscarEmpleadoDisponibleLista.getSelectionModel().getSelectedItem();
+            textBuscarLegajoEmpleado.setPromptText("Ingrese el " + selectedItem);
+        });
+
+        cbBuscarEmpleadoDisponibleCrear.setOnAction(event -> {
+            String selectedItem = cbBuscarEmpleadoDisponibleCrear.getSelectionModel().getSelectedItem();
+            textBuscarLegajoEmpleadoCrear.setPromptText("Ingrese el " + selectedItem);
+        });
+
+        cbBuscarEmpleadoCalendario.setOnAction(event -> {
+            String selectedItem = cbBuscarEmpleadoCalendario.getSelectionModel().getSelectedItem();
+            textBuscarLegajoEmpleadoCalendario.setPromptText("Ingrese el " + selectedItem);
+        });
+
+        cbBuscarEmpleado.setOnAction(event -> {
+            String selectedItem = cbBuscarEmpleado.getSelectionModel().getSelectedItem();
+            textBuscarLegajoEmpleadoConsulta.setPromptText("Ingrese el " + selectedItem);
+        });
     }
 
     // ----------------------------------------- Tabla de Empleados ---------------------------------------------
@@ -528,11 +574,12 @@ public class ControladorCronograma {
     private void btnBuscarEmpleadoDisponible() {
         limpiarCamposGeneralizada();
         ObservableList<LeerEmpleado> listBuscarEmpleado;
-        listBuscarEmpleado = LeerEmpleado.buscarEmpleadoDisponible(textBuscarLegajoEmpleado);
+        listBuscarEmpleado = LeerEmpleado.buscarEmpleadoDisponible(textBuscarLegajoEmpleado, cbBuscarEmpleadoDisponibleLista);
         if(textBuscarLegajoEmpleado.getText().equals("")){
+            String dato = cbBuscarEmpleadoDisponibleLista.getSelectionModel().getSelectedItem();
             Alert alerta = new Alert(Alert.AlertType.WARNING);
             alerta.setTitle("Error!");
-            alerta.setContentText("Debe de completar el Legajo para Buscar");
+            alerta.setContentText("Debe de completar el "+ dato +" para Buscar");
             alerta.showAndWait();
         } else {
             tablaListaEmpleados.getItems().setAll(listBuscarEmpleado);
@@ -555,7 +602,7 @@ public class ControladorCronograma {
     @FXML
     private void btnBuscarEmpleadoCrear(){
         ObservableList<LeerEmpleado> listBuscarEmpleado;
-        listBuscarEmpleado = LeerEmpleado.buscarEmpleadoDisponible(textBuscarLegajoEmpleadoCrear);
+        listBuscarEmpleado = LeerEmpleado.buscarEmpleadoDisponible(textBuscarLegajoEmpleadoCrear, cbBuscarEmpleadoDisponibleCrear);
         tabEmpleadosCrear.getItems().setAll(listBuscarEmpleado);
     }
 
@@ -589,15 +636,16 @@ public class ControladorCronograma {
         if(!textBuscarLegajoEmpleadoConsulta.getText().equals("")){
             if(regresarConsultaLicencia.equals("0")){
                 ObservableList<LeerEmpleado> listBuscarEmpleadoConsultaCrear;
-                listBuscarEmpleadoConsultaCrear = LeerEmpleado.buscarEmpleadoConsultaCrear(listEmpleadosAgregados, textBuscarLegajoEmpleadoConsulta);
+                listBuscarEmpleadoConsultaCrear = LeerEmpleado.buscarEmpleadoConsultaCrear(listEmpleadosAgregados, textBuscarLegajoEmpleadoConsulta, cbBuscarEmpleado);
                 tablaListaEmpleadosConsulta.getItems().setAll(listBuscarEmpleadoConsultaCrear);
                 labIDEmpleadoConsulta.setText("0");
                 inicializarTablaLicenciaConsulta();
             }
         } else {
+            String dato = cbBuscarEmpleado.getSelectionModel().getSelectedItem();
             Alert alerta = new Alert(Alert.AlertType.WARNING);
             alerta.setTitle("Error!");
-            alerta.setContentText("Debe de completar el Legajo para Buscar");
+            alerta.setContentText("Debe de completar el "+ dato +" para Buscar");
             alerta.showAndWait();
         }
     }
@@ -619,8 +667,15 @@ public class ControladorCronograma {
     @FXML
     private void buscarListaEmpleadoCalendario(){
         ObservableList<LeerCronograma> listaBuscarCalendario;
-        listaBuscarCalendario = LeerCronograma.buscarLegajoCalendario(textBuscarLegajoEmpleadoCalendario, dpFechaCalendario);
+        listaBuscarCalendario = LeerCronograma.buscarLegajoCalendario(textBuscarLegajoEmpleadoCalendario, dpFechaCalendario, cbBuscarEmpleadoCalendario);
         tablaListaEmpleadosCalendario.getItems().setAll(listaBuscarCalendario);
+    }
+
+    @FXML
+    private void buscarTurno(){
+        ObservableList<LeerCronograma> listaBuscarCalendarioTurno;
+        listaBuscarCalendarioTurno = LeerCronograma.buscarLegajoCalendarioTurno(textBuscarLegajoEmpleadoCalendario, dpFechaCalendario, cbBuscarEmpleadoCalendario, cbBuscarTurnoCalendario);
+        tablaListaEmpleadosCalendario.getItems().setAll(listaBuscarCalendarioTurno);
     }
 
     @FXML
@@ -628,6 +683,7 @@ public class ControladorCronograma {
         textBuscarLegajoEmpleadoCalendario.setText("");
         fechaCalendario();
         inicializarTablaEmpleadoCalendario();
+        cbBuscarTurnoCalendario.getSelectionModel().selectFirst();
     }
 
     // ------------------------------------------ Agrego en la Lista ---------------------------------------------
@@ -900,10 +956,10 @@ public class ControladorCronograma {
             SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasCronograma.getSelectionModel();
             modeloSeleccion.select(tabConsultaLicencia);
             inicializarTablaEmpleadoConsultaCrear();
-            labInfoLegajoConsulta.setVisible(true);
             btnBuscarEmpleadoConsulta.setVisible(true);
             textBuscarLegajoEmpleadoConsulta.setVisible(true);
             textBuscarLegajoEmpleadoConsulta.setText("");
+            cbBuscarEmpleado.setVisible(true);
         } else {
             Alert alerta = new Alert(Alert.AlertType.WARNING);
             alerta.setTitle("Advertencia");
@@ -921,9 +977,9 @@ public class ControladorCronograma {
             SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasCronograma.getSelectionModel();
             modeloSeleccion.select(tabConsultaLicencia);
             inicializarTablaEmpleadoConsultaModificar();
-            labInfoLegajoConsulta.setVisible(false);
             btnBuscarEmpleadoConsulta.setVisible(false);
             textBuscarLegajoEmpleadoConsulta.setVisible(false);
+            cbBuscarEmpleado.setVisible(false);
         } else {
             Alert alerta = new Alert(Alert.AlertType.WARNING);
             alerta.setTitle("Advertencia!");

@@ -277,12 +277,13 @@ public class VerificarSalida {
 
     /////////////////////////////////////////////////// Buscar //////////////////////////////////////////////////
     //-------------------------------- Leer Cronograma Consulta Salida (CS) ----------------------------------------
-    public static ObservableList<VerificarSalida> listaCronogramaCSBuscar(DatePicker dpBuscarFechaSalida, ComboBox<String> cbTurnoSalida, Label labCantidadCronogramaS, TextField textBuscarLegajoEmpleadoSalida) {
+    public static ObservableList<VerificarSalida> listaCronogramaCSBuscar(DatePicker dpBuscarFechaSalida, ComboBox<String> cbTurnoSalida, Label labCantidadCronogramaS, TextField textBuscarLegajoEmpleadoSalida, ComboBox<String> cbBuscarEmpleadoSalida) {
         Connection con = Conexion.leerConexion();
         PreparedStatement pstm = null;
         ResultSet rs = null;
         ObservableList<VerificarSalida> lista = FXCollections.observableArrayList();
         String dato = cbTurnoSalida.getSelectionModel().getSelectedItem();
+        String datoBuscar = cbBuscarEmpleadoSalida.getSelectionModel().getSelectedItem().toLowerCase();
         String hora_entrada;
         String hora_salida;
 
@@ -294,7 +295,7 @@ public class VerificarSalida {
         int cantCronograma = 0;
 
         try {
-            pstm = con.prepareStatement("SELECT empleados.nombre, empleados.apellido, empleados.legajo, turno, fecha, horario_salida AS horaSalida, horario_entrada AS horaEntrada, idCronograma, empleados.idempleados AS idEmpleado FROM cronograma INNER JOIN empleado_cronograma ON cronograma.idCronograma = empleado_cronograma.idCronogramaFK INNER JOIN empleados ON empleado_cronograma.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND empleados.estado = ? AND fecha = ? AND turno = ? AND empleados.legajo LIKE ? ORDER BY empleados.legajo ASC");
+            pstm = con.prepareStatement("SELECT empleados.nombre, empleados.apellido, empleados.legajo, turno, fecha, horario_salida AS horaSalida, horario_entrada AS horaEntrada, idCronograma, empleados.idempleados AS idEmpleado FROM cronograma INNER JOIN empleado_cronograma ON cronograma.idCronograma = empleado_cronograma.idCronogramaFK INNER JOIN empleados ON empleado_cronograma.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND empleados.estado = ? AND fecha = ? AND turno = ? AND empleados."+ datoBuscar +" LIKE ? ORDER BY empleados.legajo ASC");
             pstm.setString(1, "Vigente");
             pstm.setString(2, "Disponible");
             pstm.setString(3, fechaBusqueda);
@@ -330,12 +331,13 @@ public class VerificarSalida {
     }
 
     //----------------------------------------------- Leer Salida-------------------------------------------------
-    public static ObservableList<VerificarSalida> listaSalidaBuscar(DatePicker dpBuscarFechaSalida, ComboBox<String> cbTurnoSalida, Label labCantidadS, TextField textBuscarLegajoEmpleadoSalida) {
+    public static ObservableList<VerificarSalida> listaSalidaBuscar(DatePicker dpBuscarFechaSalida, ComboBox<String> cbTurnoSalida, Label labCantidadS, TextField textBuscarLegajoEmpleadoSalida, ComboBox<String> cbBuscarEmpleadoSalida) {
         Connection con = Conexion.leerConexion();
         PreparedStatement pstm = null;
         ResultSet rs = null;
         ObservableList<VerificarSalida> lista = FXCollections.observableArrayList();
         String dato = cbTurnoSalida.getSelectionModel().getSelectedItem();
+        String datoBuscar = cbBuscarEmpleadoSalida.getSelectionModel().getSelectedItem().toLowerCase();
         String hora_salida;
 
         String fechaBuscar = dpBuscarFechaSalida.getEditor().getText();
@@ -366,7 +368,7 @@ public class VerificarSalida {
                 minuto2 = horaFin.getMinute();
 
                 try {
-                    pstm = con.prepareStatement("SELECT empleados.nombre, empleados.apellido, empleados.legajo, fecha, hora AS horaSalida, empleados.idempleados AS idEmpleado FROM salida INNER JOIN empleados ON salida.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND fecha = ? AND (hora BETWEEN TIME ? AND TIME ?) AND empleados.legajo LIKE ? ORDER BY empleados.legajo ASC");
+                    pstm = con.prepareStatement("SELECT empleados.nombre, empleados.apellido, empleados.legajo, fecha, hora AS horaSalida, empleados.idempleados AS idEmpleado FROM salida INNER JOIN empleados ON salida.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND fecha = ? AND (hora BETWEEN TIME ? AND TIME ?) AND empleados."+ datoBuscar +" LIKE ? ORDER BY empleados.legajo ASC");
                     pstm.setString(1, "Vigente");
                     pstm.setString(2, fechaBusqueda);
                     pstm.setString(3, hora1 + ":" + minuto1);
@@ -398,7 +400,7 @@ public class VerificarSalida {
                 minuto2 = horaFin.getMinute();
 
                 try {
-                    pstm = con.prepareStatement("SELECT empleados.nombre, empleados.apellido, empleados.legajo, fecha, hora AS horaSalida, empleados.idempleados AS idEmpleado FROM salida INNER JOIN empleados ON salida.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND fecha = ? AND (hora BETWEEN TIME ? AND TIME ?) AND empleados.legajo LIKE ? ORDER BY empleados.legajo ASC");
+                    pstm = con.prepareStatement("SELECT empleados.nombre, empleados.apellido, empleados.legajo, fecha, hora AS horaSalida, empleados.idempleados AS idEmpleado FROM salida INNER JOIN empleados ON salida.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND fecha = ? AND (hora BETWEEN TIME ? AND TIME ?) AND empleados."+ datoBuscar +" LIKE ? ORDER BY empleados.legajo ASC");
                     pstm.setString(1, "Vigente");
                     pstm.setString(2, fechaBusqueda);
                     pstm.setString(3, hora1 + ":" + minuto1);

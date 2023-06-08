@@ -46,6 +46,8 @@ public class ControladorPreRecibo {
     @FXML
     private ComboBox<String> cbPuesto;
     @FXML
+    private ComboBox<String> cbBuscarEmpleado;
+    @FXML
     private TableColumn<LeerEmpleado, String> colApellido;
     @FXML
     private TableColumn<LeerEmpleado, Integer> colDNI;
@@ -132,6 +134,14 @@ public class ControladorPreRecibo {
         inicializarDatosPorcentajes();
         comboBoxSalariosArea();
         comboBoxSalariosPuesto();
+        String[] tipoBuscar = {"Legajo", "Nombre", "Apellido"};
+        cbBuscarEmpleado.getItems().addAll(tipoBuscar);
+        cbBuscarEmpleado.getSelectionModel().selectFirst();
+
+        cbBuscarEmpleado.setOnAction(event -> {
+            String selectedItem = cbBuscarEmpleado.getSelectionModel().getSelectedItem();
+            textBuscarLegajoEmpleado.setPromptText("Ingrese el " + selectedItem);
+        });
     }
 
     public void inicializarComboBoxBD() {
@@ -227,7 +237,7 @@ public class ControladorPreRecibo {
     @FXML
     private void buscarEmpleado() {
         ObservableList<LeerEmpleado> listBuscarEmpleado;
-        listBuscarEmpleado = LeerEmpleado.buscarEmpleadoInformes(textBuscarLegajoEmpleado);
+        listBuscarEmpleado = LeerEmpleado.buscarEmpleadoInformes(textBuscarLegajoEmpleado, cbBuscarEmpleado);
         tabEmpleados.getItems().setAll(listBuscarEmpleado);
     }
 

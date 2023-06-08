@@ -13,7 +13,7 @@
 
    <children>
 
-      <Button fx:id="btnUsuarios" graphicTextGap="6.0" layoutX="204.0" layoutY="375.0" mnemonicParsing="false" onAction="#Usuarios" prefHeight="74.0" prefWidth="336.0" style="-fx-background-radius: 20; -fx-background-color: #cfe0bc; -fx-border-color: WHITE; -fx-border-radius: 20;" text="Usuarios" textFill="#110043">
+      <Button fx:id="btnUsuarios" graphicTextGap="6.0" layoutX="170.0" layoutY="375.0" mnemonicParsing="false" onAction="#Usuarios" prefHeight="74.0" prefWidth="340.0" style="-fx-background-radius: 20; -fx-background-color: #cfe0bc; -fx-border-color: WHITE; -fx-border-radius: 20;" text="Usuarios" textFill="#110043">
          <font>
             <Font name="Arial Bold" size="26.0" />
          </font>
@@ -28,7 +28,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="btnEmpleados" graphicTextGap="5.0" layoutX="604.0" layoutY="375.0" mnemonicParsing="false" onAction="#Empleados" prefHeight="74.0" prefWidth="336.0" style="-fx-background-radius: 20; -fx-background-color: #cfe0bc; -fx-border-color: WHITE; -fx-border-radius: 20;" text="Empleados" textFill="#110043">
+      <Button fx:id="btnEmpleados" graphicTextGap="5.0" layoutX="597.0" layoutY="375.0" mnemonicParsing="false" onAction="#Empleados" prefHeight="74.0" prefWidth="340.0" style="-fx-background-radius: 20; -fx-background-color: #cfe0bc; -fx-border-color: WHITE; -fx-border-radius: 20;" text="Empleados" textFill="#110043">
          <font>
             <Font name="Arial Bold" size="26.0" />
          </font>
@@ -43,15 +43,22 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="btnInformes" alignment="CENTER" layoutX="204.0" layoutY="539.0" mnemonicParsing="false" onAction="#Informes" prefHeight="74.0" prefWidth="336.0" style="-fx-background-radius: 20; -fx-background-color: #cfe0bc; -fx-border-color: WHITE; -fx-border-radius: 20;" text="      Informe Presentismo" textFill="#110043">
+      <Button fx:id="btnInformes" alignment="CENTER" layoutX="170.0" layoutY="549.0" mnemonicParsing="false" onAction="#Informes" prefHeight="74.0" prefWidth="340.0" style="-fx-background-radius: 20; -fx-background-color: #cfe0bc; -fx-border-color: WHITE; -fx-border-radius: 20;" text="Informe Presentismo" textFill="#110043">
          <font>
             <Font name="Arial Bold" size="26.0" />
          </font>
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
+         <graphic>
+            <ImageView fitHeight="40.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../imagenes/iconos/Informe.png" />
+               </image>
+            </ImageView>
+         </graphic>
       </Button>
-      <Button fx:id="btnPreRecibo" alignment="CENTER" graphicTextGap="8.0" layoutX="604.0" layoutY="539.0" mnemonicParsing="false" onAction="#PreRecibo" prefHeight="74.0" prefWidth="336.0" style="-fx-background-radius: 20; -fx-border-color: WHITE; -fx-background-color: #cfe0bc; -fx-border-radius: 20;" text="Pre-Recibo" textFill="#110043">
+      <Button fx:id="btnPreRecibo" alignment="CENTER" graphicTextGap="8.0" layoutX="598.0" layoutY="549.0" mnemonicParsing="false" onAction="#PreRecibo" prefHeight="74.0" prefWidth="340.0" style="-fx-background-radius: 20; -fx-border-color: WHITE; -fx-background-color: #cfe0bc; -fx-border-radius: 20;" text="Pre-Recibo" textFill="#110043">
          <font>
             <Font name="Arial Bold" size="26.0" />
          </font>
@@ -66,7 +73,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="btnCerrarSesion" graphicTextGap="5.0" layoutX="1003.0" layoutY="539.0" mnemonicParsing="false" onAction="#CerrarSesion" prefHeight="74.0" prefWidth="336.0" style="-fx-background-radius: 20; -fx-background-color: #cfe0bc; -fx-border-color: WHITE; -fx-border-radius: 20;" text="Cerrar Sesión" textFill="#8c0909">
+      <Button fx:id="btnCerrarSesion" graphicTextGap="5.0" layoutX="1014.0" layoutY="549.0" mnemonicParsing="false" onAction="#CerrarSesion" prefHeight="74.0" prefWidth="340.0" style="-fx-background-radius: 20; -fx-background-color: #cfe0bc; -fx-border-color: WHITE; -fx-border-radius: 20;" text="Cerrar Sesión" textFill="#8c0909">
          <font>
             <Font name="Arial Bold" size="26.0" />
          </font>
@@ -88,7 +95,7 @@
       <Label layoutX="42.0" layoutY="237.0" prefHeight="536.0" prefWidth="30.0" style="-fx-background-color: #fff8f8;" />
       <Label layoutX="1463.0" prefHeight="769.0" prefWidth="30.0" style="-fx-background-color: #fff8f8;" />
       <Label layoutX="43.0" layoutY="43.0" prefHeight="30.0" prefWidth="1430.0" style="-fx-background-color: #fff8f8;" />
-      <Button fx:id="btnCronograma" graphicTextGap="5.0" layoutX="1002.0" layoutY="375.0" mnemonicParsing="false" onAction="#Cronograma" prefHeight="74.0" prefWidth="336.0" style="-fx-background-radius: 20; -fx-background-color: #cfe0bc; -fx-border-radius: 20; -fx-border-color: WHITE;" text="Cronograma" textFill="#110043">
+      <Button fx:id="btnCronograma" graphicTextGap="5.0" layoutX="1014.0" layoutY="375.0" mnemonicParsing="false" onAction="#Cronograma" prefHeight="74.0" prefWidth="340.0" style="-fx-background-radius: 20; -fx-background-color: #cfe0bc; -fx-border-radius: 20; -fx-border-color: WHITE;" text="Cronograma" textFill="#110043">
          <font>
             <Font name="Arial Bold" size="26.0" />
          </font>
@@ -146,11 +153,6 @@
             <Font name="Arial" size="32.0" />
          </font>
       </Label>
-      <ImageView fitHeight="40.0" fitWidth="45.0" layoutX="221.0" layoutY="556.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../imagenes/iconos/Informe.png" />
-         </image>
-      </ImageView>
    </children>
    <opaqueInsets>
       <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />

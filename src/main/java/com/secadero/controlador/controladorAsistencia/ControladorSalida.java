@@ -22,43 +22,47 @@ public class ControladorSalida {
     @FXML
     private Button btnSalir;
     @FXML
-    private Button btnOpcionCodigo;
+    private Button btnOpcionLegajo;
     @FXML
     private Button btnOpcionTarjeta;
     @FXML
-    private Label labErrorCodigo;
+    private Label labErrorLegajo;
     @FXML
     private Label labErrorDNI;
     @FXML
     private Label labInformacion;
     @FXML
-    private Tab tabRegistroSalidaCodigo;
+    private Tab tabRegistroSalidaLegajo;
     @FXML
     private Tab tabRegistroSalidaTarjeta;
     @FXML
     private TabPane panelRegistroSalida;
     @FXML
-    private TextField textCodigo;
+    private TextField textLegajo;
     @FXML
     private TextField textDNI;
 
     @FXML
     void aceptar() throws IOException, ParseException {
         camposObligatorios();
-        if(Objects.equals(labErrorCodigo.getText(), "") && Objects.equals(labErrorDNI.getText(), "")) {
+        if(Objects.equals(labErrorLegajo.getText(), "") && Objects.equals(labErrorDNI.getText(), "")) {
             validarCampos();
-            if (Objects.equals(labErrorCodigo.getText(), "") && Objects.equals(labErrorDNI.getText(), "")) {
+            if (Objects.equals(labErrorLegajo.getText(), "") && Objects.equals(labErrorDNI.getText(), "")) {
                 validacionCamposLongitud();
-                if (Objects.equals(labErrorCodigo.getText(), "") && Objects.equals(labErrorDNI.getText(), "")) {
-                    labErrorCodigo.setText("");
+                if (Objects.equals(labErrorLegajo.getText(), "") && Objects.equals(labErrorDNI.getText(), "")) {
+                    labErrorLegajo.setText("");
                     Salida codigoSalida = new Salida();
-                    codigoSalida.salidaEmpleado(labInformacion, textCodigo, textDNI);
+                    codigoSalida.salidaEmpleado(labInformacion, textLegajo, textDNI);
 
                     if (Objects.equals(labInformacion.getText(), "OK")) {
-                        textCodigo.setText("");
+                        textLegajo.setText("");
                         textDNI.setText("");
                         labInformacion.setText("");
                         closeWindowsPrincipal();
+                    } else if(Objects.equals(labInformacion.getText(), "Existe")){
+                        textLegajo.setText("");
+                        textDNI.setText("");
+                        labInformacion.setText("");
                     }
                 }
             }
@@ -66,9 +70,9 @@ public class ControladorSalida {
     }
 
     @FXML
-    private void opcionCodigo(){
+    private void opcionLegajo(){
         SingleSelectionModel<Tab> modeloSeleccion = panelRegistroSalida.getSelectionModel();
-        modeloSeleccion.select(tabRegistroSalidaCodigo);
+        modeloSeleccion.select(tabRegistroSalidaLegajo);
     }
 
     @FXML
@@ -94,10 +98,10 @@ public class ControladorSalida {
 
     //---------------------------------------- Comprobación de Campos -------------------------------------------
     private void camposObligatorios(){
-        if(textCodigo.getText().trim().isEmpty() || textCodigo.getText() == null){
-            labErrorCodigo.setText("Campo Obligatorio");
+        if(textLegajo.getText().trim().isEmpty() || textLegajo.getText() == null){
+            labErrorLegajo.setText("Campo Obligatorio");
         } else {
-            labErrorCodigo.setText("");
+            labErrorLegajo.setText("");
         }
         if(textDNI.getText().trim().isEmpty() || textDNI.getText() == null){
             labErrorDNI.setText("Campo Obligatorio");
@@ -107,10 +111,10 @@ public class ControladorSalida {
     }
 
     private void validarCampos(){
-        if(validarNumeros(textCodigo.getText())){
-            labErrorCodigo.setText("");
+        if(validarNumeros(textLegajo.getText())){
+            labErrorLegajo.setText("");
         } else {
-            labErrorCodigo.setText("Solo se admiten Números");
+            labErrorLegajo.setText("Solo se admiten Números");
         }
         if(validarNumeros(textDNI.getText())){
             labErrorDNI.setText("");
@@ -120,15 +124,15 @@ public class ControladorSalida {
     }
 
     private void validacionCamposLongitud() {
-        String codigo = textCodigo.getText().trim();
+        String codigo = textLegajo.getText().trim();
         String dni = textDNI.getText().trim();
         codigo = codigo.replaceAll("\\s+", "");
         dni = dni.replaceAll("\\s+", "");
 
         if (codigo.length() > 6) {
-            labErrorCodigo.setText("Está permitido hasta 6 números");
+            labErrorLegajo.setText("Está permitido hasta 6 números");
         } else {
-            labErrorCodigo.setText("");
+            labErrorLegajo.setText("");
         }
         if (dni.length() >= 9) {
             labErrorDNI.setText("Está permitido hasta 8 números");

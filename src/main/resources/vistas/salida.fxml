@@ -23,12 +23,12 @@
                         <Label prefHeight="27.0" prefWidth="1008.0" style="-fx-background-color: #30373e;" />
                         <Label prefHeight="623.0" prefWidth="19.0" style="-fx-background-color: #30373e;" />
                         <Label layoutX="981.0" layoutY="9.0" prefHeight="623.0" prefWidth="24.0" style="-fx-background-color: #30373e;" />
-                        <Label layoutX="415.0" layoutY="86.0" prefHeight="94.0" prefWidth="192.0" text="Salida" textFill="#080808">
+                        <Label layoutX="400.0" layoutY="86.0" prefHeight="94.0" prefWidth="196.0" text="Salida" textFill="#080808">
                            <font>
                               <Font name="System Bold Italic" size="64.0" />
                            </font>
                         </Label>
-                        <Button fx:id="btnSalir2" alignment="CENTER" layoutX="191.0" layoutY="450.0" mnemonicParsing="false" onAction="#salir2" prefHeight="61.0" prefWidth="166.0" text="Salir">
+                        <Button fx:id="btnSalir2" alignment="CENTER" layoutX="167.0" layoutY="480.0" mnemonicParsing="false" onAction="#salir2" prefHeight="50.0" prefWidth="170.0" text="Salir">
                            <font>
                               <Font name="System Bold" size="20.0" />
                            </font>
@@ -43,7 +43,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button fx:id="btnOpcionCodigo" layoutX="668.0" layoutY="450.0" mnemonicParsing="false" onAction="#opcionCodigo" prefHeight="61.0" prefWidth="179.0" text="Opción Código" textFill="#550b66">
+                        <Button fx:id="btnOpcionLegajo" layoutX="659.0" layoutY="480.0" mnemonicParsing="false" onAction="#opcionLegajo" prefHeight="50.0" prefWidth="170.0" text="Opción Legajo" textFill="#550b66">
                            <font>
                               <Font name="System Bold" size="20.0" />
                            </font>
@@ -51,12 +51,12 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Label layoutX="261.0" layoutY="202.0" prefHeight="67.0" prefWidth="515.0" text="Ingrese su Tarjeta Porfavor" textFill="#080808">
+                        <Label layoutX="246.0" layoutY="201.0" prefHeight="67.0" prefWidth="515.0" text="Ingrese su Tarjeta Porfavor" textFill="#080808">
                            <font>
                               <Font name="System Bold Italic" size="40.0" />
                            </font>
                         </Label>
-                        <ImageView fitHeight="207.0" fitWidth="190.0" layoutX="432.0" layoutY="312.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="207.0" fitWidth="190.0" layoutX="413.0" layoutY="333.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../imagenes/flecha.jpg" />
                            </image>
@@ -65,7 +65,7 @@
                   </AnchorPane>
                </content>
             </Tab>
-          <Tab fx:id="tabRegistroSalidaCodigo" text="Registro Salida (Codigo)">
+          <Tab fx:id="tabRegistroSalidaLegajo" text="Registro Salida (Legajo)">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="650.0" prefWidth="1000.0">
                      <children>
@@ -78,22 +78,22 @@
                         <Label prefHeight="27.0" prefWidth="1008.0" style="-fx-background-color: #30373e;" />
                         <Label prefHeight="623.0" prefWidth="19.0" style="-fx-background-color: #30373e;" />
                         <Label layoutX="981.0" layoutY="9.0" prefHeight="623.0" prefWidth="24.0" style="-fx-background-color: #30373e;" />
-                        <Label layoutX="415.0" layoutY="86.0" prefHeight="94.0" prefWidth="194.0" text="Salida" textFill="#080808">
+                        <Label layoutX="400.0" layoutY="86.0" prefHeight="94.0" prefWidth="190.0" text="Salida" textFill="#080808">
                            <font>
                               <Font name="System Bold Italic" size="64.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="textCodigo" layoutX="358.0" layoutY="207.0" prefHeight="46.0" prefWidth="310.0">
+                        <TextField fx:id="textLegajo" layoutX="388.0" layoutY="222.0" prefHeight="46.0" prefWidth="215.0">
                            <font>
                               <Font size="22.0" />
                            </font>
                         </TextField>
-                        <Label layoutX="274.0" layoutY="214.0" text="Código:" textFill="#080808">
+                        <Label layoutX="307.0" layoutY="229.0" text="Legajo:" textFill="#080808">
                            <font>
                               <Font size="22.0" />
                            </font>
                         </Label>
-                        <Button fx:id="btnSalir" layoutX="191.0" layoutY="450.0" mnemonicParsing="false" onAction="#salir" prefHeight="61.0" prefWidth="166.0" text="Salir">
+                        <Button fx:id="btnSalir" layoutX="167.0" layoutY="480.0" mnemonicParsing="false" onAction="#salir" prefHeight="50.0" prefWidth="170.0" text="Salir">
                            <font>
                               <Font name="System Bold" size="20.0" />
                            </font>
@@ -108,12 +108,12 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Label fx:id="labErrorCodigo" layoutX="357.0" layoutY="254.0" prefHeight="26.0" prefWidth="312.0" textFill="#bc0f0f">
+                        <Label fx:id="labErrorLegajo" layoutX="388.0" layoutY="268.0" prefHeight="26.0" prefWidth="215.0" textFill="#bc0f0f">
                            <font>
                               <Font name="Consolas" size="16.0" />
                            </font>
                         </Label>
-                        <Button fx:id="btnAceptar" layoutX="668.0" layoutY="450.0" mnemonicParsing="false" onAction="#aceptar" prefHeight="61.0" prefWidth="166.0" style="-fx-background-color: #010b56;" text="Aceptar" textFill="WHITE">
+                        <Button fx:id="btnAceptar" layoutX="660.0" layoutY="480.0" mnemonicParsing="false" onAction="#aceptar" prefHeight="50.0" prefWidth="170.0" style="-fx-background-color: #010b56;" text="Aceptar" textFill="WHITE">
                            <font>
                               <Font size="20.0" />
                            </font>
@@ -121,7 +121,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button fx:id="btnOpcionTarjeta" layoutX="424.0" layoutY="450.0" mnemonicParsing="false" onAction="#opcionTarjeta" prefHeight="61.0" prefWidth="179.0" text="Opción Tarjeta" textFill="#550b66">
+                        <Button fx:id="btnOpcionTarjeta" layoutX="410.0" layoutY="480.0" mnemonicParsing="false" onAction="#opcionTarjeta" prefHeight="50.0" prefWidth="170.0" text="Opción Tarjeta" textFill="#550b66">
                            <font>
                               <Font name="System Bold" size="20.0" />
                            </font>
@@ -129,17 +129,17 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <TextField fx:id="textDNI" layoutX="357.0" layoutY="312.0" prefHeight="46.0" prefWidth="310.0">
+                        <TextField fx:id="textDNI" layoutX="389.0" layoutY="328.0" prefHeight="46.0" prefWidth="215.0">
                            <font>
                               <Font size="22.0" />
                            </font>
                         </TextField>
-                        <Label layoutX="303.0" layoutY="320.0" text="DNI:" textFill="#080808">
+                        <Label layoutX="334.0" layoutY="335.0" text="DNI:" textFill="#080808">
                            <font>
                               <Font size="22.0" />
                            </font>
                         </Label>
-                        <Label fx:id="labErrorDNI" layoutX="357.0" layoutY="358.0" prefHeight="26.0" prefWidth="312.0" textFill="#bc0f0f">
+                        <Label fx:id="labErrorDNI" layoutX="389.0" layoutY="374.0" prefHeight="26.0" prefWidth="215.0" textFill="#bc0f0f">
                            <font>
                               <Font name="Consolas" size="16.0" />
                            </font>
