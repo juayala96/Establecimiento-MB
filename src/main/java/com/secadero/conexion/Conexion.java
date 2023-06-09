@@ -8,9 +8,9 @@ public class Conexion {
 
     public static Connection leerConexion(){
         try {
-            if(con == null || con.isClosed()){ //////////////////////////////////////
+            if(con == null || con.isClosed()){
                 String usuario = "root";
-                String contrasenia = "";
+                String contrasenia = "Supremo9";
                 String drive = "com.mysql.jdbc.Driver";
                 String url = "jdbc:mysql://localhost:3306/secadero";
                 Class.forName(drive);
