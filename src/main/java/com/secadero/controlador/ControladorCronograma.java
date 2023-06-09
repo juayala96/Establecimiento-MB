@@ -186,6 +186,8 @@ public class ControladorCronograma {
     @FXML
     private Label labResultadoID;
     @FXML
+    private Label labFechaCrearSeleccionada;
+    @FXML
     private TabPane panelPestaniasCronograma;
     @FXML
     private Tab tabCrearCronograma;
@@ -339,6 +341,13 @@ public class ControladorCronograma {
             String selectedItem = cbBuscarEmpleado.getSelectionModel().getSelectedItem();
             textBuscarLegajoEmpleadoConsulta.setPromptText("Ingrese el " + selectedItem);
         });
+
+        // Agregar un escuchador de eventos al DatePicker
+        dpFechaCrear.setOnAction(event -> {
+            LocalDate selectedDate = dpFechaCrear.getValue();
+            labFechaCrearSeleccionada.setText(String.valueOf(selectedDate));
+            inicializarTablaEmpleado();
+        });
     }
 
     // ----------------------------------------- Tabla de Empleados ---------------------------------------------
@@ -349,7 +358,7 @@ public class ControladorCronograma {
         colDNI.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, Integer>("dni"));
         colIDEmpleado.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, Integer>("idempleados"));
 
-        listTablaEmpleadosDisponible = LeerEmpleado.listaEmpleadoDisponible();
+        listTablaEmpleadosDisponible = LeerEmpleado.listaEmpleadoDisponibleLista();
         tablaListaEmpleados.getColumns().setAll(colNombre, colApellido, colLegajo, colDNI, colIDEmpleado);
         tablaListaEmpleados.getItems().setAll(listTablaEmpleadosDisponible);
     }
@@ -375,7 +384,7 @@ public class ControladorCronograma {
         colDNIEmpleadoCrear.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, Integer>("dni"));
         colIDEmpleadoCrear.setCellValueFactory(new PropertyValueFactory<LeerEmpleado, Integer>("idempleados"));
 
-        listEmpleado = LeerEmpleado.listaEmpleadoDisponible();
+        listEmpleado = LeerEmpleado.listaEmpleadoDisponible(labFechaCrearSeleccionada);
         tabEmpleadosCrear.getColumns().setAll(colNombreEmpleadoCrear, colApellidoEmpleadoCrear, colLegajoEmpleadoCrear, colDNIEmpleadoCrear, colIDEmpleadoCrear);
         tabEmpleadosCrear.getItems().setAll(listEmpleado);
     }
@@ -1131,6 +1140,7 @@ public class ControladorCronograma {
                 return null;
             }
         });
+        labFechaCrearSeleccionada.setText(fecha_Actual_Mas1.substring(0, 4) + "-" + fecha_Actual_Mas1.substring(5, 7) + "-" + fecha_Actual_Mas1.substring(8, 10));
 
         dpFechaModificar.setValue(LocalDate.of(Integer.parseInt(fecha_Actual_Mas1.substring(0, 4)), Integer.parseInt(fecha_Actual_Mas1.substring(5, 7)), Integer.parseInt(fecha_Actual_Mas1.substring(8, 10))));
         dpFechaModificar.setConverter(new StringConverter<LocalDate>() {

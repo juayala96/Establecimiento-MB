@@ -11,6 +11,8 @@ import java.util.Calendar;
 import java.util.Date;
 
 import java.sql.*;
+import java.util.HashSet;
+import java.util.Set;
 
 public class LeerEmpleado {
     private int idempleados;
@@ -488,12 +490,79 @@ public class LeerEmpleado {
     }
 
     ///////////////////////////////////////////////// CRONOGRAMA ///////////////////////////////////////////////////
-    //------------------------------------- Leer Empleado Disponibles en Cronograma ---------------------------------
-    public static ObservableList<LeerEmpleado> listaEmpleadoDisponible(){
+    //---------------------------------- Leer Empleado Disponibles en Cronograma  (Crear) ---------------------------------
+    public static ObservableList<LeerEmpleado> listaEmpleadoDisponible(Label labFechaCrearSeleccionada){
         Connection con = Conexion.leerConexion();
         PreparedStatement pstm = null;
         ResultSet rs = null;
         ObservableList<LeerEmpleado> lista = FXCollections.observableArrayList();
+        String fechaCronograma;
+        int idEmpleado;
+        int idEmpleadoLista;
+        Set<Integer> listaIdEmpleadosLista = new HashSet<>();
+        Set<Integer> listaIdEmpleados = new HashSet<>();
+
+        try {
+            try {
+                pstm = con.prepareStatement("SELECT nombre, apellido, legajo, dni, idempleados FROM empleados  WHERE estadoEmpleado = ? AND estado = ? ORDER BY legajo ASC");
+                pstm.setString(1, "Vigente");
+                pstm.setString(2, "Disponible");
+                rs = pstm.executeQuery();
+
+                while (rs.next()){
+                    idEmpleadoLista = rs.getInt("idempleados");
+                    listaIdEmpleadosLista.add(idEmpleadoLista);
+                }
+            } catch (SQLException ex) {
+                System.err.println("Error: " + ex.getMessage());
+            }
+
+            String consulta = "SELECT nombre, apellido, legajo, dni, idempleados, cronograma.idCronograma, cronograma.fecha FROM cronograma INNER JOIN empleado_cronograma ON cronograma.idCronograma = empleado_cronograma.idCronogramaFK INNER JOIN empleados ON empleado_cronograma.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND empleados.estado = ? AND cronograma.fecha = ? ORDER BY legajo ASC";
+            pstm = con.prepareStatement(consulta);
+            pstm.setString(1, "Vigente");
+            pstm.setString(2, "Disponible");
+            pstm.setString(3, labFechaCrearSeleccionada.getText());
+            rs = pstm.executeQuery();
+
+            while (rs.next()){
+                idEmpleado = rs.getInt("idempleados");
+                listaIdEmpleados.add(idEmpleado);
+            }
+
+            Set<Integer> listaIdEmpleadosNoRepetidos = new HashSet<>(listaIdEmpleadosLista);
+            listaIdEmpleadosNoRepetidos.removeAll(listaIdEmpleados);
+
+            for (int id : listaIdEmpleadosNoRepetidos ) {
+                pstm = con.prepareStatement("SELECT nombre, apellido, legajo, dni, idempleados FROM empleados  WHERE idempleados = ? ORDER BY legajo ASC");
+                pstm.setInt(1, id);
+                rs = pstm.executeQuery();
+
+                while (rs.next()){
+                    lista.add(new LeerEmpleado(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getInt("dni"), Integer.parseInt(rs.getString("idempleados"))));
+                }
+            }
+
+        } catch (SQLException ex) {
+            System.err.println("Error: " + ex.getMessage());
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pstm != null) pstm.close();
+                if (con != null) con.close();
+            } catch (Exception ex){
+                System.err.println("Error: " + ex.getMessage());
+            }
+        }
+        return lista;
+    }
+
+    //-------------------------------- Leer Empleado Disponibles en Cronograma (Lista) ---------------------------------
+    public static ObservableList<LeerEmpleado> listaEmpleadoDisponibleLista(){
+        Connection con = Conexion.leerConexion();
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+        ObservableList<LeerEmpleado> lista = FXCollections.observableArrayList();
+        String fechaCronograma;
 
         try {
             pstm = con.prepareStatement("SELECT nombre, apellido, legajo, dni, idempleados FROM empleados  WHERE estadoEmpleado = ? AND estado = ? ORDER BY legajo ASC");
