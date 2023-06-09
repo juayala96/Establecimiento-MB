@@ -18,6 +18,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.Objects;
 
 public class ControladorMenu {
 
@@ -66,6 +67,7 @@ public class ControladorMenu {
         Stage escenario = new Stage();
         escenario.setTitle("Registro de Entrada");
         escenario.setScene(escena);
+        escenario.getIcons().add(new javafx.scene.image.Image(Objects.requireNonNull(getClass().getResource("/imagenes/iconoAsistencia.png")).toString()));
         escenario.show();
 
         escenario.setOnCloseRequest(e -> {
@@ -89,6 +91,7 @@ public class ControladorMenu {
         Stage escenario = new Stage();
         escenario.setTitle("Registro de Entrada");
         escenario.setScene(escena);
+        escenario.getIcons().add(new javafx.scene.image.Image(Objects.requireNonNull(getClass().getResource("/imagenes/iconoAsistencia.png")).toString()));
         escenario.show();
 
         escenario.setOnCloseRequest(e -> {

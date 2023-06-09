@@ -11,6 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class ControladorLogin {
     public ControladorLogin(){}
@@ -43,6 +44,7 @@ public class ControladorLogin {
                 Stage escenario = new Stage();
                 escenario.setTitle("Gestión Secadero");
                 escenario.setScene(escena);
+                escenario.getIcons().add(new javafx.scene.image.Image(Objects.requireNonNull(getClass().getResource("/imagenes/icono.png")).toString()));
                 escenario.show();
 
                 escenario.setOnCloseRequest(e -> {

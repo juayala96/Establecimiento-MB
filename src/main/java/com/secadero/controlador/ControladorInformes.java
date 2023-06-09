@@ -18,6 +18,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.Objects;
 
 public class ControladorInformes {
     public ControladorInformes(){}
@@ -210,6 +211,7 @@ public class ControladorInformes {
         Stage escenario = new Stage();
         escenario.setTitle("Gestión Secadero");
         escenario.setScene(escena);
+        escenario.getIcons().add(new javafx.scene.image.Image(Objects.requireNonNull(getClass().getResource("/imagenes/icono.png")).toString()));
         escenario.show();
 
         Stage myEscena = (Stage) this.btnVolver.getScene().getWindow();

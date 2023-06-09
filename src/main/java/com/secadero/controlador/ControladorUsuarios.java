@@ -580,6 +580,7 @@ public class ControladorUsuarios {
         Stage escenario = new Stage();
         escenario.setTitle("Gestión Secadero");
         escenario.setScene(escena);
+        escenario.getIcons().add(new javafx.scene.image.Image(Objects.requireNonNull(getClass().getResource("/imagenes/icono.png")).toString()));
         escenario.show();
 
         Stage myEscena = (Stage) this.btnVolver.getScene().getWindow();

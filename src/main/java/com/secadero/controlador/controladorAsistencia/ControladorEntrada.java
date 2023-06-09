@@ -147,6 +147,7 @@ public class ControladorEntrada {
         Stage escenario = new Stage();
         escenario.setTitle("Registro de Asistencias (Empleados)");
         escenario.setScene(escena);
+        escenario.getIcons().add(new javafx.scene.image.Image(Objects.requireNonNull(getClass().getResource("/imagenes/iconoAsistencia.png")).toString()));
         escenario.show();
 
         Stage myEscena = (Stage) this.btnSalir.getScene().getWindow();

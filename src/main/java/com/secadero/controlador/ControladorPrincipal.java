@@ -10,6 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Optional;
 
 public class ControladorPrincipal {
@@ -38,6 +39,7 @@ public class ControladorPrincipal {
         Stage escenario = new Stage();
         escenario.setTitle("Gestión Secadero (Usuarios)");
         escenario.setScene(escena);
+        escenario.getIcons().add(new javafx.scene.image.Image(Objects.requireNonNull(getClass().getResource("/imagenes/icono.png")).toString()));
         escenario.show();
 
         escenario.setOnCloseRequest(e -> {
@@ -61,6 +63,7 @@ public class ControladorPrincipal {
         Stage escenario = new Stage();
         escenario.setTitle("Gestión Secadero (Empleados)");
         escenario.setScene(escena);
+        escenario.getIcons().add(new javafx.scene.image.Image(Objects.requireNonNull(getClass().getResource("/imagenes/icono.png")).toString()));
         escenario.show();
 
         escenario.setOnCloseRequest(e -> {
@@ -84,6 +87,7 @@ public class ControladorPrincipal {
         Stage escenario = new Stage();
         escenario.setTitle("Gestión Secadero (Cronograma)");
         escenario.setScene(escena);
+        escenario.getIcons().add(new javafx.scene.image.Image(Objects.requireNonNull(getClass().getResource("/imagenes/icono.png")).toString()));
         escenario.show();
 
         escenario.setOnCloseRequest(e -> {
@@ -107,6 +111,7 @@ public class ControladorPrincipal {
         Stage escenario = new Stage();
         escenario.setTitle("Gestión Secadero (Informe)");
         escenario.setScene(escena);
+        escenario.getIcons().add(new javafx.scene.image.Image(Objects.requireNonNull(getClass().getResource("/imagenes/icono.png")).toString()));
         escenario.show();
 
         escenario.setOnCloseRequest(e -> {
@@ -130,6 +135,7 @@ public class ControladorPrincipal {
         Stage escenario = new Stage();
         escenario.setTitle("Gestión Secadero (Pre-Recibo)");
         escenario.setScene(escena);
+        escenario.getIcons().add(new javafx.scene.image.Image(Objects.requireNonNull(getClass().getResource("/imagenes/icono.png")).toString()));
         escenario.show();
 
         escenario.setOnCloseRequest(e -> {
@@ -163,6 +169,7 @@ public class ControladorPrincipal {
         Stage escenario = new Stage();
         escenario.setTitle("Gestión Secadero");
         escenario.setScene(escena);
+        escenario.getIcons().add(new javafx.scene.image.Image(Objects.requireNonNull(getClass().getResource("/imagenes/icono.png")).toString()));
         escenario.show();
 
         Stage myEscena = (Stage) this.btnCerrarSesion.getScene().getWindow();

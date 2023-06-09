@@ -545,6 +545,7 @@ public class ControladorEmpleados {
         Stage escenario = new Stage();
         escenario.setTitle("Gestión Secadero (Ausencias)");
         escenario.setScene(escena);
+        escenario.getIcons().add(new javafx.scene.image.Image(Objects.requireNonNull(getClass().getResource("/imagenes/icono.png")).toString()));
         escenario.show();
 
         escenario.setOnCloseRequest(e -> {
@@ -568,6 +569,7 @@ public class ControladorEmpleados {
         Stage escenario = new Stage();
         escenario.setTitle("Gestión Secadero (Licencias)");
         escenario.setScene(escena);
+        escenario.getIcons().add(new javafx.scene.image.Image(Objects.requireNonNull(getClass().getResource("/imagenes/icono.png")).toString()));
         escenario.show();
 
         escenario.setOnCloseRequest(e -> {
@@ -1079,6 +1081,7 @@ public class ControladorEmpleados {
         Stage escenario = new Stage();
         escenario.setTitle("Gestión Secadero");
         escenario.setScene(escena);
+        escenario.getIcons().add(new javafx.scene.image.Image(Objects.requireNonNull(getClass().getResource("/imagenes/icono.png")).toString()));
         escenario.show();
 
         Stage myEscena = (Stage) this.btnVolver.getScene().getWindow();

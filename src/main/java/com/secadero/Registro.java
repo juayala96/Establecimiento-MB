@@ -7,6 +7,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class Registro extends Application {
 
@@ -18,6 +19,7 @@ public class Registro extends Application {
         Scene escena = new Scene(root);
         primaryStage.setScene(escena);
         primaryStage.setTitle("Registro de Asistencias (Empleados)");
+        primaryStage.getIcons().add(new javafx.scene.image.Image(Objects.requireNonNull(getClass().getResource("/imagenes/iconoAsistencia.png")).toString()));
         primaryStage.show();
     }
 }
