@@ -9,13 +9,19 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="749.0" prefWidth="1536.0" style="-fx-background-color: #7fa653;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.secadero.controlador.ControladorPrincipal">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="705.0" prefWidth="1366.0" style="-fx-background-color: #7fa653;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.secadero.controlador.ControladorPrincipal">
 
    <children>
+      <ImageView fitHeight="705.0" fitWidth="1366.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../imagenes/fondo_verde.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="91.0" layoutY="58.0" prefHeight="245.0" prefWidth="1182.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 20; -fx-border-color: white; -fx-border-radius: 20;" />
 
-      <Button fx:id="btnUsuarios" graphicTextGap="6.0" layoutX="170.0" layoutY="375.0" mnemonicParsing="false" onAction="#Usuarios" prefHeight="74.0" prefWidth="340.0" style="-fx-background-radius: 20; -fx-background-color: #cfe0bc; -fx-border-color: WHITE; -fx-border-radius: 20;" text="Usuarios" textFill="#110043">
+      <Button fx:id="btnUsuarios" graphicTextGap="6.0" layoutX="91.0" layoutY="375.0" mnemonicParsing="false" onAction="#Usuarios" prefHeight="74.0" prefWidth="340.0" style="-fx-background-radius: 20; -fx-background-color: #dcecb4; -fx-border-color: WHITE; -fx-border-radius: 20;" text="Usuarios" textFill="#143629">
          <font>
-            <Font name="Arial Bold" size="26.0" />
+            <Font name="Montserrat Bold" size="26.0" />
          </font>
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -28,9 +34,9 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="btnEmpleados" graphicTextGap="5.0" layoutX="597.0" layoutY="375.0" mnemonicParsing="false" onAction="#Empleados" prefHeight="74.0" prefWidth="340.0" style="-fx-background-radius: 20; -fx-background-color: #cfe0bc; -fx-border-color: WHITE; -fx-border-radius: 20;" text="Empleados" textFill="#110043">
+      <Button fx:id="btnEmpleados" graphicTextGap="5.0" layoutX="512.0" layoutY="375.0" mnemonicParsing="false" onAction="#Empleados" prefHeight="74.0" prefWidth="340.0" style="-fx-background-radius: 20; -fx-background-color: #dcecb4; -fx-border-color: WHITE; -fx-border-radius: 20;" text="Empleados" textFill="#143629">
          <font>
-            <Font name="Arial Bold" size="26.0" />
+            <Font name="Montserrat Bold" size="26.0" />
          </font>
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -43,9 +49,9 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="btnInformes" alignment="CENTER" layoutX="170.0" layoutY="549.0" mnemonicParsing="false" onAction="#Informes" prefHeight="74.0" prefWidth="340.0" style="-fx-background-radius: 20; -fx-background-color: #cfe0bc; -fx-border-color: WHITE; -fx-border-radius: 20;" text="Informe Presentismo" textFill="#110043">
+      <Button fx:id="btnInformes" alignment="CENTER" layoutX="91.0" layoutY="549.0" mnemonicParsing="false" onAction="#Informes" prefHeight="74.0" prefWidth="340.0" style="-fx-background-radius: 20; -fx-background-color: #dcecb4; -fx-border-color: WHITE; -fx-border-radius: 20;" text=" Inf. Presentismo" textFill="#143629">
          <font>
-            <Font name="Arial Bold" size="26.0" />
+            <Font name="Montserrat Bold" size="26.0" />
          </font>
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -58,9 +64,9 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="btnPreRecibo" alignment="CENTER" graphicTextGap="8.0" layoutX="598.0" layoutY="549.0" mnemonicParsing="false" onAction="#PreRecibo" prefHeight="74.0" prefWidth="340.0" style="-fx-background-radius: 20; -fx-border-color: WHITE; -fx-background-color: #cfe0bc; -fx-border-radius: 20;" text="Pre-Recibo" textFill="#110043">
+      <Button fx:id="btnPreRecibo" alignment="CENTER" graphicTextGap="8.0" layoutX="513.0" layoutY="549.0" mnemonicParsing="false" onAction="#PreRecibo" prefHeight="74.0" prefWidth="340.0" style="-fx-background-radius: 20; -fx-border-color: WHITE; -fx-background-color: #dcecb4; -fx-border-radius: 20;" text="Pre-Recibo" textFill="#143629">
          <font>
-            <Font name="Arial Bold" size="26.0" />
+            <Font name="Montserrat Bold" size="26.0" />
          </font>
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -73,9 +79,9 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="btnCerrarSesion" graphicTextGap="5.0" layoutX="1014.0" layoutY="549.0" mnemonicParsing="false" onAction="#CerrarSesion" prefHeight="74.0" prefWidth="340.0" style="-fx-background-radius: 20; -fx-background-color: #cfe0bc; -fx-border-color: WHITE; -fx-border-radius: 20;" text="Cerrar Sesión" textFill="#8c0909">
+      <Button fx:id="btnCerrarSesion" graphicTextGap="5.0" layoutX="935.0" layoutY="549.0" mnemonicParsing="false" onAction="#CerrarSesion" prefHeight="74.0" prefWidth="340.0" style="-fx-background-radius: 20; -fx-background-color: #dcecb4; -fx-border-color: WHITE; -fx-border-radius: 20;" text="Cerrar Sesión" textFill="#143629">
          <font>
-            <Font name="Arial Bold" size="26.0" />
+            <Font name="Montserrat Bold" size="26.0" />
          </font>
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -88,16 +94,9 @@
             </ImageView>
          </graphic>
       </Button>
-      <Label layoutX="42.0" layoutY="-1.0" prefHeight="243.0" prefWidth="1430.0" style="-fx-background-color: #fff8f8;">
+      <Button fx:id="btnCronograma" graphicTextGap="5.0" layoutX="935.0" layoutY="375.0" mnemonicParsing="false" onAction="#Cronograma" prefHeight="74.0" prefWidth="340.0" style="-fx-background-radius: 20; -fx-background-color: #dcecb4; -fx-border-radius: 20; -fx-border-color: WHITE;" text="Cronograma" textFill="#143629">
          <font>
-            <Font name="Arial" size="24.0" />
-         </font></Label>
-      <Label layoutX="42.0" layoutY="237.0" prefHeight="536.0" prefWidth="30.0" style="-fx-background-color: #fff8f8;" />
-      <Label layoutX="1463.0" prefHeight="769.0" prefWidth="30.0" style="-fx-background-color: #fff8f8;" />
-      <Label layoutX="43.0" layoutY="43.0" prefHeight="30.0" prefWidth="1430.0" style="-fx-background-color: #fff8f8;" />
-      <Button fx:id="btnCronograma" graphicTextGap="5.0" layoutX="1014.0" layoutY="375.0" mnemonicParsing="false" onAction="#Cronograma" prefHeight="74.0" prefWidth="340.0" style="-fx-background-radius: 20; -fx-background-color: #cfe0bc; -fx-border-radius: 20; -fx-border-color: WHITE;" text="Cronograma" textFill="#110043">
-         <font>
-            <Font name="Arial Bold" size="26.0" />
+            <Font name="Montserrat Bold" size="26.0" />
          </font>
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -110,47 +109,44 @@
             </ImageView>
          </graphic>
       </Button>
-      <Label layoutX="42.0" layoutY="743.0" prefHeight="58.0" prefWidth="1451.0" style="-fx-background-color: #fff8f8;" />
-      <Label layoutX="41.0" layoutY="774.0" prefHeight="30.0" prefWidth="1458.0" style="-fx-background-color: #7fa653;" />
-      <Label layoutX="38.0" prefHeight="30.0" prefWidth="1458.0" style="-fx-background-color: #7fa653;" />
-      <Label alignment="CENTER" layoutX="898.0" layoutY="171.0" prefHeight="64.0" prefWidth="84.0" text="Cuit:" textFill="#080808">
+      <Label alignment="CENTER" layoutX="677.0" layoutY="213.0" prefHeight="64.0" prefWidth="84.0" text="Cuit:" textFill="#143629">
          <font>
-            <Font name="Arial Bold" size="30.0" />
+            <Font name="Montserrat Bold" size="30.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="888.0" layoutY="43.0" prefHeight="64.0" prefWidth="174.0" text="Dirección:" textFill="#080808">
+      <Label alignment="CENTER" layoutX="667.0" layoutY="85.0" prefHeight="64.0" prefWidth="174.0" text="Dirección:" textFill="#143629">
          <font>
-            <Font name="Arial Bold" size="30.0" />
+            <Font name="Montserrat Bold" size="30.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="894.0" layoutY="107.0" prefHeight="64.0" prefWidth="148.0" text="Teléfono:" textFill="#080808">
+      <Label alignment="CENTER" layoutX="673.0" layoutY="149.0" prefHeight="64.0" prefWidth="148.0" text="Teléfono:" textFill="#143629">
          <font>
-            <Font name="Arial Bold" size="30.0" />
+            <Font name="Montserrat Bold" size="30.0" />
          </font>
       </Label>
-      <Label layoutX="1075.0" layoutY="52.0" prefHeight="46.0" prefWidth="486.0" text="Lote 8 Sección Xlll -  Los Helechos" textFill="#080808">
+      <Label layoutX="854.0" layoutY="94.0" prefHeight="46.0" prefWidth="410.0" text="Lote 8 Sección Xlll -  Los Helechos" textFill="#143629">
          <font>
-            <Font name="Arial" size="24.0" />
+            <Font name="Montserrat Light" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="1075.0" layoutY="116.0" prefHeight="46.0" prefWidth="218.0" text="(03755) - 15338730" textFill="#080808">
+      <Label layoutX="854.0" layoutY="158.0" prefHeight="46.0" prefWidth="218.0" text="(03755) - 15338730" textFill="#143629">
          <font>
-            <Font name="Arial" size="24.0" />
+            <Font name="Montserrat Light" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="1075.0" layoutY="180.0" prefHeight="46.0" prefWidth="174.0" text="23-32844652-9" textFill="#080808">
+      <Label layoutX="854.0" layoutY="222.0" prefHeight="46.0" prefWidth="194.0" text="23-32844652-9" textFill="#143629">
          <font>
-            <Font name="Arial" size="24.0" />
+            <Font name="Montserrat Light" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="280.0" layoutY="52.0" prefHeight="110.0" prefWidth="477.0" text="Bienvenido" textFill="#080808">
+      <Label layoutX="127.0" layoutY="93.0" prefHeight="110.0" prefWidth="523.0" text="Bienvenido" textFill="#143629">
          <font>
-            <Font name="Arial Bold" size="85.0" />
+            <Font name="Montserrat SemiBold" size="85.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="347.0" layoutY="147.0" prefHeight="66.0" prefWidth="343.0" text="Establecimiento MB " textFill="#080808">
+      <Label alignment="CENTER" layoutX="194.0" layoutY="188.0" prefHeight="66.0" prefWidth="343.0" text="Establecimiento MB " textFill="#143629">
          <font>
-            <Font name="Arial" size="32.0" />
+            <Font name="Montserrat Regular" size="32.0" />
          </font>
       </Label>
    </children>

@@ -6,44 +6,52 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1000.0" style="-fx-background-color: #7dc8cc;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.secadero.controlador.ControladorLogin">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="705.0" prefWidth="1366.0" style="-fx-background-color: #7dc8cc;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.secadero.controlador.ControladorLogin">
    <children>
+      <ImageView fitHeight="720.0" fitWidth="1366.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../imagenes/fondo_verde.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="452.0" layoutY="75.0" prefHeight="565.0" prefWidth="456.0" style="-fx-border-color: #2D572C; -fx-border-radius: 20;" />
       <Label fx:id="labID" layoutX="115.0" layoutY="87.0" prefHeight="18.0" prefWidth="20.0" />
-      <Button fx:id="btnSalir" layoutX="203.0" layoutY="514.0" mnemonicParsing="false" onAction="#salirLogin" prefHeight="45.0" prefWidth="141.0" text="Salir" textFill="#382929">
+      <Button fx:id="btnSalir" layoutX="540.0" layoutY="522.0" mnemonicParsing="false" onAction="#salirLogin" prefHeight="45.0" prefWidth="141.0" style="-fx-background-color: #9bba81; -fx-background-radius: 10; -fx-border-color: #dcecb4; -fx-border-radius: 10;" text="Salir" textFill="#143629">
          <font>
-            <Font name="System Bold" size="18.0" />
+            <Font name="Montserrat Bold" size="18.0" />
          </font>
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button fx:id="btnAceptar" layoutX="695.0" layoutY="514.0" mnemonicParsing="false" onAction="#aceptarLogin" prefHeight="45.0" prefWidth="141.0" style="-fx-background-color: #010b56;" text="Ingresar" textFill="WHITE">
+      <Button fx:id="btnAceptar" layoutX="690.0" layoutY="522.0" mnemonicParsing="false" onAction="#aceptarLogin" prefHeight="45.0" prefWidth="141.0" style="-fx-background-color: #2D572C; -fx-background-radius: 10;" text="Ingresar" textFill="WHITE">
          <font>
-            <Font name="System Bold" size="18.0" />
+            <Font name="Montserrat Bold" size="18.0" />
          </font>
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Label layoutX="369.0" layoutY="105.0" prefHeight="69.0" prefWidth="302.0" text="Iniciar Sesión" textFill="#080808">
+      <Label layoutX="521.0" layoutY="137.0" prefHeight="69.0" prefWidth="338.0" text="Iniciar Sesión" textFill="#143629">
          <font>
-            <Font name="System Bold" size="48.0" />
+            <Font name="Montserrat SemiBold" size="48.0" />
          </font>
       </Label>
-      <Label layoutX="121.0" layoutY="254.0" prefHeight="35.0" prefWidth="216.0" text="Nombre de Usuario:" textFill="#080808">
+      <Label layoutX="538.0" layoutY="249.0" prefHeight="35.0" prefWidth="216.0" text="Nombre de Usuario:" textFill="#143629">
          <font>
-            <Font size="24.0" />
+            <Font name="Montserrat Light" size="21.0" />
          </font>
       </Label>
-      <Label layoutX="210.0" layoutY="361.0" prefHeight="35.0" prefWidth="127.0" text="Contraseña:" textFill="#080808">
+      <Label layoutX="535.0" layoutY="357.0" prefHeight="35.0" prefWidth="127.0" text="Contraseña:" textFill="#143629">
          <font>
-            <Font size="24.0" />
+            <Font name="Montserrat Light" size="21.0" />
          </font>
       </Label>
-      <TextField fx:id="campoNombre" layoutX="345.0" layoutY="252.0" prefHeight="40.0" prefWidth="350.0">
+      <TextField fx:id="campoNombre" layoutX="535.0" layoutY="284.0" prefHeight="41.0" prefWidth="292.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: #808080; -fx-border-radius: 10;">
          <font>
             <Font size="18.0" />
          </font>
@@ -51,15 +59,11 @@
             <Cursor fx:constant="DEFAULT" />
          </cursor>
       </TextField>
-      <PasswordField fx:id="campoPassword" layoutX="345.0" layoutY="359.0" prefHeight="40.0" prefWidth="350.0">
+      <PasswordField fx:id="campoPassword" layoutX="535.0" layoutY="391.0" prefHeight="41.0" prefWidth="292.0" style="-fx-background-color: #dcecb4; -fx-border-color: #808080; -fx-border-radius: 10; -fx-background-radius: 10;">
          <font>
             <Font size="18.0" />
          </font>
       </PasswordField>
-      <Label prefHeight="5.0" prefWidth="1000.0" style="-fx-background-color: white;" />
-      <Label layoutY="617.0" prefHeight="35.0" prefWidth="1000.0" style="-fx-background-color: white;" />
-      <Label layoutX="-2.0" layoutY="14.0" prefHeight="615.0" prefWidth="20.0" style="-fx-background-color: white;" />
-      <Label layoutX="981.0" layoutY="11.0" prefHeight="608.0" prefWidth="19.0" style="-fx-background-color: white;" />
    </children>
    <opaqueInsets>
       <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
