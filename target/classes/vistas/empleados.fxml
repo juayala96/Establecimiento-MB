@@ -629,7 +629,7 @@
                         <Label layoutX="506.0" layoutY="349.0" prefHeight="43.0" prefWidth="94.0" style="-fx-background-color: #dcecb4; -fx-border-color: #808080; -fx-background-radius: 10; -fx-border-radius: 10;" />
                         <Label layoutX="506.0" layoutY="529.0" prefHeight="42.0" prefWidth="154.0" style="-fx-background-color: #dcecb4; -fx-border-color: #808080; -fx-background-radius: 10; -fx-border-radius: 10;" />
                         <Label layoutX="506.0" layoutY="442.0" prefHeight="43.0" prefWidth="153.0" style="-fx-background-color: #dcecb4; -fx-border-color: #808080; -fx-background-radius: 10; -fx-border-radius: 10;" />
-                        <Label fx:id="labIDEliminar" layoutX="144.0" layoutY="75.0" prefHeight="18.0" prefWidth="17.0" textFill="#1d3557" />
+                        <Label fx:id="labIDEliminar" layoutX="144.0" layoutY="75.0" prefHeight="18.0" prefWidth="17.0" textFill="#80a753" />
                         <Label layoutX="426.0" layoutY="46.0" prefHeight="60.0" prefWidth="494.0" text="Eliminar Empleado" textFill="#143629">
                            <font>
                               <Font name="Montserrat SemiBold" size="48.0" />
