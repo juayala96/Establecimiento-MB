@@ -73,7 +73,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <ComboBox fx:id="cbTiposfiltrosEmpleados" layoutX="683.0" layoutY="169.0" prefHeight="46.0" prefWidth="200.0" style="-fx-background-color: #dcecb4;">
+                        <ComboBox fx:id="cbTiposfiltrosEmpleados" layoutX="683.0" layoutY="169.0" prefHeight="46.0" prefWidth="200.0" style="-fx-background-color: #dcecb4; -fx-font-size: 18;">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -318,11 +318,11 @@
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor></ComboBox>
-                        <DatePicker fx:id="dpFechaNaciminetoCrear" editable="false" layoutX="995.0" layoutY="156.0" prefHeight="40.0" prefWidth="234.0" style="-fx-font-size: 16; -fx-background-color: #dcecb4; -fx-font-size: 18;">
+                        <DatePicker fx:id="dpFechaNaciminetoCrear" editable="false" layoutX="995.0" layoutY="156.0" prefHeight="40.0" prefWidth="175.0" style="-fx-font-size: 16; -fx-background-color: #dcecb4; -fx-font-size: 18;">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor></DatePicker>
-                        <DatePicker fx:id="dpFechaIngresoCrear" editable="false" layoutX="994.0" layoutY="246.0" prefHeight="40.0" prefWidth="236.0" style="-fx-font-size: 16; -fx-background-color: #dcecb4; -fx-font-size: 18;">
+                        <DatePicker fx:id="dpFechaIngresoCrear" editable="false" layoutX="994.0" layoutY="246.0" prefHeight="40.0" prefWidth="175.0" style="-fx-font-size: 16; -fx-background-color: #dcecb4; -fx-font-size: 18;">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor></DatePicker>

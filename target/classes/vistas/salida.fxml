@@ -11,26 +11,28 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="670.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.secadero.controlador.controladorAsistencia.ControladorSalida">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="705.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.secadero.controlador.controladorAsistencia.ControladorSalida">
    <children>
-      <TabPane fx:id="panelRegistroSalida" prefHeight="670.0" prefWidth="1000.0" style="-fx-background-color: #7dc8cc;" tabClosingPolicy="UNAVAILABLE">
+      <TabPane fx:id="panelRegistroSalida" prefHeight="705.0" prefWidth="1366.0" style="-fx-background-color: #7dc8cc;" tabClosingPolicy="UNAVAILABLE">
         <tabs>
             <Tab fx:id="tabRegistroSalidaTarjeta" text="Registro Salida (Tarjeta)">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="650.0" prefWidth="1000.0">
                      <children>
-                        <Label layoutY="616.0" prefHeight="35.0" prefWidth="1008.0" style="-fx-background-color: #30373e;" />
-                        <Label prefHeight="27.0" prefWidth="1008.0" style="-fx-background-color: #30373e;" />
-                        <Label prefHeight="623.0" prefWidth="19.0" style="-fx-background-color: #30373e;" />
-                        <Label layoutX="981.0" layoutY="9.0" prefHeight="623.0" prefWidth="24.0" style="-fx-background-color: #30373e;" />
-                        <Label layoutX="400.0" layoutY="86.0" prefHeight="94.0" prefWidth="196.0" text="Salida" textFill="#080808">
+                        <ImageView fitHeight="705.0" fitWidth="1422.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imagenes/fondo_verde.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="309.0" layoutY="55.0" prefHeight="563.0" prefWidth="748.0" style="-fx-border-color: #143629; -fx-border-radius: 10;" />
+                        <Label layoutX="595.0" layoutY="112.0" prefHeight="94.0" prefWidth="189.0" text="Salida" textFill="#143629">
                            <font>
-                              <Font name="System Bold Italic" size="64.0" />
+                              <Font name="Montserrat SemiBold" size="58.0" />
                            </font>
                         </Label>
-                        <Button fx:id="btnSalir2" alignment="CENTER" layoutX="167.0" layoutY="480.0" mnemonicParsing="false" onAction="#salir2" prefHeight="50.0" prefWidth="170.0" text="Salir">
+                        <Button fx:id="btnSalir2" alignment="CENTER" layoutX="343.0" layoutY="493.0" mnemonicParsing="false" onAction="#salir2" prefHeight="50.0" prefWidth="170.0" style="-fx-background-color: #9bba81; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: white;" text="Salir" textFill="#143629">
                            <font>
-                              <Font name="System Bold" size="20.0" />
+                              <Font name="Montserrat Bold" size="20.0" />
                            </font>
                            <cursor>
                               <Cursor fx:constant="HAND" />
@@ -43,22 +45,22 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button fx:id="btnOpcionLegajo" layoutX="659.0" layoutY="480.0" mnemonicParsing="false" onAction="#opcionLegajo" prefHeight="50.0" prefWidth="170.0" text="Opción Legajo" textFill="#550b66">
+                        <Button fx:id="btnOpcionLegajo" layoutX="835.0" layoutY="493.0" mnemonicParsing="false" onAction="#opcionLegajo" prefHeight="50.0" prefWidth="190.0" style="-fx-background-color: #9bba81; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: white;" text="Opción Legajo" textFill="#143629">
                            <font>
-                              <Font name="System Bold" size="20.0" />
+                              <Font name="Montserrat Bold" size="20.0" />
                            </font>
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Label layoutX="246.0" layoutY="201.0" prefHeight="67.0" prefWidth="515.0" text="Ingrese su Tarjeta Porfavor" textFill="#080808">
+                        <Label layoutX="420.0" layoutY="215.0" prefHeight="71.0" prefWidth="542.0" text="Ingrese su tarjeta" textFill="#143629">
                            <font>
-                              <Font name="System Bold Italic" size="40.0" />
+                              <Font name="Montserrat SemiBold" size="58.0" />
                            </font>
                         </Label>
-                        <ImageView fitHeight="207.0" fitWidth="190.0" layoutX="413.0" layoutY="333.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="238.0" fitWidth="243.0" layoutX="553.0" layoutY="315.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../imagenes/flecha.jpg" />
+                              <Image url="@../imagenes/flecha.png" />
                            </image>
                         </ImageView>
                      </children>
@@ -69,33 +71,35 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="650.0" prefWidth="1000.0">
                      <children>
+                        <ImageView fitHeight="705.0" fitWidth="1473.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imagenes/fondo_verde.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="309.0" layoutY="55.0" prefHeight="563.0" prefWidth="748.0" style="-fx-border-color: #143629; -fx-border-radius: 10;" />
                         <Label fx:id="labInformacion" layoutX="326.0" layoutY="120.0" prefHeight="26.0" prefWidth="30.0" textFill="#ff9090">
                            <font>
                               <Font name="Consolas" size="16.0" />
                            </font>
                         </Label>
-                        <Label layoutY="616.0" prefHeight="35.0" prefWidth="1008.0" style="-fx-background-color: #30373e;" />
-                        <Label prefHeight="27.0" prefWidth="1008.0" style="-fx-background-color: #30373e;" />
-                        <Label prefHeight="623.0" prefWidth="19.0" style="-fx-background-color: #30373e;" />
-                        <Label layoutX="981.0" layoutY="9.0" prefHeight="623.0" prefWidth="24.0" style="-fx-background-color: #30373e;" />
-                        <Label layoutX="400.0" layoutY="86.0" prefHeight="94.0" prefWidth="190.0" text="Salida" textFill="#080808">
+                        <Label layoutX="595.0" layoutY="112.0" prefHeight="94.0" prefWidth="197.0" text="Salida" textFill="#143629">
                            <font>
-                              <Font name="System Bold Italic" size="64.0" />
+                              <Font name="Montserrat SemiBold" size="58.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="textLegajo" layoutX="388.0" layoutY="222.0" prefHeight="46.0" prefWidth="215.0">
+                        <TextField fx:id="textLegajo" layoutX="586.0" layoutY="250.0" prefHeight="46.0" prefWidth="215.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;">
                            <font>
                               <Font size="22.0" />
                            </font>
                         </TextField>
-                        <Label layoutX="307.0" layoutY="229.0" text="Legajo:" textFill="#080808">
+                        <Label layoutX="497.0" layoutY="261.0" text="Legajo:" textFill="#143629">
                            <font>
-                              <Font size="22.0" />
+                              <Font name="Montserrat Medium" size="21.0" />
                            </font>
                         </Label>
-                        <Button fx:id="btnSalir" layoutX="167.0" layoutY="480.0" mnemonicParsing="false" onAction="#salir" prefHeight="50.0" prefWidth="170.0" text="Salir">
+                        <Button fx:id="btnSalir" layoutX="343.0" layoutY="493.0" mnemonicParsing="false" onAction="#salir" prefHeight="50.0" prefWidth="170.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: white; -fx-background-color: #9bba81;" text="Salir" textFill="#143629">
                            <font>
-                              <Font name="System Bold" size="20.0" />
+                              <Font name="Montserrat Bold" size="20.0" />
                            </font>
                            <cursor>
                               <Cursor fx:constant="HAND" />
@@ -108,40 +112,40 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Label fx:id="labErrorLegajo" layoutX="388.0" layoutY="268.0" prefHeight="26.0" prefWidth="215.0" textFill="#bc0f0f">
+                        <Label fx:id="labErrorLegajo" layoutX="586.0" layoutY="296.0" prefHeight="26.0" prefWidth="215.0" textFill="#bc0f0f">
                            <font>
-                              <Font name="Consolas" size="16.0" />
+                              <Font name="Montserrat Regular" size="16.0" />
                            </font>
                         </Label>
-                        <Button fx:id="btnAceptar" layoutX="660.0" layoutY="480.0" mnemonicParsing="false" onAction="#aceptar" prefHeight="50.0" prefWidth="170.0" style="-fx-background-color: #010b56;" text="Aceptar" textFill="WHITE">
+                        <Button fx:id="btnAceptar" layoutX="852.0" layoutY="493.0" mnemonicParsing="false" onAction="#aceptar" prefHeight="50.0" prefWidth="170.0" style="-fx-background-color: #143629; -fx-background-radius: 10;" text="Aceptar" textFill="WHITE">
                            <font>
-                              <Font size="20.0" />
+                              <Font name="Montserrat Bold" size="20.0" />
                            </font>
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button fx:id="btnOpcionTarjeta" layoutX="410.0" layoutY="480.0" mnemonicParsing="false" onAction="#opcionTarjeta" prefHeight="50.0" prefWidth="170.0" text="Opción Tarjeta" textFill="#550b66">
+                        <Button fx:id="btnOpcionTarjeta" layoutX="590.0" layoutY="493.0" mnemonicParsing="false" onAction="#opcionTarjeta" prefHeight="50.0" prefWidth="194.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: white; -fx-background-color: #9bba81;" text="Opción Tarjeta" textFill="#143629">
                            <font>
-                              <Font name="System Bold" size="20.0" />
+                              <Font name="Montserrat Bold" size="20.0" />
                            </font>
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <TextField fx:id="textDNI" layoutX="389.0" layoutY="328.0" prefHeight="46.0" prefWidth="215.0">
+                        <TextField fx:id="textDNI" layoutX="586.0" layoutY="349.0" prefHeight="46.0" prefWidth="215.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;">
                            <font>
                               <Font size="22.0" />
                            </font>
                         </TextField>
-                        <Label layoutX="334.0" layoutY="335.0" text="DNI:" textFill="#080808">
+                        <Label layoutX="528.0" layoutY="356.0" text="DNI:" textFill="#143629">
                            <font>
-                              <Font size="22.0" />
+                              <Font name="Montserrat Medium" size="21.0" />
                            </font>
                         </Label>
-                        <Label fx:id="labErrorDNI" layoutX="389.0" layoutY="374.0" prefHeight="26.0" prefWidth="215.0" textFill="#bc0f0f">
+                        <Label fx:id="labErrorDNI" layoutX="586.0" layoutY="397.0" prefHeight="26.0" prefWidth="215.0" textFill="#bc0f0f">
                            <font>
-                              <Font name="Consolas" size="16.0" />
+                              <Font name="Montserrat Regular" size="16.0" />
                            </font>
                         </Label>
                      </children>
