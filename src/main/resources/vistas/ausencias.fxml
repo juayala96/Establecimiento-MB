@@ -26,14 +26,14 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <ImageView fitHeight="705.0" fitWidth="1507.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="705.0" fitWidth="1400.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../imagenes/fondo_verde.png" />
                            </image>
                         </ImageView>
                         <Label fx:id="labResultadoID" layoutX="1129.0" layoutY="65.0" prefHeight="18.0" prefWidth="26.0" textFill="#80a753" />
                         <Label fx:id="labIDAusenciaLista" layoutX="1156.0" layoutY="66.0" prefHeight="18.0" prefWidth="26.0" textFill="#80a753" />
-                        <Label fx:id="labIDEmpleadoLista" layoutX="1183.0" layoutY="65.0" prefHeight="18.0" prefWidth="26.0" textFill="#80a753" />
+                        <Label fx:id="labIDEmpleadoLista" layoutX="1195.0" layoutY="80.0" prefHeight="18.0" prefWidth="26.0" textFill="#80a753" />
                         <Button fx:id="btnBuscarAusenciaEmpleado" layoutX="427.0" layoutY="163.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnBuscarEmpleado" prefHeight="46.0" prefWidth="174.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-background-color: #9bba81; -fx-border-color: #dcecb4;" text="Buscar Empleado" textFill="#143629">
                            <font>
                               <Font name="Montserrat Bold" size="16.0" />
@@ -56,7 +56,7 @@
                               <Font name="Montserrat Medium" size="18.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="textBuscarLegajoEmpleado" layoutX="252.0" layoutY="163.0" prefHeight="46.0" prefWidth="159.0" promptText="Ingrese el Legajo" style="-fx-background-color: #dcecb4;">
+                        <TextField fx:id="textBuscarLegajoEmpleado" layoutX="252.0" layoutY="163.0" prefHeight="46.0" prefWidth="171.0" promptText="Ingrese el Legajo" style="-fx-background-color: #dcecb4;">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -187,17 +187,17 @@
                               <Font name="Montserrat Bold" size="16.0" />
                            </font>
                         </Button>
-                        <Label layoutX="28.0" layoutY="616.0" prefHeight="51.0" prefWidth="590.0" text="Haga clic sobre un empleado para visualizar sus ausencias. " textFill="#143629">
+                        <Label layoutX="28.0" layoutY="616.0" prefHeight="51.0" prefWidth="574.0" text="Haga clic sobre un empleado para visualizar sus ausencias. " textFill="#143629">
                            <font>
                               <Font name="Montserrat Regular" size="14.0" />
                            </font>
                         </Label>
-                        <Label layoutX="630.0" layoutY="616.0" prefHeight="51.0" prefWidth="522.0" text="Haga clic sobre la ausencia que desea modificar o eliminar." textFill="#143629">
+                        <Label layoutX="621.0" layoutY="616.0" prefHeight="51.0" prefWidth="553.0" text="Haga clic sobre la ausencia que desea modificar o eliminar." textFill="#143629">
                            <font>
                               <Font name="Montserrat Regular" size="14.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="cbBuscarEmpleadoLista" layoutX="252.0" layoutY="126.0" prefHeight="30.0" prefWidth="111.0" style="-fx-background-color: #dcecb4;">
+                        <ComboBox fx:id="cbBuscarEmpleadoLista" layoutX="252.0" layoutY="126.0" prefHeight="30.0" prefWidth="111.0" style="-fx-background-color: #dcecb4; -fx-font-size: 15;">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -210,7 +210,7 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <ImageView fitHeight="705.0" fitWidth="1397.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="705.0" fitWidth="1400.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../imagenes/fondo_verde.png" />
                            </image>
@@ -226,7 +226,7 @@
                         </Label>
                         <Button fx:id="btnGuardar" layoutX="943.0" layoutY="613.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#guardar" prefHeight="46.0" prefWidth="171.0" style="-fx-background-color: #2d572c; -fx-background-radius: 10;" text="Guardar" textFill="WHITE">
                            <font>
-                              <Font name="System Bold" size="18.0" />
+                              <Font name="Montserrat Bold" size="18.0" />
                            </font>
                            <cursor>
                               <Cursor fx:constant="HAND" />
@@ -239,7 +239,7 @@
                         </Label>
                         <Button fx:id="btnRegresarCLista" layoutX="246.0" layoutY="613.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#regresarCLista" prefHeight="46.0" prefWidth="166.0" style="-fx-background-color: #9bba81; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #dcecb4;" text="Regresar" textFill="#143629">
                            <font>
-                              <Font name="System Bold" size="18.0" />
+                              <Font name="Montserrat Bold" size="18.0" />
                            </font>
                            <cursor>
                               <Cursor fx:constant="HAND" />
@@ -255,7 +255,7 @@
                               <Font name="Montserrat Medium" size="21.0" />
                            </font>
                         </Label>
-                        <DatePicker fx:id="dpFechaCrear" editable="false" layoutX="1009.0" layoutY="234.0" prefHeight="42.0" prefWidth="167.0" style="-fx-font-size: 18;">
+                        <DatePicker fx:id="dpFechaCrear" editable="false" layoutX="1009.0" layoutY="234.0" prefHeight="40.0" prefWidth="167.0" style="-fx-font-size: 18;">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor></DatePicker>
@@ -308,15 +308,15 @@
                               <Font name="Montserrat Medium" size="21.0" />
                            </font>
                         </Label>
-                        <Label layoutX="788.0" layoutY="373.0" prefHeight="42.0" prefWidth="180.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" />
-                        <Label layoutX="791.0" layoutY="233.0" prefHeight="42.0" prefWidth="180.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" />
-                        <Label layoutX="788.0" layoutY="516.0" prefHeight="42.0" prefWidth="146.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" />
-                        <Label fx:id="labNombreEmpleadoCrear" layoutX="800.0" layoutY="235.0" prefHeight="42.0" prefWidth="171.0" style="-fx-background-radius: 10;" textFill="#143629">
+                        <Label layoutX="788.0" layoutY="373.0" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" />
+                        <Label layoutX="791.0" layoutY="233.0" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" />
+                        <Label layoutX="788.0" layoutY="516.0" prefHeight="40.0" prefWidth="146.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" />
+                        <Label fx:id="labNombreEmpleadoCrear" layoutX="800.0" layoutY="235.0" prefHeight="40.0" prefWidth="171.0" style="-fx-background-radius: 10;" textFill="#143629">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <Label fx:id="labApellidoEmpleadoCrear" layoutX="800.0" layoutY="373.0" prefHeight="42.0" prefWidth="171.0" style="-fx-background-radius: 10;" textFill="#143629">
+                        <Label fx:id="labApellidoEmpleadoCrear" layoutX="800.0" layoutY="373.0" prefHeight="40.0" prefWidth="171.0" style="-fx-background-radius: 10;" textFill="#143629">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -362,14 +362,14 @@
                               <Font name="Montserrat SemiBold" size="18.0" />
                            </font>
                         </Label>
-                        <Label fx:id="labErrorMotivoCrear" layoutX="1007.0" layoutY="457.0" prefHeight="20.0" prefWidth="300.0" textFill="#bc0f0f">
+                        <Label fx:id="labErrorMotivoCrear" layoutX="1007.0" layoutY="457.0" prefHeight="20.0" prefWidth="300.0" textFill="#7e1717">
                            <font>
                               <Font name="Montserrat Regular" size="14.0" />
                            </font>
                         </Label>
                         <Label layoutX="70.0" layoutY="545.0" prefHeight="43.0" prefWidth="684.0" text="Seleccione un empleado de la lista para poder registrar su ausencia. " textFill="#143629">
                            <font>
-                              <Font name="Montserrat Regular" size="15.0" />
+                              <Font name="Montserrat Regular" size="14.0" />
                            </font>
                         </Label>
                         <ComboBox fx:id="cbBuscarEmpleado" layoutX="412.0" layoutY="108.0" prefHeight="30.0" prefWidth="111.0" style="-fx-font-size: 15; -fx-background-color: #dcecb4;">
@@ -386,19 +386,19 @@
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <DatePicker fx:id="dpFechaModificarDuplicada" disable="true" editable="false" layoutX="8.0" layoutY="34.0" opacity="0.7" prefHeight="40.0" prefWidth="178.0" style="-fx-font-size: 18;" />
-                        <ImageView fitHeight="711.0" fitWidth="1417.0" layoutX="-3.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="705.0" fitWidth="1400.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../imagenes/fondo_verde.png" />
                            </image>
                         </ImageView>
-                        <Label fx:id="labSeleccionCertificado" layoutX="1138.0" layoutY="461.0" prefHeight="18.0" prefWidth="26.0" />
-                        <Label fx:id="labCertificadoModificar" layoutX="1172.0" layoutY="461.0" prefHeight="18.0" prefWidth="26.0" />
-                        <Label fx:id="labSeleccionJustificacion" layoutX="1172.0" layoutY="498.0" prefHeight="18.0" prefWidth="26.0" />
-                        <Label fx:id="labJustificacionModificar" layoutX="1172.0" layoutY="536.0" prefHeight="18.0" prefWidth="26.0" />
-                        <Label fx:id="labLimpiarCamposModificar" layoutX="448.0" layoutY="93.0" prefHeight="18.0" prefWidth="26.0" />
-                        <Label fx:id="labIDAusenciaModificar" layoutX="422.0" layoutY="92.0" prefHeight="18.0" prefWidth="26.0" />
-                        <Label fx:id="labIDEmpleadoModificar" layoutX="396.0" layoutY="92.0" prefHeight="18.0" prefWidth="26.0" />
-                        <Label layoutX="422.0" layoutY="71.0" prefHeight="56.0" prefWidth="486.0" text="Modificar Ausencia" textFill="#143629">
+                        <Label fx:id="labSeleccionCertificado" layoutX="1138.0" layoutY="461.0" prefHeight="18.0" prefWidth="26.0" textFill="#80a753" />
+                        <Label fx:id="labCertificadoModificar" layoutX="1172.0" layoutY="461.0" prefHeight="18.0" prefWidth="26.0" textFill="#80a753" />
+                        <Label fx:id="labSeleccionJustificacion" layoutX="1172.0" layoutY="498.0" prefHeight="18.0" prefWidth="26.0" textFill="#80a753" />
+                        <Label fx:id="labJustificacionModificar" layoutX="1172.0" layoutY="536.0" prefHeight="18.0" prefWidth="26.0" textFill="#80a753" />
+                        <Label fx:id="labLimpiarCamposModificar" layoutX="140.0" layoutY="118.0" prefHeight="22.0" prefWidth="26.0" textFill="#80a753" />
+                        <Label fx:id="labIDAusenciaModificar" layoutX="166.0" layoutY="132.0" prefHeight="18.0" prefWidth="30.0" textFill="#80a753" />
+                        <Label fx:id="labIDEmpleadoModificar" layoutX="268.0" layoutY="93.0" prefHeight="18.0" prefWidth="26.0" textFill="#80a753" />
+                        <Label layoutX="419.0" layoutY="72.0" prefHeight="56.0" prefWidth="486.0" text="Modificar Ausencia" textFill="#143629">
                            <font>
                               <Font name="Montserrat SemiBold" size="48.0" />
                            </font>
@@ -434,7 +434,7 @@
                               <Font name="Montserrat Medium" size="21.0" />
                            </font>
                         </Label>
-                        <DatePicker fx:id="dpFechaModificar" editable="false" layoutX="729.0" layoutY="189.0" prefHeight="45.0" prefWidth="167.0" style="-fx-font-size: 18;">
+                        <DatePicker fx:id="dpFechaModificar" editable="false" layoutX="729.0" layoutY="189.0" prefHeight="40.0" prefWidth="167.0" style="-fx-font-size: 18;">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor></DatePicker>
@@ -471,20 +471,20 @@
                               <Font name="Montserrat Medium" size="21.0" />
                            </font>
                         </Label>
-                        <Label layoutX="395.0" layoutY="287.0" prefHeight="42.0" prefWidth="210.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" />
-                        <Label fx:id="labApellidoEmpleadoModificar" layoutX="406.0" layoutY="287.0" prefHeight="42.0" prefWidth="200.0" textFill="#1200ff">
+                        <Label layoutX="395.0" layoutY="287.0" prefHeight="40.0" prefWidth="210.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" />
+                        <Label fx:id="labApellidoEmpleadoModificar" layoutX="406.0" layoutY="287.0" prefHeight="40.0" prefWidth="200.0" textFill="#143629">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="395.0" layoutY="189.0" prefHeight="42.0" prefWidth="210.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" />
-                        <Label fx:id="labNombreEmpleadoModificar" layoutX="405.0" layoutY="189.0" prefHeight="42.0" prefWidth="200.0" textFill="#1200ff">
+                        <Label layoutX="395.0" layoutY="189.0" prefHeight="40.0" prefWidth="210.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" />
+                        <Label fx:id="labNombreEmpleadoModificar" layoutX="405.0" layoutY="189.0" prefHeight="40.0" prefWidth="200.0" textFill="#143629">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="395.0" layoutY="383.0" prefHeight="42.0" prefWidth="146.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" />
-                        <Label fx:id="labLegajoEmpleadoModificar" layoutX="406.0" layoutY="383.0" prefHeight="42.0" prefWidth="126.0" textFill="#d101dc">
+                        <Label layoutX="395.0" layoutY="383.0" prefHeight="40.0" prefWidth="146.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" />
+                        <Label fx:id="labLegajoEmpleadoModificar" layoutX="406.0" layoutY="383.0" prefHeight="40.0" prefWidth="126.0" textFill="#143629">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -507,7 +507,7 @@
                               <Font name="Montserrat Medium" size="21.0" />
                            </font>
                         </Label>
-                        <Label fx:id="labErrorMotivoModificar" layoutX="729.0" layoutY="425.0" prefHeight="20.0" prefWidth="300.0" textFill="#bc0f0f">
+                        <Label fx:id="labErrorMotivoModificar" layoutX="729.0" layoutY="425.0" prefHeight="20.0" prefWidth="300.0" textFill="#7e1717">
                            <font>
                               <Font name="Montserrat Regular" size="14.0" />
                            </font>
@@ -520,7 +520,7 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <ImageView fitHeight="705.0" fitWidth="1474.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="705.0" fitWidth="1400.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../imagenes/fondo_verde.png" />
                            </image>
@@ -530,14 +530,14 @@
                               <Cursor fx:constant="DISAPPEAR" />
                            </cursor>
                         </Label>
-                        <Label fx:id="labIDAusenciaEliminar" layoutX="422.0" layoutY="93.0" prefHeight="18.0" prefWidth="26.0" />
-                        <Label fx:id="labIDEmpleadoEliminar" layoutX="396.0" layoutY="93.0" prefHeight="18.0" prefWidth="26.0" />
+                        <Label fx:id="labIDAusenciaEliminar" layoutX="254.0" layoutY="145.0" prefHeight="18.0" prefWidth="26.0" textFill="#80a753" />
+                        <Label fx:id="labIDEmpleadoEliminar" layoutX="256.0" layoutY="93.0" prefHeight="18.0" prefWidth="21.0" textFill="#80a753" />
                         <Label layoutX="422.0" layoutY="71.0" prefHeight="56.0" prefWidth="465.0" text="Eliminar Ausencia" textFill="#143629">
                            <font>
                               <Font name="Montserrat SemiBold" size="48.0" />
                            </font>
                         </Label>
-                        <Button fx:id="btnEliminar" layoutX="727.0" layoutY="581.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#eliminar" prefHeight="46.0" prefWidth="171.0" style="-fx-background-color: #2d572c; -fx-background-radius: 10;" text="Eliminar" textFill="WHITE">
+                        <Button fx:id="btnEliminar" layoutX="727.0" layoutY="581.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#eliminar" prefHeight="46.0" prefWidth="171.0" style="-fx-background-color: #7e1717; -fx-background-radius: 10;" text="Eliminar" textFill="WHITE">
                            <font>
                               <Font name="Montserrat Bold" size="18.0" />
                            </font>
@@ -568,7 +568,7 @@
                               <Font name="Montserrat Medium" size="21.0" />
                            </font>
                         </Label>
-                        <DatePicker fx:id="dpFechaEliminar" editable="false" layoutX="729.0" layoutY="189.0" opacity="0.88" prefHeight="45.0" prefWidth="167.0" style="-fx-font-size: 18;" />
+                        <DatePicker fx:id="dpFechaEliminar" editable="false" layoutX="729.0" layoutY="189.0" opacity="0.88" prefHeight="40.0" prefWidth="167.0" style="-fx-font-size: 18;" />
                         <TextArea fx:id="textMotivoEliminar" editable="false" layoutX="729.0" layoutY="287.0" opacity="0.9" prefHeight="138.0" prefWidth="190.0" wrapText="true">
                            <font>
                               <Font size="16.0" />
@@ -592,32 +592,32 @@
                               <Font name="Montserrat Medium" size="21.0" />
                            </font>
                         </Label>
-                        <Label layoutX="395.0" layoutY="287.0" opacity="0.9" prefHeight="42.0" prefWidth="210.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" />
-                        <Label fx:id="labApellidoEmpleadoEliminar" layoutX="405.0" layoutY="287.0" prefHeight="42.0" prefWidth="200.0" textFill="#143629">
+                        <Label layoutX="395.0" layoutY="287.0" opacity="0.9" prefHeight="40.0" prefWidth="210.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" />
+                        <Label fx:id="labApellidoEmpleadoEliminar" layoutX="405.0" layoutY="287.0" prefHeight="40.0" prefWidth="200.0" textFill="#143629">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="395.0" layoutY="189.0" opacity="0.9" prefHeight="42.0" prefWidth="210.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" />
-                        <Label fx:id="labNombreEmpleadoEliminar" layoutX="405.0" layoutY="189.0" prefHeight="42.0" prefWidth="200.0" textFill="#143629">
+                        <Label layoutX="395.0" layoutY="189.0" opacity="0.9" prefHeight="40.0" prefWidth="210.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" />
+                        <Label fx:id="labNombreEmpleadoEliminar" layoutX="405.0" layoutY="189.0" prefHeight="40.0" prefWidth="200.0" textFill="#143629">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="395.0" layoutY="383.0" opacity="0.9" prefHeight="42.0" prefWidth="146.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" />
-                        <Label fx:id="labLegajoEmpleadoEliminar" layoutX="406.0" layoutY="383.0" prefHeight="42.0" prefWidth="126.0" textFill="#143629">
+                        <Label layoutX="395.0" layoutY="383.0" opacity="0.9" prefHeight="40.0" prefWidth="146.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" />
+                        <Label fx:id="labLegajoEmpleadoEliminar" layoutX="406.0" layoutY="383.0" prefHeight="40.0" prefWidth="126.0" textFill="#143629">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
                         <Label layoutX="861.0" layoutY="442.0" opacity="0.9" prefHeight="40.0" prefWidth="48.0" style="-fx-background-color: #dcecb4;" />
-                        <Label fx:id="labJustificadoEliminar" layoutX="864.0" layoutY="442.0" opacity="0.9" prefHeight="40.0" prefWidth="43.0" textFill="#1200ff">
+                        <Label fx:id="labJustificadoEliminar" layoutX="864.0" layoutY="442.0" opacity="0.9" prefHeight="40.0" prefWidth="43.0" textFill="#143629">
                            <font>
                               <Font name="System Bold Italic" size="18.0" />
                            </font>
                         </Label>
                         <Label layoutX="861.0" layoutY="495.0" opacity="0.9" prefHeight="40.0" prefWidth="48.0" style="-fx-background-color: #dcecb4;" />
-                        <Label fx:id="labCertificadoEliminar" layoutX="867.0" layoutY="495.0" opacity="0.9" prefHeight="40.0" prefWidth="43.0" textFill="#1200ff">
+                        <Label fx:id="labCertificadoEliminar" layoutX="867.0" layoutY="495.0" opacity="0.9" prefHeight="40.0" prefWidth="43.0" textFill="#143629">
                            <font>
                               <Font name="System Bold Italic" size="18.0" />
                            </font>
@@ -635,13 +635,13 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <ImageView fitHeight="705.0" fitWidth="1519.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="705.0" fitWidth="1400.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../imagenes/fondo_verde.png" />
                            </image>
                         </ImageView>
-                        <Label fx:id="labIDEmpleadoAsistenciaCE" layoutX="396.0" layoutY="93.0" prefHeight="18.0" prefWidth="26.0" />
-                        <Label layoutX="435.0" layoutY="23.0" prefHeight="60.0" prefWidth="573.0" text="Consulta de Asistencia" textFill="#143629">
+                        <Label fx:id="labIDEmpleadoAsistenciaCE" layoutX="396.0" layoutY="93.0" prefHeight="18.0" prefWidth="26.0" textFill="#80a753" />
+                        <Label layoutX="435.0" layoutY="26.0" prefHeight="60.0" prefWidth="573.0" text="Consulta de Asistencia" textFill="#143629">
                            <font>
                               <Font name="Montserrat SemiBold" size="48.0" />
                            </font>
@@ -654,7 +654,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Label layoutX="434.0" layoutY="74.0" prefHeight="38.0" prefWidth="574.0" text="Visualización de la asistencia de los empleados en el día" textFill="#143629">
+                        <Label layoutX="434.0" layoutY="87.0" prefHeight="38.0" prefWidth="574.0" text="Visualización de la asistencia de los empleados en el día" textFill="#143629">
                            <font>
                               <Font name="Montserrat Medium" size="20.0" />
                            </font>
@@ -673,7 +673,7 @@
                               <TableColumn fx:id="colApellidoEntrada" prefWidth="164.0" style="-fx-font-size: 15;" text="Apellido" />
                               <TableColumn fx:id="colLegajoEntrada" prefWidth="82.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Legajo" />
                               <TableColumn fx:id="colFechaEntrada" prefWidth="99.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Fecha" />
-                              <TableColumn fx:id="colHoraEntrada" prefWidth="121.0" style="-fx-font-size: 15;" text="Hora de Entrada" />
+                              <TableColumn fx:id="colHoraEntrada" prefWidth="121.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Hora de Entrada" />
                               <TableColumn fx:id="colIDEmpleadoEntrada" prefWidth="158.0" style="-fx-font-size: 14;" text="IDEmpleado" />
                            </columns>
                            <cursor>
@@ -695,7 +695,7 @@
                               <TableColumn fx:id="colLegajoAsistenciaCE" prefWidth="72.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Legajo" />
                               <TableColumn fx:id="colTurnoAsistenciaCE" prefWidth="77.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Turno" />
                               <TableColumn fx:id="colFechaAsistenciaCE" prefWidth="87.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Fecha" />
-                              <TableColumn fx:id="colHoraEntradaAsistenciaCE" prefWidth="123.0" style="-fx-font-size: 15;" text="Hora de Entrada" />
+                              <TableColumn fx:id="colHoraEntradaAsistenciaCE" prefWidth="123.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Hora de Entrada" />
                               <TableColumn fx:id="colHoraSalidaAsistenciaCE" prefWidth="225.0" style="-fx-font-size: 15;" text="Hora de Salida" />
                               <TableColumn fx:id="colIDCronogramaAsistenciaCE" prefWidth="107.2000732421875" style="-fx-font-size: 14;" text="IDCronograma" />
                               <TableColumn fx:id="colIDEmpleadoCronogramaA" prefWidth="107.2000732421875" style="-fx-font-size: 14;" text="IDEmpleado" />
@@ -822,7 +822,7 @@
                               <Image url="@../imagenes/fondo_verde.png" />
                            </image>
                         </ImageView>
-                        <Label fx:id="labIDEmpleadoAsistenciaCS" layoutX="396.0" layoutY="93.0" prefHeight="18.0" prefWidth="26.0" />
+                        <Label fx:id="labIDEmpleadoAsistenciaCS" layoutX="387.0" layoutY="93.0" prefHeight="18.0" prefWidth="26.0" textFill="#80a753" />
                         <Label layoutX="295.0" layoutY="26.0" prefHeight="56.0" prefWidth="852.0" text="Verificación del Registro de Salida" textFill="#143629">
                            <font>
                               <Font name="Montserrat SemiBold" size="48.0" />
@@ -906,7 +906,7 @@
                               <Font name="Bookman Old Style" size="24.0" />
                            </font>
                         </Label>
-                        <Label fx:id="labCantidadCronogramaS" alignment="CENTER" layoutX="606.0" layoutY="188.0" prefHeight="31.0" prefWidth="49.0" style="-fx-background-color: #dcecb4;" textFill="#330ba1">
+                        <Label fx:id="labCantidadCronogramaS" alignment="CENTER" layoutX="606.0" layoutY="188.0" prefHeight="31.0" prefWidth="49.0" style="-fx-background-color: #dcecb4;" textFill="#143629">
                            <font>
                               <Font name="Ebrima" size="20.0" />
                            </font>
@@ -939,7 +939,7 @@
                               <Font name="Bookman Old Style" size="24.0" />
                            </font>
                         </Label>
-                        <Label fx:id="labCantidadS" alignment="CENTER" layoutX="1289.0" layoutY="188.0" prefHeight="31.0" prefWidth="49.0" style="-fx-background-color: #dcecb4;" textFill="#330ba1">
+                        <Label fx:id="labCantidadS" alignment="CENTER" layoutX="1289.0" layoutY="188.0" prefHeight="31.0" prefWidth="49.0" style="-fx-background-color: #dcecb4;" textFill="#143629">
                            <font>
                               <Font name="Ebrima" size="20.0" />
                            </font>
@@ -988,8 +988,8 @@
                               <Image url="@../imagenes/fondo_verde.png" />
                            </image>
                         </ImageView>
-                        <Label fx:id="labExisteEntrada" layoutX="503.0" layoutY="89.0" prefHeight="18.0" prefWidth="26.0" />
-                        <Label fx:id="labIDEmpleadoEntradaA" layoutX="479.0" layoutY="89.0" prefHeight="18.0" prefWidth="26.0" />
+                        <Label fx:id="labExisteEntrada" layoutX="324.0" layoutY="79.0" prefHeight="28.0" prefWidth="26.0" textFill="#80a753" />
+                        <Label fx:id="labIDEmpleadoEntradaA" layoutX="359.0" layoutY="78.0" prefHeight="29.0" prefWidth="26.0" textFill="#80a753" />
                         <Label layoutX="443.0" layoutY="69.0" prefHeight="60.0" prefWidth="454.0" text="Registrar Entrada" textFill="#143629">
                            <font>
                               <Font name="Montserrat SemiBold" size="48.0" />
@@ -1003,11 +1003,6 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Label layoutY="731.0" prefHeight="29.0" prefWidth="1536.0" text="_________________________________________________________________________________________________________________________________________________________________________________________" textFill="#080808">
-                           <font>
-                              <Font name="System Bold" size="20.0" />
-                           </font>
-                        </Label>
                         <Button fx:id="btnMarcarEntrada" layoutX="735.0" layoutY="561.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#marcarEntrada" prefHeight="46.0" prefWidth="173.0" style="-fx-background-color: #2d572c; -fx-background-radius: 10;" text="Marcar Entrada" textFill="WHITE">
                            <font>
                               <Font name="Montserrat Bold" size="18.0" />
@@ -1031,25 +1026,25 @@
                               <Font name="Montserrat Medium" size="21.0" />
                            </font>
                         </Label>
-                        <Label layoutX="432.0" layoutY="339.0" prefHeight="42.0" prefWidth="210.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" />
-                        <Label fx:id="labApellidoEmpleadoEntrada" layoutX="442.0" layoutY="339.0" prefHeight="42.0" prefWidth="200.0" style="-fx-background-radius: 10;" textFill="#143629">
+                        <Label layoutX="432.0" layoutY="339.0" prefHeight="40.0" prefWidth="210.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" />
+                        <Label fx:id="labApellidoEmpleadoEntrada" layoutX="442.0" layoutY="339.0" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 10;" textFill="#143629">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="433.0" layoutY="219.0" prefHeight="42.0" prefWidth="210.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" />
-                        <Label fx:id="labNombreEmpleadoEntrada" layoutX="443.0" layoutY="219.0" prefHeight="42.0" prefWidth="200.0" style="-fx-background-radius: 10;" textFill="#143629">
+                        <Label layoutX="433.0" layoutY="219.0" prefHeight="40.0" prefWidth="210.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" />
+                        <Label fx:id="labNombreEmpleadoEntrada" layoutX="443.0" layoutY="219.0" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 10;" textFill="#143629">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="432.0" layoutY="461.0" prefHeight="42.0" prefWidth="146.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" />
-                        <Label fx:id="labLegajoEmpleadoEntrada" layoutX="442.0" layoutY="461.0" prefHeight="42.0" prefWidth="130.0" style="-fx-background-radius: 10;" textFill="#143629">
+                        <Label layoutX="432.0" layoutY="461.0" prefHeight="40.0" prefWidth="146.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" />
+                        <Label fx:id="labLegajoEmpleadoEntrada" layoutX="442.0" layoutY="461.0" prefHeight="40.0" prefWidth="130.0" style="-fx-background-radius: 10;" textFill="#143629">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="textHoraEntrada" layoutX="765.0" layoutY="461.0" prefHeight="42.0" prefWidth="83.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;">
+                        <TextField fx:id="textHoraEntrada" layoutX="765.0" layoutY="461.0" prefHeight="40.0" prefWidth="83.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -1059,9 +1054,9 @@
                               <Font name="Montserrat Medium" size="21.0" />
                            </font>
                         </Label>
-                        <Label fx:id="labErrorHoraEntrada" layoutX="991.0" layoutY="451.0" prefHeight="40.0" prefWidth="43.0" textFill="#bc0f0f">
+                        <Label fx:id="labErrorHoraEntrada" layoutX="848.0" layoutY="458.0" prefHeight="32.0" prefWidth="62.0" textFill="#bc0f0f">
                            <font>
-                              <Font name="Consolas" size="48.0" />
+                              <Font name="Consolas" size="40.0" />
                            </font>
                         </Label>
                         <Label layoutX="765.0" layoutY="183.0" prefHeight="30.0" prefWidth="88.0" text="Fecha:" textFill="#143629">
@@ -1074,19 +1069,19 @@
                               <Font name="Montserrat Medium" size="21.0" />
                            </font>
                         </Label>
-                        <Label layoutX="765.0" layoutY="339.0" prefHeight="42.0" prefWidth="113.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" />
-                        <Label fx:id="labTurnoEntrada" layoutX="774.0" layoutY="339.0" prefHeight="42.0" prefWidth="105.0" textFill="#1200ff">
+                        <Label layoutX="765.0" layoutY="339.0" prefHeight="40.0" prefWidth="113.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" />
+                        <Label fx:id="labTurnoEntrada" layoutX="774.0" layoutY="339.0" prefHeight="40.0" prefWidth="105.0" textFill="#143629">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="765.0" layoutY="219.0" prefHeight="42.0" prefWidth="141.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" />
-                        <Label fx:id="labFechaEntrada" layoutX="774.0" layoutY="219.0" prefHeight="42.0" prefWidth="105.0" textFill="#1200ff">
+                        <Label layoutX="765.0" layoutY="219.0" prefHeight="40.0" prefWidth="141.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" />
+                        <Label fx:id="labFechaEntrada" layoutX="774.0" layoutY="219.0" prefHeight="40.0" prefWidth="105.0" textFill="#143629">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <Label fx:id="labErrorHoraEntrada2" layoutX="765.0" layoutY="507.0" prefHeight="22.0" prefWidth="260.0" textFill="#bc0f0f">
+                        <Label fx:id="labErrorHoraEntrada2" layoutX="765.0" layoutY="507.0" prefHeight="22.0" prefWidth="260.0" textFill="#7e1717">
                            <font>
                               <Font name="Montserrat Regular" size="14.0" />
                            </font>
@@ -1104,8 +1099,8 @@
                               <Image url="@../imagenes/fondo_verde.png" />
                            </image>
                         </ImageView>
-                        <Label fx:id="labExisteSalida" layoutX="503.0" layoutY="89.0" prefHeight="18.0" prefWidth="26.0" />
-                        <Label fx:id="labIDEmpleadoSalidaS" layoutX="479.0" layoutY="89.0" prefHeight="18.0" prefWidth="26.0" />
+                        <Label fx:id="labExisteSalida" layoutX="23.0" layoutY="89.0" prefHeight="18.0" prefWidth="26.0" textFill="#80a753" />
+                        <Label fx:id="labIDEmpleadoSalidaS" layoutX="100.0" layoutY="89.0" prefHeight="18.0" prefWidth="26.0" textFill="#80a753" />
                         <Label layoutX="443.0" layoutY="69.0" prefHeight="56.0" prefWidth="404.0" text="Registrar Salida" textFill="#143629">
                            <font>
                               <Font name="Montserrat SemiBold" size="48.0" />
@@ -1119,11 +1114,6 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Label layoutY="731.0" prefHeight="29.0" prefWidth="1536.0" text="_________________________________________________________________________________________________________________________________________________________________________________________" textFill="#080808">
-                           <font>
-                              <Font name="System Bold" size="20.0" />
-                           </font>
-                        </Label>
                         <Button fx:id="btnMarcarSalida" layoutX="735.0" layoutY="561.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#marcarSalida" prefHeight="46.0" prefWidth="166.0" style="-fx-background-color: #2d572c; -fx-background-radius: 10;" text="Marcar Salida" textFill="WHITE">
                            <font>
                               <Font name="Montserrat Bold" size="18.0" />
@@ -1147,25 +1137,25 @@
                               <Font name="Montserrat Medium" size="21.0" />
                            </font>
                         </Label>
-                        <Label layoutX="432.0" layoutY="339.0" prefHeight="42.0" prefWidth="210.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" />
-                        <Label fx:id="labApellidoEmpleadoSalida" layoutX="442.0" layoutY="338.0" prefHeight="42.0" prefWidth="200.0" style="-fx-background-radius: 10;" textFill="#143629">
+                        <Label layoutX="432.0" layoutY="339.0" prefHeight="40.0" prefWidth="210.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" />
+                        <Label fx:id="labApellidoEmpleadoSalida" layoutX="442.0" layoutY="338.0" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 10;" textFill="#143629">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="433.0" layoutY="219.0" prefHeight="42.0" prefWidth="210.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" />
-                        <Label fx:id="labNombreEmpleadoSalida" layoutX="445.0" layoutY="219.0" prefHeight="42.0" prefWidth="200.0" style="-fx-background-radius: 10;" textFill="#143629">
+                        <Label layoutX="433.0" layoutY="219.0" prefHeight="40.0" prefWidth="210.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" />
+                        <Label fx:id="labNombreEmpleadoSalida" layoutX="445.0" layoutY="219.0" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 10;" textFill="#143629">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="432.0" layoutY="461.0" prefHeight="42.0" prefWidth="146.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" />
-                        <Label fx:id="labLegajoEmpleadoSalida" layoutX="442.0" layoutY="461.0" prefHeight="42.0" prefWidth="130.0" style="-fx-background-radius: 10;" textFill="#143629">
+                        <Label layoutX="432.0" layoutY="461.0" prefHeight="40.0" prefWidth="146.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" />
+                        <Label fx:id="labLegajoEmpleadoSalida" layoutX="442.0" layoutY="461.0" prefHeight="40.0" prefWidth="130.0" style="-fx-background-radius: 10;" textFill="#143629">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="textHoraSalida" layoutX="765.0" layoutY="461.0" prefHeight="42.0" prefWidth="83.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;">
+                        <TextField fx:id="textHoraSalida" layoutX="765.0" layoutY="461.0" prefHeight="40.0" prefWidth="83.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -1175,9 +1165,9 @@
                               <Font name="Montserrat Medium" size="21.0" />
                            </font>
                         </Label>
-                        <Label fx:id="labErrorHoraSalida" layoutX="991.0" layoutY="451.0" prefHeight="40.0" prefWidth="43.0" textFill="#bc0f0f">
+                        <Label fx:id="labErrorHoraSalida" layoutX="847.0" layoutY="458.0" prefHeight="37.0" prefWidth="43.0" textFill="#bc0f0f">
                            <font>
-                              <Font name="Consolas" size="48.0" />
+                              <Font name="Consolas" size="40.0" />
                            </font>
                         </Label>
                         <Label layoutX="765.0" layoutY="183.0" prefHeight="30.0" prefWidth="90.0" text="Fecha:" textFill="#143629">
@@ -1190,19 +1180,19 @@
                               <Font name="Montserrat Medium" size="21.0" />
                            </font>
                         </Label>
-                        <Label layoutX="765.0" layoutY="339.0" prefHeight="42.0" prefWidth="113.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" />
-                        <Label fx:id="labTurnoSalida" layoutX="774.0" layoutY="339.0" prefHeight="42.0" prefWidth="105.0" style="-fx-background-radius: 10;" textFill="#1200ff">
+                        <Label layoutX="765.0" layoutY="339.0" prefHeight="40.0" prefWidth="113.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" />
+                        <Label fx:id="labTurnoSalida" layoutX="774.0" layoutY="339.0" prefHeight="40.0" prefWidth="105.0" style="-fx-background-radius: 10;" textFill="#143629">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="765.0" layoutY="219.0" prefHeight="42.0" prefWidth="141.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" />
-                        <Label fx:id="labFechaSalida" layoutX="774.0" layoutY="219.0" prefHeight="42.0" prefWidth="105.0" textFill="#1200ff">
+                        <Label layoutX="765.0" layoutY="219.0" prefHeight="40.0" prefWidth="141.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" />
+                        <Label fx:id="labFechaSalida" layoutX="774.0" layoutY="219.0" prefHeight="40.0" prefWidth="105.0" textFill="#143629">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <Label fx:id="labErrorHoraSalida2" layoutX="765.0" layoutY="508.0" prefHeight="22.0" prefWidth="260.0" textFill="#bc0f0f">
+                        <Label fx:id="labErrorHoraSalida2" layoutX="765.0" layoutY="508.0" prefHeight="22.0" prefWidth="260.0" textFill="#7e1717">
                            <font>
                               <Font name="Montserrat Regular" size="14.0" />
                            </font>

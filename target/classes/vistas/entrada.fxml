@@ -19,7 +19,7 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="650.0" prefWidth="1000.0">
                      <children>
-                        <ImageView fitHeight="705.0" fitWidth="1403.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="705.0" fitWidth="1403.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../imagenes/fondo_verde.png" />
                            </image>
@@ -77,7 +77,7 @@
                            </image>
                         </ImageView>
                         <Label layoutX="309.0" layoutY="55.0" prefHeight="563.0" prefWidth="748.0" style="-fx-border-color: #143629; -fx-border-radius: 10;" />
-                        <Label fx:id="labInformacion" layoutX="326.0" layoutY="120.0" prefHeight="26.0" prefWidth="30.0" textFill="#ff9090">
+                        <Label fx:id="labInformacion" layoutX="326.0" layoutY="120.0" prefHeight="26.0" prefWidth="30.0" textFill="#80a753">
                            <font>
                               <Font name="Consolas" size="16.0" />
                            </font>
@@ -112,9 +112,9 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Label fx:id="labErrorLegajo" layoutX="586.0" layoutY="296.0" prefHeight="26.0" prefWidth="215.0" textFill="#bc0f0f">
+                        <Label fx:id="labErrorLegajo" layoutX="586.0" layoutY="296.0" prefHeight="26.0" prefWidth="215.0" textFill="#7e1717">
                            <font>
-                              <Font name="Montserrat Regular" size="16.0" />
+                              <Font name="Montserrat Regular" size="14.0" />
                            </font>
                         </Label>
                         <Button fx:id="btnAceptar" layoutX="852.0" layoutY="493.0" mnemonicParsing="false" onAction="#aceptar" prefHeight="50.0" prefWidth="170.0" style="-fx-background-radius: 10; -fx-background-color: #143629;" text="Aceptar" textFill="WHITE">
@@ -143,9 +143,9 @@
                               <Font name="Montserrat Medium" size="21.0" />
                            </font>
                         </Label>
-                        <Label fx:id="labErrorDNI" layoutX="586.0" layoutY="397.0" prefHeight="26.0" prefWidth="215.0" textFill="#bc0f0f">
+                        <Label fx:id="labErrorDNI" layoutX="586.0" layoutY="397.0" prefHeight="26.0" prefWidth="215.0" textFill="#7e1717">
                            <font>
-                              <Font name="Consolas" size="16.0" />
+                              <Font name="Montserrat Regular" size="14.0" />
                            </font>
                         </Label>
                      </children>

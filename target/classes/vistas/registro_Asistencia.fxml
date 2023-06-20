@@ -9,7 +9,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="705.0" prefWidth="1366.0" style="-fx-background-color: #7dc8cc;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.secadero.controlador.controladorAsistencia.ControladorMenu">
    <children>
-      <ImageView fitHeight="727.0" fitWidth="1366.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="705.0" fitWidth="1366.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../imagenes/fondo_verde.png" />
          </image>
@@ -29,14 +29,14 @@
             <Font name="Montserrat ExtraBold" size="48.0" />
          </font>
       </Button>
-      <Label fx:id="labFechaActual" alignment="CENTER" layoutX="418.0" layoutY="172.0" prefHeight="38.0" prefWidth="164.0" textFill="#080808">
+      <Label fx:id="labFechaActual" alignment="CENTER" layoutX="584.0" layoutY="237.0" prefHeight="38.0" prefWidth="164.0" textFill="#143629">
          <font>
-            <Font name="System Bold Italic" size="26.0" />
+            <Font name="Montserrat Bold" size="26.0" />
          </font>
       </Label>
-      <Label fx:id="labHoraActual" alignment="CENTER" layoutX="891.0" layoutY="594.0" prefHeight="35.0" prefWidth="84.0" textFill="#080808">
+      <Label fx:id="labHoraActual" alignment="CENTER" layoutX="1257.0" layoutY="650.0" prefHeight="35.0" prefWidth="84.0" textFill="#143629">
          <font>
-            <Font name="System Bold Italic" size="24.0" />
+            <Font name="Montserrat Bold" size="26.0" />
          </font>
       </Label>
    </children>

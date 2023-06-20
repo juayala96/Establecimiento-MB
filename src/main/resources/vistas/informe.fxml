@@ -15,7 +15,7 @@
 
 <AnchorPane prefHeight="705.0" prefWidth="1366.0" style="-fx-background-color: #7dc8cc;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.secadero.controlador.ControladorInformes">
    <children>
-      <ImageView fitHeight="724.0" fitWidth="1366.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="705.0" fitWidth="1366.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../imagenes/fondo_verde.png" />
          </image>
@@ -25,8 +25,8 @@
             <Font name="Montserrat SemiBold" size="58.0" />
          </font>
       </Label>
-      <DatePicker fx:id="dpFechaDesde" editable="false" layoutX="1042.0" layoutY="232.0" prefHeight="45.0" prefWidth="167.0" style="-fx-font-size: 18;" />
-      <DatePicker fx:id="dpFechaHasta" editable="false" layoutX="1042.0" layoutY="372.0" prefHeight="45.0" prefWidth="167.0" style="-fx-font-size: 18;" />
+      <DatePicker fx:id="dpFechaDesde" editable="false" layoutX="1042.0" layoutY="232.0" prefHeight="40.0" prefWidth="167.0" style="-fx-font-size: 18;" />
+      <DatePicker fx:id="dpFechaHasta" editable="false" layoutX="1042.0" layoutY="372.0" prefHeight="40.0" prefWidth="167.0" style="-fx-font-size: 18;" />
       <Label layoutX="1042.0" layoutY="201.0" prefHeight="36.0" prefWidth="142.0" text="Fecha Inicio:" textFill="#143629">
          <font>
             <Font name="Montserrat Medium" size="21.0" />
@@ -73,20 +73,20 @@
             <Font name="Montserrat Medium" size="21.0" />
          </font>
       </Label>
-      <Label layoutX="814.0" layoutY="232.0" prefHeight="42.0" prefWidth="180.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" />
-      <Label layoutX="811.0" layoutY="372.0" prefHeight="42.0" prefWidth="180.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" />
-      <Label layoutX="811.0" layoutY="515.0" prefHeight="42.0" prefWidth="180.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" />
-      <Label fx:id="labLegajoEmpleado" layoutX="823.0" layoutY="515.0" prefHeight="42.0" prefWidth="167.0" style="-fx-background-radius: 10;" textAlignment="CENTER" textFill="#143629">
+      <Label layoutX="814.0" layoutY="232.0" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" />
+      <Label layoutX="811.0" layoutY="372.0" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" />
+      <Label layoutX="811.0" layoutY="515.0" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" />
+      <Label fx:id="labLegajoEmpleado" layoutX="823.0" layoutY="515.0" prefHeight="40.0" prefWidth="167.0" style="-fx-background-radius: 10;" textAlignment="CENTER" textFill="#143629">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>
       </Label>
-      <Label fx:id="labNombreEmpleado" layoutX="823.0" layoutY="234.0" prefHeight="42.0" prefWidth="167.0" style="-fx-background-radius: 10;" textFill="#143629">
+      <Label fx:id="labNombreEmpleado" layoutX="823.0" layoutY="234.0" prefHeight="40.0" prefWidth="167.0" style="-fx-background-radius: 10;" textFill="#143629">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>
       </Label>
-      <Label fx:id="labApellidoEmpleado" layoutX="823.0" layoutY="372.0" prefHeight="42.0" prefWidth="167.0" style="-fx-background-radius: 10;" textFill="#143629">
+      <Label fx:id="labApellidoEmpleado" layoutX="823.0" layoutY="372.0" prefHeight="40.0" prefWidth="167.0" style="-fx-background-radius: 10;" textFill="#143629">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>
