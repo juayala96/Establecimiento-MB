@@ -28,9 +28,9 @@
                               <Image url="@../imagenes/fondo_verde.png" />
                            </image>
                         </ImageView>
-                        <Label fx:id="labResultadoID" layoutX="1108.0" layoutY="73.0" prefHeight="18.0" prefWidth="26.0" />
-                        <Label fx:id="labIDLicenciaLista" layoutX="1129.0" layoutY="73.0" prefHeight="18.0" prefWidth="26.0" />
-                        <Label fx:id="labIDEmpleadoLista" layoutX="1156.0" layoutY="73.0" prefHeight="18.0" prefWidth="26.0" />
+                        <Label fx:id="labResultadoID" layoutX="1108.0" layoutY="73.0" prefHeight="18.0" prefWidth="26.0" textFill="#80a753" />
+                        <Label fx:id="labIDLicenciaLista" layoutX="1129.0" layoutY="73.0" prefHeight="18.0" prefWidth="26.0" textFill="#80a753" />
+                        <Label fx:id="labIDEmpleadoLista" layoutX="1156.0" layoutY="73.0" prefHeight="18.0" prefWidth="26.0" textFill="#80a753" />
                         <DatePicker fx:id="dpBuscarFechaInicio" editable="false" layoutX="824.0" layoutY="163.0" prefHeight="46.0" prefWidth="167.0" style="-fx-font-size: 18;">
                            <cursor>
                               <Cursor fx:constant="HAND" />

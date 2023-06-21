@@ -18,7 +18,7 @@ public class Secadero extends Application {
         AnchorPane root = loader.load();
         Scene escena = new Scene(root);
         primaryStage.setScene(escena);
-        primaryStage.setTitle("Gestión Secadero");
+        primaryStage.setTitle("Sistema de Gestión y Organización de Empleados");
         primaryStage.getIcons().add(new javafx.scene.image.Image(Objects.requireNonNull(getClass().getResource("/imagenes/icono.png")).toString()));
         primaryStage.show();
     }

@@ -1795,7 +1795,7 @@ public class ControladorAusencias {
         AnchorPane root = loader.load();
         Scene escena = new Scene(root);
         Stage escenario = new Stage();
-        escenario.setTitle("Gestión Secadero (Empleados)");
+        escenario.setTitle("Empleados");
         escenario.setScene(escena);
         escenario.getIcons().add(new javafx.scene.image.Image(Objects.requireNonNull(getClass().getResource("/imagenes/icono.png")).toString()));
         escenario.show();

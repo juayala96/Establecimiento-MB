@@ -543,7 +543,7 @@ public class ControladorEmpleados {
         ControladorAusencias ausencias = loader.getController();
         Scene escena = new Scene(root);
         Stage escenario = new Stage();
-        escenario.setTitle("Gestión Secadero (Ausencias)");
+        escenario.setTitle("Ausencias");
         escenario.setScene(escena);
         escenario.getIcons().add(new javafx.scene.image.Image(Objects.requireNonNull(getClass().getResource("/imagenes/icono.png")).toString()));
         escenario.show();
@@ -567,7 +567,7 @@ public class ControladorEmpleados {
         ControladorLicencias licencias = loader.getController();
         Scene escena = new Scene(root);
         Stage escenario = new Stage();
-        escenario.setTitle("Gestión Secadero (Licencias)");
+        escenario.setTitle("Licencias");
         escenario.setScene(escena);
         escenario.getIcons().add(new javafx.scene.image.Image(Objects.requireNonNull(getClass().getResource("/imagenes/icono.png")).toString()));
         escenario.show();
@@ -1079,7 +1079,7 @@ public class ControladorEmpleados {
         AnchorPane root = loader.load();
         Scene escena = new Scene(root);
         Stage escenario = new Stage();
-        escenario.setTitle("Gestión Secadero");
+        escenario.setTitle("Sistema de Gestión y Organización de Empleados");
         escenario.setScene(escena);
         escenario.getIcons().add(new javafx.scene.image.Image(Objects.requireNonNull(getClass().getResource("/imagenes/icono.png")).toString()));
         escenario.show();

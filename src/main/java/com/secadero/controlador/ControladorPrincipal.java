@@ -37,7 +37,7 @@ public class ControladorPrincipal {
         ControladorUsuarios usuario = loader.getController();
         Scene escena = new Scene(root);
         Stage escenario = new Stage();
-        escenario.setTitle("Gestión Secadero (Usuarios)");
+        escenario.setTitle("Usuarios");
         escenario.setScene(escena);
         escenario.getIcons().add(new javafx.scene.image.Image(Objects.requireNonNull(getClass().getResource("/imagenes/icono.png")).toString()));
         escenario.show();
@@ -61,7 +61,7 @@ public class ControladorPrincipal {
         ControladorEmpleados empleado = loader.getController();
         Scene escena = new Scene(root);
         Stage escenario = new Stage();
-        escenario.setTitle("Gestión Secadero (Empleados)");
+        escenario.setTitle("Empleados");
         escenario.setScene(escena);
         escenario.getIcons().add(new javafx.scene.image.Image(Objects.requireNonNull(getClass().getResource("/imagenes/icono.png")).toString()));
         escenario.show();
@@ -85,7 +85,7 @@ public class ControladorPrincipal {
         ControladorCronograma cronograma = loader.getController();
         Scene escena = new Scene(root);
         Stage escenario = new Stage();
-        escenario.setTitle("Gestión Secadero (Cronograma)");
+        escenario.setTitle("Cronograma");
         escenario.setScene(escena);
         escenario.getIcons().add(new javafx.scene.image.Image(Objects.requireNonNull(getClass().getResource("/imagenes/icono.png")).toString()));
         escenario.show();
@@ -109,7 +109,7 @@ public class ControladorPrincipal {
         ControladorInformes informe = loader.getController();
         Scene escena = new Scene(root);
         Stage escenario = new Stage();
-        escenario.setTitle("Gestión Secadero (Informe)");
+        escenario.setTitle("Informe");
         escenario.setScene(escena);
         escenario.getIcons().add(new javafx.scene.image.Image(Objects.requireNonNull(getClass().getResource("/imagenes/icono.png")).toString()));
         escenario.show();
@@ -133,7 +133,7 @@ public class ControladorPrincipal {
         ControladorPreRecibo preRecibo = loader.getController();
         Scene escena = new Scene(root);
         Stage escenario = new Stage();
-        escenario.setTitle("Gestión Secadero (Pre-Recibo)");
+        escenario.setTitle("Pre-Recibo");
         escenario.setScene(escena);
         escenario.getIcons().add(new javafx.scene.image.Image(Objects.requireNonNull(getClass().getResource("/imagenes/icono.png")).toString()));
         escenario.show();
@@ -167,7 +167,7 @@ public class ControladorPrincipal {
         AnchorPane root = loader.load();
         Scene escena = new Scene(root);
         Stage escenario = new Stage();
-        escenario.setTitle("Gestión Secadero");
+        escenario.setTitle("Sistema de Gestión y Organización de Empleados");
         escenario.setScene(escena);
         escenario.getIcons().add(new javafx.scene.image.Image(Objects.requireNonNull(getClass().getResource("/imagenes/icono.png")).toString()));
         escenario.show();

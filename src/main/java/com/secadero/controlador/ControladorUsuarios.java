@@ -578,7 +578,7 @@ public class ControladorUsuarios {
         AnchorPane root = loader.load();
         Scene escena = new Scene(root);
         Stage escenario = new Stage();
-        escenario.setTitle("Gestión Secadero");
+        escenario.setTitle("Sistema de Gestión y Organización de Empleados");
         escenario.setScene(escena);
         escenario.getIcons().add(new javafx.scene.image.Image(Objects.requireNonNull(getClass().getResource("/imagenes/icono.png")).toString()));
         escenario.show();

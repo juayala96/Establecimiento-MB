@@ -42,7 +42,7 @@ public class ControladorLogin {
                 ControladorPrincipal principal = loader.getController();
                 Scene escena = new Scene(root);
                 Stage escenario = new Stage();
-                escenario.setTitle("Gestión Secadero");
+                escenario.setTitle("Sistema de Gestión y Organización de Empleados");
                 escenario.setScene(escena);
                 escenario.getIcons().add(new javafx.scene.image.Image(Objects.requireNonNull(getClass().getResource("/imagenes/icono.png")).toString()));
                 escenario.show();
