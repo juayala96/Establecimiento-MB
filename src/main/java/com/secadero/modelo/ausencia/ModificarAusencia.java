@@ -2,6 +2,8 @@ package com.secadero.modelo.ausencia;
 
 import com.secadero.conexion.Conexion;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -63,8 +65,11 @@ public class ModificarAusencia {
 
                 labLimpiarCamposModificar.setText("OK");
                 Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-                alerta.setTitle("Datos Modificados");
+                alerta.setTitle("");
                 alerta.setContentText("Se a Guardado los Datos Correctamente.");
+                Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+                Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+                stage.getIcons().add(icon);
                 alerta.showAndWait();
 
             } catch (SQLException ex) {
@@ -88,6 +93,9 @@ public class ModificarAusencia {
             Alert alerta = new Alert(Alert.AlertType.ERROR);
             alerta.setTitle("Error de Fecha!");
             alerta.setContentText("No esta permitido crear 2 ausencias del mismo empleado de la misma fecha");
+            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+            Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(icon);
             alerta.showAndWait();
         }
     }

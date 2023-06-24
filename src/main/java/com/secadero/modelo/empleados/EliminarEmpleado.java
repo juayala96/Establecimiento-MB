@@ -3,11 +3,14 @@ package com.secadero.modelo.empleados;
 import com.secadero.conexion.Conexion;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
 
 public class EliminarEmpleado {
     public EliminarEmpleado(){}
@@ -26,8 +29,11 @@ public class EliminarEmpleado {
             pstm.executeUpdate();
 
             Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-            alerta.setTitle("Datos Eliminados");
+            alerta.setTitle("");
             alerta.setContentText("Se a Eliminado Correctamente.");
+            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+            Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(icon);
             alerta.showAndWait();
         } catch (SQLException ex) {
             System.err.println("Error: " + ex.getMessage());

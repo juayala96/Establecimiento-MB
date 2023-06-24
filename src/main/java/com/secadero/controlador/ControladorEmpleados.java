@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
@@ -445,8 +446,11 @@ public class ControladorEmpleados {
             }
         } else {
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("Error!");
+            alerta.setTitle("");
             alerta.setContentText("Debe de seleccionar antes un Empleado para Modificarlo");
+            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+            Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(icon);
             alerta.showAndWait();
         }
     }
@@ -456,8 +460,11 @@ public class ControladorEmpleados {
         Label[] id = {labIDEliminar};
         if (!labIDEliminar.getText().equals("")){
             Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
-            alerta.setTitle("Confirmar Eliminar");
+            alerta.setTitle("");
             alerta.setContentText("¿Desea Eliminar el Empleado?");
+            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+            Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(icon);
             Optional<ButtonType> resultado = alerta.showAndWait();
             if (resultado.isPresent() && resultado.get() == ButtonType.OK){
 
@@ -471,8 +478,11 @@ public class ControladorEmpleados {
             }
         } else{
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("Error!");
+            alerta.setTitle("");
             alerta.setContentText("Debe de seleccionar antes un Empleado para Eliminarlo");
+            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+            Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(icon);
             alerta.showAndWait();
             btnRegresarELista.requestFocus();
         }
@@ -490,8 +500,11 @@ public class ControladorEmpleados {
     private void modificarEmpleado() {
         if(labIDModificar.getText().trim().isEmpty() || labIDModificar.getText() == null){
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("Advertencia!");
+            alerta.setTitle("");
             alerta.setContentText("Debe de seleccionar antes un Empleado para Modificarlo");
+            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+            Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(icon);
             alerta.showAndWait();
         } else {
             SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasEmpleados.getSelectionModel();
@@ -504,8 +517,11 @@ public class ControladorEmpleados {
     private void eliminarEmpleado() {
         if(labIDEliminar.getText().trim().isEmpty() || labIDEliminar.getText() == null){
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("Advertencia!");
+            alerta.setTitle("");
             alerta.setContentText("Debe de seleccionar antes un Empleado para Eliminarlo");
+            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+            Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(icon);
             alerta.showAndWait();
         } else {
             SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasEmpleados.getSelectionModel();

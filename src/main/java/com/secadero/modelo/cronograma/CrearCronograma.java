@@ -2,10 +2,13 @@ package com.secadero.modelo.cronograma;
 
 import com.secadero.conexion.Conexion;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
 
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 public class CrearCronograma {
     public CrearCronograma(){}
@@ -108,8 +111,11 @@ public class CrearCronograma {
                     }
                     labLimpiarCamposCrear.setText("OK");
                     Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-                    alerta.setTitle("Datos Guardados");
+                    alerta.setTitle("");
                     alerta.setContentText("Se a Guardado los Datos.");
+                    Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+                    Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+                    stage.getIcons().add(icon);
                     alerta.showAndWait();
 
                 } catch (SQLException ex) {
@@ -133,12 +139,18 @@ public class CrearCronograma {
                 Alert alerta = new Alert(Alert.AlertType.ERROR);
                 alerta.setTitle("Error de Fecha Asignada!");
                 alerta.setContentText("Hay empleados seleccionados que están con licencia en la fecha asignada. Dirigite a (Consulta Licencia) para ver a más detalles.");
+                Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+                Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+                stage.getIcons().add(icon);
                 alerta.showAndWait();
             }
         } else {
             Alert alerta = new Alert(Alert.AlertType.ERROR);
             alerta.setTitle("Error de Empleados!");
             alerta.setContentText("Uno de los empleados ya tiene asignado un turno en esta fecha "+ '\n' +"por lo tanto no se pude guardar");
+            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+            Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(icon);
             alerta.showAndWait();
         }
     }

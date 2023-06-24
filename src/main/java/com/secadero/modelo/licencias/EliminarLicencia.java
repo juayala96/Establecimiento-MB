@@ -5,6 +5,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,6 +15,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 public class EliminarLicencia {
 
@@ -147,8 +150,11 @@ public class EliminarLicencia {
             }
 
             Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-            alerta.setTitle("Datos Eliminados");
+            alerta.setTitle("");
             alerta.setContentText("Se a Eliminado Correctamente.");
+            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+            Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(icon);
             alerta.showAndWait();
 
         } catch (SQLException ex) {

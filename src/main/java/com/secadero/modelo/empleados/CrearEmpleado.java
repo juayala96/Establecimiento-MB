@@ -2,12 +2,15 @@ package com.secadero.modelo.empleados;
 
 import com.secadero.conexion.Conexion;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.Objects;
 
 public class CrearEmpleado {
     public CrearEmpleado(){}
@@ -144,8 +147,11 @@ public class CrearEmpleado {
                     }
                     labLimpiarCamposCrear.setText("OK");
                     Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-                    alerta.setTitle("Datos Guardados");
+                    alerta.setTitle("");
                     alerta.setContentText("Se a Guardado los Datos.");
+                    Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+                    Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+                    stage.getIcons().add(icon);
                     alerta.showAndWait();
                 } catch (SQLException ex) {
                     labLimpiarCamposCrear.setText("");
@@ -168,16 +174,22 @@ public class CrearEmpleado {
             } else {
                 labLimpiarCamposCrear.setText("");
                 Alert alerta = new Alert(Alert.AlertType.ERROR);
-                alerta.setTitle("Error!");
+                alerta.setTitle("");
                 alerta.setContentText("No está permitido duplicar el DNI de otro Empleado");
+                Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+                Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+                stage.getIcons().add(icon);
                 alerta.showAndWait();
             }
 
         } else {
             labLimpiarCamposCrear.setText("");
             Alert alerta = new Alert(Alert.AlertType.ERROR);
-            alerta.setTitle("Error!");
+            alerta.setTitle("");
             alerta.setContentText("No está permitido duplicar la LEGAJO de otro Empleado");
+            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+            Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(icon);
             alerta.showAndWait();
         }
     }

@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
@@ -138,8 +139,11 @@ public class ControladorInformes {
 
         if(labLegajoEmpleado.getText().equals("")){
             Alert alerta = new Alert(Alert.AlertType.ERROR);
-            alerta.setTitle("Error!");
+            alerta.setTitle("");
             alerta.setContentText("Error debe de seleccionar un empleado antes");
+            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+            Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(icon);
             alerta.showAndWait();
         } else {
             if((-Cant_Dias) >= 0){
@@ -152,6 +156,9 @@ public class ControladorInformes {
                 Alert alerta = new Alert(Alert.AlertType.ERROR);
                 alerta.setTitle("Error de Fechas!");
                 alerta.setContentText("La Fecha Desde debe de ser Antes de la Fecha Hasta");
+                Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+                Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+                stage.getIcons().add(icon);
                 alerta.showAndWait();
             }
         }

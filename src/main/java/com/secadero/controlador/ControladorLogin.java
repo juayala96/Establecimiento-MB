@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.scene.image.Image;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -59,14 +60,20 @@ public class ControladorLogin {
 
             } else {
                 Alert alerta = new Alert(Alert.AlertType.WARNING);
-                alerta.setTitle("Error de Datos!");
+                alerta.setTitle("");
                 alerta.setContentText("Ingrese el nombre de usuario y contraseña válidos");
+                Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+                Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+                stage.getIcons().add(icon);
                 alerta.showAndWait();
             }
         } else {
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("Error!");
+            alerta.setTitle(" ");
             alerta.setContentText("Debe de completar todos los campos y que NO sean cortos.");
+            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+            Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(icon);
             alerta.showAndWait();
             campoNombre.requestFocus();
         }

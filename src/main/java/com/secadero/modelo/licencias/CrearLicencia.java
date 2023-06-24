@@ -2,6 +2,8 @@ package com.secadero.modelo.licencias;
 
 import com.secadero.conexion.Conexion;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.Objects;
 
 public class CrearLicencia {
 
@@ -358,8 +361,11 @@ public class CrearLicencia {
                                 }
                                 labLimpiarCamposCrear.setText("OK");
                                 Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-                                alerta.setTitle("Datos Guardados");
+                                alerta.setTitle("");
                                 alerta.setContentText("Se a Guardado los Datos.");
+                                Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+                                Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+                                stage.getIcons().add(icon);
                                 alerta.showAndWait();
 
                             } catch (SQLException ex) {
@@ -377,30 +383,45 @@ public class CrearLicencia {
                             Alert alerta = new Alert(Alert.AlertType.ERROR);
                             alerta.setTitle("Error de Licencia!");
                             alerta.setContentText("La Fecha de Inicio y Fin que a Propuesto entre medio "+ "\n" +"se encuentra con Turno." + "\n" + "Para mas detalle ingrese a (Consulta Cronograma)");
+                            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+                            Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+                            stage.getIcons().add(icon);
                             alerta.showAndWait();
                         }
                     } else {
                         Alert alerta = new Alert(Alert.AlertType.ERROR);
                         alerta.setTitle("Error de Licencia!");
                         alerta.setContentText("La Fecha de Inicio y Fin que a Propuesto no se puede Crear porque ya existe una Licencia entre medio");
+                        Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+                        Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+                        stage.getIcons().add(icon);
                         alerta.showAndWait();
                     }
                 } else {
                     Alert alerta = new Alert(Alert.AlertType.ERROR);
                     alerta.setTitle("Error de Días Disponibles!");
                     alerta.setContentText("La Fecha de Inicio y Fin que a Propuesto en dicho "+ "\n" +"tipo de licencia ya no quedan Días Disponibles");
+                    Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+                    Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+                    stage.getIcons().add(icon);
                     alerta.showAndWait();
                 }
             } else {
                 Alert alerta = new Alert(Alert.AlertType.ERROR);
                 alerta.setTitle("Error de Fecha!");
                 alerta.setContentText("La Fecha de Inicio debe de realizarse un dia después de la Actual");
+                Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+                Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+                stage.getIcons().add(icon);
                 alerta.showAndWait();
             }
         } else {
             Alert alerta = new Alert(Alert.AlertType.ERROR);
             alerta.setTitle("Error de Fechas!");
             alerta.setContentText("La Fecha de Inicio debe de ser Antes de la Fecha de Fin");
+            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+            Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(icon);
             alerta.showAndWait();
         }
     }

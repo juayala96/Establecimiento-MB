@@ -4,6 +4,8 @@ import com.secadero.conexion.Conexion;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
 
 import java.sql.*;
 import java.text.ParseException;
@@ -175,11 +177,17 @@ public class Salida {
                                     Alert alerta = new Alert(Alert.AlertType.INFORMATION);
                                     alerta.setTitle("Registro de Salida Exitosa");
                                     alerta.setContentText("Se a guardado la Salida correctamente");
+                                    Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+                                    Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+                                    stage.getIcons().add(icon);
                                     alerta.showAndWait();
                                 } else {
                                     Alert alerta = new Alert(Alert.AlertType.ERROR);
                                     alerta.setTitle("Error al Registrar la Salida");
                                     alerta.setContentText("La Hora se encuentra afuera del rango del Turno. (Permitido desde: 23:30 a 23:59 hs)");
+                                    Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+                                    Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+                                    stage.getIcons().add(icon);
                                     alerta.showAndWait();
                                 }
                             } else if(turno.equals("Noche")){
@@ -199,11 +207,17 @@ public class Salida {
                                     Alert alerta = new Alert(Alert.AlertType.INFORMATION);
                                     alerta.setTitle("Registro de Salida Exitosa");
                                     alerta.setContentText("Se a guardado la Salida correctamente");
+                                    Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+                                    Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+                                    stage.getIcons().add(icon);
                                     alerta.showAndWait();
                                 } else {
                                     Alert alerta = new Alert(Alert.AlertType.ERROR);
                                     alerta.setTitle("Error al Registrar la Salida");
                                     alerta.setContentText("La Hora se encuentra afuera del rango del Turno. (Permitido desde: 11:30 a 12:00 hs)");
+                                    Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+                                    Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+                                    stage.getIcons().add(icon);
                                     alerta.showAndWait();
                                 }
                             }
@@ -211,6 +225,9 @@ public class Salida {
                             Alert alerta = new Alert(Alert.AlertType.ERROR);
                             alerta.setTitle("Error!");
                             alerta.setContentText("La salida ya ha sido registrada.");
+                            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+                            Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+                            stage.getIcons().add(icon);
                             alerta.showAndWait();
                             labInformacion.setText("Existe");
                         }
@@ -219,6 +236,9 @@ public class Salida {
                         Alert alerta = new Alert(Alert.AlertType.ERROR);
                         alerta.setTitle("Error al Registrar su Salida");
                         alerta.setContentText("La Salida no se puede realizar porque no a ingresado su Entrada.");
+                        Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+                        Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+                        stage.getIcons().add(icon);
                         alerta.showAndWait();
                     }
                     cont2 += 1;
@@ -227,6 +247,9 @@ public class Salida {
                     Alert alerta = new Alert(Alert.AlertType.ERROR);
                     alerta.setTitle("Error!");
                     alerta.setContentText("No se encuentra con Turno en esta fecha");
+                    Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+                    Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+                    stage.getIcons().add(icon);
                     alerta.showAndWait();
                     labInformacion.setText("Existe");
                 }
@@ -237,6 +260,9 @@ public class Salida {
                 Alert alerta = new Alert(Alert.AlertType.ERROR);
                 alerta.setTitle("Error!");
                 alerta.setContentText("El código o el DNI ingresado no es Válido");
+                Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+                Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+                stage.getIcons().add(icon);
                 alerta.showAndWait();
                 textCodigo.requestFocus();
             }
@@ -259,12 +285,4 @@ public class Salida {
             }
         }
     }
-    /*
-    String consulta4 = "INSERT INTO salida(hora, fecha, idEmpleadoFK) VALUES (?, ?, ?)";
-                pstm = con.prepareStatement(consulta4);
-                pstm.setString(1, hora_Actual);
-                pstm.setDate(2, java.sql.Date.valueOf(fecha_Actual));
-                pstm.setInt(3, idEmpleadosFK);
-                pstm.executeUpdate();
-     */
 }

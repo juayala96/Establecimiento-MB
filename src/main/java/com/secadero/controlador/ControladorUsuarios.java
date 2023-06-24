@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -314,8 +315,11 @@ public class ControladorUsuarios {
     private void guardar() {
         if(labIDEmpleadoCrear.getText().trim().isEmpty() || labIDEmpleadoCrear.getText() == null){
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("Advertencia!");
+            alerta.setTitle("");
             alerta.setContentText("Para Crear debes de tomar un Empleado");
+            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+            Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(icon);
             alerta.showAndWait();
         } else {
             camposObligatoriosCrear();
@@ -345,8 +349,11 @@ public class ControladorUsuarios {
     private void modificar() {
         if(labIDModificar.getText().trim().isEmpty() || labIDModificar.getText() == null){
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("Advertencia!");
+            alerta.setTitle("");
             alerta.setContentText("Debe de seleccionar antes un Usuario para Modificarlo");
+            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+            Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(icon);
             alerta.showAndWait();
 
         } else {
@@ -377,14 +384,20 @@ public class ControladorUsuarios {
     private void eliminar() {
         if (labIDEliminar.getText().trim().isEmpty() || labIDEliminar.getText() == null){
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("Error!");
+            alerta.setTitle("");
             alerta.setContentText("Debe de seleccionar antes un Usuario para Eliminarlo");
+            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+            Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(icon);
             alerta.showAndWait();
             btnRegresarELista.requestFocus();
         } else{
             Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
-            alerta.setTitle("Confirmar Eliminar");
+            alerta.setTitle("");
             alerta.setContentText("¿Desea Eliminar el Usuario?");
+            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+            Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(icon);
             Optional<ButtonType> resultado = alerta.showAndWait();
             if (resultado.isPresent() && resultado.get() == ButtonType.OK){
 
@@ -411,8 +424,11 @@ public class ControladorUsuarios {
     private void modificarUsuario() {
         if(labIDModificar.getText().trim().isEmpty() || labIDModificar.getText() == null){
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("Advertencia!");
+            alerta.setTitle("");
             alerta.setContentText("Debe de seleccionar antes un Usuario para Modificarlo");
+            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+            Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(icon);
             alerta.showAndWait();
         } else {
             SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasUsuarios.getSelectionModel();
@@ -424,8 +440,11 @@ public class ControladorUsuarios {
     private void eliminarUsuario() {
         if(labIDEliminar.getText().trim().isEmpty() || labIDEliminar.getText() == null){
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("Advertencia!");
+            alerta.setTitle("");
             alerta.setContentText("Debe de seleccionar antes un Usuario para Eliminar");
+            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+            Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(icon);
             alerta.showAndWait();
         } else {
             SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasUsuarios.getSelectionModel();

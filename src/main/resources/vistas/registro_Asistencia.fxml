@@ -29,7 +29,7 @@
             <Font name="Montserrat ExtraBold" size="48.0" />
          </font>
       </Button>
-      <Label fx:id="labFechaActual" alignment="CENTER" layoutX="584.0" layoutY="237.0" prefHeight="38.0" prefWidth="164.0" textFill="#143629">
+      <Label fx:id="labFechaActual" alignment="CENTER" layoutX="601.0" layoutY="237.0" prefHeight="38.0" prefWidth="164.0" textFill="#143629">
          <font>
             <Font name="Montserrat Bold" size="26.0" />
          </font>

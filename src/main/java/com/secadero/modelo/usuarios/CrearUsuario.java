@@ -4,11 +4,14 @@ import com.secadero.conexion.Conexion;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
 
 public class CrearUsuario {
     public CrearUsuario(){}
@@ -51,14 +54,20 @@ public class CrearUsuario {
                 pstm.executeUpdate();
 
                 Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-                alerta.setTitle("Datos Guardados");
+                alerta.setTitle("");
                 alerta.setContentText("Se a guardado los datos correctamente");
+                Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+                Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+                stage.getIcons().add(icon);
                 alerta.showAndWait();
                 labLimpiarCamposCrear.setText("OK");
             } else {
                 Alert alerta = new Alert(Alert.AlertType.ERROR);
                 alerta.setTitle("ERROR de Duplicación");
                 alerta.setContentText("No está permitido duplicar la NOMBRE DE USUARIO de otro Usuario");
+                Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+                Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+                stage.getIcons().add(icon);
                 alerta.showAndWait();
             }
 

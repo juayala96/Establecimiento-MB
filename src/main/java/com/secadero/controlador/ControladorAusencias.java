@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
@@ -607,8 +608,11 @@ public class ControladorAusencias {
         if(textBuscarLegajoEmpleado.getText().equals("")){
             String dato = cbBuscarEmpleadoLista.getSelectionModel().getSelectedItem();
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("Error!");
+            alerta.setTitle("");
             alerta.setContentText("Debe de completar el " + dato +" para Buscar");
+            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+            Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(icon);
             alerta.showAndWait();
         } else {
             tablaListaEmpleados.getItems().setAll(listBuscarEmpleado);
@@ -670,6 +674,9 @@ public class ControladorAusencias {
                     Alert alerta = new Alert(Alert.AlertType.ERROR);
                     alerta.setTitle("Error de Consulta");
                     alerta.setContentText("La Fecha y Turno asignado no esta permitido según la (Fecha y Hora Actual)");
+                    Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+                    Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+                    stage.getIcons().add(icon);
                     alerta.showAndWait();
                 }
 
@@ -684,6 +691,9 @@ public class ControladorAusencias {
                     Alert alerta = new Alert(Alert.AlertType.ERROR);
                     alerta.setTitle("Error de Consulta");
                     alerta.setContentText("La Fecha y Turno asignado no esta permitido según la (Fecha y Hora Actual)");
+                    Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+                    Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+                    stage.getIcons().add(icon);
                     alerta.showAndWait();
                 }
             }
@@ -691,6 +701,9 @@ public class ControladorAusencias {
             Alert alerta = new Alert(Alert.AlertType.ERROR);
             alerta.setTitle("Error de Consulta");
             alerta.setContentText("La Fecha y Turno asignado no esta permitido según la (Fecha y Hora Actual)");
+            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+            Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(icon);
             alerta.showAndWait();
         }
     }
@@ -729,6 +742,9 @@ public class ControladorAusencias {
                     Alert alerta = new Alert(Alert.AlertType.ERROR);
                     alerta.setTitle("Error de Consulta");
                     alerta.setContentText("La Fecha y Turno asignado no esta permitido según la (Fecha y Hora Actual)");
+                    Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+                    Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+                    stage.getIcons().add(icon);
                     alerta.showAndWait();
                 }
 
@@ -743,6 +759,9 @@ public class ControladorAusencias {
                     Alert alerta = new Alert(Alert.AlertType.ERROR);
                     alerta.setTitle("Error de Consulta");
                     alerta.setContentText("La Fecha y Turno asignado no esta permitido según la (Fecha y Hora Actual)");
+                    Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+                    Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+                    stage.getIcons().add(icon);
                     alerta.showAndWait();
                 }
             }
@@ -750,6 +769,9 @@ public class ControladorAusencias {
             Alert alerta = new Alert(Alert.AlertType.ERROR);
             alerta.setTitle("Error de Consulta");
             alerta.setContentText("La Fecha y Turno asignado no esta permitido según la (Fecha y Hora Actual)");
+            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+            Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(icon);
             alerta.showAndWait();
         }
     }
@@ -768,11 +790,29 @@ public class ControladorAusencias {
 
     //---------------------------------------------- Eventos Importantes ----------------------------------------
     @FXML
-    private void guardar() {
+    private void guardar() throws ParseException {
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+        String fechaInicioClave = dpFechaCrear.getEditor().getText();
+        String fechaAnio = fechaInicioClave.substring(6, 10);
+        String fechaMes = fechaInicioClave.substring(3, 5);
+        String fechaDia = fechaInicioClave.substring(0, 2);
+        String fechaModificadaInicio = (fechaAnio + "-" + fechaMes + "-" + fechaDia);
+
+        String fechaI = fechaModificadaInicio;
+        Date fechaInicio = formatoFecha.parse(fechaI);
+        Date fechaActualPais = new Date();
+        String Fecha_Actual = (formatoFecha.format(fechaActualPais));
+        Date fechaActual = formatoFecha.parse(Fecha_Actual);
+        long Diferencias2 = fechaActual.getTime() - fechaInicio.getTime();
+        long Cant_Dias2 = Diferencias2 / (1000 * 60 * 60 * 24);
+
         if(labIDEmpleadoCrear.getText().trim().isEmpty() || labIDEmpleadoCrear.getText() == null){
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("Advertencia!");
+            alerta.setTitle("");
             alerta.setContentText("Para Guardar debes de tomar un Empleado antes");
+            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+            Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(icon);
             alerta.showAndWait();
         } else {
             camposObligatoriosCrear();
@@ -781,31 +821,60 @@ public class ControladorAusencias {
                 if(Objects.equals(labErrorMotivoCrear.getText(), "")){
                     validacionCamposLongitudCrear();
                     if(Objects.equals(labErrorMotivoCrear.getText(), "")){
-                        CrearAusencia ausenciaCrear = new CrearAusencia();
-                        ausenciaCrear.agregarAusencia(labIDEmpleadoCrear, dpFechaCrear, textMotivoCrear, labJustificacionCrear, labCertificadoCrear, labLimpiarCamposCrear);
+                        if((-Cant_Dias2) <= 0) {
+                            CrearAusencia ausenciaCrear = new CrearAusencia();
+                            ausenciaCrear.agregarAusencia(labIDEmpleadoCrear, dpFechaCrear, textMotivoCrear, labJustificacionCrear, labCertificadoCrear, labLimpiarCamposCrear);
 
-                        if(Objects.equals(labLimpiarCamposCrear.getText(), "OK")){
-                            labLimpiarCamposCrear.setText("");
-                            labIDAusenciaLista.setText("0");
-                            labIDEmpleadoLista.setText("0");
-                            inicializarTablaListaEmpleados();
-                            inicializarTablaAusencias();
-                            regresarCLista();
-                            limpiarCamposCrear();
-                            inicializarTablaEmpleado();
+                            if(Objects.equals(labLimpiarCamposCrear.getText(), "OK")){
+                                labLimpiarCamposCrear.setText("");
+                                labIDAusenciaLista.setText("0");
+                                labIDEmpleadoLista.setText("0");
+                                inicializarTablaListaEmpleados();
+                                inicializarTablaAusencias();
+                                regresarCLista();
+                                limpiarCamposCrear();
+                                inicializarTablaEmpleado();
+                            }
+                        } else {
+                            Alert alerta = new Alert(Alert.AlertType.ERROR);
+                            alerta.setTitle("");
+                            alerta.setContentText("No esta Permitido la fecha ingresada. \nMotivo: no se puede realizar una ausencia futuro");
+                            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+                            Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+                            stage.getIcons().add(icon);
+                            alerta.showAndWait();
                         }
                     }
                 }
             }
+
         }
     }
 
     @FXML
-    private void modificar() {
+    private void modificar() throws ParseException {
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+        String fechaInicioClave = dpFechaModificar.getEditor().getText();
+        String fechaAnio = fechaInicioClave.substring(6, 10);
+        String fechaMes = fechaInicioClave.substring(3, 5);
+        String fechaDia = fechaInicioClave.substring(0, 2);
+        String fechaModificadaInicio = (fechaAnio + "-" + fechaMes + "-" + fechaDia);
+
+        String fechaI = fechaModificadaInicio;
+        Date fechaInicio = formatoFecha.parse(fechaI);
+        Date fechaActualPais = new Date();
+        String Fecha_Actual = (formatoFecha.format(fechaActualPais));
+        Date fechaActual = formatoFecha.parse(Fecha_Actual);
+        long Diferencias2 = fechaActual.getTime() - fechaInicio.getTime();
+        long Cant_Dias2 = Diferencias2 / (1000 * 60 * 60 * 24);
+
         if(labIDAusenciaModificar.getText().trim().isEmpty() || labIDAusenciaModificar.getText() == null){
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("Advertencia!");
+            alerta.setTitle("");
             alerta.setContentText("Debe de seleccionar antes una Ausencia de dicho empleado para Modificarlo");
+            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+            Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(icon);
             alerta.showAndWait();
         } else {
             camposObligatoriosModificar();
@@ -814,19 +883,29 @@ public class ControladorAusencias {
                 if(Objects.equals(labErrorMotivoModificar.getText(), "")){
                     validacionCamposLongitudModificar();
                     if(Objects.equals(labErrorMotivoModificar.getText(), "")){
-                        ModificarAusencia ausenciaModificar = new ModificarAusencia();
-                        ausenciaModificar.modificarAusencia(labIDEmpleadoModificar, labIDAusenciaModificar, dpFechaModificar, dpFechaModificarDuplicada, textMotivoModificar, labJustificacionModificar, labCertificadoModificar, labLimpiarCamposModificar);
+                        if((-Cant_Dias2) <= 0){
+                            ModificarAusencia ausenciaModificar = new ModificarAusencia();
+                            ausenciaModificar.modificarAusencia(labIDEmpleadoModificar, labIDAusenciaModificar, dpFechaModificar, dpFechaModificarDuplicada, textMotivoModificar, labJustificacionModificar, labCertificadoModificar, labLimpiarCamposModificar);
 
-                        if(Objects.equals(labLimpiarCamposModificar.getText(), "OK")){
-                            labLimpiarCamposModificar.setText("");
-                            dpFechaModificarDuplicada.getEditor().setText("");
-                            labIDAusenciaLista.setText("0");
-                            labIDEmpleadoLista.setText("0");
-                            inicializarTablaListaEmpleados();
-                            inicializarTablaAusencias();
-                            limpiarCamposModificar();
-                            limpiarCamposEliminar();
-                            regresarCLista();
+                            if(Objects.equals(labLimpiarCamposModificar.getText(), "OK")){
+                                labLimpiarCamposModificar.setText("");
+                                dpFechaModificarDuplicada.getEditor().setText("");
+                                labIDAusenciaLista.setText("0");
+                                labIDEmpleadoLista.setText("0");
+                                inicializarTablaListaEmpleados();
+                                inicializarTablaAusencias();
+                                limpiarCamposModificar();
+                                limpiarCamposEliminar();
+                                regresarCLista();
+                            }
+                        } else {
+                            Alert alerta = new Alert(Alert.AlertType.ERROR);
+                            alerta.setTitle("");
+                            alerta.setContentText("No esta Permitido la fecha ingresada. \nMotivo: no se puede realizar una ausencia futuro");
+                            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+                            Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+                            stage.getIcons().add(icon);
+                            alerta.showAndWait();
                         }
                     }
                 }
@@ -838,14 +917,20 @@ public class ControladorAusencias {
     private void eliminar() {
         if (labIDAusenciaEliminar.getText().trim().isEmpty() || labIDAusenciaEliminar.getText() == null){
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("Error!");
+            alerta.setTitle("");
             alerta.setContentText("Debe de seleccionar antes una Ausencia de dicho empleado para Eliminarlo");
+            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+            Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(icon);
             alerta.showAndWait();
             btnRegresarELista.requestFocus();
         } else{
             Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
-            alerta.setTitle("Confirmar Eliminar");
+            alerta.setTitle("");
             alerta.setContentText("¿Desea Eliminar la Ausencia del Empleado?");
+            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+            Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(icon);
             Optional<ButtonType> resultado = alerta.showAndWait();
             if (resultado.isPresent() && resultado.get() == ButtonType.OK){
 
@@ -896,6 +981,9 @@ public class ControladorAusencias {
                     Alert alerta = new Alert(Alert.AlertType.ERROR);
                     alerta.setTitle("Error de Consulta");
                     alerta.setContentText("La Fecha y Turno asignado no esta permitido según la (Fecha y Hora Actual)");
+                    Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+                    Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+                    stage.getIcons().add(icon);
                     alerta.showAndWait();
                 }
 
@@ -910,6 +998,9 @@ public class ControladorAusencias {
                     Alert alerta = new Alert(Alert.AlertType.ERROR);
                     alerta.setTitle("Error de Consulta");
                     alerta.setContentText("La Fecha y Turno asignado no esta permitido según la (Fecha y Hora Actual)");
+                    Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+                    Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+                    stage.getIcons().add(icon);
                     alerta.showAndWait();
                 }
             }
@@ -917,6 +1008,9 @@ public class ControladorAusencias {
             Alert alerta = new Alert(Alert.AlertType.ERROR);
             alerta.setTitle("Error de Consulta");
             alerta.setContentText("La Fecha y Turno asignado no esta permitido según la (Fecha y Hora Actual)");
+            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+            Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(icon);
             alerta.showAndWait();
         }
     }
@@ -954,6 +1048,9 @@ public class ControladorAusencias {
                     Alert alerta = new Alert(Alert.AlertType.ERROR);
                     alerta.setTitle("Error de Consulta");
                     alerta.setContentText("La Fecha y Turno asignado no esta permitido según la (Fecha y Hora Actual)");
+                    Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+                    Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+                    stage.getIcons().add(icon);
                     alerta.showAndWait();
                 }
 
@@ -968,6 +1065,9 @@ public class ControladorAusencias {
                     Alert alerta = new Alert(Alert.AlertType.ERROR);
                     alerta.setTitle("Error de Consulta");
                     alerta.setContentText("La Fecha y Turno asignado no esta permitido según la (Fecha y Hora Actual)");
+                    Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+                    Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+                    stage.getIcons().add(icon);
                     alerta.showAndWait();
                 }
             }
@@ -975,6 +1075,9 @@ public class ControladorAusencias {
             Alert alerta = new Alert(Alert.AlertType.ERROR);
             alerta.setTitle("Error de Consulta");
             alerta.setContentText("La Fecha y Turno asignado no esta permitido según la (Fecha y Hora Actual)");
+            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+            Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(icon);
             alerta.showAndWait();
         }
     }
@@ -987,6 +1090,9 @@ public class ControladorAusencias {
             Alert alerta = new Alert(Alert.AlertType.WARNING);
             alerta.setTitle("Error al Marcar la Entrada!");
             alerta.setContentText("Debe de seleccionar antes un empleado en la (Tabla del Cronograma) para marcar su entrada");
+            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+            Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(icon);
             alerta.showAndWait();
         } else {
             if (!textHoraEntrada.getText().matches("[0-9:]*") || textHoraEntrada.getText().length() > 5 | textHoraEntrada.getText().length() < 5 || textHoraEntrada.getText().charAt(2) != ':') {
@@ -1027,12 +1133,18 @@ public class ControladorAusencias {
                             Alert alerta = new Alert(Alert.AlertType.ERROR);
                             alerta.setTitle("Error de Marcar Entrada");
                             alerta.setContentText("La entrada de dicho empleado ya está registrada. ");
+                            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+                            Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+                            stage.getIcons().add(icon);
                             alerta.showAndWait();
                         }
                     } else {
                         Alert alerta = new Alert(Alert.AlertType.ERROR);
                         alerta.setTitle("Error de Marcar Entrada");
                         alerta.setContentText("La Hora que a asignado se encuentra afuera del rango del Turno. (Permitido desde: 12:00 a 12:30 hs)");
+                        Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+                        Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+                        stage.getIcons().add(icon);
                         alerta.showAndWait();
                         labErrorHoraEntrada.setText("X");
                     }
@@ -1056,12 +1168,18 @@ public class ControladorAusencias {
                             Alert alerta = new Alert(Alert.AlertType.ERROR);
                             alerta.setTitle("Error de Marcar Entrada");
                             alerta.setContentText("La entrada de dicho empleado ya está registrada. ");
+                            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+                            Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+                            stage.getIcons().add(icon);
                             alerta.showAndWait();
                         }
                     } else {
                         Alert alerta = new Alert(Alert.AlertType.ERROR);
                         alerta.setTitle("Error de Marcar Entrada");
                         alerta.setContentText("La Hora que a asignado se encuentra afuera del rango del Turno. (Permitido desde: 00:00 a 00:30 hs)");
+                        Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+                        Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+                        stage.getIcons().add(icon);
                         alerta.showAndWait();
                         labErrorHoraEntrada.setText("X");
                     }
@@ -1078,6 +1196,9 @@ public class ControladorAusencias {
             Alert alerta = new Alert(Alert.AlertType.WARNING);
             alerta.setTitle("Error al Marcar la Salida!");
             alerta.setContentText("Debe de seleccionar antes un empleado en la (Tabla del Cronograma) para marcar su salida");
+            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+            Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(icon);
             alerta.showAndWait();
         } else {
             if (!textHoraSalida.getText().matches("[0-9:]*") || textHoraSalida.getText().length() > 5 | textHoraSalida.getText().length() < 5 || textHoraSalida.getText().charAt(2) != ':') {
@@ -1120,6 +1241,9 @@ public class ControladorAusencias {
                                 Alert alerta = new Alert(Alert.AlertType.ERROR);
                                 alerta.setTitle("Error de Marcar Salida");
                                 alerta.setContentText("La salida de dicho empleado ya está registrada. ");
+                                Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+                                Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+                                stage.getIcons().add(icon);
                                 alerta.showAndWait();
                             }
                         } else {
@@ -1127,12 +1251,18 @@ public class ControladorAusencias {
                             Alert alerta = new Alert(Alert.AlertType.ERROR);
                             alerta.setTitle("Error de Marcar Salida");
                             alerta.setContentText("La salida de dicho empleado no se puede realizar porque no a ingresado su Entrada.");
+                            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+                            Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+                            stage.getIcons().add(icon);
                             alerta.showAndWait();
                         }
                     } else {
                         Alert alerta = new Alert(Alert.AlertType.ERROR);
                         alerta.setTitle("Error de Marcar Salida");
                         alerta.setContentText("La Hora que a asignado se encuentra afuera del rango del Turno. (Permitido desde: 23:30 a 23:59 hs)");
+                        Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+                        Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+                        stage.getIcons().add(icon);
                         alerta.showAndWait();
                         labErrorHoraSalida.setText("X");
                     }
@@ -1159,6 +1289,9 @@ public class ControladorAusencias {
                                 Alert alerta = new Alert(Alert.AlertType.ERROR);
                                 alerta.setTitle("Error de Marcar Salida");
                                 alerta.setContentText("La salida de dicho empleado ya está registrada. ");
+                                Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+                                Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+                                stage.getIcons().add(icon);
                                 alerta.showAndWait();
                             }
                         } else {
@@ -1166,12 +1299,18 @@ public class ControladorAusencias {
                             Alert alerta = new Alert(Alert.AlertType.ERROR);
                             alerta.setTitle("Error de Marcar Salida");
                             alerta.setContentText("La salida de dicho empleado no se puede realizar porque no a ingresado su Entrada.");
+                            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+                            Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+                            stage.getIcons().add(icon);
                             alerta.showAndWait();
                         }
                     } else {
                         Alert alerta = new Alert(Alert.AlertType.ERROR);
                         alerta.setTitle("Error de Marcar Salida");
                         alerta.setContentText("La Hora que a asignado se encuentra afuera del rango del Turno. (Permitido desde: 11:30 a 12:00 hs)");
+                        Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+                        Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+                        stage.getIcons().add(icon);
                         alerta.showAndWait();
                         labErrorHoraSalida.setText("X");
                     }
@@ -1245,8 +1384,11 @@ public class ControladorAusencias {
     private void modificarAusencia() {
         if(labIDAusenciaModificar.getText().trim().isEmpty() || labIDAusenciaModificar.getText() == null){
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("Advertencia!");
+            alerta.setTitle("");
             alerta.setContentText("Debe de seleccionar antes una Ausencia de dicho empleado para Modificarlo");
+            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+            Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(icon);
             alerta.showAndWait();
         } else {
             SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasAusencias.getSelectionModel();
@@ -1259,8 +1401,11 @@ public class ControladorAusencias {
     private void eliminarAusencia() {
         if (labIDAusenciaEliminar.getText().trim().isEmpty() || labIDAusenciaEliminar.getText() == null){
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("Advertencia!");
+            alerta.setTitle("");
             alerta.setContentText("Debe de seleccionar antes una Ausencia de dicho empleado para Eliminarlo");
+            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+            Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(icon);
             alerta.showAndWait();
         } else {
             SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasAusencias.getSelectionModel();
@@ -1317,8 +1462,11 @@ public class ControladorAusencias {
             labErrorHoraEntrada2.setText("");
         } else {
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("Advertencia!");
+            alerta.setTitle("");
             alerta.setContentText("Debe de seleccionar antes un empleado en la (Tabla del Cronograma) para registrar su entrada");
+            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+            Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(icon);
             alerta.showAndWait();
         }
     }
@@ -1331,8 +1479,11 @@ public class ControladorAusencias {
             regresarConsultaAsistenia = "1";
         } else {
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("Advertencia!");
+            alerta.setTitle("");
             alerta.setContentText("Debe de seleccionar antes un empleado en la (Tabla del Cronograma) para registrar su ausencia");
+            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+            Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(icon);
             alerta.showAndWait();
         }
     }
@@ -1359,8 +1510,11 @@ public class ControladorAusencias {
             labErrorHoraSalida2.setText("");
         } else {
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("Advertencia!");
+            alerta.setTitle("");
             alerta.setContentText("Debe de seleccionar antes un empleado en la (Tabla del Cronograma) para registrar su salida");
+            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+            Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(icon);
             alerta.showAndWait();
         }
     }

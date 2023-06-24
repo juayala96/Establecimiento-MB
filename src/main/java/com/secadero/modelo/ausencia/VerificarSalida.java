@@ -4,6 +4,8 @@ import com.secadero.conexion.Conexion;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -535,8 +537,11 @@ public class VerificarSalida {
             pstm.executeUpdate();
 
             Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-            alerta.setTitle("Exito!!");
+            alerta.setTitle("");
             alerta.setContentText("Se guardo correctamente la Salida del Empleado.");
+            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+            Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(icon);
             alerta.showAndWait();
 
         } catch (SQLException ex) {
