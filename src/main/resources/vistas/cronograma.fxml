@@ -240,7 +240,7 @@
                               <Font name="Montserrat SemiBold" size="48.0" />
                            </font>
                         </Label>
-                        <Button fx:id="btnGuardar" layoutX="1005.0" layoutY="638.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#guardar" prefHeight="46.0" prefWidth="166.0" style="-fx-background-color: #143629;" text="Guardar" textFill="WHITE">
+                        <Button fx:id="btnGuardar" layoutX="1005.0" layoutY="638.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#guardar" prefHeight="46.0" prefWidth="166.0" style="-fx-background-color: #143629; -fx-background-radius: 10;" text="Guardar" textFill="WHITE">
                            <font>
                               <Font name="Montserrat Bold" size="18.0" />
                            </font>
