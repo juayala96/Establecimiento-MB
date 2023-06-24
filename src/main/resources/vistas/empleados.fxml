@@ -353,7 +353,7 @@
                               <Font name="Montserrat Regular" size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="labErrorFechaNacimientoCrear" layoutX="1002.0" layoutY="173.0" prefHeight="22.0" prefWidth="238.0" textFill="#7e1717">
+                        <Label fx:id="labErrorFechaNacimientoCrear" layoutX="1002.0" layoutY="173.0" prefHeight="20.0" prefWidth="330.0" textFill="#7e1717">
                            <font>
                               <Font name="Montserrat Regular" size="14.0" />
                            </font>
@@ -400,6 +400,11 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
+                        <Label fx:id="labErrorFechaIngresoCrear" layoutX="1002.0" layoutY="274.0" prefHeight="20.0" prefWidth="330.0" textFill="#7e1717">
+                           <font>
+                              <Font name="Montserrat Regular" size="14.0" />
+                           </font>
+                        </Label>
                      </children>
                   </AnchorPane>
                </content>
@@ -570,7 +575,7 @@
                               <Font name="Montserrat Regular" size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="labErrorFechaNacimientoModificar" layoutX="1002.0" layoutY="173.0" prefHeight="22.0" prefWidth="238.0" textFill="#7e1717">
+                        <Label fx:id="labErrorFechaNacimientoModificar" layoutX="1002.0" layoutY="173.0" prefHeight="20.0" prefWidth="330.0" textFill="#7e1717">
                            <font>
                               <Font name="Montserrat Regular" size="14.0" />
                            </font>
@@ -618,6 +623,11 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
+                        <Label fx:id="labErrorFechaIngresoModificar" layoutX="1002.0" layoutY="272.0" prefHeight="20.0" prefWidth="330.0" textFill="#7e1717">
+                           <font>
+                              <Font name="Montserrat Regular" size="14.0" />
+                           </font>
+                        </Label>
                      </children>
                   </AnchorPane>
                </content>

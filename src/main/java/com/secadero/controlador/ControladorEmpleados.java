@@ -20,7 +20,9 @@ import javafx.util.StringConverter;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Objects;
@@ -165,6 +167,10 @@ public class ControladorEmpleados {
     private Label labErrorDNICrear;
     @FXML
     private Label labErrorDNIModificar;
+    @FXML
+    private Label labErrorFechaIngresoCrear;
+    @FXML
+    private Label labErrorFechaIngresoModificar;
     @FXML
     private TabPane panelPestaniasEmpleados;
     @FXML
@@ -398,6 +404,31 @@ public class ControladorEmpleados {
     //---------------------------------------------- Eventos Importantes ----------------------------------------
     @FXML
     private void guardar() throws SQLException, ParseException {
+        String fechaNacimientoClave = dpFechaNaciminetoCrear.getEditor().getText();
+        String fechaAnio = fechaNacimientoClave.substring(6, 10);
+        String fechaMes = fechaNacimientoClave.substring(3, 5);
+        String fechaDia = fechaNacimientoClave.substring(0, 2);
+
+        LocalDate fechaActual = LocalDate.now();
+        // Obtener la fecha ingresada (ejemplo: 2020-01-01)
+        LocalDate fechaIngresada = LocalDate.of(Integer.parseInt(fechaAnio), Integer.parseInt(fechaMes), Integer.parseInt(fechaDia));
+        // Calcular la diferencia en años
+        int diferenciaAnios = Period.between(fechaIngresada, fechaActual).getYears();
+
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+        String fechaIngresoClave = dpFechaIngresoCrear.getEditor().getText();
+        String fechaAnio2 = fechaIngresoClave.substring(6, 10);
+        String fechaMes2 = fechaIngresoClave.substring(3, 5);
+        String fechaDia2 = fechaIngresoClave.substring(0, 2);
+        String fechaModificadaInicio = (fechaAnio2 + "-" + fechaMes2 + "-" + fechaDia2);
+
+        String fechaI = fechaModificadaInicio;
+        Date fechaInicio = formatoFecha.parse(fechaI);
+        Date fechaActualPais = new Date();
+        String Fecha_Actual = (formatoFecha.format(fechaActualPais));
+        Date fechaActual2 = formatoFecha.parse(Fecha_Actual);
+        long Diferencias2 = fechaActual2.getTime() - fechaInicio.getTime();
+        long Cant_Dias2 = Diferencias2 / (1000 * 60 * 60 * 24);
 
         camposObligatoriosCrear();
         if(Objects.equals(labErrorNombreCrear.getText(), "") && Objects.equals(labErrorApellidoCrear.getText(), "") && Objects.equals(labErrorLegajoCrear.getText(), "") && Objects.equals(labErrorDNICrear.getText(), "") && Objects.equals(labErrorTelefonoCrear.getText(), "") && Objects.equals(labErrorDireccionCrear.getText(), "") && Objects.equals(labErrorEmailCrear.getText(), "")){
@@ -405,16 +436,26 @@ public class ControladorEmpleados {
             if(Objects.equals(labErrorNombreCrear.getText(), "") && Objects.equals(labErrorApellidoCrear.getText(), "") && Objects.equals(labErrorLegajoCrear.getText(), "") && Objects.equals(labErrorDNICrear.getText(), "") && Objects.equals(labErrorTelefonoCrear.getText(), "") && Objects.equals(labErrorDireccionCrear.getText(), "") && Objects.equals(labErrorEmailCrear.getText(), "")){
                 validacionCamposLongitudCrear();
                 if(Objects.equals(labErrorNombreCrear.getText(), "") && Objects.equals(labErrorApellidoCrear.getText(), "") && Objects.equals(labErrorLegajoCrear.getText(), "") && Objects.equals(labErrorDNICrear.getText(), "") && Objects.equals(labErrorTelefonoCrear.getText(), "") && Objects.equals(labErrorDireccionCrear.getText(), "") && Objects.equals(labErrorEmailCrear.getText(), "")){
-                    CrearEmpleado empleadoCrear = new CrearEmpleado();
-                    empleadoCrear.agregarEmpleado(textNombreCrear, textApellidoCrear, textLegajoCrear, textDNICrear, textTelefonoCrear, textDireccionCrear, textEmailCrear, cbGeneroCrear, cbEstadoCivilCrear, dpFechaNaciminetoCrear, cbGrupoSanguineoCrear, dpFechaIngresoCrear, cbAreaCrear, cbPuestoCrear, labLimpiarCamposCrear);
+                    if(diferenciaAnios >= 18){
+                        labErrorFechaNacimientoCrear.setText("");
+                        if((-Cant_Dias2) <= 0){
+                            labErrorFechaIngresoCrear.setText("");
+                            CrearEmpleado empleadoCrear = new CrearEmpleado();
+                            empleadoCrear.agregarEmpleado(textNombreCrear, textApellidoCrear, textLegajoCrear, textDNICrear, textTelefonoCrear, textDireccionCrear, textEmailCrear, cbGeneroCrear, cbEstadoCivilCrear, dpFechaNaciminetoCrear, cbGrupoSanguineoCrear, dpFechaIngresoCrear, cbAreaCrear, cbPuestoCrear, labLimpiarCamposCrear);
 
-                    if(Objects.equals(labLimpiarCamposCrear.getText(), "OK")){
-                        labLimpiarCamposCrear.setText("");
-                        inicializarTabla();
-                        vaciarComboBox();
-                        inicializarComboBoxBD();
-                        regresarCLista();
-                        limpiarCamposCrear();
+                            if(Objects.equals(labLimpiarCamposCrear.getText(), "OK")){
+                                labLimpiarCamposCrear.setText("");
+                                inicializarTabla();
+                                vaciarComboBox();
+                                inicializarComboBoxBD();
+                                regresarCLista();
+                                limpiarCamposCrear();
+                            }
+                        } else {
+                            labErrorFechaIngresoCrear.setText("No esta disponible una fecha futuro");
+                        }
+                    } else {
+                        labErrorFechaNacimientoCrear.setText("No esta permitido menores de edad");
                     }
                 }
             }
@@ -423,6 +464,33 @@ public class ControladorEmpleados {
 
     @FXML
     private void modificar() throws SQLException, ParseException {
+        String fechaNacimientoClave = dpFechaNaciminetoModificar.getEditor().getText();
+        String fechaAnio = fechaNacimientoClave.substring(6, 10);
+        String fechaMes = fechaNacimientoClave.substring(3, 5);
+        String fechaDia = fechaNacimientoClave.substring(0, 2);
+        String fechaModificada = (fechaAnio + "-" + fechaMes + "-" + fechaDia);
+
+        LocalDate fechaActual = LocalDate.now();
+        // Obtener la fecha ingresada (ejemplo: 2020-01-01)
+        LocalDate fechaIngresada = LocalDate.of(Integer.parseInt(fechaAnio), Integer.parseInt(fechaMes), Integer.parseInt(fechaDia));
+        // Calcular la diferencia en años
+        int diferenciaAnios = Period.between(fechaIngresada, fechaActual).getYears();
+
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+        String fechaIngresoClave = dpFechaIngresoModificar.getEditor().getText();
+        String fechaAnio2 = fechaIngresoClave.substring(6, 10);
+        String fechaMes2 = fechaIngresoClave.substring(3, 5);
+        String fechaDia2 = fechaIngresoClave.substring(0, 2);
+        String fechaModificadaInicio = (fechaAnio2 + "-" + fechaMes2 + "-" + fechaDia2);
+
+        String fechaI = fechaModificadaInicio;
+        Date fechaInicio = formatoFecha.parse(fechaI);
+        Date fechaActualPais = new Date();
+        String Fecha_Actual = (formatoFecha.format(fechaActualPais));
+        Date fechaActual2 = formatoFecha.parse(Fecha_Actual);
+        long Diferencias2 = fechaActual2.getTime() - fechaInicio.getTime();
+        long Cant_Dias2 = Diferencias2 / (1000 * 60 * 60 * 24);
+
         if(!labIDModificar.getText().equals("")) {
             camposObligatoriosModificar();
             if (Objects.equals(labErrorNombreModificar.getText(), "") && Objects.equals(labErrorApellidoModificar.getText(), "") && Objects.equals(labErrorLegajoModificar.getText(), "") && Objects.equals(labErrorDNIModificar.getText(), "") && Objects.equals(labErrorTelefonoModificar.getText(), "") && Objects.equals(labErrorDireccionModificar.getText(), "") && Objects.equals(labErrorEmailModificar.getText(), "")) {
@@ -430,16 +498,26 @@ public class ControladorEmpleados {
                 if (Objects.equals(labErrorNombreModificar.getText(), "") && Objects.equals(labErrorApellidoModificar.getText(), "") && Objects.equals(labErrorLegajoModificar.getText(), "") && Objects.equals(labErrorDNIModificar.getText(), "") && Objects.equals(labErrorTelefonoModificar.getText(), "") && Objects.equals(labErrorDireccionModificar.getText(), "") && Objects.equals(labErrorEmailModificar.getText(), "")) {
                     validacionCamposLongitudModificar();
                     if (Objects.equals(labErrorNombreModificar.getText(), "") && Objects.equals(labErrorApellidoModificar.getText(), "") && Objects.equals(labErrorLegajoModificar.getText(), "") && Objects.equals(labErrorDNIModificar.getText(), "") && Objects.equals(labErrorTelefonoModificar.getText(), "") && Objects.equals(labErrorDireccionModificar.getText(), "") && Objects.equals(labErrorEmailModificar.getText(), "")) {
-                        ModificarEmpleado empleadoModificar = new ModificarEmpleado();
-                        empleadoModificar.modificarEmpleado(textNombreModificar, textApellidoModificar, textLegajoModificar, textDNIModificar, textTelefonoModificar, textDireccionModificar, textEmailModificar, cbGeneroModificar, cbEstadoCivilModificar, dpFechaNaciminetoModificar, cbGrupoSanguineoModificar, dpFechaIngresoModificar, cbAreaModificar, cbPuestoModificar, labLimpiarCamposModificar, labInformacionModificarLegajo, labInformacionModificarDNI, labIDModificar);
+                        if(diferenciaAnios >= 18){
+                            labErrorFechaNacimientoModificar.setText("");
+                            if((-Cant_Dias2) <= 0){
+                                labErrorFechaIngresoModificar.setText("");
+                                ModificarEmpleado empleadoModificar = new ModificarEmpleado();
+                                empleadoModificar.modificarEmpleado(textNombreModificar, textApellidoModificar, textLegajoModificar, textDNIModificar, textTelefonoModificar, textDireccionModificar, textEmailModificar, cbGeneroModificar, cbEstadoCivilModificar, dpFechaNaciminetoModificar, cbGrupoSanguineoModificar, dpFechaIngresoModificar, cbAreaModificar, cbPuestoModificar, labLimpiarCamposModificar, labInformacionModificarLegajo, labInformacionModificarDNI, labIDModificar);
 
-                        if(Objects.equals(labLimpiarCamposModificar.getText(), "OK")){
-                            inicializarTabla();
-                            vaciarComboBox();
-                            inicializarComboBoxBD();
-                            regresarCLista();
-                            limpiarCamposModificar();
-                            limpiarCamposEliminar();
+                                if(Objects.equals(labLimpiarCamposModificar.getText(), "OK")){
+                                    inicializarTabla();
+                                    vaciarComboBox();
+                                    inicializarComboBoxBD();
+                                    regresarCLista();
+                                    limpiarCamposModificar();
+                                    limpiarCamposEliminar();
+                                }
+                            } else {
+                                labErrorFechaIngresoModificar.setText("No esta disponible una fecha futuro");
+                            }
+                        } else {
+                            labErrorFechaNacimientoModificar.setText("No esta permitido menores de edad");
                         }
                     }
                 }
