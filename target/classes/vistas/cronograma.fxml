@@ -646,19 +646,19 @@
                            </font>
                         </Label>
                         <Label layoutX="390.0" layoutY="298.0" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" />
-                        <Label fx:id="labApellidoEmpleadoEliminar" layoutX="400.0" layoutY="298.0" prefHeight="40.0" prefWidth="190.0" textFill="#1200ff">
+                        <Label fx:id="labApellidoEmpleadoEliminar" layoutX="400.0" layoutY="298.0" prefHeight="40.0" prefWidth="190.0" textFill="#143629">
                            <font>
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
                         <Label layoutX="390.0" layoutY="191.0" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" />
-                        <Label fx:id="labNombreEmpleadoEliminar" layoutX="400.0" layoutY="191.0" prefHeight="40.0" prefWidth="190.0" textFill="#1200ff">
+                        <Label fx:id="labNombreEmpleadoEliminar" layoutX="400.0" layoutY="191.0" prefHeight="40.0" prefWidth="190.0" textFill="#143629">
                            <font>
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
                         <Label layoutX="390.0" layoutY="401.0" prefHeight="40.0" prefWidth="160.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" />
-                        <Label fx:id="labLegajoEmpleadoEliminar" layoutX="399.0" layoutY="401.0" prefHeight="40.0" prefWidth="150.0" textFill="#d101dc">
+                        <Label fx:id="labLegajoEmpleadoEliminar" layoutX="399.0" layoutY="401.0" prefHeight="40.0" prefWidth="150.0" textFill="#143629">
                            <font>
                               <Font name="System Bold" size="17.0" />
                            </font>

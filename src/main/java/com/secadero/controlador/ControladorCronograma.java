@@ -290,7 +290,7 @@ public class ControladorCronograma {
 
     // -------------------------------------------- Inicialización ----------------------------------------------
     public void initialize() throws ParseException {
-        String[] tipoTurnos = {"Dia", "Noche"};
+        String[] tipoTurnos = {"Noche", "Dia"};
         dpFechaModificarDuplicada.getEditor().setText("01-01-2000");
         comboBoxCrear();
         comboBoxModificar();
@@ -348,6 +348,10 @@ public class ControladorCronograma {
             LocalDate selectedDate = dpFechaCrear.getValue();
             labFechaCrearSeleccionada.setText(String.valueOf(selectedDate));
             inicializarTablaEmpleado();
+            labIDEmpleadoCrear.setText("");
+            labNombreEmpleadoCrear.setText("");
+            labApellidoEmpleadoCrear.setText("");
+            labLegajoEmpleadoCrear.setText("");
         });
     }
 
@@ -980,23 +984,37 @@ public class ControladorCronograma {
 
     @FXML
     private void regresarCMenu() {
+        Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
+        alerta.setTitle("");
+        alerta.setContentText("Si regresa se eliminaran todos los cambios");
+        Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+        Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(icon);
+        Optional<ButtonType> resultado = alerta.showAndWait();
+        if (resultado.isPresent() && resultado.get() == ButtonType.OK){
+            limpiarCamposCrear();
+            inicializarTablaEmpleado();
+            SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasCronograma.getSelectionModel();
+            modeloSeleccion.select(tabListaCronograma);
+        }
+    }
+
+    @FXML
+    private void regresarMMenu() {
         SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasCronograma.getSelectionModel();
         modeloSeleccion.select(tabListaCronograma);
     }
 
     @FXML
-    private void regresarMMenu() {
-        regresarCMenu();
-    }
-
-    @FXML
     private void regresarEMenu() {
-        regresarCMenu();
+        SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasCronograma.getSelectionModel();
+        modeloSeleccion.select(tabListaCronograma);
     }
 
     @FXML
     private void regresarCCMenu() {
-        regresarCMenu();
+        SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasCronograma.getSelectionModel();
+        modeloSeleccion.select(tabListaCronograma);
     }
 
     @FXML

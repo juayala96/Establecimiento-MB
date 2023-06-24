@@ -578,6 +578,8 @@ public class ControladorAusencias {
         labFechaEntrada.setText(colFechaAsistenciaCE.getCellData(index4));
         labTurnoEntrada.setText(colTurnoAsistenciaCE.getCellData(index4));
         textHoraEntrada.setText(colHoraEntradaAsistenciaCE.getCellData(index4));
+
+        limpiarCamposRegistrarAusenciaConsulta();
     }
 
     @FXML
@@ -1374,6 +1376,10 @@ public class ControladorAusencias {
 
     @FXML
     private void registrarAusencia() {
+        labIDEmpleadoCrear.setText("");
+        labNombreEmpleadoCrear.setText("");
+        labApellidoEmpleadoCrear.setText("");
+        labLegajoEmpleadoCrear.setText("");
         SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasAusencias.getSelectionModel();
         modeloSeleccion.select(tabRegistrarAusencia);
         dpFechaCrear.requestFocus();
@@ -1423,8 +1429,20 @@ public class ControladorAusencias {
     @FXML
     private void regresarCLista() {
         if(Objects.equals(regresarConsultaAsistenia, "0")){
-            SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasAusencias.getSelectionModel();
-            modeloSeleccion.select(tabListaAusencias);
+            Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
+            alerta.setTitle("");
+            alerta.setContentText("Si regresa se eliminaran todos los cambios");
+            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+            Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(icon);
+            Optional<ButtonType> resultado = alerta.showAndWait();
+            if (resultado.isPresent() && resultado.get() == ButtonType.OK){
+                limpiarCamposCrear();
+                labErrorMotivoCrear.setText("");
+                inicializarTablaEmpleado();
+                SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasAusencias.getSelectionModel();
+                modeloSeleccion.select(tabListaAusencias);
+            }
         } else if(Objects.equals(regresarConsultaAsistenia, "1")){
             SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasAusencias.getSelectionModel();
             modeloSeleccion.select(tabConsultaAsistencia);
@@ -1705,6 +1723,31 @@ public class ControladorAusencias {
         labFechaSalida.setText("");
         labTurnoSalida.setText("");
         textHoraSalida.setText("");
+    }
+
+    private void limpiarCamposRegistrarAusenciaConsulta(){
+        textBuscarLegajoEmpleadoCrear.setText("");
+        dpFechaCrear.setValue(LocalDate.now());
+        dpFechaCrear.setConverter(new StringConverter<LocalDate>() {
+            @Override
+            public String toString(LocalDate localDate) {
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                return dtf.format(localDate);
+            }
+
+            @Override
+            public LocalDate fromString(String s) {
+                return null;
+            }
+        });
+        textMotivoCrear.setText("");
+        labErrorMotivoCrear.setText("");
+        rbJustificadoNoCrear.fire();
+        rbCertificadoNoCrear.fire();
+        labLimpiarCamposCrear.setText("");
+        getJustificadoCrear();
+        getCertificadoCrear();
+
     }
 
     private void tablasAsistencias(){

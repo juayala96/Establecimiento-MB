@@ -285,6 +285,9 @@ public class ControladorEmpleados {
         dpFechaNaciminetoModificar.setValue(LocalDate.of(Integer.parseInt(fechaNacimientoM.substring(6, 10)), Integer.parseInt(fechaNacimientoM.substring(3, 5)), Integer.parseInt(fechaNacimientoM.substring(0, 2))));
         String fechaIngresoM = dpFechaIngresoModificar.getEditor().getText();
         dpFechaIngresoModificar.setValue(LocalDate.of(Integer.parseInt(fechaIngresoM.substring(6, 10)), Integer.parseInt(fechaIngresoM.substring(3, 5)), Integer.parseInt(fechaIngresoM.substring(0, 2))));
+
+        labErrorFechaIngresoModificar.setText("");
+        labErrorFechaNacimientoModificar.setText("");
     }
 
     public void inicializarComboBoxBD() {
@@ -452,10 +455,10 @@ public class ControladorEmpleados {
                                 limpiarCamposCrear();
                             }
                         } else {
-                            labErrorFechaIngresoCrear.setText("No esta disponible una fecha futuro");
+                            labErrorFechaIngresoCrear.setText("La fecha de ingreso no puede ser a futuro");
                         }
                     } else {
-                        labErrorFechaNacimientoCrear.setText("No esta permitido menores de edad");
+                        labErrorFechaNacimientoCrear.setText("El empleado no puede ser menor de edad");
                     }
                 }
             }
@@ -514,10 +517,10 @@ public class ControladorEmpleados {
                                     limpiarCamposEliminar();
                                 }
                             } else {
-                                labErrorFechaIngresoModificar.setText("No esta disponible una fecha futuro");
+                                labErrorFechaIngresoModificar.setText("La fecha de ingreso no puede ser a futuro");
                             }
                         } else {
-                            labErrorFechaNacimientoModificar.setText("No esta permitido menores de edad");
+                            labErrorFechaNacimientoModificar.setText("El empleado no puede ser menor de edad");
                         }
                     }
                 }
@@ -610,18 +613,31 @@ public class ControladorEmpleados {
 
     @FXML
     private void regresarCLista() {
+        Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
+        alerta.setTitle("");
+        alerta.setContentText("Si regresa se eliminaran todos los cambios");
+        Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+        Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(icon);
+        Optional<ButtonType> resultado = alerta.showAndWait();
+        if (resultado.isPresent() && resultado.get() == ButtonType.OK){
+            limpiarCamposCrear();
+            limpiarCamposErrorCrear();
+            SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasEmpleados.getSelectionModel();
+            modeloSeleccion.select(tabListaEmpleado);
+        }
+    }
+
+    @FXML
+    private void regresarMLista() {
         SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasEmpleados.getSelectionModel();
         modeloSeleccion.select(tabListaEmpleado);
     }
 
     @FXML
-    private void regresarMLista() {
-        regresarCLista();
-    }
-
-    @FXML
     private void regresarELista() {
-        regresarCLista();
+        SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasEmpleados.getSelectionModel();
+        modeloSeleccion.select(tabListaEmpleado);
     }
 
     @FXML
@@ -729,6 +745,8 @@ public class ControladorEmpleados {
         labLimpiarCamposModificar.setText("");
         labInformacionModificarLegajo.setText("");
         labInformacionModificarDNI.setText("");
+        labErrorFechaIngresoModificar.setText("");
+        labErrorFechaNacimientoModificar.setText("");
         fechasInicializar();
     }
 
@@ -799,6 +817,18 @@ public class ControladorEmpleados {
         cbGrupoSanguineoEliminar.getItems().clear();
         cbAreaEliminar.getItems().clear();
         cbPuestoEliminar.getItems().clear();
+    }
+
+    private void limpiarCamposErrorCrear(){
+        labErrorNombreCrear.setText("");
+        labErrorApellidoCrear.setText("");
+        labErrorLegajoCrear.setText("");
+        labErrorDNICrear.setText("");
+        labErrorTelefonoCrear.setText("");
+        labErrorDireccionCrear.setText("");
+        labErrorEmailCrear.setText("");
+        labErrorFechaNacimientoCrear.setText("");
+        labErrorFechaIngresoCrear.setText("");
     }
 
     //---------------------------------------- Comprobación de Campos -------------------------------------------

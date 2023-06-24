@@ -765,18 +765,32 @@ public class ControladorLicencias {
 
     @FXML
     private void regresarCLista() {
+        Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
+        alerta.setTitle("");
+        alerta.setContentText("Si regresa se eliminaran todos los cambios");
+        Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+        Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(icon);
+        Optional<ButtonType> resultado = alerta.showAndWait();
+        if (resultado.isPresent() && resultado.get() == ButtonType.OK){
+            limpiarCamposCrear();
+            labErrorDescripcionCrear.setText("");
+            inicializarTablaEmpleado();
+            SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasLicencias.getSelectionModel();
+            modeloSeleccion.select(tabListaLicencias);
+        }
+    }
+
+    @FXML
+    private void regresarMLista() {
         SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasLicencias.getSelectionModel();
         modeloSeleccion.select(tabListaLicencias);
     }
 
     @FXML
-    private void regresarMLista() {
-        regresarCLista();
-    }
-
-    @FXML
     private void regresarELista() {
-        regresarCLista();
+        SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasLicencias.getSelectionModel();
+        modeloSeleccion.select(tabListaLicencias);
     }
 
     @FXML

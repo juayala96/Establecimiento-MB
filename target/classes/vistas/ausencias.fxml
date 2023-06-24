@@ -182,13 +182,20 @@
                               <Font name="Montserrat Medium" size="20.0" />
                            </font>
                         </Label>
-                        <Button fx:id="btnConsultaAsistencia" layoutX="1188.0" layoutY="459.0" mnemonicParsing="false" onAction="#consultaAsistencia" prefHeight="46.0" prefWidth="160.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-background-color: #dcecb4; -fx-border-color: WHITE;" text="Asistencia" textFill="#143629">
+                        <Button fx:id="btnConsultaAsistencia" alignment="TOP_LEFT" layoutX="1188.0" layoutY="459.0" mnemonicParsing="false" onAction="#consultaAsistencia" prefHeight="46.0" prefWidth="160.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-background-color: #dcecb4; -fx-border-color: WHITE;" text=" Asistencia" textFill="#143629">
                            <font>
                               <Font name="Montserrat Bold" size="17.0" />
                            </font>
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
+                           <graphic>
+                              <ImageView fitHeight="34.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../imagenes/iconos/Asistencia.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
                         </Button>
                         <Label layoutX="26.0" layoutY="614.0" prefHeight="55.0" prefWidth="578.0" text="Haga clic sobre un empleado para visualizar sus ausencias. " textFill="#143629">
                            <font>

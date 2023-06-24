@@ -86,7 +86,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                            <graphic>
-                              <ImageView fitHeight="33.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="35.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../imagenes/iconos/Licencia.png" />
                                  </image></ImageView>
@@ -358,7 +358,7 @@
                               <Font name="Montserrat Regular" size="14.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="cbGrupoSanguineoCrear" layoutX="506.0" layoutY="330.0" prefHeight="40.0" prefWidth="100.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-background-color: #dcecb4; -fx-border-color: white; -fx-font-size: 18;">
+                        <ComboBox fx:id="cbGrupoSanguineoCrear" layoutX="506.0" layoutY="330.0" prefHeight="40.0" prefWidth="110.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-background-color: #dcecb4; -fx-border-color: white; -fx-font-size: 18;">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor></ComboBox>
@@ -580,7 +580,7 @@
                               <Font name="Montserrat Regular" size="14.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="cbGrupoSanguineoModificar" layoutX="506.0" layoutY="330.0" prefHeight="40.0" prefWidth="100.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-background-color: #dcecb4; -fx-border-color: white; -fx-font-size: 18;">
+                        <ComboBox fx:id="cbGrupoSanguineoModificar" layoutX="506.0" layoutY="330.0" prefHeight="40.0" prefWidth="110.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-background-color: #dcecb4; -fx-border-color: white; -fx-font-size: 18;">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -785,7 +785,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </DatePicker>
-                        <ComboBox fx:id="cbGrupoSanguineoEliminar" layoutX="506.0" layoutY="330.0" prefHeight="40.0" prefWidth="100.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-background-color: #dcecb4; -fx-border-color: white; -fx-font-size: 18;">
+                        <ComboBox fx:id="cbGrupoSanguineoEliminar" layoutX="506.0" layoutY="330.0" prefHeight="40.0" prefWidth="110.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-background-color: #dcecb4; -fx-border-color: white; -fx-font-size: 18;">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -824,7 +824,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Label layoutX="501.0" layoutY="323.0" prefHeight="54.0" prefWidth="110.0" />
+                        <Label layoutX="500.0" layoutY="323.0" prefHeight="54.0" prefWidth="122.0" />
                         <Label layoutX="501.0" layoutY="419.0" prefHeight="54.0" prefWidth="188.0" />
                         <Label layoutX="501.0" layoutY="520.0" prefHeight="54.0" prefWidth="187.0" />
                         <Label layoutX="995.0" layoutY="323.0" prefHeight="54.0" prefWidth="249.0" />
