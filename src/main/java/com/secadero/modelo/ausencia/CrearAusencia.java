@@ -57,8 +57,8 @@ public class CrearAusencia {
 
                 labLimpiarCamposCrear.setText("OK");
                 Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-                alerta.setTitle("");
-                alerta.setContentText("Se a Guardado los Datos.");
+                alerta.setTitle("Crear ausencia");
+                alerta.setContentText("Se han guardado los datos correctamente.");
                 Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
                 Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
                 stage.getIcons().add(icon);
@@ -75,16 +75,16 @@ public class CrearAusencia {
                 } catch (Exception ex) {
                     labLimpiarCamposCrear.setText("");
                     Alert alerta = new Alert(Alert.AlertType.ERROR);
-                    alerta.setTitle("Error!");
-                    alerta.setContentText("Error en la Base de Datos");
+                    alerta.setTitle("Error - Crear ausencia");
+                    alerta.setContentText("Error en la base de datos.");
                     alerta.showAndWait();
                     System.err.println("Error: " + ex.getMessage());
                 }
             }
         } else {
             Alert alerta = new Alert(Alert.AlertType.ERROR);
-            alerta.setTitle("Error de Fecha!");
-            alerta.setContentText("No esta permitido crear 2 ausencias del mismo empleado de la misma fecha");
+            alerta.setTitle("Error - Fecha");
+            alerta.setContentText("No es posible crear más de una ausencia del mismo empleado en la misma fecha.");
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
             stage.getIcons().add(icon);

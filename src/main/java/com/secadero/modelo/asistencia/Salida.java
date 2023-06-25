@@ -175,16 +175,16 @@ public class Salida {
 
                                     labInformacion.setText("OK");
                                     Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-                                    alerta.setTitle("Registro de Salida Exitosa");
-                                    alerta.setContentText("Se a guardado la Salida correctamente");
+                                    alerta.setTitle("Registro de salida");
+                                    alerta.setContentText("Se ha guardado la salida correctamente.");
                                     Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
                                     Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
                                     stage.getIcons().add(icon);
                                     alerta.showAndWait();
                                 } else {
                                     Alert alerta = new Alert(Alert.AlertType.ERROR);
-                                    alerta.setTitle("Error al Registrar la Salida");
-                                    alerta.setContentText("La Hora se encuentra afuera del rango del Turno. (Permitido desde: 23:30 a 23:59 hs)");
+                                    alerta.setTitle("Error - Hora");
+                                    alerta.setContentText("La hora se encuentra fuera del rango del turno. \nHora permitida: 23:30 a 23:59 hs.");
                                     Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
                                     Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
                                     stage.getIcons().add(icon);
@@ -205,16 +205,16 @@ public class Salida {
 
                                     labInformacion.setText("OK");
                                     Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-                                    alerta.setTitle("Registro de Salida Exitosa");
-                                    alerta.setContentText("Se a guardado la Salida correctamente");
+                                    alerta.setTitle("Registro de salida");
+                                    alerta.setContentText("Se ha guardado la salida correctamente.");
                                     Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
                                     Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
                                     stage.getIcons().add(icon);
                                     alerta.showAndWait();
                                 } else {
                                     Alert alerta = new Alert(Alert.AlertType.ERROR);
-                                    alerta.setTitle("Error al Registrar la Salida");
-                                    alerta.setContentText("La Hora se encuentra afuera del rango del Turno. (Permitido desde: 11:30 a 12:00 hs)");
+                                    alerta.setTitle("Error - Hora");
+                                    alerta.setContentText("La hora se encuentra fuera del rango del turno. \nHora permitida: 11:30 a 12:00 hs.");
                                     Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
                                     Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
                                     stage.getIcons().add(icon);
@@ -223,8 +223,8 @@ public class Salida {
                             }
                         } else {
                             Alert alerta = new Alert(Alert.AlertType.ERROR);
-                            alerta.setTitle("Error!");
-                            alerta.setContentText("La salida ya ha sido registrada.");
+                            alerta.setTitle("Error - Registrar salida");
+                            alerta.setContentText("La salida ya fue registrada anteriormente.");
                             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
                             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
                             stage.getIcons().add(icon);
@@ -234,8 +234,8 @@ public class Salida {
                     } else {
                         labInformacion.setText("Existe");
                         Alert alerta = new Alert(Alert.AlertType.ERROR);
-                        alerta.setTitle("Error al Registrar su Salida");
-                        alerta.setContentText("La Salida no se puede realizar porque no a ingresado su Entrada.");
+                        alerta.setTitle("Error - Registrar salida");
+                        alerta.setContentText("La salida no se puede registrar porque no ha marcado su entrada.");
                         Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
                         Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
                         stage.getIcons().add(icon);
@@ -245,8 +245,8 @@ public class Salida {
                 }
                 if(cont2 == 0){
                     Alert alerta = new Alert(Alert.AlertType.ERROR);
-                    alerta.setTitle("Error!");
-                    alerta.setContentText("No se encuentra con Turno en esta fecha");
+                    alerta.setTitle("Error - Turno");
+                    alerta.setContentText("No tiene un turno asignado en esta fecha.");
                     Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
                     Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
                     stage.getIcons().add(icon);
@@ -258,8 +258,8 @@ public class Salida {
             if(cont == 0){
                 labInformacion.setText("");
                 Alert alerta = new Alert(Alert.AlertType.ERROR);
-                alerta.setTitle("Error!");
-                alerta.setContentText("El código o el DNI ingresado no es Válido");
+                alerta.setTitle("Error - Registrar salida");
+                alerta.setContentText("El código o el DNI ingresado no es válido.");
                 Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
                 Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
                 stage.getIcons().add(icon);
@@ -278,8 +278,8 @@ public class Salida {
             } catch (Exception ex) {
                 labInformacion.setText("");
                 Alert alerta = new Alert(Alert.AlertType.ERROR);
-                alerta.setTitle("Error!");
-                alerta.setContentText("Error en la Base de Datos");
+                alerta.setTitle("Error - Registrar salida");
+                alerta.setContentText("Error en la base de datos.");
                 alerta.showAndWait();
                 System.err.println("Error: " + ex.getMessage());
             }

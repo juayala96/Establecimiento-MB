@@ -154,8 +154,8 @@ public class ControladorPrincipal {
     @FXML
     private void CerrarSesion() throws IOException {
         Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
-        alerta.setTitle("");
-        alerta.setContentText("¿Desea Cerrar Sesión?");
+        alerta.setTitle("Cerrar Sesión");
+        alerta.setContentText("¿Desea cerrar sesión?");
         Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
         Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
         stage.getIcons().add(icon);

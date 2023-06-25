@@ -150,8 +150,8 @@ public class EliminarLicencia {
             }
 
             Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-            alerta.setTitle("");
-            alerta.setContentText("Se a Eliminado Correctamente.");
+            alerta.setTitle("Eliminar licencia");
+            alerta.setContentText("Se ha eliminado la licencia correctamente.");
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
             stage.getIcons().add(icon);
@@ -168,8 +168,8 @@ public class EliminarLicencia {
                 if (con != null) con.close();
             } catch (Exception ex) {
                 Alert alerta = new Alert(Alert.AlertType.ERROR);
-                alerta.setTitle("Error!");
-                alerta.setContentText("Error en la Base de Datos");
+                alerta.setTitle("Error - Eliminar licencia");
+                alerta.setContentText("Error en la base de datos.");
                 alerta.showAndWait();
                 System.err.println("Error: " + ex.getMessage());
             }

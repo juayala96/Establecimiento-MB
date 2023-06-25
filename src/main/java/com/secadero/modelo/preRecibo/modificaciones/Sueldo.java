@@ -108,8 +108,8 @@ public class Sueldo {
 
             labConfirmacionSalario.setText("OK");
             Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-            alerta.setTitle("");
-            alerta.setContentText("Se a Guardado los Datos del Salario.");
+            alerta.setTitle("Modificar salario");
+            alerta.setContentText("Se han guardado los datos del salario correctamente.");
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
             stage.getIcons().add(icon);

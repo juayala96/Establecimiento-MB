@@ -315,8 +315,8 @@ public class ControladorUsuarios {
     private void guardar() {
         if(labIDEmpleadoCrear.getText().trim().isEmpty() || labIDEmpleadoCrear.getText() == null){
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("");
-            alerta.setContentText("Para Crear debes de tomar un Empleado");
+            alerta.setTitle("Crear usuario");
+            alerta.setContentText("Debe seleccionar antes un empleado para crear el usuario.");
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
             stage.getIcons().add(icon);
@@ -338,7 +338,7 @@ public class ControladorUsuarios {
                             inicializarTablaEmpleado();
                         }
                     } else {
-                        labErrorRepetirContraseniaCrear.setText("La contraseña no coincide");
+                        labErrorRepetirContraseniaCrear.setText("Las contraseñas no coinciden");
                     }
                 }
             }
@@ -349,8 +349,8 @@ public class ControladorUsuarios {
     private void modificar() {
         if(labIDModificar.getText().trim().isEmpty() || labIDModificar.getText() == null){
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("");
-            alerta.setContentText("Debe de seleccionar antes un Usuario para Modificarlo");
+            alerta.setTitle("Modificar usuario");
+            alerta.setContentText("Debe seleccionar antes un usuario para modificarlo.");
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
             stage.getIcons().add(icon);
@@ -373,7 +373,7 @@ public class ControladorUsuarios {
                             limpiarCamposEliminar();
                         }
                     } else {
-                        labErrorRepetirContraseniaModificar.setText("La contraseña no coincide");
+                        labErrorRepetirContraseniaModificar.setText("Las contraseñas no coinciden");
                     }
                 }
             }
@@ -384,8 +384,8 @@ public class ControladorUsuarios {
     private void eliminar() {
         if (labIDEliminar.getText().trim().isEmpty() || labIDEliminar.getText() == null){
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("");
-            alerta.setContentText("Debe de seleccionar antes un Usuario para Eliminarlo");
+            alerta.setTitle("Eliminar usuario");
+            alerta.setContentText("Debe seleccionar antes un usuario para eliminarlo.");
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
             stage.getIcons().add(icon);
@@ -393,8 +393,8 @@ public class ControladorUsuarios {
             btnRegresarELista.requestFocus();
         } else{
             Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
-            alerta.setTitle("");
-            alerta.setContentText("¿Desea Eliminar el Usuario?");
+            alerta.setTitle("Eliminar usuario");
+            alerta.setContentText("¿Desea eliminar el usuario?");
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
             stage.getIcons().add(icon);
@@ -424,8 +424,8 @@ public class ControladorUsuarios {
     private void modificarUsuario() {
         if(labIDModificar.getText().trim().isEmpty() || labIDModificar.getText() == null){
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("");
-            alerta.setContentText("Debe de seleccionar antes un Usuario para Modificarlo");
+            alerta.setTitle("Modificar usuario");
+            alerta.setContentText("Debe seleccionar antes un usuario para modificarlo.");
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
             stage.getIcons().add(icon);
@@ -440,8 +440,8 @@ public class ControladorUsuarios {
     private void eliminarUsuario() {
         if(labIDEliminar.getText().trim().isEmpty() || labIDEliminar.getText() == null){
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("");
-            alerta.setContentText("Debe de seleccionar antes un Usuario para Eliminar");
+            alerta.setTitle("Eliminar usuario");
+            alerta.setContentText("Debe seleccionar antes un usuario para eliminarlo.");
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
             stage.getIcons().add(icon);
@@ -456,8 +456,8 @@ public class ControladorUsuarios {
     @FXML
     private void regresarCLista() {
         Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
-        alerta.setTitle("");
-        alerta.setContentText("Si regresa se eliminaran todos los cambios");
+        alerta.setTitle("¿Desea salir sin guardar?");
+        alerta.setContentText("Perderá todos los cambios realizados si regresa a la pantalla anterior sin antes guardarlos.");
         Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
         Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
         stage.getIcons().add(icon);
@@ -510,12 +510,12 @@ public class ControladorUsuarios {
         repetirContrasenia = repetirContrasenia.replaceAll("\\s+", "");
 
         if (contrasenia.length() < 6) {
-            labErrorContraseniaCrear.setText("Usa 6 o más caracteres");
+            labErrorContraseniaCrear.setText("Usá 6 o más caracteres");
         } else {
             labErrorContraseniaCrear.setText("");
         }
         if (repetirContrasenia.length() < 6) {
-            labErrorRepetirContraseniaCrear.setText("Usa 6 o más caracteres");
+            labErrorRepetirContraseniaCrear.setText("Usá 6 o más caracteres");
         } else {
             labErrorRepetirContraseniaCrear.setText("");
         }
@@ -541,12 +541,12 @@ public class ControladorUsuarios {
         repetirContrasenia = repetirContrasenia.replaceAll("\\s+", "");
 
         if (contrasenia.length() < 6) {
-            labErrorContraseniaModificar.setText("Usa 6 o más caracteres");
+            labErrorContraseniaModificar.setText("Usá 6 o más caracteres");
         } else {
             labErrorContraseniaModificar.setText("");
         }
         if (repetirContrasenia.length() < 6) {
-            labErrorRepetirContraseniaModificar.setText("Usa 6 o más caracteres");
+            labErrorRepetirContraseniaModificar.setText("Usá 6 o más caracteres");
         } else {
             labErrorRepetirContraseniaModificar.setText("");
         }

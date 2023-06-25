@@ -60,8 +60,8 @@ public class ControladorLogin {
 
             } else {
                 Alert alerta = new Alert(Alert.AlertType.WARNING);
-                alerta.setTitle("");
-                alerta.setContentText("Ingrese el nombre de usuario y contraseña válidos");
+                alerta.setTitle("Iniciar sesión");
+                alerta.setContentText("Ingrese un nombre de usuario y contraseña válidos.");
                 Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
                 Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
                 stage.getIcons().add(icon);
@@ -69,8 +69,8 @@ public class ControladorLogin {
             }
         } else {
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle(" ");
-            alerta.setContentText("Debe de completar todos los campos y que NO sean cortos.");
+            alerta.setTitle("Iniciar sesión");
+            alerta.setContentText("Debe completar todos los campos y que NO sean cortos.");
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
             stage.getIcons().add(icon);

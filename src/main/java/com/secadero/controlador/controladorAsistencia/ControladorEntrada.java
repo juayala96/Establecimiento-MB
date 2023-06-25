@@ -112,12 +112,12 @@ public class ControladorEntrada {
         if(validarNumeros(textLegajo.getText())){
             labErrorLegajo.setText("");
         } else {
-            labErrorLegajo.setText("Solo se admiten Números");
+            labErrorLegajo.setText("Solo se admiten números");
         }
         if(validarNumeros(textDNI.getText())){
             labErrorDNI.setText("");
         } else {
-            labErrorDNI.setText("Solo se admiten Números");
+            labErrorDNI.setText("Solo se admiten números");
         }
     }
 
@@ -128,12 +128,12 @@ public class ControladorEntrada {
         dni = dni.replaceAll("\\s+", "");
 
         if (codigo.length() > 6) {
-            labErrorLegajo.setText("Está permitido hasta 6 números");
+            labErrorLegajo.setText("Puede ingresar hasta 6 números");
         } else {
             labErrorLegajo.setText("");
         }
         if (dni.length() >= 9) {
-            labErrorDNI.setText("Está permitido hasta 8 números");
+            labErrorDNI.setText("Puede ingresar hasta 8 números");
         } else {
             labErrorDNI.setText("");
         }

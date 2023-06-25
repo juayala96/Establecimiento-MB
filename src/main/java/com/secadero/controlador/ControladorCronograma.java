@@ -592,8 +592,8 @@ public class ControladorCronograma {
         if(textBuscarLegajoEmpleado.getText().equals("")){
             String dato = cbBuscarEmpleadoDisponibleLista.getSelectionModel().getSelectedItem();
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("");
-            alerta.setContentText("Debe de completar el "+ dato +" para Buscar");
+            alerta.setTitle("Buscar empleado");
+            alerta.setContentText("Debe completar el "+ dato +" para buscar.");
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
             stage.getIcons().add(icon);
@@ -661,8 +661,8 @@ public class ControladorCronograma {
         } else {
             String dato = cbBuscarEmpleado.getSelectionModel().getSelectedItem();
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("");
-            alerta.setContentText("Debe de completar el "+ dato +" para Buscar");
+            alerta.setTitle("Buscar empleado");
+            alerta.setContentText("Debe completar el "+ dato +" para buscar.");
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
             stage.getIcons().add(icon);
@@ -721,8 +721,8 @@ public class ControladorCronograma {
 
             } else if(bandera == true){
                 Alert alerta = new Alert(Alert.AlertType.ERROR);
-                alerta.setTitle("");
-                alerta.setContentText("El Empleado ya fue agregado");
+                alerta.setTitle("Error - Empleado");
+                alerta.setContentText("El empleado ya fue agregado a la lista.");
                 Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
                 Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
                 stage.getIcons().add(icon);
@@ -778,8 +778,8 @@ public class ControladorCronograma {
                 }
             } else {
                 Alert alerta = new Alert(Alert.AlertType.ERROR);
-                alerta.setTitle("Error de Fecha!");
-                alerta.setContentText("La Fecha Ingresada debe de realizarse un dia después de la Fecha Actual");
+                alerta.setTitle("Error - Fecha");
+                alerta.setContentText("La fecha ingresada debe ser posterior a la fecha actual.");
                 Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
                 Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
                 stage.getIcons().add(icon);
@@ -787,8 +787,8 @@ public class ControladorCronograma {
             }
         } else {
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("");
-            alerta.setContentText("Para guardar debes de agregar un empleado");
+            alerta.setTitle("Crear cronograma");
+            alerta.setContentText("Antes de guardar debe agregar un empleado.");
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
             stage.getIcons().add(icon);
@@ -841,8 +841,8 @@ public class ControladorCronograma {
                     }
                 } else {
                     Alert alerta = new Alert(Alert.AlertType.ERROR);
-                    alerta.setTitle("Error de Fecha!");
-                    alerta.setContentText("La Fecha Ingresada solo se permite Modificar desde la Fecha Actual o Superior");
+                    alerta.setTitle("Error - Fecha");
+                    alerta.setContentText("La fecha solo se permite modificar por la fecha actual o superior.");
                     Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
                     Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
                     stage.getIcons().add(icon);
@@ -850,8 +850,8 @@ public class ControladorCronograma {
                 }
             } else {
                 Alert alerta = new Alert(Alert.AlertType.ERROR);
-                alerta.setTitle("Error de Modificar");
-                alerta.setContentText("El cronograma que desea modificar en este empleado ya no está permitido.  Motivo: es una Fecha Pasada");
+                alerta.setTitle("Error - Fecha");
+                alerta.setContentText("El cronograma del empleado ya no está habilitado para modificar por ser de una fecha pasada.");
                 Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
                 Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
                 stage.getIcons().add(icon);
@@ -859,8 +859,8 @@ public class ControladorCronograma {
             }
         } else {
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("");
-            alerta.setContentText("Para Modificar debes de tomar un Cronograma del empleado");
+            alerta.setTitle("Modificar cronograma");
+            alerta.setContentText("Para modificar debe seleccionar un cronograma del empleado.");
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
             stage.getIcons().add(icon);
@@ -888,8 +888,8 @@ public class ControladorCronograma {
         if (!Objects.equals(labIDCronogramaEliminar.getText(), "")){
             if((-Cant_Dias2) >= 0){
                 Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
-                alerta.setTitle("");
-                alerta.setContentText("¿Desea Eliminar el Cronograma del Empleado?");
+                alerta.setTitle("Eliminar cronograma");
+                alerta.setContentText("¿Desea eliminar el cronograma del empleado?");
                 Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
                 Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
                 stage.getIcons().add(icon);
@@ -909,8 +909,8 @@ public class ControladorCronograma {
                 }
             } else {
                 Alert alerta = new Alert(Alert.AlertType.ERROR);
-                alerta.setTitle("Error de Eliminar");
-                alerta.setContentText("El cronograma que desea eliminar en este empleado ya no está permitido.  Motivo: es una Fecha Pasada");
+                alerta.setTitle("Error - Fecha");
+                alerta.setContentText("No es posible eliminar el cronograma del empleado por ser de una fecha pasada.");
                 Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
                 Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
                 stage.getIcons().add(icon);
@@ -918,8 +918,8 @@ public class ControladorCronograma {
             }
         } else{
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("");
-            alerta.setContentText("Debe de seleccionar antes una Licencia de dicho empleado para Eliminarlo");
+            alerta.setTitle("Eliminar licencia");
+            alerta.setContentText("Debe seleccionar antes una licencia del empleado para eliminarla.");
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
             stage.getIcons().add(icon);
@@ -945,8 +945,8 @@ public class ControladorCronograma {
     private void modificarCronograma() {
         if(labIDCronogramaModificar.getText().trim().isEmpty() || labIDCronogramaModificar.getText() == null){
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("");
-            alerta.setContentText("Para Modificar debes de tomar un Cronograma del empleado");
+            alerta.setTitle("Modificar cronograma");
+            alerta.setContentText("Debe seleccionar antes un cronograma del empleado para modificarlo.");
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
             stage.getIcons().add(icon);
@@ -962,8 +962,8 @@ public class ControladorCronograma {
     private void eliminarCronograma() {
         if(labIDCronogramaEliminar.getText().trim().isEmpty() || labIDCronogramaEliminar.getText() == null){
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("");
-            alerta.setContentText("Para Eliminar debes de tomar un Cronograma del empleado");
+            alerta.setTitle("Eliminar cronograma");
+            alerta.setContentText("Debe seleccionar antes un cronograma del empleado para eliminarlo.");
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
             stage.getIcons().add(icon);
@@ -985,8 +985,8 @@ public class ControladorCronograma {
     @FXML
     private void regresarCMenu() {
         Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
-        alerta.setTitle("");
-        alerta.setContentText("Si regresa se eliminaran todos los cambios");
+        alerta.setTitle("¿Desea salir sin guardar?");
+        alerta.setContentText("Perderá todos los cambios realizados si regresa a la pantalla anterior sin antes guardarlos.");
         Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
         Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
         stage.getIcons().add(icon);
@@ -1029,8 +1029,8 @@ public class ControladorCronograma {
             cbBuscarEmpleado.setVisible(true);
         } else {
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("");
-            alerta.setContentText("Para Consultar la Licencia debe de haber uno o más empleados agregados");
+            alerta.setTitle("Consulta licencia");
+            alerta.setContentText("Para consultar la licencia debe haber uno o más empleados agregados.");
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
             stage.getIcons().add(icon);
@@ -1052,8 +1052,8 @@ public class ControladorCronograma {
             cbBuscarEmpleado.setVisible(false);
         } else {
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("");
-            alerta.setContentText("Debe de seleccionar un Empleado antes para Consultar la Licencia");
+            alerta.setTitle("Consulta licencia");
+            alerta.setContentText("Debe seleccionar antes un empleado para consultar la licencia.");
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
             stage.getIcons().add(icon);

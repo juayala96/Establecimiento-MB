@@ -111,8 +111,8 @@ public class CrearCronograma {
                     }
                     labLimpiarCamposCrear.setText("OK");
                     Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-                    alerta.setTitle("");
-                    alerta.setContentText("Se a Guardado los Datos.");
+                    alerta.setTitle("Crear cronograma");
+                    alerta.setContentText("Se han guardado los datos correctamente.");
                     Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
                     Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
                     stage.getIcons().add(icon);
@@ -129,16 +129,16 @@ public class CrearCronograma {
                     } catch (Exception ex) {
                         labLimpiarCamposCrear.setText("");
                         Alert alerta = new Alert(Alert.AlertType.ERROR);
-                        alerta.setTitle("Error!");
-                        alerta.setContentText("Error en la Base de Datos");
+                        alerta.setTitle("Error - Crear cronograma");
+                        alerta.setContentText("Error en la base de datos.");
                         alerta.showAndWait();
                         System.err.println("Error: " + ex.getMessage());
                     }
                 }
             } else {
                 Alert alerta = new Alert(Alert.AlertType.ERROR);
-                alerta.setTitle("Error de Fecha Asignada!");
-                alerta.setContentText("Hay empleados seleccionados que están con licencia en la fecha asignada. Dirigite a (Consulta Licencia) para ver a más detalles.");
+                alerta.setTitle("Error - Fecha");
+                alerta.setContentText("Hay empleados seleccionados que tienen una licencia en la fecha asignada. \nIngrese a Consulta Licencia para ver más detalles.");
                 Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
                 Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
                 stage.getIcons().add(icon);
@@ -146,8 +146,8 @@ public class CrearCronograma {
             }
         } else {
             Alert alerta = new Alert(Alert.AlertType.ERROR);
-            alerta.setTitle("Error de Empleados!");
-            alerta.setContentText("Uno de los empleados ya tiene asignado un turno en esta fecha "+ '\n' +"por lo tanto no se pude guardar");
+            alerta.setTitle("Error - Empleados");
+            alerta.setContentText("No se puede crear el cronograma porque uno de los empleados ya tiene asignado un turno en esta fecha.");
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
             stage.getIcons().add(icon);

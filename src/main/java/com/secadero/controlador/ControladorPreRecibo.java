@@ -269,8 +269,8 @@ public class ControladorPreRecibo {
 
         if(labLegajoEmpleado.getText().equals("")){
             Alert alerta = new Alert(Alert.AlertType.ERROR);
-            alerta.setTitle("");
-            alerta.setContentText("Error debe de seleccionar un empleado antes");
+            alerta.setTitle("Error - PreRecibo");
+            alerta.setContentText("Debe seleccionar antes un empleado para generar el pre-recibo.");
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
             stage.getIcons().add(icon);
@@ -284,8 +284,8 @@ public class ControladorPreRecibo {
                 limpiarCampos();
             } else {
                 Alert alerta = new Alert(Alert.AlertType.ERROR);
-                alerta.setTitle("Error de Fechas!");
-                alerta.setContentText("La Fecha de Inicio debe de ser Antes de la Fecha de Fin");
+                alerta.setTitle("Error - Fecha");
+                alerta.setContentText("La fecha de inicio debe ser anterior a la fecha de fin.");
                 Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
                 Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
                 stage.getIcons().add(icon);
@@ -401,7 +401,7 @@ public class ControladorPreRecibo {
         String sueldo = textSueldo.getText().trim();
         sueldo = sueldo.replaceAll("\\s+", "");
         if(sueldo.length() > 7){
-            labErrorSueldo.setText("Disponible hasta 7 dígitos");
+            labErrorSueldo.setText("Usá hasta 7 dígitos");
         } else {
             labErrorSueldo.setText("");
         }
@@ -413,7 +413,7 @@ public class ControladorPreRecibo {
         if(validarNumeros(sueldo)){
             labErrorSueldo.setText("");
         } else {
-            labErrorSueldo.setText("Solo Números");
+            labErrorSueldo.setText("Solo se admiten números");
         }
     }
 
@@ -472,37 +472,37 @@ public class ControladorPreRecibo {
         cuotaAgraria = cuotaAgraria.replaceAll("\\s+", "");
 
         if(antiguedad.length() > 4){
-            labErrorAntiguedad.setText("Solo hasta 4 dígitos");
+            labErrorAntiguedad.setText("Usá hasta 4 dígitos");
         } else {
             labErrorAntiguedad.setText("");
         }
         if(retroactive.length() > 4){
-            labErrorRetroactive.setText("Solo hasta 4 dígitos");
+            labErrorRetroactive.setText("Usá hasta 4 dígitos");
         } else {
             labErrorRetroactive.setText("");
         }
         if(jubilacion.length() > 4){
-            labErrorJubilacion.setText("Solo hasta 4 dígitos");
+            labErrorJubilacion.setText("Usá hasta 4 dígitos");
         } else {
             labErrorJubilacion.setText("");
         }
         if(ley.length() > 4){
-            labErrorLey.setText("Solo hasta 4 dígitos");
+            labErrorLey.setText("Usá hasta 4 dígitos");
         } else {
             labErrorLey.setText("");
         }
         if(obraSocial.length() > 4){
-            labErrorObraSocial.setText("Solo hasta 4 dígitos");
+            labErrorObraSocial.setText("Usá hasta 4 dígitos");
         } else {
             labErrorObraSocial.setText("");
         }
         if(seguroSepelio.length() > 4){
-            labErrorSeguroSepelio.setText("Solo hasta 4 dígitos");
+            labErrorSeguroSepelio.setText("Usá hasta 4 dígitos");
         } else {
             labErrorSeguroSepelio.setText("");
         }
         if(cuotaAgraria.length() > 4){
-            labErrorCuotaAgraria.setText("Solo hasta 4 dígitos");
+            labErrorCuotaAgraria.setText("Usá hasta 4 dígitos");
         } else {
             labErrorCuotaAgraria.setText("");
         }
@@ -527,37 +527,37 @@ public class ControladorPreRecibo {
         if(validarNumeros(antiguedad)){
             labErrorAntiguedad.setText("");
         } else {
-            labErrorAntiguedad.setText("Solo Números");
+            labErrorAntiguedad.setText("Solo se admiten números");
         }
         if(validarNumeros(retroactive)){
             labErrorRetroactive.setText("");
         } else {
-            labErrorRetroactive.setText("Solo Números");
+            labErrorRetroactive.setText("Solo se admiten números");
         }
         if(validarNumeros(jubilacion)){
             labErrorJubilacion.setText("");
         } else {
-            labErrorJubilacion.setText("Solo Números");
+            labErrorJubilacion.setText("Solo se admiten números");
         }
         if(validarNumeros(ley)){
             labErrorLey.setText("");
         } else {
-            labErrorLey.setText("Solo Números");
+            labErrorLey.setText("Solo se admiten números");
         }
         if(validarNumeros(obraSocial)){
             labErrorObraSocial.setText("");
         } else {
-            labErrorObraSocial.setText("Solo Números");
+            labErrorObraSocial.setText("Solo se admiten números");
         }
         if(validarNumeros(seguroSepelio)){
             labErrorSeguroSepelio.setText("");
         } else {
-            labErrorSeguroSepelio.setText("Solo Números");
+            labErrorSeguroSepelio.setText("Solo se admiten números");
         }
         if(validarNumeros(cuotaAgraria)){
             labErrorCuotaAgraria.setText("");
         } else {
-            labErrorCuotaAgraria.setText("Solo Números");
+            labErrorCuotaAgraria.setText("Solo se admiten números");
         }
     }
     // ---------------------------------------- Fechas Actuales Inicializadas ----------------------------------------

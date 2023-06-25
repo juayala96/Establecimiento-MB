@@ -373,8 +373,8 @@ public class PreRecibo {
                 if (con != null) con.close();
             } catch (Exception ex) {
                 Alert alerta = new Alert(Alert.AlertType.ERROR);
-                alerta.setTitle("Error!");
-                alerta.setContentText("Error en la Base de Datos");
+                alerta.setTitle("Error - PreRecibo");
+                alerta.setContentText("Error en la base de datos.");
                 alerta.showAndWait();
                 System.err.println("Error: " + ex.getMessage());
             }

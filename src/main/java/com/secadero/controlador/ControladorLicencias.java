@@ -488,8 +488,8 @@ public class ControladorLicencias {
         if(textBuscarLegajoEmpleado.getText().equals("")){
             String dato = cbBuscarEmpleadoLista.getSelectionModel().getSelectedItem();
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("");
-            alerta.setContentText("Debe de completar el "+ dato +" para Buscar");
+            alerta.setTitle("Buscar empleado");
+            alerta.setContentText("Debe completar el "+ dato +" para buscar.");
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
             stage.getIcons().add(icon);
@@ -548,8 +548,8 @@ public class ControladorLicencias {
     private void guardar() throws ParseException, SQLException {
         if(labIDEmpleadoCrear.getText().trim().isEmpty() || labIDEmpleadoCrear.getText() == null){
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("");
-            alerta.setContentText("Para guardar debes de tomar un empleado");
+            alerta.setTitle("Registrar licencia");
+            alerta.setContentText("Debe seleccionar antes un empleado para guardar la licencia.");
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
             stage.getIcons().add(icon);
@@ -599,8 +599,8 @@ public class ControladorLicencias {
     private void modificar() throws SQLException, ParseException {
         if(labIDLicenciaModificar.getText().trim().isEmpty() || labIDLicenciaModificar.getText() == null){
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("");
-            alerta.setContentText("Para Modificar debes de tomar una Licencia del empleado");
+            alerta.setTitle("Modificar licencia");
+            alerta.setContentText("Debe seleccionar antes una licencia del empleado para modificarla.");
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
             stage.getIcons().add(icon);
@@ -680,8 +680,8 @@ public class ControladorLicencias {
 
         if (labIDLicenciaEliminar.getText().trim().isEmpty() || labIDLicenciaEliminar.getText() == null){
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("");
-            alerta.setContentText("Debe de seleccionar antes una Licencia de dicho empleado para Eliminarlo");
+            alerta.setTitle("Eliminar licencia");
+            alerta.setContentText("Debe seleccionar antes una licencia del empleado para eliminarla.");
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
             stage.getIcons().add(icon);
@@ -690,8 +690,8 @@ public class ControladorLicencias {
         } else{
             if((-Cant_DiasInicio) >= 0 && (-Cant_DiasFin) >= 0){
                 Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
-                alerta.setTitle("");
-                alerta.setContentText("¿Desea Eliminar la Licencia del Empleado?");
+                alerta.setTitle("Eliminar licencia");
+                alerta.setContentText("¿Desea eliminar la licencia del empleado?");
                 Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
                 Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
                 stage.getIcons().add(icon);
@@ -710,8 +710,8 @@ public class ControladorLicencias {
                 }
             } else {
                 Alert alerta = new Alert(Alert.AlertType.ERROR);
-                alerta.setTitle("Error de Eliminar");
-                alerta.setContentText("La Licencia que desea eliminar en este empleado ya no está" + "\n" + "permitido.  Motivo: es una Fecha Pasada o ya se encuentra" + "\n" + "con Licencia");
+                alerta.setTitle("Error - Eliminar licencia");
+                alerta.setContentText("No es posible eliminar la licencia seleccionada ya que es de una fecha pasada o el empleado se encuentra cumpliendo con la licencia actualmente.");
                 Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
                 Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
                 stage.getIcons().add(icon);
@@ -733,8 +733,8 @@ public class ControladorLicencias {
     private void modificarLicencia() {
         if(labIDLicenciaModificar.getText().trim().isEmpty() || labIDLicenciaModificar.getText() == null){
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("");
-            alerta.setContentText("Para Modificar debes de tomar una Licencia del empleado");
+            alerta.setTitle("Modificar licencia");
+            alerta.setContentText("Debe seleccionar antes una licencia del empleado para modificarla.");
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
             stage.getIcons().add(icon);
@@ -750,8 +750,8 @@ public class ControladorLicencias {
     private void eliminarLicencia() {
         if(labIDLicenciaEliminar.getText().trim().isEmpty() || labIDLicenciaEliminar.getText() == null){
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("");
-            alerta.setContentText("Para Eliminar debes de tomar una Licencia del empleado");
+            alerta.setTitle("Eliminar licencia");
+            alerta.setContentText("Debe seleccionar antes una licencia del empleado para eliminarla.");
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
             stage.getIcons().add(icon);
@@ -766,8 +766,8 @@ public class ControladorLicencias {
     @FXML
     private void regresarCLista() {
         Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
-        alerta.setTitle("");
-        alerta.setContentText("Si regresa se eliminaran todos los cambios");
+        alerta.setTitle("¿Desea salir sin guardar?");
+        alerta.setContentText("Perderá todos los cambios realizados si regresa a la pantalla anterior sin antes guardarlos.");
         Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
         Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
         stage.getIcons().add(icon);
@@ -806,8 +806,8 @@ public class ControladorLicencias {
             inicializarTablaCronograma();
         } else {
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("");
-            alerta.setContentText("Debe de seleccionar un Empleado antes para Consultar el Cronograma");
+            alerta.setTitle("Consulta cronograma");
+            alerta.setContentText("Debe seleccionar antes un empleado para consultar el cronograma.");
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
             stage.getIcons().add(icon);
@@ -829,8 +829,8 @@ public class ControladorLicencias {
             inicializarTablaCronograma();
         } else {
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("");
-            alerta.setContentText("Debe de seleccionar un Empleado antes para Consultar el Cronograma");
+            alerta.setTitle("Consulta cronograma");
+            alerta.setContentText("Debe seleccionar antes un empleado para consultar el cronograma.");
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
             stage.getIcons().add(icon);
@@ -869,7 +869,7 @@ public class ControladorLicencias {
         motivo = motivo.replaceAll("\\s+", "");
 
         if (motivo.length() < 8) {
-            labErrorDescripcionCrear.setText("Usa 8 o más caracteres");
+            labErrorDescripcionCrear.setText("Usá 8 o más caracteres");
         } else {
             labErrorDescripcionCrear.setText("");
         }
@@ -881,7 +881,7 @@ public class ControladorLicencias {
         if (validarLetras(motivo)) {
             labErrorDescripcionCrear.setText("");
         } else {
-            labErrorDescripcionCrear.setText("Solo se admiten Letras");
+            labErrorDescripcionCrear.setText("Solo se admiten letras");
         }
     }
 
@@ -898,7 +898,7 @@ public class ControladorLicencias {
         motivo = motivo.replaceAll("\\s+", "");
 
         if (motivo.length() < 8) {
-            labErrorDescripcionModificar.setText("Usa 8 o más caracteres");
+            labErrorDescripcionModificar.setText("Usá 8 o más caracteres");
         } else {
             labErrorDescripcionModificar.setText("");
         }
@@ -910,7 +910,7 @@ public class ControladorLicencias {
         if (validarLetras(motivo)) {
             labErrorDescripcionModificar.setText("");
         } else {
-            labErrorDescripcionModificar.setText("Solo se admiten Letras");
+            labErrorDescripcionModificar.setText("Solo se admiten letras");
         }
     }
 

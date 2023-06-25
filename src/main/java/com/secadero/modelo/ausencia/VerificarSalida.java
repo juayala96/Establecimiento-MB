@@ -537,8 +537,8 @@ public class VerificarSalida {
             pstm.executeUpdate();
 
             Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-            alerta.setTitle("");
-            alerta.setContentText("Se guardo correctamente la Salida del Empleado.");
+            alerta.setTitle("Registrar salida");
+            alerta.setContentText("Se ha registrado la salida del empleado correctamente.");
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
             stage.getIcons().add(icon);

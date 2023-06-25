@@ -475,8 +475,8 @@ public class Informe extends Component {
                 if (con != null) con.close();
             } catch (Exception ex) {
                 Alert alerta = new Alert(Alert.AlertType.ERROR);
-                alerta.setTitle("Error!");
-                alerta.setContentText("Error en la Base de Datos");
+                alerta.setTitle("Error - Informe");
+                alerta.setContentText("Error en la base de datos.");
                 alerta.showAndWait();
                 System.err.println("Error: " + ex.getMessage());
             }

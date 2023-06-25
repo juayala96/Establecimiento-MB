@@ -140,8 +140,8 @@ public class Porcentaje {
 
             labConfirmacionPorcentaje.setText("OK");
             Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-            alerta.setTitle("");
-            alerta.setContentText("Se a Guardado los Datos de los Porcentajes.");
+            alerta.setTitle("Modificar porcentajes");
+            alerta.setContentText("Se han guardado los datos de los porcentajes correctamente.");
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
             stage.getIcons().add(icon);

@@ -27,8 +27,8 @@ public class EliminarAusencia {
             pstm.executeUpdate();
 
             Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-            alerta.setTitle("");
-            alerta.setContentText("Se a Eliminado Correctamente.");
+            alerta.setTitle("Eliminar ausencia");
+            alerta.setContentText("Se ha eliminado la ausencia correctamente.");
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
             stage.getIcons().add(icon);
@@ -43,8 +43,8 @@ public class EliminarAusencia {
                 if (con != null) con.close();
             } catch (Exception ex) {
                 Alert alerta = new Alert(Alert.AlertType.ERROR);
-                alerta.setTitle("Error!");
-                alerta.setContentText("Error en la Base de Datos");
+                alerta.setTitle("Error - Eliminar ausencia");
+                alerta.setContentText("Error en la base de datos.");
                 alerta.showAndWait();
                 System.err.println("Error: " + ex.getMessage());
             }

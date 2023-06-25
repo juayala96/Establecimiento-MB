@@ -139,8 +139,8 @@ public class ControladorInformes {
 
         if(labLegajoEmpleado.getText().equals("")){
             Alert alerta = new Alert(Alert.AlertType.ERROR);
-            alerta.setTitle("");
-            alerta.setContentText("Error debe de seleccionar un empleado antes");
+            alerta.setTitle("Error - Informe");
+            alerta.setContentText("Debe seleccionar antes un empleado para generar el informe.");
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
             stage.getIcons().add(icon);
@@ -154,8 +154,8 @@ public class ControladorInformes {
                 limpiarCampos();
             } else {
                 Alert alerta = new Alert(Alert.AlertType.ERROR);
-                alerta.setTitle("Error de Fechas!");
-                alerta.setContentText("La Fecha Desde debe de ser Antes de la Fecha Hasta");
+                alerta.setTitle("Error - Fecha");
+                alerta.setContentText("La fecha de inicio debe ser anterior a la fecha de fin.");
                 Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
                 Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
                 stage.getIcons().add(icon);

@@ -51,8 +51,8 @@ public class ModificarUsuario {
                 pstm.executeUpdate();
 
                 Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-                alerta.setTitle("");
-                alerta.setContentText("Se a guardado los datos correctamente");
+                alerta.setTitle("Modificar usuario");
+                alerta.setContentText("Se han guardado los datos correctamente.");
                 Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
                 Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
                 stage.getIcons().add(icon);
@@ -61,8 +61,8 @@ public class ModificarUsuario {
 
             } else {
                 Alert alerta = new Alert(Alert.AlertType.ERROR);
-                alerta.setTitle("ERROR de Duplicación");
-                alerta.setContentText("No está permitido duplicar el NOMBRE DE USUARIO de otro Usuario");
+                alerta.setTitle("Error - Nombre de usuario");
+                alerta.setContentText("El nombre de usuario ingresado pertenece a otro usuario. \nNo está permitido duplicarlo.");
                 Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
                 Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
                 stage.getIcons().add(icon);
@@ -79,8 +79,8 @@ public class ModificarUsuario {
                 if (con != null) con.close();
             } catch (Exception ex){
                 Alert alerta = new Alert(Alert.AlertType.ERROR);
-                alerta.setTitle("Error!");
-                alerta.setContentText("Error en la Base de Datos");
+                alerta.setTitle("Error - Modificar usuario");
+                alerta.setContentText("Error en la base de datos.");
                 alerta.showAndWait();
                 System.err.println("Error: " + ex.getMessage());
             }

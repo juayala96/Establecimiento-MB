@@ -610,8 +610,8 @@ public class ControladorAusencias {
         if(textBuscarLegajoEmpleado.getText().equals("")){
             String dato = cbBuscarEmpleadoLista.getSelectionModel().getSelectedItem();
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("");
-            alerta.setContentText("Debe de completar el " + dato +" para Buscar");
+            alerta.setTitle("Buscar empleado");
+            alerta.setContentText("Debe completar el " + dato +" para buscar.");
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
             stage.getIcons().add(icon);
@@ -674,8 +674,8 @@ public class ControladorAusencias {
                     tablasAsistenciasBuscar();
                 } else if(horaActual.isBefore(horaInicio) && horaActual.isBefore(horaFin)){
                     Alert alerta = new Alert(Alert.AlertType.ERROR);
-                    alerta.setTitle("Error de Consulta");
-                    alerta.setContentText("La Fecha y Turno asignado no esta permitido según la (Fecha y Hora Actual)");
+                    alerta.setTitle("Error - Consulta");
+                    alerta.setContentText("La fecha y turno seleccionados no se pueden visualizar aún por la fecha y hora actuales.");
                     Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
                     Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
                     stage.getIcons().add(icon);
@@ -691,8 +691,8 @@ public class ControladorAusencias {
                     tablasAsistenciasBuscar();
                 } else {
                     Alert alerta = new Alert(Alert.AlertType.ERROR);
-                    alerta.setTitle("Error de Consulta");
-                    alerta.setContentText("La Fecha y Turno asignado no esta permitido según la (Fecha y Hora Actual)");
+                    alerta.setTitle("Error - Consulta");
+                    alerta.setContentText("La fecha y turno seleccionados no se pueden visualizar aún por la fecha y hora actuales.");
                     Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
                     Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
                     stage.getIcons().add(icon);
@@ -701,8 +701,8 @@ public class ControladorAusencias {
             }
         } else {
             Alert alerta = new Alert(Alert.AlertType.ERROR);
-            alerta.setTitle("Error de Consulta");
-            alerta.setContentText("La Fecha y Turno asignado no esta permitido según la (Fecha y Hora Actual)");
+            alerta.setTitle("Error - Consulta");
+            alerta.setContentText("La fecha y turno seleccionados no se pueden visualizar aún por la fecha y hora actuales.");
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
             stage.getIcons().add(icon);
@@ -742,8 +742,8 @@ public class ControladorAusencias {
                     tablasSalidaBuscar();
                 } else if(horaActual.isBefore(horaInicio) && horaActual.isBefore(horaFin)){
                     Alert alerta = new Alert(Alert.AlertType.ERROR);
-                    alerta.setTitle("Error de Consulta");
-                    alerta.setContentText("La Fecha y Turno asignado no esta permitido según la (Fecha y Hora Actual)");
+                    alerta.setTitle("Error - Consulta");
+                    alerta.setContentText("La fecha y turno seleccionados no se pueden visualizar aún por la fecha y hora actuales.");
                     Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
                     Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
                     stage.getIcons().add(icon);
@@ -759,8 +759,8 @@ public class ControladorAusencias {
                     tablasSalidaBuscar();
                 } else {
                     Alert alerta = new Alert(Alert.AlertType.ERROR);
-                    alerta.setTitle("Error de Consulta");
-                    alerta.setContentText("La Fecha y Turno asignado no esta permitido según la (Fecha y Hora Actual)");
+                    alerta.setTitle("Error - Consulta");
+                    alerta.setContentText("La fecha y turno seleccionados no se pueden visualizar aún por la fecha y hora actuales.");
                     Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
                     Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
                     stage.getIcons().add(icon);
@@ -769,8 +769,8 @@ public class ControladorAusencias {
             }
         } else {
             Alert alerta = new Alert(Alert.AlertType.ERROR);
-            alerta.setTitle("Error de Consulta");
-            alerta.setContentText("La Fecha y Turno asignado no esta permitido según la (Fecha y Hora Actual)");
+            alerta.setTitle("Error - Consulta");
+            alerta.setContentText("La fecha y turno seleccionados no se pueden visualizar aún por la fecha y hora actuales.");
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
             stage.getIcons().add(icon);
@@ -810,8 +810,8 @@ public class ControladorAusencias {
 
         if(labIDEmpleadoCrear.getText().trim().isEmpty() || labIDEmpleadoCrear.getText() == null){
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("");
-            alerta.setContentText("Para Guardar debes de tomar un Empleado antes");
+            alerta.setTitle("Registrar ausencia");
+            alerta.setContentText("Debe seleccionar antes un empleado para guardar la ausencia.");
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
             stage.getIcons().add(icon);
@@ -839,8 +839,8 @@ public class ControladorAusencias {
                             }
                         } else {
                             Alert alerta = new Alert(Alert.AlertType.ERROR);
-                            alerta.setTitle("");
-                            alerta.setContentText("No esta Permitido la fecha ingresada. \nMotivo: no se puede realizar una ausencia futuro");
+                            alerta.setTitle("Error - Fecha");
+                            alerta.setContentText("La fecha ingresada no es válida.\nNo es posible registrar una ausencia a futuro.");
                             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
                             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
                             stage.getIcons().add(icon);
@@ -872,8 +872,8 @@ public class ControladorAusencias {
 
         if(labIDAusenciaModificar.getText().trim().isEmpty() || labIDAusenciaModificar.getText() == null){
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("");
-            alerta.setContentText("Debe de seleccionar antes una Ausencia de dicho empleado para Modificarlo");
+            alerta.setTitle("Modificar ausencia");
+            alerta.setContentText("Debe seleccionar antes una ausencia del empleado para modificarla.");
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
             stage.getIcons().add(icon);
@@ -902,8 +902,8 @@ public class ControladorAusencias {
                             }
                         } else {
                             Alert alerta = new Alert(Alert.AlertType.ERROR);
-                            alerta.setTitle("");
-                            alerta.setContentText("No esta Permitido la fecha ingresada. \nMotivo: no se puede realizar una ausencia futuro");
+                            alerta.setTitle("Error - Fecha");
+                            alerta.setContentText("La fecha ingresada no es válida. \nNo es posible registrar una ausencia a futuro.");
                             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
                             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
                             stage.getIcons().add(icon);
@@ -919,8 +919,8 @@ public class ControladorAusencias {
     private void eliminar() {
         if (labIDAusenciaEliminar.getText().trim().isEmpty() || labIDAusenciaEliminar.getText() == null){
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("");
-            alerta.setContentText("Debe de seleccionar antes una Ausencia de dicho empleado para Eliminarlo");
+            alerta.setTitle("Eliminar ausencia");
+            alerta.setContentText("Debe seleccionar antes una ausencia del empleado para eliminarla.");
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
             stage.getIcons().add(icon);
@@ -928,8 +928,8 @@ public class ControladorAusencias {
             btnRegresarELista.requestFocus();
         } else{
             Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
-            alerta.setTitle("");
-            alerta.setContentText("¿Desea Eliminar la Ausencia del Empleado?");
+            alerta.setTitle("Eliminar ausencia");
+            alerta.setContentText("¿Desea eliminar la ausencia del empleado?");
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
             stage.getIcons().add(icon);
@@ -981,8 +981,8 @@ public class ControladorAusencias {
                     tablasAsistencias();
                 } else if(horaActual.isBefore(horaInicio) && horaActual.isBefore(horaFin)){
                     Alert alerta = new Alert(Alert.AlertType.ERROR);
-                    alerta.setTitle("Error de Consulta");
-                    alerta.setContentText("La Fecha y Turno asignado no esta permitido según la (Fecha y Hora Actual)");
+                    alerta.setTitle("Error - Consulta");
+                    alerta.setContentText("La fecha y turno seleccionados no se pueden visualizar aún por la fecha y hora actuales.");
                     Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
                     Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
                     stage.getIcons().add(icon);
@@ -998,8 +998,8 @@ public class ControladorAusencias {
                     tablasAsistencias();
                 } else {
                     Alert alerta = new Alert(Alert.AlertType.ERROR);
-                    alerta.setTitle("Error de Consulta");
-                    alerta.setContentText("La Fecha y Turno asignado no esta permitido según la (Fecha y Hora Actual)");
+                    alerta.setTitle("Error - Consulta");
+                    alerta.setContentText("La fecha y turno seleccionados no se pueden visualizar aún por la fecha y hora actuales.");
                     Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
                     Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
                     stage.getIcons().add(icon);
@@ -1008,8 +1008,8 @@ public class ControladorAusencias {
             }
         } else {
             Alert alerta = new Alert(Alert.AlertType.ERROR);
-            alerta.setTitle("Error de Consulta");
-            alerta.setContentText("La Fecha y Turno asignado no esta permitido según la (Fecha y Hora Actual)");
+            alerta.setTitle("Error - Consulta");
+            alerta.setContentText("La fecha y turno seleccionados no se pueden visualizar aún por la fecha y hora actuales.");
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
             stage.getIcons().add(icon);
@@ -1048,8 +1048,8 @@ public class ControladorAusencias {
                     tablasSalidas();
                 } else if(horaActual.isBefore(horaInicio) && horaActual.isBefore(horaFin)){
                     Alert alerta = new Alert(Alert.AlertType.ERROR);
-                    alerta.setTitle("Error de Consulta");
-                    alerta.setContentText("La Fecha y Turno asignado no esta permitido según la (Fecha y Hora Actual)");
+                    alerta.setTitle("Error - Consulta");
+                    alerta.setContentText("La fecha y turno seleccionados no se pueden visualizar aún por la fecha y hora actuales.");
                     Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
                     Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
                     stage.getIcons().add(icon);
@@ -1065,8 +1065,8 @@ public class ControladorAusencias {
                     tablasSalidas();
                 } else {
                     Alert alerta = new Alert(Alert.AlertType.ERROR);
-                    alerta.setTitle("Error de Consulta");
-                    alerta.setContentText("La Fecha y Turno asignado no esta permitido según la (Fecha y Hora Actual)");
+                    alerta.setTitle("Error - Consulta");
+                    alerta.setContentText("La fecha y turno seleccionados no se pueden visualizar aún por la fecha y hora actuales.");
                     Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
                     Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
                     stage.getIcons().add(icon);
@@ -1075,8 +1075,8 @@ public class ControladorAusencias {
             }
         } else {
             Alert alerta = new Alert(Alert.AlertType.ERROR);
-            alerta.setTitle("Error de Consulta");
-            alerta.setContentText("La Fecha y Turno asignado no esta permitido según la (Fecha y Hora Actual)");
+            alerta.setTitle("Error - Consulta");
+            alerta.setContentText("La fecha y turno seleccionados no se pueden visualizar aún por la fecha y hora actuales.");
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
             stage.getIcons().add(icon);
@@ -1090,8 +1090,8 @@ public class ControladorAusencias {
         labExisteEntrada.setText("");
         if(labIDEmpleadoEntradaA.getText().trim().isEmpty() || labIDEmpleadoEntradaA.getText() == null){
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("Error al Marcar la Entrada!");
-            alerta.setContentText("Debe de seleccionar antes un empleado en la (Tabla del Cronograma) para marcar su entrada");
+            alerta.setTitle("Registrar entrada");
+            alerta.setContentText("Debe seleccionar antes un empleado en la \nTabla de Cronograma para registrar su entrada.");
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
             stage.getIcons().add(icon);
@@ -1104,7 +1104,7 @@ public class ControladorAusencias {
                 if(labTurnoEntrada.getText().equals("Noche")){
                     textHoraEntrada.setText("00:00");
                 }
-                labErrorHoraEntrada2.setText("No está Permitido ese formato");
+                labErrorHoraEntrada2.setText("No se permite ese formato");
             } else {
                 labErrorHoraEntrada.setText("");
                 labErrorHoraEntrada2.setText("");
@@ -1133,8 +1133,8 @@ public class ControladorAusencias {
                         } else {
                             labExisteEntrada.setText("");
                             Alert alerta = new Alert(Alert.AlertType.ERROR);
-                            alerta.setTitle("Error de Marcar Entrada");
-                            alerta.setContentText("La entrada de dicho empleado ya está registrada. ");
+                            alerta.setTitle("Error - Registrar entrada");
+                            alerta.setContentText("La entrada del empleado ya fue registrada anteriormente.");
                             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
                             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
                             stage.getIcons().add(icon);
@@ -1142,8 +1142,8 @@ public class ControladorAusencias {
                         }
                     } else {
                         Alert alerta = new Alert(Alert.AlertType.ERROR);
-                        alerta.setTitle("Error de Marcar Entrada");
-                        alerta.setContentText("La Hora que a asignado se encuentra afuera del rango del Turno. (Permitido desde: 12:00 a 12:30 hs)");
+                        alerta.setTitle("Error - Hora");
+                        alerta.setContentText("La hora asignada se encuentra afuera del rango del turno. \nHora permitida: 12:00 a 12:30 hs.");
                         Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
                         Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
                         stage.getIcons().add(icon);
@@ -1168,8 +1168,8 @@ public class ControladorAusencias {
                             asistencia = "NO";
                         } else {
                             Alert alerta = new Alert(Alert.AlertType.ERROR);
-                            alerta.setTitle("Error de Marcar Entrada");
-                            alerta.setContentText("La entrada de dicho empleado ya está registrada. ");
+                            alerta.setTitle("Error - Registrar entrada");
+                            alerta.setContentText("La entrada del empleado ya fue registrada anteriormente.");
                             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
                             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
                             stage.getIcons().add(icon);
@@ -1177,8 +1177,8 @@ public class ControladorAusencias {
                         }
                     } else {
                         Alert alerta = new Alert(Alert.AlertType.ERROR);
-                        alerta.setTitle("Error de Marcar Entrada");
-                        alerta.setContentText("La Hora que a asignado se encuentra afuera del rango del Turno. (Permitido desde: 00:00 a 00:30 hs)");
+                        alerta.setTitle("Error - Hora");
+                        alerta.setContentText("La hora asignada se encuentra fuera del rango del turno. \nHora permitida: 00:00 a 00:30 hs.");
                         Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
                         Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
                         stage.getIcons().add(icon);
@@ -1196,8 +1196,8 @@ public class ControladorAusencias {
         labExisteSalida.setText("");
         if(labIDEmpleadoSalidaS.getText().trim().isEmpty() || labIDEmpleadoSalidaS.getText() == null){
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("Error al Marcar la Salida!");
-            alerta.setContentText("Debe de seleccionar antes un empleado en la (Tabla del Cronograma) para marcar su salida");
+            alerta.setTitle("Registrar salida");
+            alerta.setContentText("Debe seleccionar antes un empleado en la \nTabla de Cronograma para registrar su salida.");
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
             stage.getIcons().add(icon);
@@ -1210,7 +1210,7 @@ public class ControladorAusencias {
                 if(labTurnoSalida.getText().equals("Noche")){
                     textHoraSalida.setText("12:00");
                 }
-                labErrorHoraSalida2.setText("No está Permitido ese formato");
+                labErrorHoraSalida2.setText("No se permite ese formato");
             } else {
                 labErrorHoraSalida.setText("");
                 labErrorHoraSalida2.setText("");
@@ -1241,8 +1241,8 @@ public class ControladorAusencias {
                                 salida = "NO";
                             } else {
                                 Alert alerta = new Alert(Alert.AlertType.ERROR);
-                                alerta.setTitle("Error de Marcar Salida");
-                                alerta.setContentText("La salida de dicho empleado ya está registrada. ");
+                                alerta.setTitle("Error - Registrar salida");
+                                alerta.setContentText("La salida del empleado ya fue registrada anteriormente.");
                                 Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
                                 Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
                                 stage.getIcons().add(icon);
@@ -1251,8 +1251,8 @@ public class ControladorAusencias {
                         } else {
                             labExisteEntrada.setText("");
                             Alert alerta = new Alert(Alert.AlertType.ERROR);
-                            alerta.setTitle("Error de Marcar Salida");
-                            alerta.setContentText("La salida de dicho empleado no se puede realizar porque no a ingresado su Entrada.");
+                            alerta.setTitle("Error - Registrar salida");
+                            alerta.setContentText("La salida del empleado no se puede registrar porque no ha marcado su entrada.");
                             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
                             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
                             stage.getIcons().add(icon);
@@ -1260,8 +1260,8 @@ public class ControladorAusencias {
                         }
                     } else {
                         Alert alerta = new Alert(Alert.AlertType.ERROR);
-                        alerta.setTitle("Error de Marcar Salida");
-                        alerta.setContentText("La Hora que a asignado se encuentra afuera del rango del Turno. (Permitido desde: 23:30 a 23:59 hs)");
+                        alerta.setTitle("Error - Hora");
+                        alerta.setContentText("La hora asignada se encuentra fuera del rango del turno. \nHora permitida: 23:30 a 23:59 hs.");
                         Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
                         Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
                         stage.getIcons().add(icon);
@@ -1289,8 +1289,8 @@ public class ControladorAusencias {
                                 salida = "NO";
                             } else {
                                 Alert alerta = new Alert(Alert.AlertType.ERROR);
-                                alerta.setTitle("Error de Marcar Salida");
-                                alerta.setContentText("La salida de dicho empleado ya está registrada. ");
+                                alerta.setTitle("Error - Registrar salida");
+                                alerta.setContentText("La salida del empleado ya fue registrada anteriormente.");
                                 Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
                                 Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
                                 stage.getIcons().add(icon);
@@ -1299,8 +1299,8 @@ public class ControladorAusencias {
                         } else {
                             labExisteEntrada.setText("");
                             Alert alerta = new Alert(Alert.AlertType.ERROR);
-                            alerta.setTitle("Error de Marcar Salida");
-                            alerta.setContentText("La salida de dicho empleado no se puede realizar porque no a ingresado su Entrada.");
+                            alerta.setTitle("Error - Registrar salida");
+                            alerta.setContentText("La salida del empleado no se puede registrar porque no ha marcado su entrada.");
                             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
                             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
                             stage.getIcons().add(icon);
@@ -1308,8 +1308,8 @@ public class ControladorAusencias {
                         }
                     } else {
                         Alert alerta = new Alert(Alert.AlertType.ERROR);
-                        alerta.setTitle("Error de Marcar Salida");
-                        alerta.setContentText("La Hora que a asignado se encuentra afuera del rango del Turno. (Permitido desde: 11:30 a 12:00 hs)");
+                        alerta.setTitle("Error - Hora");
+                        alerta.setContentText("La hora asignada se encuentra fuera del rango del turno. \nHora permitida: 11:30 a 12:00 hs.");
                         Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
                         Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
                         stage.getIcons().add(icon);
@@ -1390,8 +1390,8 @@ public class ControladorAusencias {
     private void modificarAusencia() {
         if(labIDAusenciaModificar.getText().trim().isEmpty() || labIDAusenciaModificar.getText() == null){
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("");
-            alerta.setContentText("Debe de seleccionar antes una Ausencia de dicho empleado para Modificarlo");
+            alerta.setTitle("Modificar ausencia");
+            alerta.setContentText("Debe seleccionar antes una ausencia del empleado para modificarla.");
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
             stage.getIcons().add(icon);
@@ -1407,8 +1407,8 @@ public class ControladorAusencias {
     private void eliminarAusencia() {
         if (labIDAusenciaEliminar.getText().trim().isEmpty() || labIDAusenciaEliminar.getText() == null){
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("");
-            alerta.setContentText("Debe de seleccionar antes una Ausencia de dicho empleado para Eliminarlo");
+            alerta.setTitle("Eliminar ausencia");
+            alerta.setContentText("Debe seleccionar antes una ausencia del empleado para eliminarla.");
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
             stage.getIcons().add(icon);
@@ -1430,8 +1430,8 @@ public class ControladorAusencias {
     private void regresarCLista() {
         if(Objects.equals(regresarConsultaAsistenia, "0")){
             Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
-            alerta.setTitle("");
-            alerta.setContentText("Si regresa se eliminaran todos los cambios");
+            alerta.setTitle("¿Desea salir sin guardar?");
+            alerta.setContentText("Perderá todos los cambios realizados si regresa a la pantalla anterior sin antes guardarlos.");
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
             stage.getIcons().add(icon);
@@ -1480,8 +1480,8 @@ public class ControladorAusencias {
             labErrorHoraEntrada2.setText("");
         } else {
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("");
-            alerta.setContentText("Debe de seleccionar antes un empleado en la (Tabla del Cronograma) para registrar su entrada");
+            alerta.setTitle("Registrar entrada");
+            alerta.setContentText("Debe seleccionar antes un empleado en la \nTabla de Cronograma para registrar su entrada.");
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
             stage.getIcons().add(icon);
@@ -1497,8 +1497,8 @@ public class ControladorAusencias {
             regresarConsultaAsistenia = "1";
         } else {
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("");
-            alerta.setContentText("Debe de seleccionar antes un empleado en la (Tabla del Cronograma) para registrar su ausencia");
+            alerta.setTitle("Registrar ausencia");
+            alerta.setContentText("Debe seleccionar antes un empleado en la \nTabla de Cronograma para registrar su ausencia.");
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
             stage.getIcons().add(icon);
@@ -1528,8 +1528,8 @@ public class ControladorAusencias {
             labErrorHoraSalida2.setText("");
         } else {
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("");
-            alerta.setContentText("Debe de seleccionar antes un empleado en la (Tabla del Cronograma) para registrar su salida");
+            alerta.setTitle("Registrar salida");
+            alerta.setContentText("Debe seleccionar antes un empleado en la \nTabla de Cronograma para registrar su salida.");
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
             stage.getIcons().add(icon);
@@ -1562,7 +1562,7 @@ public class ControladorAusencias {
         motivo = motivo.replaceAll("\\s+", "");
 
         if (motivo.length() < 10) {
-            labErrorMotivoCrear.setText("Usa 10 o más caracteres");
+            labErrorMotivoCrear.setText("Usá 10 o más caracteres");
         } else {
             labErrorMotivoCrear.setText("");
         }
@@ -1574,7 +1574,7 @@ public class ControladorAusencias {
         if (validarLetras(motivo)) {
             labErrorMotivoCrear.setText("");
         } else {
-            labErrorMotivoCrear.setText("Solo se admiten Letras");
+            labErrorMotivoCrear.setText("Solo se admiten letras");
         }
     }
 
@@ -1591,7 +1591,7 @@ public class ControladorAusencias {
         motivo = motivo.replaceAll("\\s+", "");
 
         if (motivo.length() < 10) {
-            labErrorMotivoModificar.setText("Usa 10 o más caracteres");
+            labErrorMotivoModificar.setText("Usá 10 o más caracteres");
         } else {
             labErrorMotivoModificar.setText("");
         }
@@ -1604,7 +1604,7 @@ public class ControladorAusencias {
         if (validarLetras(motivo)) {
             labErrorMotivoModificar.setText("");
         } else {
-            labErrorMotivoModificar.setText("Solo se admiten Letras");
+            labErrorMotivoModificar.setText("Solo se admiten letras");
         }
     }
 

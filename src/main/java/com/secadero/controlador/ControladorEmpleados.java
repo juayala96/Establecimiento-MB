@@ -527,8 +527,8 @@ public class ControladorEmpleados {
             }
         } else {
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("");
-            alerta.setContentText("Debe de seleccionar antes un Empleado para Modificarlo");
+            alerta.setTitle("Modificar empleado");
+            alerta.setContentText("Debe seleccionar antes un empleado para modificarlo.");
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
             stage.getIcons().add(icon);
@@ -541,8 +541,8 @@ public class ControladorEmpleados {
         Label[] id = {labIDEliminar};
         if (!labIDEliminar.getText().equals("")){
             Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
-            alerta.setTitle("");
-            alerta.setContentText("¿Desea Eliminar el Empleado?");
+            alerta.setTitle("Eliminar empleado");
+            alerta.setContentText("¿Desea eliminar el empleado?");
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
             stage.getIcons().add(icon);
@@ -559,8 +559,8 @@ public class ControladorEmpleados {
             }
         } else{
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("");
-            alerta.setContentText("Debe de seleccionar antes un Empleado para Eliminarlo");
+            alerta.setTitle("Eliminar empleado");
+            alerta.setContentText("Debe seleccionar antes un empleado para eliminarlo.");
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
             stage.getIcons().add(icon);
@@ -581,8 +581,8 @@ public class ControladorEmpleados {
     private void modificarEmpleado() {
         if(labIDModificar.getText().trim().isEmpty() || labIDModificar.getText() == null){
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("");
-            alerta.setContentText("Debe de seleccionar antes un Empleado para Modificarlo");
+            alerta.setTitle("Modificar empleado");
+            alerta.setContentText("Debe seleccionar antes un empleado para modificarlo.");
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
             stage.getIcons().add(icon);
@@ -598,8 +598,8 @@ public class ControladorEmpleados {
     private void eliminarEmpleado() {
         if(labIDEliminar.getText().trim().isEmpty() || labIDEliminar.getText() == null){
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("");
-            alerta.setContentText("Debe de seleccionar antes un Empleado para Eliminarlo");
+            alerta.setTitle("Eliminar empleado");
+            alerta.setContentText("Debe seleccionar antes un empleado para eliminarlo.");
             Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
             Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
             stage.getIcons().add(icon);
@@ -614,8 +614,8 @@ public class ControladorEmpleados {
     @FXML
     private void regresarCLista() {
         Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
-        alerta.setTitle("");
-        alerta.setContentText("Si regresa se eliminaran todos los cambios");
+        alerta.setTitle("¿Desea salir sin guardar?");
+        alerta.setContentText("Perderá todos los cambios realizados si regresa a la pantalla anterior sin antes guardarlos.");
         Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
         Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
         stage.getIcons().add(icon);
@@ -942,32 +942,32 @@ public class ControladorEmpleados {
         if(validarLetras(nombre)){
             labErrorNombreCrear.setText("");
         } else {
-            labErrorNombreCrear.setText("Solo se admiten Letras");
+            labErrorNombreCrear.setText("Solo se admiten letras");
         }
         if(validarLetras(apellido)){
             labErrorApellidoCrear.setText("");
         } else {
-            labErrorApellidoCrear.setText("Solo se admiten Letras");
+            labErrorApellidoCrear.setText("Solo se admiten letras");
         }
         if(validarNumeros(legajo)){
             labErrorLegajoCrear.setText("");
         } else {
-            labErrorLegajoCrear.setText("Solo se admiten Números");
+            labErrorLegajoCrear.setText("Solo se admiten números");
         }
         if(validarNumeros(dni)){
             labErrorDNICrear.setText("");
         } else {
-            labErrorDNICrear.setText("Solo se admiten Números");
+            labErrorDNICrear.setText("Solo se admiten números");
         }
         if(validarNumerosTelefono(telefono)){
             labErrorTelefonoCrear.setText("");
         } else {
-            labErrorTelefonoCrear.setText("Solo se admiten Números");
+            labErrorTelefonoCrear.setText("Solo se admiten números");
         }
         if(validarLetrasEmail(email)){
             labErrorEmailCrear.setText("");
         } else {
-            labErrorEmailCrear.setText("No se parece a un E-mail");
+            labErrorEmailCrear.setText("No se parece a un e-mail");
         }
     }
 
@@ -1081,32 +1081,32 @@ public class ControladorEmpleados {
         if(validarLetras(nombre)){
             labErrorNombreModificar.setText("");
         } else {
-            labErrorNombreModificar.setText("Solo se admiten Letras");
+            labErrorNombreModificar.setText("Solo se admiten letras");
         }
         if(validarLetras(apellido)){
             labErrorApellidoModificar.setText("");
         } else {
-            labErrorApellidoModificar.setText("Solo se admiten Letras");
+            labErrorApellidoModificar.setText("Solo se admiten letras");
         }
         if(validarNumeros(legajo)){
             labErrorLegajoModificar.setText("");
         } else {
-            labErrorLegajoModificar.setText("Solo se admiten Números");
+            labErrorLegajoModificar.setText("Solo se admiten números");
         }
         if(validarNumeros(dni)){
             labErrorDNIModificar.setText("");
         } else {
-            labErrorDNIModificar.setText("Solo se admiten Números");
+            labErrorDNIModificar.setText("Solo se admiten números");
         }
         if(validarNumerosTelefono(telefono)) {
             labErrorTelefonoModificar.setText("");
         } else {
-            labErrorTelefonoModificar.setText("Solo se admiten Números");
+            labErrorTelefonoModificar.setText("Solo se admiten números");
         }
         if(validarLetrasEmail(email)){
             labErrorEmailModificar.setText("");
         } else {
-            labErrorEmailModificar.setText("No se parece a un E-mail");
+            labErrorEmailModificar.setText("No se parece a un e-mail");
         }
     }
 
