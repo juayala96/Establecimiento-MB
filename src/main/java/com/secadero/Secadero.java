@@ -14,7 +14,7 @@ public class Secadero extends Application {
     public static void main(String[] args) {launch(args);}
     @Override
     public void start(Stage primaryStage) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/vistas/principal.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/vistas/login.fxml"));
         AnchorPane root = loader.load();
         Scene escena = new Scene(root);
         primaryStage.setScene(escena);
