@@ -451,7 +451,7 @@ public class ControladorEmpleados {
                                 inicializarTabla();
                                 vaciarComboBox();
                                 inicializarComboBoxBD();
-                                regresarCLista();
+                                regresarMLista();
                                 limpiarCamposCrear();
                             }
                         } else {
@@ -512,7 +512,7 @@ public class ControladorEmpleados {
                                     inicializarTabla();
                                     vaciarComboBox();
                                     inicializarComboBoxBD();
-                                    regresarCLista();
+                                    regresarMLista();
                                     limpiarCamposModificar();
                                     limpiarCamposEliminar();
                                 }
@@ -552,10 +552,9 @@ public class ControladorEmpleados {
                 EliminarEmpleado empleadoEliminar = new EliminarEmpleado();
                 empleadoEliminar.eliminarEmpleado(labIDEliminar);
                 inicializarTabla();
-
                 limpiarCamposEliminar();
                 limpiarCamposModificar();
-                regresarCLista();
+                regresarMLista();
             }
         } else{
             Alert alerta = new Alert(Alert.AlertType.WARNING);

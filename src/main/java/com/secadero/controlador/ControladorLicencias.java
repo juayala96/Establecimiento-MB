@@ -572,7 +572,7 @@ public class ControladorLicencias {
                                 labIDEmpleadoLista.setText("0");
                                 inicializarTablaEmpleado();
                                 inicializarTablaLicencias();
-                                regresarCLista();
+                                regresarMLista();
                                 limpiarCamposCrear();
                             }
                         }
@@ -588,7 +588,7 @@ public class ControladorLicencias {
                     labIDEmpleadoLista.setText("0");
                     inicializarTablaEmpleado();
                     inicializarTablaLicencias();
-                    regresarCLista();
+                    regresarMLista();
                     limpiarCamposCrear();
                 }
             }
@@ -624,7 +624,7 @@ public class ControladorLicencias {
                                 labIDEmpleadoLista.setText("0");
                                 inicializarTablaEmpleado();
                                 inicializarTablaLicencias();
-                                regresarCLista();
+                                regresarMLista();
                                 limpiarCamposModificar();
                                 limpiarCamposEliminar();
                             }
@@ -641,7 +641,7 @@ public class ControladorLicencias {
                     labIDEmpleadoLista.setText("0");
                     inicializarTablaEmpleado();
                     inicializarTablaLicencias();
-                    regresarCLista();
+                    regresarMLista();
                     limpiarCamposModificar();
                     limpiarCamposEliminar();
                 }
@@ -706,7 +706,7 @@ public class ControladorLicencias {
                     inicializarTablaLicencias();
                     limpiarCamposEliminar();
                     limpiarCamposModificar();
-                    regresarELista();
+                    regresarMLista();
                 }
             } else {
                 Alert alerta = new Alert(Alert.AlertType.ERROR);

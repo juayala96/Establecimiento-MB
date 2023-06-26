@@ -333,7 +333,7 @@ public class ControladorUsuarios {
                         if (Objects.equals(labLimpiarCamposCrear.getText(), "OK")) {
                             labLimpiarCamposCrear.setText("");
                             inicializarTabla();
-                            regresarCLista();
+                            regresarMLista();
                             limpiarCamposCrear();
                             inicializarTablaEmpleado();
                         }
@@ -368,7 +368,7 @@ public class ControladorUsuarios {
                         if(Objects.equals(labLimpiarCamposModificar.getText(), "OK")){
                             labLimpiarCamposModificar.setText("");
                             inicializarTabla();
-                            regresarCLista();
+                            regresarMLista();
                             limpiarCamposModificar();
                             limpiarCamposEliminar();
                         }
@@ -407,7 +407,7 @@ public class ControladorUsuarios {
                 inicializarTablaEmpleado();
                 limpiarCamposEliminar();
                 limpiarCamposModificar();
-                regresarCLista();
+                regresarMLista();
             }
         }
     }

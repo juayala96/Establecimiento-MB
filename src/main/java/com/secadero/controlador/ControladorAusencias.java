@@ -833,7 +833,7 @@ public class ControladorAusencias {
                                 labIDEmpleadoLista.setText("0");
                                 inicializarTablaListaEmpleados();
                                 inicializarTablaAusencias();
-                                regresarCLista();
+                                regresarMLista();
                                 limpiarCamposCrear();
                                 inicializarTablaEmpleado();
                             }
@@ -898,7 +898,7 @@ public class ControladorAusencias {
                                 inicializarTablaAusencias();
                                 limpiarCamposModificar();
                                 limpiarCamposEliminar();
-                                regresarCLista();
+                                regresarMLista();
                             }
                         } else {
                             Alert alerta = new Alert(Alert.AlertType.ERROR);
@@ -944,7 +944,7 @@ public class ControladorAusencias {
                 inicializarTablaAusencias();
                 limpiarCamposEliminar();
                 limpiarCamposModificar();
-                regresarELista();
+                regresarMLista();
             }
         }
     }
@@ -1451,12 +1451,14 @@ public class ControladorAusencias {
 
     @FXML
     private void regresarMLista() {
-        regresarCLista();
+        SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasAusencias.getSelectionModel();
+        modeloSeleccion.select(tabListaAusencias);
     }
 
     @FXML
     private void regresarELista() {
-        regresarCLista();
+        SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasAusencias.getSelectionModel();
+        modeloSeleccion.select(tabListaAusencias);
     }
 
     @FXML

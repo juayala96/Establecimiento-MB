@@ -773,7 +773,7 @@ public class ControladorCronograma {
                     inicializarTablaEmpleado();
                     inicializarTablaCronograma();
                     inicializarTablaEmpleadoCalendario();
-                    regresarCCMenu();
+                    regresarMMenu();
                     limpiarCamposCrear();
                 }
             } else {
@@ -835,7 +835,7 @@ public class ControladorCronograma {
                         inicializarTablaListaEmpleadosDisponible();
                         inicializarTablaCronograma();
                         inicializarTablaEmpleadoCalendario();
-                        regresarCCMenu();
+                        regresarMMenu();
                         limpiarCamposModificar();
                         limpiarCamposEliminar();
                     }
@@ -905,7 +905,7 @@ public class ControladorCronograma {
                     inicializarTablaEmpleadoCalendario();
                     limpiarCamposEliminar();
                     limpiarCamposModificar();
-                    regresarCMenu();
+                    regresarMMenu();
                 }
             } else {
                 Alert alerta = new Alert(Alert.AlertType.ERROR);
