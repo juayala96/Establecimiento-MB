@@ -309,7 +309,7 @@ public class PreRecibo {
                     // Deducciones
                     tablaCuerpo.addCell(createCellNormal("\n\n\n\n\n\n\n\n$ " + jubilacionTotalFormateado + " \n\n$ " + leyTotalFormateado + " \n\n$ " + obraSocialTotalFormateado + " \n\n$ " + seguroSepelioTotalFormateado + " \n\n$ " + cuotaAgrariaTotalFormateado, FontFactory.getFont(FontFactory.HELVETICA, 10)));
                 } else {
-                    tablaCuerpo.addCell(createCellNormal("Días Laborales \n\nAntigüedad \n\nRetroactive \n\nJubilación CCG \n\nLey 19032 CCG \n\nObra Social CCG \n\nSeguro de Sepelio \n\nCuota Solid. Agraria", FontFactory.getFont(FontFactory.HELVETICA, 10)));
+                    tablaCuerpo.addCell(createCellNormal("Días Laborales \n\nAntigüedad \n\nRetroactivo \n\nJubilación CCG \n\nLey 19032 CCG \n\nObra Social CCG \n\nSeguro de Sepelio \n\nCuota Solid. Agraria", FontFactory.getFont(FontFactory.HELVETICA, 10)));
 
                     // Unidades
                     tablaCuerpo.addCell(createCellNormal(cantDiasTrabajadas +" \n\n" + porcentajeGananciaAntiguedad + " %\n\n" + rectroactivo + " %\n\n" + jubilacion + " %\n\n" + ley + " %\n\n"  + obraSocial + " %\n\n" + seguroSepelio + " %\n\n" + cuotaAgraria + " %",FontFactory.getFont(FontFactory.HELVETICA, 10)));
