@@ -79,6 +79,11 @@ public class ControladorSalida {
     private void opcionTarjeta(){
         SingleSelectionModel<Tab> modeloSeleccion = panelRegistroSalida.getSelectionModel();
         modeloSeleccion.select(tabRegistroSalidaTarjeta);
+        textLegajo.setText("");
+        textDNI.setText("");
+        labErrorLegajo.setText("");
+        labErrorDNI.setText("");
+        labInformacion.setText("");
     }
 
     @FXML

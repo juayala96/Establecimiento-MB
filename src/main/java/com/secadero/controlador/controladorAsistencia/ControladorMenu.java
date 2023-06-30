@@ -89,7 +89,7 @@ public class ControladorMenu {
         ControladorSalida salida = loader.getController();
         Scene escena = new Scene(root);
         Stage escenario = new Stage();
-        escenario.setTitle("Registro de Entrada");
+        escenario.setTitle("Registro de Salida");
         escenario.setScene(escena);
         escenario.getIcons().add(new javafx.scene.image.Image(Objects.requireNonNull(getClass().getResource("/imagenes/iconoAsistencia.png")).toString()));
         escenario.show();
