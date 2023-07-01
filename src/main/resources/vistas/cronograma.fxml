@@ -896,6 +896,11 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
+                        <Label layoutX="40.0" layoutY="585.0" prefHeight="47.0" prefWidth="1276.0" textFill="#143629">
+                           <font>
+                              <Font name="Montserrat Regular" size="14.0" />
+                           </font>
+                        </Label>
                      </children>
                   </AnchorPane>
                </content>

@@ -403,6 +403,7 @@ public class ControladorLicencias {
         dpFechaFinModificar.setValue(LocalDate.of(Integer.parseInt(fechaFinM.substring(6, 10)), Integer.parseInt(fechaFinM.substring(3, 5)), Integer.parseInt(fechaFinM.substring(0, 2))));
 
         textTipoLicenciaDetalleEliminar(cbTipoLicenciaEliminar.getSelectionModel().getSelectedItem());
+        labErrorDescripcionModificar.setText("");
     }
 
     @FXML

@@ -89,6 +89,8 @@ public class ControladorAusencias {
     @FXML
     private TableColumn<LeerEmpleado, Integer> colDNI;
     @FXML
+    private TableColumn<ConsultaAsistencia, Integer> colIDEntrada;
+    @FXML
     private DatePicker dpBuscarFecha;
     @FXML
     private DatePicker dpFechaCrear;
@@ -377,6 +379,14 @@ public class ControladorAusencias {
     @FXML
     private Label labErrorHoraSalida2;
     @FXML
+    private Button btnEliminarEntrada;
+    @FXML
+    private Label labIDEntradaAsistencia;
+    @FXML
+    private Label labIDEmpleadoEntrada;
+    @FXML
+    private Label labConfirmacion;
+    @FXML
     private TextField textBuscarLegajoEmpleadoCrear;
 
     ObservableList<LeerEmpleado> listTablaEmpleados;
@@ -395,7 +405,9 @@ public class ControladorAusencias {
     int index4 = -1;
     ObservableList<VerificarSalida> listCronogramaCS;
     int index5 = -1;
+
     ObservableList<ConsultaAsistencia> listEntrada;
+    int index6 = -1;
     ObservableList<VerificarSalida> listSalida;
 
     // -------------------------------------------- Inicialización ----------------------------------------------
@@ -442,6 +454,9 @@ public class ControladorAusencias {
             String selectedItem = cbBuscarEmpleadoSalida.getSelectionModel().getSelectedItem();
             textBuscarLegajoEmpleadoSalida.setPromptText("Ingrese el " + selectedItem);
         });
+
+        labIDEntradaAsistencia.setText("0");
+        labIDEmpleadoEntrada.setText("0");
     }
 
     // ----------------------------------------- Tabla de Empleados ---------------------------------------------
@@ -541,6 +556,8 @@ public class ControladorAusencias {
 
         String fecha = colFecha.getCellData(index2);
         dpFechaModificar.setValue(LocalDate.of(Integer.parseInt(fecha.substring(6, 10)), Integer.parseInt(fecha.substring(3, 5)), Integer.parseInt(fecha.substring(0, 2))));
+
+        labErrorMotivoModificar.setText("");
     }
 
     @FXML
@@ -708,6 +725,8 @@ public class ControladorAusencias {
             stage.getIcons().add(icon);
             alerta.showAndWait();
         }
+        labIDEntradaAsistencia.setText("0");
+        labIDEmpleadoEntrada.setText("0");
     }
 
     @FXML
@@ -1015,6 +1034,7 @@ public class ControladorAusencias {
             stage.getIcons().add(icon);
             alerta.showAndWait();
         }
+        labIDEntradaAsistencia.setText("0");
     }
 
     @FXML
@@ -1492,6 +1512,35 @@ public class ControladorAusencias {
     }
 
     @FXML
+    private void eliminarEntrada(){
+        if(labIDEntradaAsistencia.getText().equals("0")){
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setTitle("Eliminar entrada");
+            alerta.setContentText("Debe seleccionar antes una entrada del empleado en la \nTabla de Empleados Presentes para eliminar su entrada.");
+            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+            Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(icon);
+            alerta.showAndWait();
+        } else {
+            Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
+            alerta.setTitle("¿Desea eliminar la entrada?");
+            alerta.setContentText("Perderá el registro de la entrada del empleado seleccionado");
+            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+            Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(icon);
+            Optional<ButtonType> resultado = alerta.showAndWait();
+            if (resultado.isPresent() && resultado.get() == ButtonType.OK){
+                ConsultaAsistencia asistenciaEliminar = new ConsultaAsistencia();
+                asistenciaEliminar.eliminarEntrada(labIDEntradaAsistencia, labIDEmpleadoEntrada, labConfirmacion, dpBuscarFechaAsistencia);
+                if(labConfirmacion.getText().equals("OK")){
+                    labConfirmacion.setText("");
+                    tablasAsistencias();
+                }
+            }
+        }
+    }
+
+    @FXML
     private void registrarAusenciaA(){
         if(asistencia.equals("YES")){
             SingleSelectionModel<Tab> modeloSeleccion = panelPestaniasAusencias.getSelectionModel();
@@ -1752,6 +1801,7 @@ public class ControladorAusencias {
 
     }
 
+
     private void tablasAsistencias(){
         // Cronograma
         colNombreAsistenciaCE.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("nombre"));
@@ -1775,10 +1825,14 @@ public class ControladorAusencias {
         colFechaEntrada.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("fecha"));
         colHoraEntrada.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("horaEntrada"));
         colIDEmpleadoEntrada.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, Integer>("idEmpleado"));
+        colIDEntrada.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, Integer>("identrada"));
 
         listEntrada = ConsultaAsistencia.listaEntrada(dpBuscarFechaAsistencia, cbTurnoAsistencia, labCantidadPresentes);
-        tablaListaEmpleadosPresentes.getColumns().setAll(colNombreEntrada, colApellidoEntrada, colLegajoEntrada, colFechaEntrada, colHoraEntrada, colIDEmpleadoEntrada);
+        tablaListaEmpleadosPresentes.getColumns().setAll(colNombreEntrada, colApellidoEntrada, colLegajoEntrada, colFechaEntrada, colHoraEntrada, colIDEmpleadoEntrada, colIDEntrada);
         tablaListaEmpleadosPresentes.getItems().setAll(listEntrada);
+
+        labIDEntradaAsistencia.setText("0");
+        textBuscarLegajoEmpleadoAsistencia.setText("");
     }
 
     private void tablasAsistenciasBuscar(){
@@ -1804,9 +1858,10 @@ public class ControladorAusencias {
         colFechaEntrada.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("fecha"));
         colHoraEntrada.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, String>("horaEntrada"));
         colIDEmpleadoEntrada.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, Integer>("idEmpleado"));
+        colIDEntrada.setCellValueFactory(new PropertyValueFactory<ConsultaAsistencia, Integer>("identrada"));
 
         listEntrada = ConsultaAsistencia.listaEntradaBuscar(dpBuscarFechaAsistencia, cbTurnoAsistencia, labCantidadPresentes, textBuscarLegajoEmpleadoAsistencia, cbBuscarEmpleadoEntrada);
-        tablaListaEmpleadosPresentes.getColumns().setAll(colNombreEntrada, colApellidoEntrada, colLegajoEntrada, colFechaEntrada, colHoraEntrada, colIDEmpleadoEntrada);
+        tablaListaEmpleadosPresentes.getColumns().setAll(colNombreEntrada, colApellidoEntrada, colLegajoEntrada, colFechaEntrada, colHoraEntrada, colIDEmpleadoEntrada, colIDEntrada);
         tablaListaEmpleadosPresentes.getItems().setAll(listEntrada);
     }
 
@@ -1866,6 +1921,17 @@ public class ControladorAusencias {
         listSalida = VerificarSalida.listaSalidaBuscar(dpBuscarFechaSalida, cbTurnoSalida, labCantidadS, textBuscarLegajoEmpleadoSalida, cbBuscarEmpleadoSalida);
         tablaListaEmpleadosSalida.getColumns().setAll(colNombreSalida, colApellidoSalida, colLegajoSalida, colFechaSalida, colHoraSalida, colIDEmpleadoSalida);
         tablaListaEmpleadosSalida.getItems().setAll(listSalida);
+    }
+
+    @FXML
+    private void getEntrada(){
+        index6 = tablaListaEmpleadosPresentes.getSelectionModel().getSelectedIndex();
+        if (index6 <= -1){
+
+            return;
+        }
+        labIDEntradaAsistencia.setText(colIDEntrada.getCellData(index6).toString());
+        labIDEmpleadoEntrada.setText(colIDEmpleadoEntrada.getCellData(index6).toString());
     }
 
     // ---------------------------------------- Fechas Actuales Inicializadas ----------------------------------------

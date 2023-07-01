@@ -244,6 +244,7 @@ public class ControladorUsuarios {
         textNombreUsuarioEliminar.setText(colNombreUsuario.getCellData(index));
         textContraseniaEliminar.setText(colContrasenia.getCellData(index));
         labIDEliminar.setText(colID.getCellData(index).toString());
+        limpiarErrorModificar();
     }
 
     @FXML
@@ -604,6 +605,12 @@ public class ControladorUsuarios {
         textNombreUsuarioEliminar.setText("");
         textContraseniaEliminar.setText("");
         labIDEliminar.setText("");
+    }
+
+    private void limpiarErrorModificar(){
+        labErrorNombreUsuarioModificar.setText("");
+        labErrorContraseniaModificar.setText("");
+        labErrorRepetirContraseniaModificar.setText("");
     }
 
     // ---------------------------------- Cerrar Ventana -------------------------------------------

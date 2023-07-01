@@ -139,11 +139,10 @@ public class VerificarSalida {
         int cantCronograma = 0;
 
         try {
-            pstm = con.prepareStatement("SELECT empleados.nombre, empleados.apellido, empleados.legajo, turno, fecha, horario_salida AS horaSalida, horario_entrada AS horaEntrada, idCronograma, empleados.idempleados AS idEmpleado FROM cronograma INNER JOIN empleado_cronograma ON cronograma.idCronograma = empleado_cronograma.idCronogramaFK INNER JOIN empleados ON empleado_cronograma.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND empleados.estado = ? AND fecha = ? AND turno = ? ORDER BY empleados.legajo ASC");
+            pstm = con.prepareStatement("SELECT empleados.nombre, empleados.apellido, empleados.legajo, turno, fecha, horario_salida AS horaSalida, horario_entrada AS horaEntrada, idCronograma, empleados.idempleados AS idEmpleado FROM cronograma INNER JOIN empleado_cronograma ON cronograma.idCronograma = empleado_cronograma.idCronogramaFK INNER JOIN empleados ON empleado_cronograma.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND fecha = ? AND turno = ? ORDER BY empleados.legajo ASC");
             pstm.setString(1, "Vigente");
-            pstm.setString(2, "Disponible");
-            pstm.setString(3, fechaBusqueda);
-            pstm.setString(4, dato);
+            pstm.setString(2, fechaBusqueda);
+            pstm.setString(3, dato);
             rs = pstm.executeQuery();
 
             while (rs.next()){
@@ -297,12 +296,11 @@ public class VerificarSalida {
         int cantCronograma = 0;
 
         try {
-            pstm = con.prepareStatement("SELECT empleados.nombre, empleados.apellido, empleados.legajo, turno, fecha, horario_salida AS horaSalida, horario_entrada AS horaEntrada, idCronograma, empleados.idempleados AS idEmpleado FROM cronograma INNER JOIN empleado_cronograma ON cronograma.idCronograma = empleado_cronograma.idCronogramaFK INNER JOIN empleados ON empleado_cronograma.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND empleados.estado = ? AND fecha = ? AND turno = ? AND empleados."+ datoBuscar +" LIKE ? ORDER BY empleados.legajo ASC");
+            pstm = con.prepareStatement("SELECT empleados.nombre, empleados.apellido, empleados.legajo, turno, fecha, horario_salida AS horaSalida, horario_entrada AS horaEntrada, idCronograma, empleados.idempleados AS idEmpleado FROM cronograma INNER JOIN empleado_cronograma ON cronograma.idCronograma = empleado_cronograma.idCronogramaFK INNER JOIN empleados ON empleado_cronograma.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND fecha = ? AND turno = ? AND empleados."+ datoBuscar +" LIKE ? ORDER BY empleados.legajo ASC");
             pstm.setString(1, "Vigente");
-            pstm.setString(2, "Disponible");
-            pstm.setString(3, fechaBusqueda);
-            pstm.setString(4, dato);
-            pstm.setString(5, textBuscarLegajoEmpleadoSalida.getText() + "%");
+            pstm.setString(2, fechaBusqueda);
+            pstm.setString(3, dato);
+            pstm.setString(4, textBuscarLegajoEmpleadoSalida.getText() + "%");
             rs = pstm.executeQuery();
 
             while (rs.next()){

@@ -144,7 +144,7 @@
             <Font name="Montserrat SemiBold" size="85.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="194.0" layoutY="188.0" prefHeight="66.0" prefWidth="343.0" text="Establecimiento MB " textFill="#143629">
+      <Label alignment="CENTER" layoutX="194.0" layoutY="188.0" prefHeight="66.0" prefWidth="343.0" text="Establecimiento BM " textFill="#143629">
          <font>
             <Font name="Montserrat Regular" size="32.0" />
          </font>

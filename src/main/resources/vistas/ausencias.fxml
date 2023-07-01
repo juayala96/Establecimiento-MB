@@ -642,6 +642,9 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
+                        <Label fx:id="labConfirmacion" layoutX="281.0" layoutY="55.0" prefHeight="18.0" prefWidth="26.0" textFill="#80a753" />
+                        <Label fx:id="labIDEmpleadoEntrada" layoutX="302.0" layoutY="46.0" prefHeight="18.0" prefWidth="26.0" textFill="#80a753" />
+                        <Label fx:id="labIDEntradaAsistencia" layoutX="329.0" layoutY="46.0" prefHeight="18.0" prefWidth="26.0" textFill="#80a753" />
                         <Label fx:id="labIDEmpleadoAsistenciaCE" layoutX="357.0" layoutY="46.0" prefHeight="18.0" prefWidth="26.0" textFill="#80a753" />
                         <ImageView fitHeight="720.0" fitWidth="1375.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -653,7 +656,7 @@
                               <Font name="Montserrat SemiBold" size="48.0" />
                            </font>
                         </Label>
-                        <Button fx:id="btnRegresarCCLista" layoutX="219.0" layoutY="628.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#regresarCCLista" prefHeight="46.0" prefWidth="183.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" text="Regresar" textFill="#143629">
+                        <Button fx:id="btnRegresarCCLista" layoutX="98.0" layoutY="628.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#regresarCCLista" prefHeight="46.0" prefWidth="183.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" text="Regresar" textFill="#143629">
                            <font>
                               <Font name="Montserrat Bold" size="18.0" />
                            </font>
@@ -671,7 +674,7 @@
                               <Font name="Montserrat Medium" size="20.0" />
                            </font>
                         </Label>
-                        <TableView fx:id="tablaListaEmpleadosPresentes" layoutX="708.0" layoutY="225.0" prefHeight="347.0" prefWidth="630.0" style="-fx-background-color: #dcecb4;">
+                        <TableView fx:id="tablaListaEmpleadosPresentes" layoutX="708.0" layoutY="225.0" onMouseClicked="#getEntrada" prefHeight="347.0" prefWidth="631.0" style="-fx-background-color: #dcecb4;">
                            <placeholder>
                               <Label text="No hay registro de empleados presentes" />
                            </placeholder>
@@ -682,6 +685,7 @@
                               <TableColumn fx:id="colFechaEntrada" prefWidth="99.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Fecha" />
                               <TableColumn fx:id="colHoraEntrada" prefWidth="121.0" style="-fx-font-size: 15; -fx-alignment: CENTER;" text="Hora de Entrada" />
                               <TableColumn fx:id="colIDEmpleadoEntrada" prefWidth="158.0" style="-fx-font-size: 14;" text="IDEmpleado" />
+                              <TableColumn fx:id="colIDEntrada" prefWidth="158.0" style="-fx-font-size: 14;" text="IDEntrada" />
                            </columns>
                            <cursor>
                               <Cursor fx:constant="HAND" />
@@ -716,7 +720,7 @@
                               <Font name="Montserrat Medium" size="18.0" />
                            </font>
                         </Label>
-                        <Button fx:id="btnVerificarSalida" layoutX="708.0" layoutY="628.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarSalida" prefHeight="46.0" prefWidth="183.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" text="Verificar Salida" textFill="#143629">
+                        <Button fx:id="btnVerificarSalida" layoutX="829.0" layoutY="628.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verificarSalida" prefHeight="46.0" prefWidth="183.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" text="Verificar Salida" textFill="#143629">
                            <font>
                               <Font name="Montserrat Bold" size="18.0" />
                            </font>
@@ -724,7 +728,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button fx:id="btnRegistrarEntrada" layoutX="449.0" layoutY="628.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#registrarEntrada" prefHeight="46.0" prefWidth="206.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" text="Registrar Entrada" textFill="#143629">
+                        <Button fx:id="btnRegistrarEntrada" layoutX="329.0" layoutY="628.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#registrarEntrada" prefHeight="46.0" prefWidth="206.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" text="Registrar Entrada" textFill="#143629">
                            <font>
                               <Font name="Montserrat Bold" size="18.0" />
                            </font>
@@ -732,7 +736,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button fx:id="btnRegistrarAusenciaA" layoutX="933.0" layoutY="628.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#registrarAusenciaA" prefHeight="46.0" prefWidth="213.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" text="Registrar Ausencia" textFill="#143629">
+                        <Button fx:id="btnRegistrarAusenciaA" layoutX="1057.0" layoutY="628.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#registrarAusenciaA" prefHeight="46.0" prefWidth="213.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" text="Registrar Ausencia" textFill="#143629">
                            <font>
                               <Font name="Montserrat Bold" size="18.0" />
                            </font>
@@ -816,11 +820,19 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </ComboBox>
-                        <Label layoutX="707.0" layoutY="553.0" prefHeight="55.0" prefWidth="632.0" textFill="#143629">
+                        <Label layoutX="708.0" layoutY="553.0" prefHeight="55.0" prefWidth="632.0" text="Seleccione la entrada del empleado si desea eliminarlo" textFill="#143629">
                            <font>
                               <Font name="Montserrat Regular" size="15.0" />
                            </font>
                         </Label>
+                        <Button fx:id="btnEliminarEntrada" layoutX="582.0" layoutY="628.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#eliminarEntrada" prefHeight="46.0" prefWidth="200.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: white; -fx-border-radius: 10;" text="Eliminar Entrada" textFill="#361414">
+                           <font>
+                              <Font name="Montserrat Bold" size="18.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
                      </children>
                   </AnchorPane>
                </content>

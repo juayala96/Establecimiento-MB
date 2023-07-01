@@ -286,8 +286,7 @@ public class ControladorEmpleados {
         String fechaIngresoM = dpFechaIngresoModificar.getEditor().getText();
         dpFechaIngresoModificar.setValue(LocalDate.of(Integer.parseInt(fechaIngresoM.substring(6, 10)), Integer.parseInt(fechaIngresoM.substring(3, 5)), Integer.parseInt(fechaIngresoM.substring(0, 2))));
 
-        labErrorFechaIngresoModificar.setText("");
-        labErrorFechaNacimientoModificar.setText("");
+        limpiarErrorModificar();
     }
 
     public void inicializarComboBoxBD() {
@@ -828,6 +827,18 @@ public class ControladorEmpleados {
         labErrorEmailCrear.setText("");
         labErrorFechaNacimientoCrear.setText("");
         labErrorFechaIngresoCrear.setText("");
+    }
+
+    private void limpiarErrorModificar(){
+       labErrorNombreModificar.setText("");
+       labErrorApellidoModificar.setText("");
+       labErrorLegajoModificar.setText("");
+       labErrorDNIModificar.setText("");
+       labErrorTelefonoModificar.setText("");
+       labErrorDireccionModificar.setText("");
+       labErrorEmailModificar.setText("");
+       labErrorFechaNacimientoModificar.setText("");
+       labErrorFechaIngresoModificar.setText("");
     }
 
     //---------------------------------------- Comprobación de Campos -------------------------------------------

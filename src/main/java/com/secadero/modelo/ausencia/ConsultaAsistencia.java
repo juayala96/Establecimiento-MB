@@ -7,10 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalTime;
 import java.util.Objects;
 
@@ -24,6 +21,7 @@ public class ConsultaAsistencia {
     private String horaSalida;
     private int idCronograma;
     private int idEmpleado;
+    private int identrada;
 
     public ConsultaAsistencia() {
     }
@@ -40,13 +38,14 @@ public class ConsultaAsistencia {
         this.idEmpleado = idEmpleado;
     }
 
-    public ConsultaAsistencia(String nombre, String apellido, int legajo, String fecha, String horaEntrada, int idEmpleado) {
+    public ConsultaAsistencia(String nombre, String apellido, int legajo, String fecha, String horaEntrada, int idEmpleado, int identrada) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.legajo = legajo;
         this.fecha = fecha;
         this.horaEntrada = horaEntrada;
         this.idEmpleado = idEmpleado;
+        this.identrada = identrada;
     }
 
     public String getNombre() {
@@ -121,6 +120,14 @@ public class ConsultaAsistencia {
         this.idEmpleado = idEmpleado;
     }
 
+    public int getIdentrada() {
+        return identrada;
+    }
+
+    public void setIdentrada(int identrada) {
+        this.identrada = identrada;
+    }
+
     //-------------------------------- Leer Cronograma Consulta Asistencia (CE) ----------------------------------------
     public static ObservableList<ConsultaAsistencia> listaCronogramaCE(DatePicker dpBuscarFechaAsistencia, ComboBox<String> cbTurnoAsistencia, Label labCantidadCronograma) {
         Connection con = Conexion.leerConexion();
@@ -139,11 +146,10 @@ public class ConsultaAsistencia {
         int cantCronograma = 0;
 
         try {
-            pstm = con.prepareStatement("SELECT empleados.nombre, empleados.apellido, empleados.legajo, turno, fecha, horario_entrada AS horaEntrada, horario_salida AS horaSalida, idCronograma, empleados.idempleados AS idEmpleado FROM cronograma INNER JOIN empleado_cronograma ON cronograma.idCronograma = empleado_cronograma.idCronogramaFK INNER JOIN empleados ON empleado_cronograma.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND empleados.estado = ? AND fecha = ? AND turno = ? ORDER BY empleados.legajo ASC");
+            pstm = con.prepareStatement("SELECT empleados.nombre, empleados.apellido, empleados.legajo, turno, fecha, horario_entrada AS horaEntrada, horario_salida AS horaSalida, idCronograma, empleados.idempleados AS idEmpleado FROM cronograma INNER JOIN empleado_cronograma ON cronograma.idCronograma = empleado_cronograma.idCronogramaFK INNER JOIN empleados ON empleado_cronograma.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND fecha = ? AND turno = ? ORDER BY empleados.legajo ASC");
             pstm.setString(1, "Vigente");
-            pstm.setString(2, "Disponible");
-            pstm.setString(3, fechaBusqueda);
-            pstm.setString(4, dato);
+            pstm.setString(2, fechaBusqueda);
+            pstm.setString(3, dato);
             rs = pstm.executeQuery();
 
             while (rs.next()){
@@ -210,7 +216,7 @@ public class ConsultaAsistencia {
                 minuto2 = horaFin.getMinute();
 
                 try {
-                    pstm = con.prepareStatement("SELECT empleados.nombre, empleados.apellido, empleados.legajo, fecha, hora AS horaEntrada, empleados.idempleados AS idEmpleado FROM entrada INNER JOIN empleados ON entrada.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND fecha = ? AND (hora BETWEEN TIME ? AND TIME ?) ORDER BY empleados.legajo ASC");
+                    pstm = con.prepareStatement("SELECT empleados.nombre, empleados.apellido, empleados.legajo, fecha, hora AS horaEntrada, empleados.idempleados AS idEmpleado, entrada.identrada FROM entrada INNER JOIN empleados ON entrada.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND fecha = ? AND (hora BETWEEN TIME ? AND TIME ?) ORDER BY empleados.legajo ASC");
                     pstm.setString(1, "Vigente");
                     pstm.setString(2, fechaBusqueda);
                     pstm.setString(3, hora1 + ":" + minuto1);
@@ -225,7 +231,7 @@ public class ConsultaAsistencia {
                         String fechaMes2 = fechaClave.substring(5, 7);
                         String fechaDia2 = fechaClave.substring(8, 10);
                         String fechaModificada = (fechaDia2 + "-" + fechaMes2 + "-" + fechaAnio2);
-                        lista.add(new ConsultaAsistencia(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), fechaModificada, hora_entrada, rs.getInt("idEmpleado")));
+                        lista.add(new ConsultaAsistencia(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), fechaModificada, hora_entrada, rs.getInt("idEmpleado"), rs.getInt("identrada")));
                         cantPresentes += 1;
                     }
                 } catch (SQLException ex) {
@@ -241,7 +247,7 @@ public class ConsultaAsistencia {
                 minuto2 = horaFin.getMinute();
 
                 try {
-                    pstm = con.prepareStatement("SELECT empleados.nombre, empleados.apellido, empleados.legajo, fecha, hora AS hora, empleados.idempleados AS idempleados FROM entrada INNER JOIN empleados ON entrada.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND fecha = ? AND (hora BETWEEN TIME ? AND TIME ?) ORDER BY empleados.legajo ASC");
+                    pstm = con.prepareStatement("SELECT empleados.nombre, empleados.apellido, empleados.legajo, fecha, hora AS hora, empleados.idempleados AS idempleados, entrada.identrada FROM entrada INNER JOIN empleados ON entrada.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND fecha = ? AND (hora BETWEEN TIME ? AND TIME ?) ORDER BY empleados.legajo ASC");
                     pstm.setString(1, "Vigente");
                     pstm.setString(2, fechaBusqueda);
                     pstm.setString(3, hora1 + ":" + minuto1);
@@ -256,7 +262,7 @@ public class ConsultaAsistencia {
                         String fechaMes2 = fechaClave.substring(5, 7);
                         String fechaDia2 = fechaClave.substring(8, 10);
                         String fechaModificada = (fechaDia2 + "-" + fechaMes2 + "-" + fechaAnio2);
-                        lista.add(new ConsultaAsistencia(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), fechaModificada, hora_entrada, rs.getInt("idempleados")));
+                        lista.add(new ConsultaAsistencia(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), fechaModificada, hora_entrada, rs.getInt("idempleados"), rs.getInt("identrada")));
                         cantPresentes += 1;
                     }
                 } catch (SQLException ex) {
@@ -297,12 +303,11 @@ public class ConsultaAsistencia {
         int cantCronograma = 0;
 
         try {
-            pstm = con.prepareStatement("SELECT empleados.nombre, empleados.apellido, empleados.legajo, turno, fecha, horario_entrada AS horaEntrada, horario_salida AS horaSalida, idCronograma, empleados.idempleados AS idEmpleado FROM cronograma INNER JOIN empleado_cronograma ON cronograma.idCronograma = empleado_cronograma.idCronogramaFK INNER JOIN empleados ON empleado_cronograma.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND empleados.estado = ? AND fecha = ? AND turno = ? AND empleados."+ datoBuscar +" LIKE ? ORDER BY empleados.legajo ASC");
+            pstm = con.prepareStatement("SELECT empleados.nombre, empleados.apellido, empleados.legajo, turno, fecha, horario_entrada AS horaEntrada, horario_salida AS horaSalida, idCronograma, empleados.idempleados AS idEmpleado FROM cronograma INNER JOIN empleado_cronograma ON cronograma.idCronograma = empleado_cronograma.idCronogramaFK INNER JOIN empleados ON empleado_cronograma.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND fecha = ? AND turno = ? AND empleados."+ datoBuscar +" LIKE ? ORDER BY empleados.legajo ASC");
             pstm.setString(1, "Vigente");
-            pstm.setString(2, "Disponible");
-            pstm.setString(3, fechaBusqueda);
-            pstm.setString(4, dato);
-            pstm.setString(5, textBuscarLegajoEmpleadoAsistencia.getText() + "%");
+            pstm.setString(2, fechaBusqueda);
+            pstm.setString(3, dato);
+            pstm.setString(4, textBuscarLegajoEmpleadoAsistencia.getText() + "%");
             rs = pstm.executeQuery();
 
             while (rs.next()){
@@ -370,7 +375,7 @@ public class ConsultaAsistencia {
                 minuto2 = horaFin.getMinute();
 
                 try {
-                    pstm = con.prepareStatement("SELECT empleados.nombre, empleados.apellido, empleados.legajo, fecha, hora AS horaEntrada, empleados.idempleados AS idEmpleado FROM entrada INNER JOIN empleados ON entrada.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND fecha = ? AND (hora BETWEEN TIME ? AND TIME ?) AND empleados."+ datoBuscar +" LIKE ? ORDER BY empleados.legajo ASC");
+                    pstm = con.prepareStatement("SELECT empleados.nombre, empleados.apellido, empleados.legajo, fecha, hora AS horaEntrada, empleados.idempleados AS idEmpleado, entrada.identrada FROM entrada INNER JOIN empleados ON entrada.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND fecha = ? AND (hora BETWEEN TIME ? AND TIME ?) AND empleados."+ datoBuscar +" LIKE ? ORDER BY empleados.legajo ASC");
                     pstm.setString(1, "Vigente");
                     pstm.setString(2, fechaBusqueda);
                     pstm.setString(3, hora1 + ":" + minuto1);
@@ -386,7 +391,7 @@ public class ConsultaAsistencia {
                         String fechaMes2 = fechaClave.substring(5, 7);
                         String fechaDia2 = fechaClave.substring(8, 10);
                         String fechaModificada = (fechaDia2 + "-" + fechaMes2 + "-" + fechaAnio2);
-                        lista.add(new ConsultaAsistencia(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), fechaModificada, hora_entrada, rs.getInt("idEmpleado")));
+                        lista.add(new ConsultaAsistencia(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), fechaModificada, hora_entrada, rs.getInt("idEmpleado"), rs.getInt("identrada")));
                         cantPresentes += 1;
                     }
                 } catch (SQLException ex) {
@@ -402,7 +407,7 @@ public class ConsultaAsistencia {
                 minuto2 = horaFin.getMinute();
 
                 try {
-                    pstm = con.prepareStatement("SELECT empleados.nombre, empleados.apellido, empleados.legajo, fecha, hora AS hora, empleados.idempleados AS idempleados FROM entrada INNER JOIN empleados ON entrada.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND fecha = ? AND (hora BETWEEN TIME ? AND TIME ?) AND empleados."+ datoBuscar +" LIKE ? ORDER BY empleados.legajo ASC");
+                    pstm = con.prepareStatement("SELECT empleados.nombre, empleados.apellido, empleados.legajo, fecha, hora AS hora, empleados.idempleados AS idempleados, entrada.identrada FROM entrada INNER JOIN empleados ON entrada.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND fecha = ? AND (hora BETWEEN TIME ? AND TIME ?) AND empleados."+ datoBuscar +" LIKE ? ORDER BY empleados.legajo ASC");
                     pstm.setString(1, "Vigente");
                     pstm.setString(2, fechaBusqueda);
                     pstm.setString(3, hora1 + ":" + minuto1);
@@ -418,7 +423,7 @@ public class ConsultaAsistencia {
                         String fechaMes2 = fechaClave.substring(5, 7);
                         String fechaDia2 = fechaClave.substring(8, 10);
                         String fechaModificada = (fechaDia2 + "-" + fechaMes2 + "-" + fechaAnio2);
-                        lista.add(new ConsultaAsistencia(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), fechaModificada, hora_entrada, rs.getInt("idempleados")));
+                        lista.add(new ConsultaAsistencia(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), fechaModificada, hora_entrada, rs.getInt("idempleados"), rs.getInt("identrada")));
                         cantPresentes += 1;
                     }
                 } catch (SQLException ex) {
@@ -556,4 +561,68 @@ public class ConsultaAsistencia {
             }
         }
     }
+
+    // ------------------------------------------------- Eliminar Entrada --------------------------------------------
+    public void eliminarEntrada(Label labIDEntradaAsistencia, Label labIDEmpleadoEntrada, Label labConfirmacion, DatePicker dpBuscarFechaAsistencia){
+        Connection con = Conexion.leerConexion();
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+        int cont = 0;
+
+        String fecha = dpBuscarFechaAsistencia.getEditor().getText();
+        String fechaAnio = fecha.substring(6, 10);
+        String fechaMes = fecha.substring(3, 5);
+        String fechaDia = fecha.substring(0, 2);
+        String fechaModificada = (fechaAnio + "-" + fechaMes + "-" + fechaDia);
+
+        try {
+            pstm = con.prepareStatement("SELECT empleados.nombre, empleados.apellido, empleados.legajo, fecha, hora AS hora, empleados.idempleados AS idempleados FROM salida INNER JOIN empleados ON salida.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND salida.idEmpleadoFK = ? AND fecha = ? ORDER BY empleados.legajo ASC");
+            pstm.setString(1, "Vigente");
+            pstm.setString(2, labIDEmpleadoEntrada.getText());
+            pstm.setDate(3, Date.valueOf(fechaModificada));
+            rs = pstm.executeQuery();
+
+            while (rs.next()){
+                cont += 1;
+            }
+
+            if(cont == 0){
+                labConfirmacion.setText("OK");
+                String consulta = "DELETE FROM entrada WHERE identrada = ?";
+                pstm = con.prepareStatement(consulta);
+                pstm.setInt(1, Integer.parseInt(labIDEntradaAsistencia.getText()));
+                pstm.executeUpdate();
+
+                Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+                alerta.setTitle("Eliminar entrada");
+                alerta.setContentText("Se ha eliminado la entrada del empleado correctamente.");
+                Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+                Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+                stage.getIcons().add(icon);
+                alerta.showAndWait();
+
+            } else {
+                labConfirmacion.setText("");
+                Alert alerta = new Alert(Alert.AlertType.ERROR);
+                alerta.setTitle("Denegado");
+                alerta.setContentText("No esta permitido eliminar la entrada si a ingresado su salida");
+                Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
+                Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
+                stage.getIcons().add(icon);
+                alerta.showAndWait();
+            }
+
+        } catch (SQLException ex) {
+            System.err.println("Error: " + ex.getMessage());
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pstm != null) pstm.close();
+                if (con != null) con.close();
+            } catch (Exception ex){
+                System.err.println("Error: " + ex.getMessage());
+            }
+        }
+    }
+
 }
