@@ -711,7 +711,7 @@ public class ControladorLicencias {
             } else {
                 Alert alerta = new Alert(Alert.AlertType.ERROR);
                 alerta.setTitle("Error - Eliminar licencia");
-                alerta.setContentText("No es posible eliminar la licencia seleccionada ya que es de una fecha pasada o el empleado se encuentra cumpliendo con la licencia actualmente.");
+                alerta.setContentText("No es posible eliminar la licencia seleccionada \nya que es de una fecha pasada o el empleado \nse encuentra cumpliendo con la licencia actualmente.");
                 Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
                 Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
                 stage.getIcons().add(icon);

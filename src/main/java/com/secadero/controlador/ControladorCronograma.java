@@ -352,6 +352,7 @@ public class ControladorCronograma {
             labNombreEmpleadoCrear.setText("");
             labApellidoEmpleadoCrear.setText("");
             labLegajoEmpleadoCrear.setText("");
+            textBuscarLegajoEmpleadoCrear.setText("");
         });
     }
 
@@ -588,7 +589,7 @@ public class ControladorCronograma {
     private void btnBuscarEmpleadoDisponible() {
         limpiarCamposGeneralizada();
         ObservableList<LeerEmpleado> listBuscarEmpleado;
-        listBuscarEmpleado = LeerEmpleado.buscarEmpleadoDisponible(textBuscarLegajoEmpleado, cbBuscarEmpleadoDisponibleLista);
+        listBuscarEmpleado = LeerEmpleado.buscarEmpleadoDisponibleGeneral(textBuscarLegajoEmpleado, cbBuscarEmpleadoDisponibleLista);
         if(textBuscarLegajoEmpleado.getText().equals("")){
             String dato = cbBuscarEmpleadoDisponibleLista.getSelectionModel().getSelectedItem();
             Alert alerta = new Alert(Alert.AlertType.WARNING);
@@ -619,7 +620,7 @@ public class ControladorCronograma {
     @FXML
     private void btnBuscarEmpleadoCrear(){
         ObservableList<LeerEmpleado> listBuscarEmpleado;
-        listBuscarEmpleado = LeerEmpleado.buscarEmpleadoDisponible(textBuscarLegajoEmpleadoCrear, cbBuscarEmpleadoDisponibleCrear);
+        listBuscarEmpleado = LeerEmpleado.buscarEmpleadoDisponible(textBuscarLegajoEmpleadoCrear, cbBuscarEmpleadoDisponibleCrear, labFechaCrearSeleccionada);
         tabEmpleadosCrear.getItems().setAll(listBuscarEmpleado);
     }
 

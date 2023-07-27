@@ -504,7 +504,7 @@ public class LeerEmpleado {
 
         try {
             try {
-                pstm = con.prepareStatement("SELECT nombre, apellido, legajo, dni, idempleados FROM empleados  WHERE estadoEmpleado = ? AND estado = ? ORDER BY legajo ASC");
+                pstm = con.prepareStatement("SELECT nombre, apellido, legajo, dni, idempleados FROM empleados  WHERE estadoEmpleado = ? AND estado = ?");
                 pstm.setString(1, "Vigente");
                 pstm.setString(2, "Disponible");
                 rs = pstm.executeQuery();
@@ -588,7 +588,74 @@ public class LeerEmpleado {
     }
 
     //----------------------------------------- Buscar Empleado Disponibles en Cronograma ---------------------------------
-    public static ObservableList<LeerEmpleado> buscarEmpleadoDisponible(TextField textBuscarLegajoEmpleado, ComboBox<String> cbBuscarEmpleadoDisponibleLista){
+    public static ObservableList<LeerEmpleado> buscarEmpleadoDisponible(TextField textBuscarLegajoEmpleado, ComboBox<String> cbBuscarEmpleadoDisponibleLista, Label labFechaCrearSeleccionada){
+        Connection con = Conexion.leerConexion();
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+        ObservableList<LeerEmpleado> listaBuscar = FXCollections.observableArrayList();
+        String dato = cbBuscarEmpleadoDisponibleLista.getSelectionModel().getSelectedItem().toLowerCase();
+        int idEmpleado;
+        int idEmpleadoLista;
+        Set<Integer> listaIdEmpleadosLista = new HashSet<>();
+        Set<Integer> listaIdEmpleados = new HashSet<>();
+
+        try {
+            try {
+                pstm = con.prepareStatement("SELECT nombre, apellido, legajo, dni, idempleados FROM empleados  WHERE estadoEmpleado = ? AND estado = ?");
+                pstm.setString(1, "Vigente");
+                pstm.setString(2, "Disponible");
+                rs = pstm.executeQuery();
+
+                while (rs.next()){
+                    idEmpleadoLista = rs.getInt("idempleados");
+                    listaIdEmpleadosLista.add(idEmpleadoLista);
+                }
+            } catch (SQLException ex) {
+                System.err.println("Error: " + ex.getMessage());
+            }
+
+            String consulta = "SELECT nombre, apellido, legajo, dni, idempleados, cronograma.idCronograma, cronograma.fecha FROM cronograma INNER JOIN empleado_cronograma ON cronograma.idCronograma = empleado_cronograma.idCronogramaFK INNER JOIN empleados ON empleado_cronograma.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND empleados.estado = ? AND cronograma.fecha = ? ORDER BY legajo ASC";
+            pstm = con.prepareStatement(consulta);
+            pstm.setString(1, "Vigente");
+            pstm.setString(2, "Disponible");
+            pstm.setString(3, labFechaCrearSeleccionada.getText());
+            rs = pstm.executeQuery();
+
+            while (rs.next()){
+                idEmpleado = rs.getInt("idempleados");
+                listaIdEmpleados.add(idEmpleado);
+            }
+
+            Set<Integer> listaIdEmpleadosNoRepetidos = new HashSet<>(listaIdEmpleadosLista);
+            listaIdEmpleadosNoRepetidos.removeAll(listaIdEmpleados);
+
+            for (int id : listaIdEmpleadosNoRepetidos ) {
+                pstm = con.prepareStatement("SELECT nombre, apellido, legajo, dni, idempleados FROM empleados  WHERE idempleados = ? AND empleados."+ dato +" LIKE ? ORDER BY legajo ASC");
+                pstm.setInt(1, id);
+                pstm.setString(2, textBuscarLegajoEmpleado.getText() + "%");
+                rs = pstm.executeQuery();
+
+                while (rs.next()){
+                    listaBuscar.add(new LeerEmpleado(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("legajo"), rs.getInt("dni"), Integer.parseInt(rs.getString("idempleados"))));
+                }
+            }
+
+        } catch (SQLException ex) {
+            System.err.println("Error: " + ex.getMessage());
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pstm != null) pstm.close();
+                if (con != null) con.close();
+            } catch (Exception ex){
+                System.err.println("Error: " + ex.getMessage());
+            }
+        }
+        return listaBuscar;
+
+    }
+
+    public static ObservableList<LeerEmpleado> buscarEmpleadoDisponibleGeneral(TextField textBuscarLegajoEmpleado, ComboBox<String> cbBuscarEmpleadoDisponibleLista){
         Connection con = Conexion.leerConexion();
         PreparedStatement pstm = null;
         ResultSet rs = null;

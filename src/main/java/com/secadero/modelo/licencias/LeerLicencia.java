@@ -89,7 +89,7 @@ public class LeerLicencia {
         ObservableList<LeerLicencia> lista = FXCollections.observableArrayList();
 
         try {
-            pstm = con.prepareStatement("SELECT fecha_Inicio, fecha_Fin, tipo_licencias.descripcion, idLicencias, descripcionLicencia FROM licencias INNER JOIN tipo_licencias ON licencias.idTipoLicenciaFK = tipo_licencias.idTipoLicencia INNER JOIN empleado_licencia ON licencias.idLicencias = empleado_licencia.idLicenciaFK INNER JOIN empleados ON empleado_licencia.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND empleado_licencia.idEmpleadoFK = ?");
+            pstm = con.prepareStatement("SELECT fecha_Inicio, fecha_Fin, tipo_licencias.descripcion, idLicencias, descripcionLicencia FROM licencias INNER JOIN tipo_licencias ON licencias.idTipoLicenciaFK = tipo_licencias.idTipoLicencia INNER JOIN empleado_licencia ON licencias.idLicencias = empleado_licencia.idLicenciaFK INNER JOIN empleados ON empleado_licencia.idEmpleadoFK = empleados.idempleados WHERE empleados.estadoEmpleado = ? AND empleado_licencia.idEmpleadoFK = ? ORDER BY fecha_Inicio DESC");
             pstm.setString(1, "Vigente");
             pstm.setInt(2, Integer.parseInt(labIDEmpleadoLista.getText()));
             rs = pstm.executeQuery();

@@ -267,7 +267,7 @@
                         </Label>
                         <TextField fx:id="textDescripcionLicenciaCrear" layoutX="1023.0" layoutY="454.0" prefHeight="40.0" prefWidth="280.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: WHITE; -fx-border-radius: 10;">
                            <font>
-                              <Font size="17.0" />
+                              <Font size="18.0" />
                            </font></TextField>
                         <Label fx:id="labDescripcionCrear1" layoutX="1023.0" layoutY="424.0" prefHeight="30.0" prefWidth="286.0" text="Descripción de la licencia:" textFill="#143629">
                            <font>
@@ -486,14 +486,14 @@
                         </Label>
                         <TextField fx:id="textDescripcionLicenciaModificar" layoutX="797.0" layoutY="443.0" prefHeight="40.0" prefWidth="284.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: WHITE; -fx-border-radius: 10;">
                            <font>
-                              <Font size="17.0" />
+                              <Font size="18.0" />
                            </font></TextField>
                         <Label fx:id="labDescripcionModificar1" layoutX="797.0" layoutY="413.0" prefHeight="30.0" prefWidth="281.0" text="Descripción de la licencia:" textFill="#143629">
                            <font>
                               <Font name="Montserrat Medium" size="21.0" />
                            </font>
                         </Label>
-                        <Label fx:id="labErrorDescripcionModificar" layoutX="798.0" layoutY="483.0" prefHeight="20.0" prefWidth="279.0" textFill="#a10000">
+                        <Label fx:id="labErrorDescripcionModificar" layoutX="798.0" layoutY="485.0" prefHeight="20.0" prefWidth="279.0" textFill="#a10000">
                            <font>
                               <Font name="Montserrat Regular" size="14.0" />
                            </font>
@@ -622,7 +622,7 @@
                         </Label>
                         <TextField fx:id="textDescripcionLicenciaEliminar" editable="false" layoutX="797.0" layoutY="443.0" prefHeight="40.0" prefWidth="284.0" style="-fx-background-color: #dcecb4; -fx-background-radius: 10; -fx-border-color: WHITE; -fx-border-radius: 10;">
                            <font>
-                              <Font size="17.0" />
+                              <Font size="18.0" />
                            </font>
                            <cursor>
                               <Cursor fx:constant="DISAPPEAR" />
