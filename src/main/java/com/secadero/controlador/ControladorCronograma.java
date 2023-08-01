@@ -825,7 +825,7 @@ public class ControladorCronograma {
 
         if(!Objects.equals(labIDCronogramaModificar.getText(), "")){
             if((-Cant_Dias) >= 0){
-                if((-Cant_Dias2) >= 1){
+                if((-Cant_Dias2) >= 0){
                     ModificarCronograma cronogramaModificar = new ModificarCronograma();
                     cronogramaModificar.modificarCronograma(labIDEmpleadoModificar, labIDCronogramaModificar, dpFechaModificar, dpFechaModificarDuplicada, cbTurnoModificar, textHoraEntradaModificar, textHoraSalidaModificar, labLimpiarCamposModificar);
 
@@ -843,7 +843,7 @@ public class ControladorCronograma {
                 } else {
                     Alert alerta = new Alert(Alert.AlertType.ERROR);
                     alerta.setTitle("Error - Fecha");
-                    alerta.setContentText("Solo se permite modificar una fecha superior a la fecha actual.");
+                    alerta.setContentText("Solo se permite modificar a la fecha actual o superior");
                     Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagenes/icono_Alerta.png")));
                     Stage stage = (Stage) alerta.getDialogPane().getScene().getWindow();
                     stage.getIcons().add(icon);
