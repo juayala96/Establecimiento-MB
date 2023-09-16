@@ -1,4 +1,4 @@
-# Establecimiento-MB
+# Sistema de Gestión y Organización de empleados
 Trabajo final integrador de la Tecnicatura en Análisis de Sistemas.
 
 ## Descripción
